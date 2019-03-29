@@ -1,38 +1,16 @@
 ---
-title: Hello World
+title: 胡思乱想
+date: 2019-03-28 10:44:50
+tags: 瞎哔哔
 ---
-欢迎来到
 
-## Quick Start
+&nbsp;&nbsp;我是猿家枪第十八代传人，第十八代是我爹告诉我的，他说多少代就是多少代————等我有了儿子了，我也会告诉他，他是猿家第十八代传人；因为，我觉得十八这个数字挺顺。我妈告诉我，我爸以前是走镖的，武艺高强，好打抱不平。半辈子结交了不少好汉，也得罪了不少人；因为害怕报复，回老家花钱买了栋宅院做起了小生意，退出了江湖。
 
-### Create a new post
+&nbsp;&nbsp;我六岁就开始站桩，每天都要早起站一炷香。要是哪天起晚了我爹踢开门就是一耳刮子，他手上全是老茧，呼脸上生疼；我见过我爹一拳把木头桩子给打折了，我常想，要是我爹一耳刮子把我头给打折了，我还能不能活？我小时候就很怕死怕疼，所以我从不敢赖床，鸡一打鸣我就起来了；上武场练我爹教我的那几个起手式，我爹管这叫晨练一口气，具体什么意思我就不太清楚了。
 
-``` bash
-$ hexo new "My New Post"
-```
+&nbsp;&nbsp;我的童年相较而言，略显凄惨。当别人都去逮青蛙捉知了的时候我被我爹摁在家里学武式架子，甩枪花。到了读书的年龄，我也要站一会桩才能去上学，私塾放学了我又要早早回家；这导致了我童年玩伴很少，只有一个————狗子。不过练武也是有好处的，我不怕被私塾老师打板子，我也不用做家务，家务活都是家里的张妈来做（我家在老家算是乡绅级别）。别人都要去农耕摘花生豆子割猪草啥的，而我不用。
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+&nbsp;&nbsp;说一下狗子：前面说了，狗子是我童年唯一玩伴，
 
-### Run server
 
-``` bash
-$ hexo server
-```
 
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/deployment.html)
