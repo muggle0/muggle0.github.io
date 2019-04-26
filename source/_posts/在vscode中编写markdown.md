@@ -3,6 +3,8 @@ title: '在vscode中编写markdown '
 date: 2019-04-12 11:50:38
 tags: tool
 ---
+作者：muggle
+
 #### 为什么要markdown
 
 &nbsp;&nbsp;markdown语法学习成本低，而且非常方便排版，如果你经常写文章，那么你就很有必要掌握markdown了，而且在vscode中编写markdown也非常方便，只需掌握几个快捷键，安装几个插件就能极大的提高你的写作效率。

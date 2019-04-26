@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>sppringboot全面解读系列第一篇 | muggle</title>
+  <title>springboot全面解读系列第一篇 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="序如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿； 如何构建springboot项目springboot 项目结构分析嵌入式WEB容器自动装配">
+  <meta name="description" content="作者：muggle 序如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿； 如何构建springboot项目springboot 项目结构分析嵌入式WEB容器自动装配">
 <meta name="keywords" content="springboot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sppringboot全面解读系列第一篇">
+<meta property="og:title" content="springboot全面解读系列第一篇">
 <meta property="og:url" content="http://muggle0.github.io/2019/04/16/sppringboot/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="序如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿； 如何构建springboot项目springboot 项目结构分析嵌入式WEB容器自动装配">
+<meta property="og:description" content="作者：muggle 序如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿； 如何构建springboot项目springboot 项目结构分析嵌入式WEB容器自动装配">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T07:16:09.545Z">
+<meta property="og:updated_time" content="2019-04-23T09:24:18.880Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sppringboot全面解读系列第一篇">
-<meta name="twitter:description" content="序如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿； 如何构建springboot项目springboot 项目结构分析嵌入式WEB容器自动装配">
+<meta name="twitter:title" content="springboot全面解读系列第一篇">
+<meta name="twitter:description" content="作者：muggle 序如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿； 如何构建springboot项目springboot 项目结构分析嵌入式WEB容器自动装配">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -164,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      sppringboot全面解读系列第一篇
+      springboot全面解读系列第一篇
     </h1>
   
 
@@ -177,7 +177,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿；</p>
+        <p>作者：muggle</p>
+<h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>如果你研究过springboot，你就会发现它不仅仅是方便了我们搭建项目整合框架，它其中有许多很高明的编程思想值得去学习研究和模仿；</p>
 <h2 id="如何构建springboot项目"><a href="#如何构建springboot项目" class="headerlink" title="如何构建springboot项目"></a>如何构建springboot项目</h2><h2 id="springboot-项目结构分析"><a href="#springboot-项目结构分析" class="headerlink" title="springboot 项目结构分析"></a>springboot 项目结构分析</h2><h2 id="嵌入式WEB容器"><a href="#嵌入式WEB容器" class="headerlink" title="嵌入式WEB容器"></a>嵌入式WEB容器</h2><h2 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h2>
       
 
@@ -227,57 +228,6 @@
 
       
 
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/04/16/sppringboot/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -331,22 +281,6 @@
 
   
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: 'Tue Apr 16 2019 10:35:48 GMT+0800',
-  owner: 'muggle0',
-  repo: 'muggle0.github.io',
-  oauth: {
-    client_id: '5d02d7564032e81cdad7',
-    client_secret: 'e987110cb8f7178ccca14800f07fd568c91ccb6b',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
   
 
 
@@ -444,7 +378,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">logback</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,15 +390,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color3">logback</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,7 +402,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
             
             <div class="clearfix"></div>

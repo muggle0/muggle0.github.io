@@ -3,7 +3,10 @@ title: security-oauth2学习笔记
 date: 2019-04-12 10:49:16
 tags: security
 ---
+作者：muggle
+
 ## oauth2 相关概念
+
 文章参考[理解OAuth 2.0](http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html)
 
 ### oauth2 角色关系

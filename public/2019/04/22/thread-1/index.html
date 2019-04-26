@@ -8,18 +8,20 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>多线程编程基础第一篇 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的爪哇和日常记录博客">
+  <meta name="description" content="作者：muggle java并发相关概念同步和异步同步和异步通常来形容一次方法的调用。同步方法一旦开始，调用者必须等到方法结束才能执行后续动作；异步方法则是在调用该方法后不必等到该方法执行完就能执行后面的代码，该方法会在另一个线程异步执行，异步方法总是伴随着回调，通过回调来获得异步方法的执行结果； 并发和并行很多人都将并发与并行混淆在一起，它们虽然都可以表示两个或者多个任务一起执行，但执行过程上是">
 <meta name="keywords" content="thread">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程编程基础第一篇">
 <meta property="og:url" content="http://muggle0.github.io/2019/04/22/thread-1/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我的爪哇和日常记录博客">
+<meta property="og:description" content="作者：muggle java并发相关概念同步和异步同步和异步通常来形容一次方法的调用。同步方法一旦开始，调用者必须等到方法结束才能执行后续动作；异步方法则是在调用该方法后不必等到该方法执行完就能执行后面的代码，该方法会在另一个线程异步执行，异步方法总是伴随着回调，通过回调来获得异步方法的执行结果； 并发和并行很多人都将并发与并行混淆在一起，它们虽然都可以表示两个或者多个任务一起执行，但执行过程上是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T08:24:20.543Z">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V13ysUCU2bV4he/zBrKU1zKzRRphjYm8*58YnBjOH0x7EvRxnWkrr.0oeE!/b/dMEAAAAAAAAA&ek=1&kp=1&pt=0&bo=2QENAQAAAAARF*Q!&tl=3&vuin=1793769323&tm=1555678800&sce=60-2-2&rf=viewer_4">
+<meta property="og:updated_time" content="2019-04-23T01:27:13.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程编程基础第一篇">
-<meta name="twitter:description" content="我的爪哇和日常记录博客">
+<meta name="twitter:description" content="作者：muggle java并发相关概念同步和异步同步和异步通常来形容一次方法的调用。同步方法一旦开始，调用者必须等到方法结束才能执行后续动作；异步方法则是在调用该方法后不必等到该方法执行完就能执行后面的代码，该方法会在另一个线程异步执行，异步方法总是伴随着回调，通过回调来获得异步方法的执行结果； 并发和并行很多人都将并发与并行混淆在一起，它们虽然都可以表示两个或者多个任务一起执行，但执行过程上是">
+<meta name="twitter:image" content="http://a2.qpic.cn/psb?/V13ysUCU2bV4he/zBrKU1zKzRRphjYm8*58YnBjOH0x7EvRxnWkrr.0oeE!/b/dMEAAAAAAAAA&ek=1&kp=1&pt=0&bo=2QENAQAAAAARF*Q!&tl=3&vuin=1793769323&tm=1555678800&sce=60-2-2&rf=viewer_4">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -177,7 +179,49 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>作者：muggle</p>
+<h2 id="java并发相关概念"><a href="#java并发相关概念" class="headerlink" title="java并发相关概念"></a>java并发相关概念</h2><h3 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h3><p>同步和异步通常来形容一次方法的调用。同步方法一旦开始，调用者必须等到方法结束才能执行后续动作；异步方法则是在调用该方法后不必等到该方法执行完就能执行后面的代码，该方法会在另一个线程异步执行，异步方法总是伴随着回调，通过回调来获得异步方法的执行结果；</p>
+<h3 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h3><p>很多人都将并发与并行混淆在一起，它们虽然都可以表示两个或者多个任务一起执行，但执行过程上是有区别的。并发是多个任务交替执行，多任务之间还是串行的；而并行是多个任务同时执行，和并发有本质区别。<br>对计算机而言，如果系统内只有一个cpu，而使用多进程或者多线程执行任务，那么这种情况下多线程或者多进程就是并行执行，并行只可能出现在多核系统中。当然，对java程序而言，我们不必去关心程序是并行还是并发。</p>
+<a id="more"></a>
+<h3 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h3><p>临界区表示的是多个线程共享但同时只能有一个线程使用它的资源。在并行程序中临界区资源是受保护的，必须确保同一时刻只有一个线程能使用它。</p>
+<h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>如果一个线程占有了临界区的资源，其他需要使用这个临界区资源的线程必须在这个临界区进行等待——线程被挂起，这种情况就是发生了阻塞——线程停滞不前。</p>
+<h3 id="死锁-饥饿-活锁"><a href="#死锁-饥饿-活锁" class="headerlink" title="死锁\饥饿\活锁"></a>死锁\饥饿\活锁</h3><p>死锁就是多个线程需要其他线程的资源才能释放它所拥有的资源，而其他线程释放这个线程需要的资源必须先获得这个线程所拥有的资源，这样造成了矛盾无法解开；如图1情形就是发生死锁现象：</p>
+<p><img src="http://a2.qpic.cn/psb?/V13ysUCU2bV4he/zBrKU1zKzRRphjYm8*58YnBjOH0x7EvRxnWkrr.0oeE!/b/dMEAAAAAAAAA&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=2QENAQAAAAARF*Q!&amp;tl=3&amp;vuin=1793769323&amp;tm=1555678800&amp;sce=60-2-2&amp;rf=viewer_4" alt></p>
+<center>图1：生活中的死锁现象</center>
+
+<p>活锁就是两个线程互相谦让资源，结果就是谁也拿不到资源导致活锁；就好比过马路，行人给车让道，车又给行人让道，结果就是车和行人都停在那不走。</p>
+<p>饥饿就是，某个线程优先级特别低老是拿不到资源，导致这个线程一直无法执行</p>
+<h3 id="并发级别"><a href="#并发级别" class="headerlink" title="并发级别"></a>并发级别</h3><p>并发级别分为阻塞，无饥饿，无障碍，无锁，无等待几个级别；根据名字我们也能大概猜出这几个级别对应的什么情形；阻塞，无饥饿和无锁都好理解；我们说一下无障碍和无等待；</p>
+<p>无障碍：无障碍级别默认各个线程不会发生冲突，不会互相抢占资源，一旦抢占资源就认为线程发生错误，进行回滚。</p>
+<p>无等待：无等待是在无锁上的进一步优化，限制每个线程完成任务的步数；</p>
+<h3 id="并行的两个定理"><a href="#并行的两个定理" class="headerlink" title="并行的两个定理"></a>并行的两个定理</h3><p>加速比：加速比=优化前系统耗时/优化后系统耗时</p>
+<p>Amdahl定理： 加速比=1/[F+(1-F)/n] 其中 n表示处理器个数 ，F是程序中只能串行执行的比例——串行率；由公式可知，想要以最小投入，得到最高加速比即 F+(1-F)/n取到最小值，F和n都对结果有很大影响，在深入研究就是数学问题了；</p>
+<p>Gustafson定律： 加速比=n-F(n-1)，这两定律区别不大，都体现了单纯的减少串行率，或者单纯的加CPU都无法得到最优解。</p>
+<h2 id="Java中的并行基础"><a href="#Java中的并行基础" class="headerlink" title="Java中的并行基础"></a>Java中的并行基础</h2><h3 id="volatile关键字和程序的原子性，可见性，有序性"><a href="#volatile关键字和程序的原子性，可见性，有序性" class="headerlink" title="volatile关键字和程序的原子性，可见性，有序性"></a>volatile关键字和程序的原子性，可见性，有序性</h3><p>原子性指的是一个操作是不可中断的，要么成功要么失败，不会被其他线程所干扰；比如 int=1,这一操作在cpu中分为好几个指令，但对程序而言这几个指令是一体的，只有可能执行成功或者失败，不可能发生只执行了一半的操作；对不同CPU而言保证原子性的的实现方式各有不同，就英特尔CPU而言是使用一个lock指令来保证的。</p>
+<p>可见性指某一线程改变某一共享变量，其他线程未必会马上知道。</p>
+<p>有序性指对一个操作而言指令是按一定顺序执行的，但编译器为了提高程序执行的速度，会重排程序指令；cpu在执行指令的时候采用的是流水线的形式，上一个指令和下一个指令差一个工步。比如A指令分三个工步：1. 操作内存a，2.操作内存b，3.操作内存c；现假设有个指令B操作流程和A一样，那么先执行指令A在执行指令B时间全利用上了，中间没有停顿等待；但如果有三个这样的指令在流水线上执行：a&gt;b&gt;c，b&gt;e&gt;c，c&gt;e&gt;a；这样的指令顺序就会发生等待降低了CPU的效率，编译器为了避免这种事情发生，会适当优化指令的顺序进行重排。</p>
+<p>volatile关键字在java中的作用是保证变量的可见性和防止指令重排。</p>
+<h3 id="线程的相关操作"><a href="#线程的相关操作" class="headerlink" title="线程的相关操作"></a>线程的相关操作</h3><p><em>创建线程有三种方法</em></p>
+<ul>
+<li>继承Thread类创建线程</li>
+<li>实现Runnable接口创建线程</li>
+<li>使用Callable和Future创建线程</li>
+</ul>
+<p><em>终止线程的方法</em></p>
+<p>终止线程可调用stop()方法，但这个方法是被废弃不建议使用的，因为强制终止一个线程会引起数据的不一致问题。比如一个线程数据写到一半被终止了，释放了锁，其他线程拿到锁继续写数据，结果导致数据发生了错误。终止线程比较好的方法是“让程序自己终止”，比如定义一个标识符，当标识符为true的时候直让程序走到终点，这样就能达到“自己终止”的目的。</p>
+<p><em>线程的中断等待和通知</em></p>
+<p>interrupt()方法可以中断当前程序，object.wait() 方法让线程进入等待队列，object.notify()随机唤醒等待队列的一个线程， object.notifyAll()唤醒等待队列的所有线程。object.wait()必须在synchronzied语句中调用；执行wait，notify方法必须获得对象的监视器，执行结束后释放监视器供其他线程获取。</p>
+<p><em>join</em></p>
+<p>join()方法功能是等待其他线程“加入”，可以理解为将某个线程并为自己的子线程，等子线程走完或者等子线程走规定的时间，主线程才往下走；join的本质是调用调用线程对象的wait方法，当我们执行wait或者notify方法不应该获取线程对象的的监听器，因为可能会影响到其他线程的join。</p>
+<p><em>yield</em></p>
+<p>yield是线程的“谦让”机制，可以理解为当线程抢到cpu资源时，放弃这次资源重新抢占，yield()是Thread里的一个静态方法。</p>
+<h3 id="线程组"><a href="#线程组" class="headerlink" title="线程组"></a>线程组</h3><p>如果一个多线程系统线程数量众多而且分工明确，那么可以使用线程组来分类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ThreadGroup testGroup=<span class="keyword">new</span> ThreadGroup(<span class="string">"testGroup"</span>);</span><br><span class="line">    Thread a = <span class="keyword">new</span> Thread(testGroup, <span class="keyword">new</span> MyRunnable(), <span class="string">"a"</span>);</span><br><span class="line">    Thread b = <span class="keyword">new</span> Thread(testGroup, <span class="keyword">new</span> MyRunnable(), <span class="string">"b"</span>);</span><br><span class="line">    a.start();</span><br><span class="line">    b.start();</span><br><span class="line">    <span class="keyword">int</span> i = testGroup.activeCount();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>图示代码创建了一个”testGroup”线程组。</p>
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>守护线程是一种特殊线程，它类似java中的异常系统，主要是概念上的分类，与之对应的是用户线程。它功能应该是在后台完成一些系统性的服务；设置一个线程为守护线程应该在线程start之前setDaemon()。</p>
+<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>java中线程可以有自己的优先级，优先级高的更有优势抢占资源；线程优先级高的不一定能抢占到资源，只是一个概率问题，而对应优先级低的线程可能会发生饥饿；</p>
+<p>在java中使用1到10表示线程的优先级，使用setPriority()方法来进行设置，数字越大代表优先级越高；</p>
+
       
 
       
@@ -227,57 +271,6 @@
       
 
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/04/22/thread-1/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -286,11 +279,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/22/logback-2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/23/thread-2/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          logback重写版第一篇
+          多线程编程基础第二篇
         
       </div>
     </a>
@@ -330,22 +323,6 @@
 
   
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: 'Mon Apr 22 2019 16:20:55 GMT+0800',
-  owner: 'muggle0',
-  repo: 'muggle0.github.io',
-  oauth: {
-    client_id: '5d02d7564032e81cdad7',
-    client_secret: 'e987110cb8f7178ccca14800f07fd568c91ccb6b',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
   
 
 
@@ -443,7 +420,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">logback</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -455,15 +432,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color3">logback</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,7 +444,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
             
             <div class="clearfix"></div>
