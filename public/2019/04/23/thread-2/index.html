@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>多线程编程基础第二篇 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 java线程锁的分类与实现以下分类是从多个同角度来划分，而不是以某一标准来划分，请注意  阻塞锁：当一个线程获得锁">
+  <meta name="description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 使用cas的话对于属性变量不能再用传统的int ,long等；要使用原子类代替原先的数据类型操作，比如Atomic">
 <meta name="keywords" content="thread">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程编程基础第二篇">
 <meta property="og:url" content="http://muggle0.github.io/2019/04/23/thread-2/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 java线程锁的分类与实现以下分类是从多个同角度来划分，而不是以某一标准来划分，请注意  阻塞锁：当一个线程获得锁">
+<meta property="og:description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 使用cas的话对于属性变量不能再用传统的int ,long等；要使用原子类代替原先的数据类型操作，比如Atomic">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-25T03:05:22.096Z">
+<meta property="og:updated_time" content="2019-04-28T08:16:55.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程编程基础第二篇">
-<meta name="twitter:description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 java线程锁的分类与实现以下分类是从多个同角度来划分，而不是以某一标准来划分，请注意  阻塞锁：当一个线程获得锁">
+<meta name="twitter:description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 使用cas的话对于属性变量不能再用传统的int ,long等；要使用原子类代替原先的数据类型操作，比如Atomic">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -179,6 +179,7 @@
       
         <p>作者：muggle</p>
 <h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。</p>
+<p>使用cas的话对于属性变量不能再用传统的int ,long等；要使用原子类代替原先的数据类型操作，比如AtomicBoolean，AtomicInteger，AtomicInteger等。</p>
 <h2 id="java线程锁的分类与实现"><a href="#java线程锁的分类与实现" class="headerlink" title="java线程锁的分类与实现"></a>java线程锁的分类与实现</h2><p>以下分类是从多个同角度来划分，而不是以某一标准来划分，请注意</p>
 <ul>
 <li>阻塞锁：当一个线程获得锁，其他线程就会被阻塞挂起，直到抢占到锁才继续执行，这样会导致CPU切换上下文，切换上下文对CPU而言是很耗费时间的</li>
@@ -440,7 +441,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,11 +461,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">logback</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,7 +477,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,7 +489,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
             
             <div class="clearfix"></div>

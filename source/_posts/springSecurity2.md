@@ -560,3 +560,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
+
+# 总结
+
+对于security的扩展配置关键在于`configure(HttpSecurity http)`方法；扩展认证方式可以自定义`authenticationManager`并加入自己验证器，在验证器中抛出异常不会终止验证流程；扩展鉴权方式可以自定义`accessDecisionManager`然后添加自己的投票器并绑定到对应的url（url 匹配方式为ant）上，投票器`vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes)`方法返回值为三种：-1 0 1，分别表示反对弃权赞成；
+
+对于token认证的校验方式，可以暴露一个获取的接口，或者重写`UsernamePasswordAuthenticationFilter`过滤器和扩展登陆成功处理器来获取token，然后在`LogoutFilter`之后添加一个自定义过滤器，用于校验和填充SecurityContextHolder
+
+security的处理器大部分都是重定向的，我们的项目如果是前后端分离的话，我们希望无论什么情况都返回json,那么就需要重写各个处理器了。
