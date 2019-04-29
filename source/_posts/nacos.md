@@ -4,9 +4,13 @@ date: 2019-04-27 10:17:48
 tags: cloud
 ---
 
+### 编辑中
+
+
+
 # nacos简介
 
-​	在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波
+​	在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，[nacos官方文档](https://nacos.io/zh-cn/index.html)
 
 <!--more-->
 
@@ -48,11 +52,131 @@ Nacos 能让您从微服务平台建设的视角管理数据中心的所有服�
 
 可在github上下载安装包安装，或者采用docker安装；
 
-windows上运行：[nacos github地址](<https://github.com/alibaba/nacos>) 在github查看该项目的releases并下载最新版
+windows上运行：[nacos github地址](<https://github.com/alibaba/nacos>) 在github查看该项目的releases并下载最新版，解压后进入bin目录 运行`startup.cmd`。
 
 docker上运行：docker run --name nacos-standalone -e MODE=standalone -p 8848:8848 nacos/nacos-server:latest 可运行一个单机版nacos
 
+浏览器上访问 ip:8848/nacos 进入登陆界面，用户名和密码都是nacos；登陆成功就能看到控制台UI界面了。在安装包的./conf目录下有一个application.properties文件，这是nacos的配置文件，相关配置后期会说。
+
 ## 作为配置中心
 
-这里为方便讲解，我们现在Windows环境下运行一个单机版nacos
+### 示例
+
+这里为方便讲解，我们现在Windows环境下运行一个单机版nacos，启动后登陆；创建一个springboot应用，导入依赖
+
+```xml
+ <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-alibaba-nacos-config</artifactId>
+    <version>0.9.0.RELEASE</version>
+ </dependency>
+```
+
+然后删除application.properties 新建一个bootstrap.properties。这里可能还有同学不知道application和bootstrap的区别；在这里科普一下：在 Spring Boot 中有两种上下文，一种是 bootstrap, 另外一种是 application, bootstrap 是应用程序的父上下文，也就是说 bootstrap 加载优先于 applicaton。bootstrap 主要用于从额外的资源来加载配置信息，还可以在本地外部配置文件中解密属性。这两个上下文共用一个环境，它是任何Spring应用程序的外部属性的来源。bootstrap 里面的属性会优先加载，它们默认也不能被本地相同配置覆盖。bootstrap比application要先加载，bootstrap只在cloud项目中使用。
+
+添加配置：
+
+```properties
+#服务名
+spring.application.name=nacos-config-example
+# 配置中心url
+spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+# 配置中心的配置语法
+spring.cloud.nacos.config.file-extension=properties
+```
+
+现在在nacos配置中心新建配置：
+
+dataId:nacos-config-example.properties
+
+![1556523308515](C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1556523308515.png)
+
+启动项目，发现项目端口号是8082，我们的配置成功了。
+
+### 说明
+
+注意 图中几个选项 TEXT\JSON\ XML \YAML\ HTML\Propertiest这些并不是指定nacos以何种语法去解析配置文件，仅仅是提供语法提示，代码高亮辅助样式；第一次使用的人很容易被误导。我们要指定配置文件语法要在bootstrap做如下配置：
+
+```properties
+spring.cloud.nacos.config.file-extension=properties
+spring.cloud.nacos.config.file-extension=yaml
+```
+
+配置中心配置依靠dataId将配置信息和客户端绑定，我们来看看dataId组成规则：
+
+```java
+${prefix}-${spring.profile.active}.${file-extension}
+```
+
+- `prefix` 默认为 `spring.application.name` 的值，也可以通过配置项 `spring.cloud.nacos.config.prefix`来配置。
+
+- `spring.profile.active` 即为当前环境对应的 profile， **注意：当 spring.profile.active 为空时，对应的连接符 - 也将不存在，dataId 的拼接格式变成 ${prefix}.${file-extension}**
+- `file-exetension` 为配置内容的数据格式，可以通过配置项 `spring.cloud.nacos.config.file-extension` 来配置。目前只支持 `properties` 和 `yaml` 类型。
+
+也就是说我们这个配置中心的dataId和我们平时用springboot命名配置文件只有一个prefix的区别
+
+现在我们来修改一下配置文件，bootstrap加一项：
+
+```properties
+spring.cloud.nacos.config.prefix=config-test
+spring.profiles.active=dev
+```
+
+配置中心弄两个配置方便比较，一个dataId是`config-test-dev.properties`，一个dataId是`config-test-prod.properties`配置端口号分别为8081和8082测试。启动项目后发现项目端口号为8081，然后修改配置重启：
+
+```properties
+spring.profiles.active=prod
+```
+
+此时端口变成了8082。用法和springboot的配置文件区别不大。
+
+### 命名空间和分组
+
+命名空间和分组相当于一个配置文件的"年级和班次"，在同一个group下，配置文件名不能重复，所以当需要创建文件名称相同的两个配置文件时，将两个配置文件创建在不同的group下即可。而namespace范围比group大，目的是一样的。
+
+定义命名空间方式如图
+
+![1556525537769](C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1556525537769.png)
+
+在bootstrap中对应配置
+
+```properties
+spring.cloud.nacos.config.namespace=命名空间ID
+```
+
+分组则在配置中心新建配置的时候可指定，在bootstrap中对应配置
+
+```properties
+spring.cloud.nacos.config.group=group
+```
+
+### 配置自动更新
+
+通过 Spring Cloud 原生注解 `@RefreshScope` 实现配置自动更新，示例：
+
+```java
+@Service
+@RefreshScope
+public class ConfigController {
+
+    @Value("${config.test}")
+    private String test;
+	public void testStr(){
+        System.out.print(test)
+    }
+    
+}
+```
+
+当你在配置中心更新`config.test`的 客户端的test的值也会刷新，并且你还能在客户端看到值变更的相关日志。
+
+### 小结
+
+## 作为注册中心
+
+### 介绍
+
+
+
+
 

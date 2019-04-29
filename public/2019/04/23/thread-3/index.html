@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="作者：muggle 锁优化减小锁持有时间减小锁的持有时间可有效的减少锁的竞争。如果线程持有锁的时间越长，那么锁的竞争程度就会越激烈。因此，应尽可能减少线程对某个锁的占有时间，进而减少线程间互斥的可能。 减少锁持有时间的方法有：  进行条件判断，只对必要的情况进行加锁，而不是整个方法加锁； 减少加锁代码的行数，只对必要的步骤加锁。  减小锁粒度减小锁的范围，减少锁住的代码行数可减少锁范围，减小共享资">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-28T08:16:47.134Z">
+<meta property="og:updated_time" content="2019-04-29T07:03:58.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程编程进阶篇">
 <meta name="twitter:description" content="作者：muggle 锁优化减小锁持有时间减小锁的持有时间可有效的减少锁的竞争。如果线程持有锁的时间越长，那么锁的竞争程度就会越激烈。因此，应尽可能减少线程对某个锁的占有时间，进而减少线程间互斥的可能。 减少锁持有时间的方法有：  进行条件判断，只对必要的情况进行加锁，而不是整个方法加锁； 减少加锁代码的行数，只对必要的步骤加锁。  减小锁粒度减小锁的范围，减少锁住的代码行数可减少锁范围，减小共享资">
@@ -217,8 +217,10 @@
 <li>对于生产者消费者模式，条件判断是使用while而不是if</li>
 <li>懒汉单例采用双重检查和锁保证线程安全</li>
 <li>擅用Future模式</li>
+<li>合理使用ThreadLocal</li>
 </ul>
 <p>java8引入lambda表达式使在java中使用函数式编程很方便。而java8中的stream对数据的处理能使线程执行速度得以优化。Future模式是一种对异步线程的回调机制；现在cpu都是多核的，我们在处理一些较为费时的任务时可使用异步，在后台开启多个线程同时处理，等到异步线程处理完再通过Future回调拿到处理的结果。</p>
+<p>ThreadLocal的实例代表了一个线程局部的变量，每条线程都只能看到自己的值，并不会意识到其它的线程中也存在该变量(这里原理就不说了，网上资料很多)，总之就是我们如果想在多线程的类里面使用线程安全的变量就用ThreadLocal。但是请一定要注意一定要注意一定要注意——用完记得remove，不然会发生内存泄漏。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>随着后端发展，现在单体项目越来越少，基本上都是集群和分布式，这样也使得jdk的锁慢慢变得无用武之地。但是万变不离其宗，虽然锁的实现方式变了，但其机制是没变的；无论是分布式锁还是jdk锁，其目的和处理方式都是一个机制，只是处理对象不一样而已。</p>
 <p>我们在平时编写程序时对多线程最应该注意的就是线程优化和锁问题。我们脑中要对锁机制有一套体系，而对线程的优化经验在于平时的积累和留心。</p>
 
@@ -416,15 +418,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -444,10 +450,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
@@ -456,11 +458,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
