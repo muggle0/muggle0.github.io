@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1556523308515.png">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1556525537769.png">
-<meta property="og:updated_time" content="2019-04-29T08:33:17.009Z">
+<meta property="og:updated_time" content="2019-04-29T08:48:15.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务注册发现与配置中心新选择——nacos">
 <meta name="twitter:description" content="编辑中nacos简介​    在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，nacos官方文档">
@@ -239,7 +239,9 @@
 <h3 id="配置自动更新"><a href="#配置自动更新" class="headerlink" title="配置自动更新"></a>配置自动更新</h3><p>通过 Spring Cloud 原生注解 <code>@RefreshScope</code> 实现配置自动更新，示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;config.test&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String test;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStr</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.print(test)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当你在配置中心更新<code>config.test</code>的 客户端的test的值也会刷新，并且你还能在客户端看到值变更的相关日志。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><h2 id="作为注册中心"><a href="#作为注册中心" class="headerlink" title="作为注册中心"></a>作为注册中心</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>别的不说，这比spring cloud config好用太多了有木有，和apollo比起来配置太容易了有木有；这么好用的东西，出正式版了，等坑都排完了妥妥的神器有木有。我选nacos，你呢。</p>
+<h2 id="作为注册中心"><a href="#作为注册中心" class="headerlink" title="作为注册中心"></a>作为注册中心</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在分布式系统中，我们不仅仅是需要在注册中心找到服务和映射服务地址，我们还需要考虑更多更复杂的问题：服务注册后，如何被及时发现，服务宕机后，如何及时下线，服务异常时，如何进行降级。这便是注册中心存在的意义</p>
+
       
 
       
@@ -438,19 +440,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+                <a href="javascript:void(0)" class="js-tag color5">home</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">home</a>
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -466,7 +468,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -474,15 +476,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -491,6 +489,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
             
             <div class="clearfix"></div>
