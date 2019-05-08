@@ -24,7 +24,7 @@ git push 会把子仓库的文件提交，合情合理
 
 git subtree push --prefix=<dir> <name> master
 
-
+<!--more-->
 
 命令一览
 
@@ -46,6 +46,24 @@ git checkout -b xxx
 git branch xxx
 
 git merge xxx
+
+## gitflow
+
+- master 测试
+- develop 开发
+- feature 功能
+- release 测试
+- hotfix 补丁
+
+v0.1 ----- v0.2----------v0.3
+
+​              develop------ v0.3
+
+​                                   v0.3----hotfix -----v0.3
+
+​                                     v0.3----release ---v0.3
+
+​                                    v0.3-----feature -----------------------v0.4
 
 ## over
 
