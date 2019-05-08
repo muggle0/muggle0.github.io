@@ -87,3 +87,29 @@ tags: 设计模式
 ## 依赖倒置原则
 
 这个是开闭原则的基础，具体内容：面向接口编程，依赖于抽象而不依赖于具体。写代码时用到具体类时，不与具体类交互，而与具体类的上层接口交互。
+
+
+
+
+
+
+
+-------
+
+`$ ssh-keygen -t rsa -C ``"youremail@example.com"`
+
+```shell
+$ git push -u origin master
+git remote add -f <子仓库名> <子仓库地址>
+git subtree add --prefix=<子目录名> <子仓库名> <分支> --squash
+$git subtree add --prefix=ai ai master --squash
+语法：git subtree pull --prefix=<子目录名> <远程分支> <分支> --squash
+```
+
+本地操作远程
+
+```
+git remote
+git  remote -v
+git remote add origin ssh://software@172.16.0.30/~/yafeng/.git
+```
