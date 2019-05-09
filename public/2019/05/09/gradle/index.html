@@ -6,19 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>Archives: 2019/2 | muggle</title>
+  <title>gradle学习笔记 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的爪哇和日常记录博客">
-<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
-<meta property="og:type" content="website">
-<meta property="og:title" content="muggle">
-<meta property="og:url" content="http://muggle0.github.io/archives/2019/02/index.html">
+  <meta name="description" content="什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持已有的 Maven 或者Ivy仓库基础">
+<meta name="keywords" content="tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gradle学习笔记">
+<meta property="og:url" content="http://muggle0.github.io/2019/05/09/gradle/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我的爪哇和日常记录博客">
+<meta property="og:description" content="什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持已有的 Maven 或者Ivy仓库基础">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557365733977.png">
+<meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557365771206.png">
+<meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557366677911.png">
+<meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557370509524.png">
+<meta property="og:updated_time" content="2019-05-09T03:07:55.778Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="muggle">
-<meta name="twitter:description" content="我的爪哇和日常记录博客">
+<meta name="twitter:title" content="gradle学习笔记">
+<meta name="twitter:description" content="什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持已有的 Maven 或者Ivy仓库基础">
+<meta name="twitter:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557365733977.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -156,49 +162,187 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-gradle" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/07/test/" class="archive-article-date">
-  	<time datetime="2019-02-07T06:18:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/07/test/">test</a>
+    <h1 class="article-title" itemprop="name">
+      gradle学习笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2019/05/09/gradle/" class="archive-article-date">
+  	<time datetime="2019-05-09T01:24:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>什么是gradle</p>
+<p>Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。</p>
+<p>gradle的特点：</p>
+<p>按约定声明构建和建设；     </p>
+<pre><code>强大的支持多工程的构建；     
 
+强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；     
+
+全力支持已有的 Maven 或者Ivy仓库基础建设；     
+
+支持传递性依赖管理，在不需要远程仓库和pom.xml和ivy配置文件的前提下；     
+
+基于groovy脚本构建，其build脚本使用groovy语言编写；     
+
+具有广泛的领域模型支持构建；     
+
+深度 API；     
+
+易迁移；     
+
+自由和开放源码，Gradle是一个开源项目，基于 [ASL](http://www.gradle.org/license?_ga=1.156736505.391095409.1474008833) 许可。
+</code></pre><p>gradle 安装</p>
+<p>和maven安装方式一样，如果你使用idea的话，idea自身集成了gradle，可以免安装使用。</p>
+<p>下面简单说一下安装过程：</p>
+<p><a href="http://www.gradle.org/downloads" target="_blank" rel="noopener">gradle 下载</a> 下载后解压 ，配置环境变量GRADLE_HOME，path下添加%GRADLE_HOME%/bin；这里不再细说</p>
+<p>idea下使用gradle</p>
+<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557365733977.png" alt="1557365733977"></p>
+<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557365771206.png" alt="1557365771206"></p>
+<p>添加依赖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">'org.springframework.boot:spring-boot-starter-web'</span></span><br><span class="line">    compileOnly <span class="string">'org.projectlombok:lombok'</span></span><br><span class="line">    annotationProcessor <span class="string">'org.projectlombok:lombok'</span></span><br><span class="line">    testImplementation <span class="string">'org.springframework.boot:spring-boot-starter-test'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通常我们 使用 compile ‘groupId :artifactId:version’ 就能添加一个依赖 如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'org.springframework:spring-context:4.2.1.RELEASE'</span></span><br></pre></td></tr></table></figure>
+<p>gradle打jar包方式略微复杂，后文介绍</p>
+<p>gradle高级使用</p>
+<p>Groovy语法简单介绍</p>
+<p>Groovy 和java有很大程度上相似，学习成本低，只是为了更好使用gradle 简单学习Groovy </p>
+<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557366677911.png" alt="1557366677911"></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一行注释</span></span><br><span class="line">println (<span class="string">"ssssss"</span>)</span><br></pre></td></tr></table></figure>
+<p>ctrl+enter 执行代码</p>
+<p>现在通过代码说明定义 变量集合 和map并使用</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一行注释</span></span><br><span class="line"></span><br><span class="line">println (<span class="string">"ssssss"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简写</span></span><br><span class="line">println <span class="string">"ssssss"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义变量 相当于var 弱类型</span></span><br><span class="line"><span class="keyword">def</span> i=<span class="number">15</span></span><br><span class="line">println(i)</span><br><span class="line"><span class="keyword">def</span> s =<span class="string">"nihao"</span></span><br><span class="line">println s</span><br><span class="line"><span class="comment">// 集合定义</span></span><br><span class="line"><span class="keyword">def</span> list=[<span class="string">'s'</span>,<span class="string">'a'</span>]</span><br><span class="line"><span class="comment">// 添加元素</span></span><br><span class="line">list &lt;&lt; <span class="string">'c'</span></span><br><span class="line"><span class="comment">// 取出 元素</span></span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// map</span></span><br><span class="line"><span class="keyword">def</span> map=[<span class="string">'key'</span>:<span class="string">'value'</span>]</span><br><span class="line">println map.get(<span class="string">'key'</span>)</span><br><span class="line"><span class="comment">// 添加</span></span><br><span class="line">map.test=<span class="string">'add'</span></span><br><span class="line">println map.get(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
+<p>闭包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 闭包 相当于函数式编程</span><br><span class="line">def close1=&#123;</span><br><span class="line">    println &quot;你好&quot;</span><br><span class="line">&#125;</span><br><span class="line">// 方法定义</span><br><span class="line">def test(Closure closure)&#123;</span><br><span class="line">    closure()</span><br><span class="line">&#125;</span><br><span class="line">//使用闭包</span><br><span class="line">test(close1)</span><br><span class="line">// 带参闭包</span><br><span class="line">def  close2=&#123;</span><br><span class="line">    v-&gt; println v+v+v</span><br><span class="line">&#125;</span><br><span class="line">def test2(Closure closure)&#123;</span><br><span class="line">    closure(&quot;sss&quot;)</span><br><span class="line">&#125;</span><br><span class="line">//使用带参闭包</span><br><span class="line">test2(close2)</span><br><span class="line">// 占位符</span><br><span class="line">def close3=&#123;</span><br><span class="line">    v-&gt;</span><br><span class="line">        println(&quot;test $v &quot;)</span><br><span class="line">&#125;</span><br><span class="line">test2(close3)</span><br></pre></td></tr></table></figure>
+<p>gradle配置文件介绍及在idea中gradle深度使用</p>
+<ol>
+<li>对于maven 直接复制粘贴，gradle自动转换</li>
+<li>build.gradle，gradle的构建配置，这是我们要关心的，相当于Maven的pom.xml</li>
+<li>gradlew.bat，一段gradle wrapper的运行脚本，For Windows</li>
+</ol>
+<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557370509524.png" alt="1557370509524"></p>
+<p>项目依赖的集合，可以清晰的看到 test 和main分别依赖哪些jar</p>
+<p>Gradle 默认会从 <code>src/main/java</code> 搜寻打包源码，在 <code>src/test/java</code> 下搜寻测试源码。并且 <code>src/main/resources</code> 下的所有文件按都会被打包，所有 <code>src/test/resources</code> 下的文件 都会被添加到类路径用以执行测试。所有文件都输出到 build 下，打包的文件输出到 build/libs 下。</p>
+<p>指令介绍</p>
+<p>当你执行 gradle build 时，Gralde 会编译并执行单元测试，并且将 <code>src/main/*</code> 下面 class 和资源文件打包。</p>
+<h4 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h4><p>删除 build 目录以及所有构建完成的文件。</p>
+<p>操作和maven类似</p>
+<p>多项目构建</p>
+<p>settings.gradle</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://oscimg.oschina.net/oscnet/644c5ef3741558453d5c9473e0689a19e9e.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/05/09/jvm-6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          jvm-6
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/05/08/spring-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring-1</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -221,8 +365,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
