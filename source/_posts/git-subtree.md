@@ -12,17 +12,21 @@ git subtree可将多个git项目合并在一起，可解决protobuf更新的问�
 
 ## 测试
 
+``` shell
+
 git clone一个新项目
 
-git remote add <name> <url> 添加一个远程子仓库
+git remote add <name> <url> 添加一个远程仓库
 
-git subtree add --prefix=<dir> <name> master
+git subtree add --prefix=<dir> <name> master --squash
 
 git push 会把子仓库的文件提交，合情合理
 
-更新子仓库的方法
+# 更新子仓库的方法
 
 git subtree push --prefix=<dir> <name> master
+
+```
 
 <!--more-->
 
@@ -46,6 +50,11 @@ git checkout -b xxx
 git branch xxx
 
 git merge xxx
+git init 
+git config
+git remote add test
+git push -u test master
+
 
 ## gitflow
 

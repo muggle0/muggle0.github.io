@@ -158,6 +158,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-grpc-learn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/14/grpc-learn/">grpc+springboot+gradle学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/14/grpc-learn/" class="archive-article-date">
+  	<time datetime="2019-05-14T03:07:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前段时间写了一篇关于nacos的文章，本人还是很期待nacos成长起来的。nacos在其官方文档里面说nacos未来会支持grpc，正好我对grpc也抱有极大兴趣，于是基于springboot和gradle做了一个小demo对它们进行了整合，初步研究了一下，期待nacos成熟起来，组成一套Spring Cloud+gradle+nacos+grpc+sentinel的完全体。这篇博客的目的是知识储备，并不是讨论解决开发中某些问题。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javaee</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/14/grpc-learn/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-windows" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -787,12 +861,7 @@
       
         <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>git subtree可将多个git项目合并在一起，可解决protobuf更新的问题；</p>
 <p>打包maven私有仓库也可行，但是maven私有仓库不适合频繁更新，而protobuf更新会很频繁。</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>git clone一个新项目</p>
-<p>git remote add <name> <url> 添加一个远程子仓库</url></name></p>
-<p>git subtree add –prefix=<dir> <name> master</name></dir></p>
-<p>git push 会把子仓库的文件提交，合情合理</p>
-<p>更新子仓库的方法</p>
-<p>git subtree push –prefix=<dir> <name> master</name></dir></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git clone一个新项目</span><br><span class="line"></span><br><span class="line">git remote add &lt;name&gt; &lt;url&gt; 添加一个远程仓库</span><br><span class="line"></span><br><span class="line">git subtree add --prefix=&lt;dir&gt; &lt;name&gt; master</span><br><span class="line"></span><br><span class="line">git push 会把子仓库的文件提交，合情合理</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 更新子仓库的方法</span><br><span class="line"></span><br><span class="line">git subtree push --prefix=&lt;dir&gt; &lt;name&gt; master</span><br></pre></td></tr></table></figure>
         
       
 
@@ -3514,7 +3583,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3522,15 +3591,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3542,11 +3611,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
