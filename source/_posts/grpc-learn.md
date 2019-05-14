@@ -1,7 +1,7 @@
 ---
 title: grpc+springboot+gradle学习笔记
 date: 2019-05-14 11:07:53
-tags: javaee
+tags: developing
 ---
 
 #  前言
@@ -10,5 +10,5 @@ tags: javaee
 
 # 正文
 
-弄了一天，得到一个结论，gradle+grpc+git subtree 不是我能驾驭的，弃文
+弄了一天，得到一个结论，gradle+grpc+git subtree 不是我能驾驭的，弃文；等对gradle足够熟练再回来弄。
 
