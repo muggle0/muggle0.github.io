@@ -35,15 +35,21 @@ tags: home
 ## 标签说明（点击目录可查看所有标签）
 
 - tool ：一些开发工具相关的文章
-- 苟？：乱写没啥看头的文章
+- 苟？：写着玩的东西
 - security：spring-security 和spring-security-oauth2相关的文章
 - photo：相册
-- logback：logback系列文章
+- log：日志框架的文章
 - springboot：springboot系列文章
 - thread：多线程相关文章
 - netty：netty相关的文章
 - jvm：虚拟机相关文章
 - cloud：微服务相关文章
+- springboot：springboot相关的文章
+- 算法：算法相关文章
+- 设计模式：设计模式相关文章
+- javaee：java后端开发技术相关的文章
+- javase：java基础相关文章
+- developing：未写完的文章
 
 ### 博客声明
 - 凡是本博客的文章转载请注明出处

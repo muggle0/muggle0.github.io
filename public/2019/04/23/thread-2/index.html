@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 使用cas的话对于属性变量不能再用传统的int ,long等；要使用原子类代替原先的数据类型操作，比如Atomic">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-28T08:16:55.328Z">
+<meta property="og:updated_time" content="2019-05-13T02:01:51.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程编程基础第二篇">
 <meta name="twitter:description" content="作者：muggle 扩展cas(比较替换)：无锁策略的一种实现方式，过程为获取到变量旧值（每个线程都有一份变量值的副本），和变量目前的新值做比较，如果一样证明变量没被其他线程修改过，这个线程就可以更新这个变量，否则不能更新；通俗的说就是通过不加锁的方式来修改共享资源并同时保证安全性。 使用cas的话对于属性变量不能再用传统的int ,long等；要使用原子类代替原先的数据类型操作，比如Atomic">
@@ -60,7 +60,7 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/2019/04/12/home/">主页</a></li>
+				<li><a href="/2019/03/20/home">主页</a></li>
 	        
 				<li><a href="/">所有文章</a></li>
 	        
@@ -138,7 +138,7 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/2019/04/12/home/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/2019/03/20/home">主页</a></li>
 		        
 					<li style="width: 33.333333333333336%"><a href="/">所有文章</a></li>
 		        
@@ -219,7 +219,7 @@
 <h3 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h3><p>读写分离锁， 读写分离锁可以有效的减少锁竞争，读锁是共享锁，可以被多个线程同时获取，写锁是互斥只能被一个线程占有，ReadWriteLock是一个接口，其中readLock()获得读锁，writeLock()获得写锁 其实现类ReentrantReadWriteLock是一个可重入得的读写锁，它支持锁的降级(在获得写锁的情况下可以再持有读锁)，不支持锁的升级（在获得读锁的情况下不能再获得写锁）；读锁和写锁也是互斥的，也就是一个资源要么被上了一个写锁，要么被上了多个读锁，不会发生这个资即被上写锁又被上读锁的情况。</p>
 <h2 id="并发下集合类"><a href="#并发下集合类" class="headerlink" title="并发下集合类"></a>并发下集合类</h2><p>并发集合类主要有：</p>
 <ul>
-<li>ConcurrentHashMap：支持完全并发的检索和更新所希望的可调整并发的哈希表; </li>
+<li>ConcurrentHashMap：支持多线程的分段哈希表，它通过将整个哈希表分成多段的方式减小锁粒度</li>
 <li>ConcurrentSkipListMap：ConcurrentSkipListMap的底层是通过跳表来实现的。跳表是一个链表，但是通过使用“跳跃式”查找的方式使得插入、读取数据时复杂度变成了O（logn）;</li>
 <li>ConCurrentSkipListSet：参考ConcurrentSkipListMap；</li>
 <li>CopyOnWriteArrayList：是ArrayList 的一个线程安全的变形，其中所有可变操作（添加、设置，等等）都是通过对基础数组进行一次新的复制来实现的; </li>
@@ -445,11 +445,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,7 +453,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,23 +469,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">logback</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间键</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,6 +494,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">

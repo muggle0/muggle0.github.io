@@ -1,7 +1,7 @@
 ---
 title: ' logback深度使用'
 date: 2019-03-28 09:44:50
-tags: logback
+tags: log
 ---
 
 

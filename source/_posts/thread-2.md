@@ -97,7 +97,7 @@ acquire()方法尝试获得一个许可，如果获取不到则等待；tryAcqui
 
 并发集合类主要有：
 
-- ConcurrentHashMap：支持完全并发的检索和更新所希望的可调整并发的哈希表; 
+- ConcurrentHashMap：支持多线程的分段哈希表，它通过将整个哈希表分成多段的方式减小锁粒度
 - ConcurrentSkipListMap：ConcurrentSkipListMap的底层是通过跳表来实现的。跳表是一个链表，但是通过使用“跳跃式”查找的方式使得插入、读取数据时复杂度变成了O（logn）;
 - ConCurrentSkipListSet：参考ConcurrentSkipListMap；
 - CopyOnWriteArrayList：是ArrayList 的一个线程安全的变形，其中所有可变操作（添加、设置，等等）都是通过对基础数组进行一次新的复制来实现的; 

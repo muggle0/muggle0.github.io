@@ -178,4 +178,62 @@ public class ConfigController {
 
 ### 介绍
 
-在分布式系统中，我们不仅仅是需要在注册中心找到服务和映射服务地址，我们还需要考虑更多更复杂的问题：服务注册后，如何被及时发现，服务宕机后，如何及时下线，服务异常时，如何进行降级。这便是注册中心存在的意义
+服务治理是微服务架构中最为核心和基础的模块。它主要用来实现各个微服务实例的自动化注册与发现。随着服务的越来越多，越来越杂，服务之间的调用会越来越复杂，越来越难以管理。而当某个服务发生了变化，或者由于压力性能问题，多部署了几台服务，怎么让服务的消费者知晓变化，就显得很重要了。不然就会存在调用的服务其实已经下线了，但调用者不知道等异常情况。这个时候有个服务组件去统一治理就相当重要了。注册中心便是做这个事情的，我们的服务上下线和发现服务都要依赖于注册中心。
+
+nacos注册中心有哪些特性呢？首先nacos从cap的角度来说，它能针对不同模式采用cp还是ap原则。然后它对服务发现的支持种类也有很多，比如：gRpc、Dubbo RpcService、Spring Cloud RESTful Service。并且ncos本身提供了很直观的注册中心管理界面。方便我们查看管理服务，其api也很丰富，我们完全可以在做二次开发去写一个我们自己满意的管理页面。Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。
+
+### 示例
+
+新建一个springboot项目，添加如下依赖
+
+```xml
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>0.9.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+            <version>2.1.1.RELEASE</version>
+        </dependency>
+```
+
+在启动类上加上`@EnableDiscoveryClient`注解
+
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class MytestApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MytestApplication.class, args);
+    }
+
+}
+```
+
+application添加配置
+
+```properties
+
+server.port=8081
+spring.application.name=service-mytest
+spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+```
+
+
+
+启动服务后，我们能看到nacos管理页面注册上了一个服务。点击查看详情：
+
+![1557666285270](C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557666285270.png)
+
+列表上有一列是临时实例，临时实例通常使用AP一致性，因此如果发生网络分区，注册临时实例仍然有效。持久化实例使用CP一致性，这保证了数据的一致性。而持久化配置则是配置集群和数据库，本文不做介绍。后期搭建集群的时候我们在做测试。权重则是指调用服务时路由到该实例的优先系数，数字越大优先级越高，为0则不会使用该实例。
+
+# 总结
+
+我们能用nacos作为配置中心或者注册中心，其本身提供管理界面也很方便。nacos的使用企业也很多，下面放出一张github上nacos的使用企业截图：![1557667876620](C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557667876620.png)		
+
+官方文档还有提到nacos支持动态DNS，也就是说支持DNS的负载均衡，但本人没找到很好的资料，后续再做研究。关于nacos集群和持久化配置后续更新，感谢阅读。
+
