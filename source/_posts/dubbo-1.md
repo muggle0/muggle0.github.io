@@ -107,5 +107,39 @@ server.port=8081
 
 ## 监控中心
 
-# Hessian Serialization 序列化
+[dubbo-monitor-simple](https://github.com/apache/incubator-dubbo-admin/tree/master/dubbo-monitor-simple)
+
+# dubbo架构
+
+[dubbo架构图](<http://dubbo.apache.org/zh-cn/docs/dev/design.html>)
+
+dubbo 绑定端口，通道初始化，注册到选择器上 选择器监听 acccept事件
+
+处理数据 客户端生成channel 
+
+business
+
+​		接口
+
+rpc
+
+​	配置层 收集配置数据
+
+​	服务代理层 代理调用方法
+
+​	registry 注册中心
+
+​	cluster 路由层 负载均衡层
+
+​	moniter 监控层 
+
+​	protocol远程调用层
+
+​	调用层核心  invoker protocol  exporter
+
+remothing 远程通信层 ，架起管道 封装数据。netty框架工作在这
+
+serialize 序列化层
+
+
 
