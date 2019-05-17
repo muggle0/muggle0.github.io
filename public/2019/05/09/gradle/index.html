@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>gradle学习笔记 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持已有的 Maven 或者Ivy仓库基础">
+  <meta name="description" content="// fixme 文件错误，后续更新 什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持">
 <meta name="keywords" content="tool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gradle学习笔记">
 <meta property="og:url" content="http://muggle0.github.io/2019/05/09/gradle/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持已有的 Maven 或者Ivy仓库基础">
+<meta property="og:description" content="// fixme 文件错误，后续更新 什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557365733977.png">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557365771206.png">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557366677911.png">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557370509524.png">
 <meta property="og:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557389426506.png">
-<meta property="og:updated_time" content="2019-05-10T15:39:31.532Z">
+<meta property="og:updated_time" content="2019-05-15T02:04:01.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gradle学习笔记">
-<meta name="twitter:description" content="什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持已有的 Maven 或者Ivy仓库基础">
+<meta name="twitter:description" content="// fixme 文件错误，后续更新 什么是gradle Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。 gradle的特点： 按约定声明构建和建设；      强大的支持多工程的构建；       强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；       全力支持">
 <meta name="twitter:image" content="c:/Users/isock/AppData/Roaming/Typora/typora-user-images/1557365733977.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
@@ -183,7 +183,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>什么是gradle</p>
+        <p>// fixme 文件错误，后续更新</p>
+<p>什么是gradle</p>
 <p>Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。</p>
 <p>gradle的特点：</p>
 <p>按约定声明构建和建设；     </p>
@@ -206,6 +207,7 @@
 自由和开放源码，Gradle是一个开源项目，基于 [ASL](http://www.gradle.org/license?_ga=1.156736505.391095409.1474008833) 许可。
 </code></pre><p>gradle 安装</p>
 <p>和maven安装方式一样，如果你使用idea的话，idea自身集成了gradle，可以免安装使用。</p>
+<a id="more"></a>
 <p>下面简单说一下安装过程：</p>
 <p><a href="http://www.gradle.org/downloads" target="_blank" rel="noopener">gradle 下载</a> 下载后解压 ，配置环境变量GRADLE_HOME，path下添加%GRADLE_HOME%/bin；这里不再细说</p>
 <p>idea下使用gradle</p>
@@ -315,7 +317,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          jvm-6
+          jvm系列之对象引用分析
         
       </div>
     </a>
@@ -456,15 +458,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,7 +466,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">home</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,15 +474,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">home</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,11 +506,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">

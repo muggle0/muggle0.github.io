@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>dubbo学习笔记 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="源码未就绪，延迟更新">
+  <meta name="description" content="dubbo 架构介绍 注册中心 服务提供者 消费者 管理者 容器 registry provider consumer monitor container">
 <meta name="keywords" content="cloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dubbo学习笔记">
 <meta property="og:url" content="http://muggle0.github.io/2019/04/26/dubbo-1/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="源码未就绪，延迟更新">
+<meta property="og:description" content="dubbo 架构介绍 注册中心 服务提供者 消费者 管理者 容器 registry provider consumer monitor container">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-13T02:28:28.884Z">
+<meta property="og:updated_time" content="2019-05-16T06:03:09.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dubbo学习笔记">
-<meta name="twitter:description" content="源码未就绪，延迟更新">
+<meta name="twitter:description" content="dubbo 架构介绍 注册中心 服务提供者 消费者 管理者 容器 registry provider consumer monitor container">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -177,7 +177,57 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="源码未就绪，延迟更新"><a href="#源码未就绪，延迟更新" class="headerlink" title="源码未就绪，延迟更新"></a>源码未就绪，延迟更新</h2><a id="more"></a>
+        <p>dubbo 架构介绍</p>
+<p>注册中心 服务提供者 消费者 管理者 容器</p>
+<p>registry provider consumer monitor container</p>
+<a id="more"></a>
+<h1 id="dubbo-环境搭建"><a href="#dubbo-环境搭建" class="headerlink" title="dubbo 环境搭建"></a>dubbo 环境搭建</h1><h2 id="安装zk"><a href="#安装zk" class="headerlink" title="安装zk"></a>安装zk</h2><p>conf文件下创建 zoo.cfg</p>
+<p>配置dataDir </p>
+<p>bin下zkServer zkCli</p>
+<p>测试  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get / </span><br><span class="line">ls /</span><br><span class="line">create -e /test 123456</span><br><span class="line">get /test</span><br></pre></td></tr></table></figure>
+<p>安装监控中心 下载 <a href="https://github.com/apache/incubator-dubbo-admin/tree/master" target="_blank" rel="noopener">https://github.com/apache/incubator-dubbo-admin/tree/master</a> 切换到master分支</p>
+<p>打 jar包</p>
+<h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><p>dubbo版本问题</p>
+<p>dubbo 2.6以前是阿里巴巴 dubbo</p>
+<p>因此 dubbo 的dubbo-spring-boot-starter存在两个对应的版本 </p>
+<p>官方是这样说的：</p>
+<blockquote>
+<p>如果您现在使用的Dubbo版本低于2.7.0，请使用如下对应版本的Dubbo Spring Boot：</p>
+<table>
+<thead>
+<tr>
+<th>Dubbo Spring Boot</th>
+<th>Dubbo</th>
+<th>Spring Boot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/apache/incubator-dubbo-spring-boot-project/tree/0.2.x" target="_blank" rel="noopener">0.2.1.RELEASE</a></td>
+<td>2.6.5+</td>
+<td>2.x</td>
+</tr>
+<tr>
+<td><a href="https://github.com/apache/incubator-dubbo-spring-boot-project/tree/0.1.x" target="_blank" rel="noopener">0.1.2.RELEASE</a></td>
+<td>2.6.5+</td>
+<td>1.x</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>其实就是如果用 阿里巴巴dubbo 则需要使用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个starter</p>
+<p>如果是 鸟毛dubbo则</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>alibaba 0.2的stater配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#  服务名</span><br><span class="line">dubbo.application.name=demo-provider</span><br><span class="line"># 注册中心地址</span><br><span class="line">dubbo.registry.address=zookeeper://127.0.0.1:2181</span><br><span class="line">dubbo.protocol.name=dubbo</span><br><span class="line">dubbo.protocol.port=20880</span><br><span class="line">dubbo.provider.timeout=10000</span><br><span class="line">dubbo.provider.retries=3</span><br><span class="line">dubbo.provider.delay=-1</span><br><span class="line">server.port=8082</span><br></pre></td></tr></table></figure>
+<p>alibaba 2的 stater的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.dubbo.application.id=live-dubbo-provider</span><br><span class="line">spring.dubbo.application.name=live-dubbo-provider</span><br><span class="line">spring.dubbo.registry.address=zookeeper://127.0.0.1:2181</span><br><span class="line">spring.dubbo.server=true</span><br><span class="line">spring.dubbo.protocol.name=dubbo</span><br><span class="line">spring.dubbo.protocol.port=20880</span><br><span class="line">server.port=8081</span><br></pre></td></tr></table></figure>
+<p>需要引入zk客户端依赖：com.101tec 和curator-framework</p>
+<p>这里不介绍鸟毛的dubbo配置，在nacos整合dubbo中说明</p>
+<h2 id="监控中心"><a href="#监控中心" class="headerlink" title="监控中心"></a>监控中心</h2><h1 id="Hessian-Serialization-序列化"><a href="#Hessian-Serialization-序列化" class="headerlink" title="Hessian Serialization 序列化"></a>Hessian Serialization 序列化</h1>
       
 
       
@@ -372,7 +422,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -380,11 +430,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -392,15 +438,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">home</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">home</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -424,6 +470,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
@@ -432,11 +482,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">

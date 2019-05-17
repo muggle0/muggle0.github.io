@@ -1,7 +1,7 @@
 ---
 title: java8函数式编程
 date: 2019-05-07 11:23:39
-tags: javase
+tags: developing
 ---
 
 # 什么是函数式编程
@@ -30,8 +30,7 @@ Student::goHome;
 System.out.println;
 ```
 
-
-
-
+<!--more-->
 
 ## 
+

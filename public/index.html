@@ -158,6 +158,246 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-gradle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/15/gradle/">gradle+idea 快速上手</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/15/gradle/" class="archive-article-date">
+  	<time datetime="2019-05-15T09:29:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="gradle介绍"><a href="#gradle介绍" class="headerlink" title="gradle介绍"></a>gradle介绍</h2><p>Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。</p>
+<p>gradle具有以下特点：</p>
+<ul>
+<li>按约定声明构建和建设；</li>
+<li>强大的支持多工程的构建；</li>
+<li>强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；</li>
+<li>全力支持已有的 Maven 或者Ivy仓库基础建设；</li>
+<li>支持传递性依赖管理；     </li>
+<li>基于groovy脚本构建，groovy简单易学；     </li>
+<li>具有广泛的领域模型支持构建； </li>
+<li>易迁移； </li>
+<li>自由和开放源码；</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/15/gradle/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-annotation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/15/annotation/">注解及其反射机制</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/15/annotation/" class="archive-article-date">
+  	<time datetime="2019-05-15T08:53:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="注解相关知识"><a href="#注解相关知识" class="headerlink" title="注解相关知识"></a>注解相关知识</h1><h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h2><ol>
+<li>@Retention：生命周期，RetentionPolicy.SOURCE 注解只在源码阶段保留，RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM中，RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候</li>
+<li>@Documented：作用是能够将注解中的元素包含到 Javadoc 中去。</li>
+<li>@Target：指定了注解运用的地方。ElementType.ANNOTATION_TYPE 可以给一个注解进行注解，ElementType.CONSTRUCTOR 可以给构造方法，ElementType.FIELD 可以给属性，ElementType.LOCAL_VARIABLE 可以给局部变量，ElementType.METHOD 可以给方法，ElementType.PACKAGE 可以给一个包，ElementType.PARAMETER 可以给一个方法内的参数，ElementType.TYPE 可以给一个类型进行注解，比如类、接口、枚举</li>
+<li>@Inherited：一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。</li>
+<li>@Repeatable ：可重复注解</li>
+</ol>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javase</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/15/annotation/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-spring-boot-starter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/15/spring-boot-starter/">写一个spring-boot-starter</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/15/spring-boot-starter/" class="archive-article-date">
+  	<time datetime="2019-05-15T08:27:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>废话不多说直接开始</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">developing</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/15/spring-boot-starter/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-grpc-learn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -179,7 +419,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前段时间写了一篇关于nacos的文章，本人还是很期待nacos成长起来的。nacos在其官方文档里面说nacos未来会支持grpc，正好我对grpc也抱有极大兴趣，于是基于springboot和gradle做了一个小demo对它们进行了整合，初步研究了一下，期待nacos成熟起来，组成一套Spring Cloud+gradle+nacos+grpc+sentinel的完全体。这篇博客的目的是知识储备，并不是讨论解决开发中某些问题。</p>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>弄了一天，得到一个结论，gradle+grpc+git subtree 不是我能驾驭的，弃文；等对gradle足够熟练再回来弄。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>弄了一天，得到一个结论，gradle+grpc+git subtree 不是目前的我能驾驭的，弃文；等对gradle足够熟练再回来弄。</p>
 
       
 
@@ -254,12 +494,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="window使用技巧"><a href="#window使用技巧" class="headerlink" title="window使用技巧"></a>window使用技巧</h2><p>muggle <a href="javascript:void(0" target="_blank" rel="noopener">六个核弹</a>;) <em>2018-11-19</em></p>
-<h3 id="window使用技巧-1"><a href="#window使用技巧-1" class="headerlink" title="window使用技巧"></a>window使用技巧</h3><h4 id="每次开机都启动一堆软件，很麻烦，该肿么办？"><a href="#每次开机都启动一堆软件，很麻烦，该肿么办？" class="headerlink" title="每次开机都启动一堆软件，很麻烦，该肿么办？"></a>每次开机都启动一堆软件，很麻烦，该肿么办？</h4><p>写个批处理文件 步骤（这里以启动微信为例 ）：</p>
+<h3 id="window使用技巧-1"><a href="#window使用技巧-1" class="headerlink" title="window使用技巧"></a>window使用技巧</h3><p><strong>每次开机都启动一堆软件，很麻烦，该肿么办？</strong></p>
+<p>写个批处理文件 步骤（这里以启动微信为例 ）：</p>
 <ol>
-<li><p>新建一个文本文档</p>
-</li>
-<li><p>输入以下命令：</p>
-</li>
+<li>新建一个文本文档</li>
+<li>输入以下命令：</li>
 </ol>
 <blockquote>
 <p>start “xx” “xxx”</p>
@@ -400,7 +639,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/09/jvm-6/">jvm-6</a>
+      <a class="article-title" href="/2019/05/09/jvm-6/">jvm系列之对象引用分析</a>
     </h1>
   
 
@@ -413,7 +652,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="jvm系列之对象引用分析"><a href="#jvm系列之对象引用分析" class="headerlink" title="jvm系列之对象引用分析"></a>jvm系列之对象引用分析</h1><p>前文 jvm基础垃圾</p>
+        <p>// todo</p>
+<p>前文 jvm基础垃圾</p>
 <h2 id="对象的生命周期"><a href="#对象的生命周期" class="headerlink" title="对象的生命周期"></a>对象的生命周期</h2>
       
 
@@ -427,7 +667,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">developing</a>
         		</li>
       		
 		</ul>
@@ -467,149 +707,6 @@
 
 
   
-    <article id="post-gradle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/09/gradle/">gradle学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/09/gradle/" class="archive-article-date">
-  	<time datetime="2019-05-09T01:24:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么是gradle</p>
-<p>Gradle是一个构建工具，定位和maven一样，用于管理项目依赖和构建项目。和maven比起来的优势是：语法更灵活，更方便管理项目（个人很讨厌XML）。</p>
-<p>gradle的特点：</p>
-<p>按约定声明构建和建设；     </p>
-<pre><code>强大的支持多工程的构建；     
-
-强大的依赖管理（基于Apache Ivy），提供最大的便利去构建工程；     
-
-全力支持已有的 Maven 或者Ivy仓库基础建设；     
-
-支持传递性依赖管理，在不需要远程仓库和pom.xml和ivy配置文件的前提下；     
-
-基于groovy脚本构建，其build脚本使用groovy语言编写；     
-
-具有广泛的领域模型支持构建；     
-
-深度 API；     
-
-易迁移；     
-
-自由和开放源码，Gradle是一个开源项目，基于 [ASL](http://www.gradle.org/license?_ga=1.156736505.391095409.1474008833) 许可。
-</code></pre><p>gradle 安装</p>
-<p>和maven安装方式一样，如果你使用idea的话，idea自身集成了gradle，可以免安装使用。</p>
-<p>下面简单说一下安装过程：</p>
-<p><a href="http://www.gradle.org/downloads" target="_blank" rel="noopener">gradle 下载</a> 下载后解压 ，配置环境变量GRADLE_HOME，path下添加%GRADLE_HOME%/bin；这里不再细说</p>
-<p>idea下使用gradle</p>
-<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557365733977.png" alt="1557365733977"></p>
-<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557365771206.png" alt="1557365771206"></p>
-<p>添加依赖</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">'org.springframework.boot:spring-boot-starter-web'</span></span><br><span class="line">    compileOnly <span class="string">'org.projectlombok:lombok'</span></span><br><span class="line">    annotationProcessor <span class="string">'org.projectlombok:lombok'</span></span><br><span class="line">    testImplementation <span class="string">'org.springframework.boot:spring-boot-starter-test'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通常我们 使用 compile ‘groupId :artifactId:version’ 就能添加一个依赖 如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'org.springframework:spring-context:4.2.1.RELEASE'</span></span><br></pre></td></tr></table></figure>
-<p>gradle打jar包方式略微复杂，后文介绍</p>
-<p>gradle高级使用</p>
-<p>Groovy语法简单介绍</p>
-<p>Groovy 和java有很大程度上相似，学习成本低，只是为了更好使用gradle 简单学习Groovy </p>
-<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557366677911.png" alt="1557366677911"></p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一行注释</span></span><br><span class="line">println (<span class="string">"ssssss"</span>)</span><br></pre></td></tr></table></figure>
-<p>ctrl+enter 执行代码</p>
-<p>现在通过代码说明定义 变量集合 和map并使用</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一行注释</span></span><br><span class="line"></span><br><span class="line">println (<span class="string">"ssssss"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简写</span></span><br><span class="line">println <span class="string">"ssssss"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义变量 相当于var 弱类型</span></span><br><span class="line"><span class="keyword">def</span> i=<span class="number">15</span></span><br><span class="line">println(i)</span><br><span class="line"><span class="keyword">def</span> s =<span class="string">"nihao"</span></span><br><span class="line">println s</span><br><span class="line"><span class="comment">// 集合定义</span></span><br><span class="line"><span class="keyword">def</span> list=[<span class="string">'s'</span>,<span class="string">'a'</span>]</span><br><span class="line"><span class="comment">// 添加元素</span></span><br><span class="line">list &lt;&lt; <span class="string">'c'</span></span><br><span class="line"><span class="comment">// 取出 元素</span></span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// map</span></span><br><span class="line"><span class="keyword">def</span> map=[<span class="string">'key'</span>:<span class="string">'value'</span>]</span><br><span class="line">println map.get(<span class="string">'key'</span>)</span><br><span class="line"><span class="comment">// 添加</span></span><br><span class="line">map.test=<span class="string">'add'</span></span><br><span class="line">println map.get(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
-<p>闭包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 闭包 相当于函数式编程</span><br><span class="line">def close1=&#123;</span><br><span class="line">    println &quot;你好&quot;</span><br><span class="line">&#125;</span><br><span class="line">// 方法定义</span><br><span class="line">def test(Closure closure)&#123;</span><br><span class="line">    closure()</span><br><span class="line">&#125;</span><br><span class="line">//使用闭包</span><br><span class="line">test(close1)</span><br><span class="line">// 带参闭包</span><br><span class="line">def  close2=&#123;</span><br><span class="line">    v-&gt; println v+v+v</span><br><span class="line">&#125;</span><br><span class="line">def test2(Closure closure)&#123;</span><br><span class="line">    closure(&quot;sss&quot;)</span><br><span class="line">&#125;</span><br><span class="line">//使用带参闭包</span><br><span class="line">test2(close2)</span><br><span class="line">// 占位符</span><br><span class="line">def close3=&#123;</span><br><span class="line">    v-&gt;</span><br><span class="line">        println(&quot;test $v &quot;)</span><br><span class="line">&#125;</span><br><span class="line">test2(close3)</span><br></pre></td></tr></table></figure>
-<p>gradle配置文件介绍及在idea中gradle深度使用</p>
-<ol>
-<li>对于maven 直接复制粘贴，gradle自动转换</li>
-<li>build.gradle，gradle的构建配置，这是我们要关心的，相当于Maven的pom.xml</li>
-<li>gradlew.bat，一段gradle wrapper的运行脚本，For Windows</li>
-</ol>
-<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557370509524.png" alt="1557370509524"></p>
-<p>项目依赖的集合，可以清晰的看到 test 和main分别依赖哪些jar</p>
-<p>Gradle 默认会从 <code>src/main/java</code> 搜寻打包源码，在 <code>src/test/java</code> 下搜寻测试源码。并且 <code>src/main/resources</code> 下的所有文件按都会被打包，所有 <code>src/test/resources</code> 下的文件 都会被添加到类路径用以执行测试。所有文件都输出到 build 下，打包的文件输出到 build/libs 下。</p>
-<p>指令介绍</p>
-<p>当你执行 gradle build 时，Gralde 会编译并执行单元测试，并且将 <code>src/main/*</code> 下面 class 和资源文件打包。</p>
-<h4 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h4><p>删除 build 目录以及所有构建完成的文件。</p>
-<p>操作和maven类似</p>
-<p>多项目构建</p>
-<p>settings.gradle</p>
-<p><img src="C:\Users\isock\AppData\Roaming\Typora\typora-user-images\1557389426506.png" alt="1557389426506"></p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rootProject.name = <span class="string">'gradle-test'</span></span><br><span class="line">include <span class="string">'test-first'</span></span><br><span class="line">include <span class="string">'test-second'</span></span><br></pre></td></tr></table></figure>
-<p>继承</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">'java'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">group <span class="string">'com.muggle'</span></span><br><span class="line">version <span class="string">'1.0-SNAPSHOT'</span></span><br><span class="line"></span><br><span class="line">sourceCompatibility = <span class="number">1.8</span></span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">subprojects &#123;</span><br><span class="line"></span><br><span class="line">    ext &#123;</span><br><span class="line">        junitVersion = <span class="string">"4.11"</span></span><br><span class="line">        springVersion = <span class="string">"4.3.3.RELEASE"</span></span><br><span class="line">        jacksonVersion = <span class="string">"2.4.4"</span></span><br><span class="line">        compileJava.options.encoding = <span class="string">'UTF-8'</span></span><br><span class="line">        compileTestJava.options.encoding = <span class="string">'UTF-8'</span></span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        testCompile <span class="string">group:</span> <span class="string">'junit'</span>, <span class="string">name:</span> <span class="string">'junit'</span>, <span class="string">version:</span> <span class="string">'4.12'</span></span><br><span class="line">        compile <span class="string">'org.springframework.boot:spring-boot-starter-web:2.1.4.RELEASE'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>plugins 节点</p>
-<p>插件配置</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">id «plugin id» version «plugin version» [apply «false»]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Gradle的核心插件比较特殊，你只需提供id的简称就可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>repositories</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">mavenCentral()</span><br><span class="line">maven &#123; url <span class="string">"http://maven.aliyun.com/nexus/content/groups/public/"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ext</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/09/gradle/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-spring-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -617,7 +714,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/08/spring-1/">spring-1</a>
+      <a class="article-title" href="/2019/05/08/spring-1/">spring笔记</a>
     </h1>
   
 
@@ -630,9 +727,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="spring-框架"><a href="#spring-框架" class="headerlink" title="spring 框架"></a>spring 框架</h1><p>分为20个模块</p>
+        <p>分为20个模块</p>
 <p>core container</p>
-<p>core beans context expression language</p>
         
       
 
@@ -713,8 +809,7 @@
 <p>核心思想就是尽量简化，没必要写的不写，实现的相关技术：类型推断</p>
 <p>方法参数化的另外一种体现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student::goHome;</span><br><span class="line"></span><br><span class="line">System.out.println;</span><br></pre></td></tr></table></figure>
-<p>## </p>
-
+        
       
 
       
@@ -727,7 +822,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javase</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">developing</a>
         		</li>
       		
 		</ul>
@@ -774,7 +869,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/06/redis-1/">redis深度解读</a>
+      <a class="article-title" href="/2019/05/06/redis-1/">redis笔记</a>
     </h1>
   
 
@@ -788,6 +883,352 @@
     <div class="article-entry" itemprop="articleBody">
       
         <a id="more"></a>
+<h2 id="redis基础知识"><a href="#redis基础知识" class="headerlink" title="redis基础知识"></a>redis基础知识</h2><p>客户端与服务端的通讯协议是建立在TCP协议之上构建的；</p>
+<p>redis序列化协议 resp</p>
+<ul>
+<li>状态回复（status reply）的第一个字节是 <code>&quot;+&quot;</code></li>
+<li>错误回复（error reply）的第一个字节是 <code>&quot;-&quot;</code></li>
+<li>整数回复（integer reply）的第一个字节是 <code>&quot;:&quot;</code></li>
+<li>批量回复（bulk reply）的第一个字节是 <code>&quot;$&quot;</code></li>
+<li>多条批量回复（multi bulk reply）的第一个字节是 <code>&quot;*&quot;</code></li>
+</ul>
+<p>举例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET mykey myvalue</span><br><span class="line">*3\r\n$3\r\nSET\r\n$5\r\mykey\r\n$7\r\myvalue\r\n</span><br></pre></td></tr></table></figure>
+<p>指令表：</p>
+<p><a href="http://redisdoc.com/" target="_blank" rel="noopener">redis命令表</a></p>
+<ul>
+<li>字符串<ul>
+<li><a href="http://redisdoc.com/string/set.html" target="_blank" rel="noopener">SET</a></li>
+<li><a href="http://redisdoc.com/string/setnx.html" target="_blank" rel="noopener">SETNX</a></li>
+<li><a href="http://redisdoc.com/string/setex.html" target="_blank" rel="noopener">SETEX</a></li>
+<li><a href="http://redisdoc.com/string/psetex.html" target="_blank" rel="noopener">PSETEX</a></li>
+<li><a href="http://redisdoc.com/string/get.html" target="_blank" rel="noopener">GET</a></li>
+<li><a href="http://redisdoc.com/string/getset.html" target="_blank" rel="noopener">GETSET</a></li>
+<li><a href="http://redisdoc.com/string/strlen.html" target="_blank" rel="noopener">STRLEN</a></li>
+<li><a href="http://redisdoc.com/string/append.html" target="_blank" rel="noopener">APPEND</a></li>
+<li><a href="http://redisdoc.com/string/setrange.html" target="_blank" rel="noopener">SETRANGE</a></li>
+<li><a href="http://redisdoc.com/string/getrange.html" target="_blank" rel="noopener">GETRANGE</a></li>
+<li><a href="http://redisdoc.com/string/incr.html" target="_blank" rel="noopener">INCR</a></li>
+<li><a href="http://redisdoc.com/string/incrby.html" target="_blank" rel="noopener">INCRBY</a></li>
+<li><a href="http://redisdoc.com/string/incrbyfloat.html" target="_blank" rel="noopener">INCRBYFLOAT</a></li>
+<li><a href="http://redisdoc.com/string/decr.html" target="_blank" rel="noopener">DECR</a></li>
+<li><a href="http://redisdoc.com/string/decrby.html" target="_blank" rel="noopener">DECRBY</a></li>
+<li><a href="http://redisdoc.com/string/mset.html" target="_blank" rel="noopener">MSET</a></li>
+<li><a href="http://redisdoc.com/string/msetnx.html" target="_blank" rel="noopener">MSETNX</a></li>
+<li><a href="http://redisdoc.com/string/mget.html" target="_blank" rel="noopener">MGET</a></li>
+</ul>
+</li>
+<li>哈希表<ul>
+<li><a href="http://redisdoc.com/hash/hset.html" target="_blank" rel="noopener">HSET</a></li>
+<li><a href="http://redisdoc.com/hash/hsetnx.html" target="_blank" rel="noopener">HSETNX</a></li>
+<li><a href="http://redisdoc.com/hash/hget.html" target="_blank" rel="noopener">HGET</a></li>
+<li><a href="http://redisdoc.com/hash/hexists.html" target="_blank" rel="noopener">HEXISTS</a></li>
+<li><a href="http://redisdoc.com/hash/hdel.html" target="_blank" rel="noopener">HDEL</a></li>
+<li><a href="http://redisdoc.com/hash/hlen.html" target="_blank" rel="noopener">HLEN</a></li>
+<li><a href="http://redisdoc.com/hash/hstrlen.html" target="_blank" rel="noopener">HSTRLEN</a></li>
+<li><a href="http://redisdoc.com/hash/hincrby.html" target="_blank" rel="noopener">HINCRBY</a></li>
+<li><a href="http://redisdoc.com/hash/hincrbyfloat.html" target="_blank" rel="noopener">HINCRBYFLOAT</a></li>
+<li><a href="http://redisdoc.com/hash/hmset.html" target="_blank" rel="noopener">HMSET</a></li>
+<li><a href="http://redisdoc.com/hash/hmget.html" target="_blank" rel="noopener">HMGET</a></li>
+<li><a href="http://redisdoc.com/hash/hkeys.html" target="_blank" rel="noopener">HKEYS</a></li>
+<li><a href="http://redisdoc.com/hash/hvals.html" target="_blank" rel="noopener">HVALS</a></li>
+<li><a href="http://redisdoc.com/hash/hgetall.html" target="_blank" rel="noopener">HGETALL</a></li>
+<li><a href="http://redisdoc.com/hash/hscan.html" target="_blank" rel="noopener">HSCAN</a></li>
+</ul>
+</li>
+<li>列表<ul>
+<li><a href="http://redisdoc.com/list/lpush.html" target="_blank" rel="noopener">LPUSH</a></li>
+<li><a href="http://redisdoc.com/list/lpushx.html" target="_blank" rel="noopener">LPUSHX</a></li>
+<li><a href="http://redisdoc.com/list/rpush.html" target="_blank" rel="noopener">RPUSH</a></li>
+<li><a href="http://redisdoc.com/list/rpushx.html" target="_blank" rel="noopener">RPUSHX</a></li>
+<li><a href="http://redisdoc.com/list/lpop.html" target="_blank" rel="noopener">LPOP</a></li>
+<li><a href="http://redisdoc.com/list/rpop.html" target="_blank" rel="noopener">RPOP</a></li>
+<li><a href="http://redisdoc.com/list/rpoplpush.html" target="_blank" rel="noopener">RPOPLPUSH</a></li>
+<li><a href="http://redisdoc.com/list/lrem.html" target="_blank" rel="noopener">LREM</a></li>
+<li><a href="http://redisdoc.com/list/llen.html" target="_blank" rel="noopener">LLEN</a></li>
+<li><a href="http://redisdoc.com/list/lindex.html" target="_blank" rel="noopener">LINDEX</a></li>
+<li><a href="http://redisdoc.com/list/linsert.html" target="_blank" rel="noopener">LINSERT</a></li>
+<li><a href="http://redisdoc.com/list/lset.html" target="_blank" rel="noopener">LSET</a></li>
+<li><a href="http://redisdoc.com/list/lrange.html" target="_blank" rel="noopener">LRANGE</a></li>
+<li><a href="http://redisdoc.com/list/ltrim.html" target="_blank" rel="noopener">LTRIM</a></li>
+<li><a href="http://redisdoc.com/list/blpop.html" target="_blank" rel="noopener">BLPOP</a></li>
+<li><a href="http://redisdoc.com/list/brpop.html" target="_blank" rel="noopener">BRPOP</a></li>
+<li><a href="http://redisdoc.com/list/brpoplpush.html" target="_blank" rel="noopener">BRPOPLPUSH</a></li>
+</ul>
+</li>
+<li>集合<ul>
+<li><a href="http://redisdoc.com/set/sadd.html" target="_blank" rel="noopener">SADD</a></li>
+<li><a href="http://redisdoc.com/set/sismember.html" target="_blank" rel="noopener">SISMEMBER</a></li>
+<li><a href="http://redisdoc.com/set/spop.html" target="_blank" rel="noopener">SPOP</a></li>
+<li><a href="http://redisdoc.com/set/srandmember.html" target="_blank" rel="noopener">SRANDMEMBER</a></li>
+<li><a href="http://redisdoc.com/set/srem.html" target="_blank" rel="noopener">SREM</a></li>
+<li><a href="http://redisdoc.com/set/smove.html" target="_blank" rel="noopener">SMOVE</a></li>
+<li><a href="http://redisdoc.com/set/scard.html" target="_blank" rel="noopener">SCARD</a></li>
+<li><a href="http://redisdoc.com/set/smembers.html" target="_blank" rel="noopener">SMEMBERS</a></li>
+<li><a href="http://redisdoc.com/set/sscan.html" target="_blank" rel="noopener">SSCAN</a></li>
+<li><a href="http://redisdoc.com/set/sinter.html" target="_blank" rel="noopener">SINTER</a></li>
+<li><a href="http://redisdoc.com/set/sinterstore.html" target="_blank" rel="noopener">SINTERSTORE</a></li>
+<li><a href="http://redisdoc.com/set/sunion.html" target="_blank" rel="noopener">SUNION</a></li>
+<li><a href="http://redisdoc.com/set/sunionstore.html" target="_blank" rel="noopener">SUNIONSTORE</a></li>
+<li><a href="http://redisdoc.com/set/sdiff.html" target="_blank" rel="noopener">SDIFF</a></li>
+<li><a href="http://redisdoc.com/set/sdiffstore.html" target="_blank" rel="noopener">SDIFFSTORE</a></li>
+</ul>
+</li>
+<li>有序集合<ul>
+<li><a href="http://redisdoc.com/sorted_set/zadd.html" target="_blank" rel="noopener">ZADD</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zscore.html" target="_blank" rel="noopener">ZSCORE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zincrby.html" target="_blank" rel="noopener">ZINCRBY</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zcard.html" target="_blank" rel="noopener">ZCARD</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zcount.html" target="_blank" rel="noopener">ZCOUNT</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrange.html" target="_blank" rel="noopener">ZRANGE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrevrange.html" target="_blank" rel="noopener">ZREVRANGE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrangebyscore.html" target="_blank" rel="noopener">ZRANGEBYSCORE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrevrangebyscore.html" target="_blank" rel="noopener">ZREVRANGEBYSCORE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrank.html" target="_blank" rel="noopener">ZRANK</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrevrank.html" target="_blank" rel="noopener">ZREVRANK</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrem.html" target="_blank" rel="noopener">ZREM</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zremrangebyrank.html" target="_blank" rel="noopener">ZREMRANGEBYRANK</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zremrangebyscore.html" target="_blank" rel="noopener">ZREMRANGEBYSCORE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zrangebylex.html" target="_blank" rel="noopener">ZRANGEBYLEX</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zlexcount.html" target="_blank" rel="noopener">ZLEXCOUNT</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zremrangebylex.html" target="_blank" rel="noopener">ZREMRANGEBYLEX</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zscan.html" target="_blank" rel="noopener">ZSCAN</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zunionstore.html" target="_blank" rel="noopener">ZUNIONSTORE</a></li>
+<li><a href="http://redisdoc.com/sorted_set/zinterstore.html" target="_blank" rel="noopener">ZINTERSTORE</a></li>
+</ul>
+</li>
+<li>HyperLogLog<ul>
+<li><a href="http://redisdoc.com/hyperloglog/pfadd.html" target="_blank" rel="noopener">PFADD</a></li>
+<li><a href="http://redisdoc.com/hyperloglog/pfcount.html" target="_blank" rel="noopener">PFCOUNT</a></li>
+<li><a href="http://redisdoc.com/hyperloglog/pfmerge.html" target="_blank" rel="noopener">PFMERGE</a></li>
+</ul>
+</li>
+<li>地理位置<ul>
+<li><a href="http://redisdoc.com/geo/geoadd.html" target="_blank" rel="noopener">GEOADD</a></li>
+<li><a href="http://redisdoc.com/geo/geopos.html" target="_blank" rel="noopener">GEOPOS</a></li>
+<li><a href="http://redisdoc.com/geo/geodist.html" target="_blank" rel="noopener">GEODIST</a></li>
+<li><a href="http://redisdoc.com/geo/georadius.html" target="_blank" rel="noopener">GEORADIUS</a></li>
+<li><a href="http://redisdoc.com/geo/georadiusbymember.html" target="_blank" rel="noopener">GEORADIUSBYMEMBER</a></li>
+<li><a href="http://redisdoc.com/geo/geohash.html" target="_blank" rel="noopener">GEOHASH</a></li>
+</ul>
+</li>
+<li>位图<ul>
+<li><a href="http://redisdoc.com/bitmap/setbit.html" target="_blank" rel="noopener">SETBIT</a></li>
+<li><a href="http://redisdoc.com/bitmap/getbit.html" target="_blank" rel="noopener">GETBIT</a></li>
+<li><a href="http://redisdoc.com/bitmap/bitcount.html" target="_blank" rel="noopener">BITCOUNT</a></li>
+<li><a href="http://redisdoc.com/bitmap/bitpos.html" target="_blank" rel="noopener">BITPOS</a></li>
+<li><a href="http://redisdoc.com/bitmap/bitop.html" target="_blank" rel="noopener">BITOP</a></li>
+<li><a href="http://redisdoc.com/bitmap/bitfield.html" target="_blank" rel="noopener">BITFIELD</a></li>
+</ul>
+</li>
+<li>数据库<ul>
+<li><a href="http://redisdoc.com/database/exists.html" target="_blank" rel="noopener">EXISTS</a></li>
+<li><a href="http://redisdoc.com/database/type.html" target="_blank" rel="noopener">TYPE</a></li>
+<li><a href="http://redisdoc.com/database/rename.html" target="_blank" rel="noopener">RENAME</a></li>
+<li><a href="http://redisdoc.com/database/renamenx.html" target="_blank" rel="noopener">RENAMENX</a></li>
+<li><a href="http://redisdoc.com/database/move.html" target="_blank" rel="noopener">MOVE</a></li>
+<li><a href="http://redisdoc.com/database/del.html" target="_blank" rel="noopener">DEL</a></li>
+<li><a href="http://redisdoc.com/database/randomkey.html" target="_blank" rel="noopener">RANDOMKEY</a></li>
+<li><a href="http://redisdoc.com/database/dbsize.html" target="_blank" rel="noopener">DBSIZE</a></li>
+<li><a href="http://redisdoc.com/database/keys.html" target="_blank" rel="noopener">KEYS</a></li>
+<li><a href="http://redisdoc.com/database/scan.html" target="_blank" rel="noopener">SCAN</a></li>
+<li><a href="http://redisdoc.com/database/sort.html" target="_blank" rel="noopener">SORT</a></li>
+<li><a href="http://redisdoc.com/database/flushdb.html" target="_blank" rel="noopener">FLUSHDB</a></li>
+<li><a href="http://redisdoc.com/database/flushall.html" target="_blank" rel="noopener">FLUSHALL</a></li>
+<li><a href="http://redisdoc.com/database/select.html" target="_blank" rel="noopener">SELECT</a></li>
+<li><a href="http://redisdoc.com/database/swapdb.html" target="_blank" rel="noopener">SWAPDB</a></li>
+</ul>
+</li>
+<li>自动过期<ul>
+<li><a href="http://redisdoc.com/expire/expire.html" target="_blank" rel="noopener">EXPIRE</a></li>
+<li><a href="http://redisdoc.com/expire/expireat.html" target="_blank" rel="noopener">EXPIREAT</a></li>
+<li><a href="http://redisdoc.com/expire/ttl.html" target="_blank" rel="noopener">TTL</a></li>
+<li><a href="http://redisdoc.com/expire/persist.html" target="_blank" rel="noopener">PERSIST</a></li>
+<li><a href="http://redisdoc.com/expire/pexpire.html" target="_blank" rel="noopener">PEXPIRE</a></li>
+<li><a href="http://redisdoc.com/expire/pexpireat.html" target="_blank" rel="noopener">PEXPIREAT</a></li>
+<li><a href="http://redisdoc.com/expire/pttl.html" target="_blank" rel="noopener">PTTL</a></li>
+</ul>
+</li>
+<li>事务<ul>
+<li><a href="http://redisdoc.com/transaction/multi.html" target="_blank" rel="noopener">MULTI</a></li>
+<li><a href="http://redisdoc.com/transaction/exec.html" target="_blank" rel="noopener">EXEC</a></li>
+<li><a href="http://redisdoc.com/transaction/discard.html" target="_blank" rel="noopener">DISCARD</a></li>
+<li><a href="http://redisdoc.com/transaction/watch.html" target="_blank" rel="noopener">WATCH</a></li>
+<li><a href="http://redisdoc.com/transaction/unwatch.html" target="_blank" rel="noopener">UNWATCH</a></li>
+</ul>
+</li>
+<li>Lua 脚本<ul>
+<li><a href="http://redisdoc.com/script/eval.html" target="_blank" rel="noopener">EVAL</a></li>
+<li><a href="http://redisdoc.com/script/evalsha.html" target="_blank" rel="noopener">EVALSHA</a></li>
+<li><a href="http://redisdoc.com/script/script_load.html" target="_blank" rel="noopener">SCRIPT_LOAD</a></li>
+<li><a href="http://redisdoc.com/script/script_exists.html" target="_blank" rel="noopener">SCRIPT_EXISTS</a></li>
+<li><a href="http://redisdoc.com/script/script_flush.html" target="_blank" rel="noopener">SCRIPT_FLUSH</a></li>
+<li><a href="http://redisdoc.com/script/script_kill.html" target="_blank" rel="noopener">SCRIPT_KILL</a></li>
+</ul>
+</li>
+<li>持久化<ul>
+<li><a href="http://redisdoc.com/persistence/save.html" target="_blank" rel="noopener">SAVE</a></li>
+<li><a href="http://redisdoc.com/persistence/bgsave.html" target="_blank" rel="noopener">BGSAVE</a></li>
+<li><a href="http://redisdoc.com/persistence/bgrewriteaof.html" target="_blank" rel="noopener">BGREWRITEAOF</a></li>
+<li><a href="http://redisdoc.com/persistence/lastsave.html" target="_blank" rel="noopener">LASTSAVE</a></li>
+</ul>
+</li>
+<li>发布与订阅<ul>
+<li><a href="http://redisdoc.com/pubsub/publish.html" target="_blank" rel="noopener">PUBLISH</a></li>
+<li><a href="http://redisdoc.com/pubsub/subscribe.html" target="_blank" rel="noopener">SUBSCRIBE</a></li>
+<li><a href="http://redisdoc.com/pubsub/psubscribe.html" target="_blank" rel="noopener">PSUBSCRIBE</a></li>
+<li><a href="http://redisdoc.com/pubsub/unsubscribe.html" target="_blank" rel="noopener">UNSUBSCRIBE</a></li>
+<li><a href="http://redisdoc.com/pubsub/punsubscribe.html" target="_blank" rel="noopener">PUNSUBSCRIBE</a></li>
+<li><a href="http://redisdoc.com/pubsub/pubsub.html" target="_blank" rel="noopener">PUBSUB</a></li>
+</ul>
+</li>
+<li>复制<ul>
+<li><a href="http://redisdoc.com/replication/slaveof.html" target="_blank" rel="noopener">SLAVEOF</a></li>
+<li><a href="http://redisdoc.com/replication/role.html" target="_blank" rel="noopener">ROLE</a></li>
+</ul>
+</li>
+<li>客户端与服务器<ul>
+<li><a href="http://redisdoc.com/client_and_server/auth.html" target="_blank" rel="noopener">AUTH</a></li>
+<li><a href="http://redisdoc.com/client_and_server/quit.html" target="_blank" rel="noopener">QUIT</a></li>
+<li><a href="http://redisdoc.com/client_and_server/info.html" target="_blank" rel="noopener">INFO</a></li>
+<li><a href="http://redisdoc.com/client_and_server/shutdown.html" target="_blank" rel="noopener">SHUTDOWN</a></li>
+<li><a href="http://redisdoc.com/client_and_server/time.html" target="_blank" rel="noopener">TIME</a></li>
+<li><a href="http://redisdoc.com/client_and_server/client_getname.html" target="_blank" rel="noopener">CLIENT_GETNAME</a></li>
+<li><a href="http://redisdoc.com/client_and_server/client_kill.html" target="_blank" rel="noopener">CLIENT_KILL</a></li>
+<li><a href="http://redisdoc.com/client_and_server/client_list.html" target="_blank" rel="noopener">CLIENT_LIST</a></li>
+<li><a href="http://redisdoc.com/client_and_server/client_setname.html" target="_blank" rel="noopener">CLIENT_SETNAME</a></li>
+</ul>
+</li>
+<li>配置选项<ul>
+<li><a href="http://redisdoc.com/configure/config_set.html" target="_blank" rel="noopener">CONFIG_SET</a></li>
+<li><a href="http://redisdoc.com/configure/config_get.html" target="_blank" rel="noopener">CONFIG_GET</a></li>
+<li><a href="http://redisdoc.com/configure/config_resetstat.html" target="_blank" rel="noopener">CONFIG_RESETSTAT</a></li>
+<li><a href="http://redisdoc.com/configure/config_rewrite.html" target="_blank" rel="noopener">CONFIG_REWRITE</a></li>
+</ul>
+</li>
+<li>调试<ul>
+<li><a href="http://redisdoc.com/debug/ping.html" target="_blank" rel="noopener">PING</a></li>
+<li><a href="http://redisdoc.com/debug/echo.html" target="_blank" rel="noopener">ECHO</a></li>
+<li><a href="http://redisdoc.com/debug/object.html" target="_blank" rel="noopener">OBJECT</a></li>
+<li><a href="http://redisdoc.com/debug/slowlog.html" target="_blank" rel="noopener">SLOWLOG</a></li>
+<li><a href="http://redisdoc.com/debug/monitor.html" target="_blank" rel="noopener">MONITOR</a></li>
+<li><a href="http://redisdoc.com/debug/debug_object.html" target="_blank" rel="noopener">DEBUG_OBJECT</a></li>
+<li><a href="http://redisdoc.com/debug/debug_segfault.html" target="_blank" rel="noopener">DEBUG_SEGFAULT</a></li>
+</ul>
+</li>
+<li>内部命令<ul>
+<li><a href="http://redisdoc.com/internal/migrate.html" target="_blank" rel="noopener">MIGRATE</a></li>
+<li><a href="http://redisdoc.com/internal/dump.html" target="_blank" rel="noopener">DUMP</a></li>
+<li><a href="http://redisdoc.com/internal/restore.html" target="_blank" rel="noopener">RESTORE</a></li>
+<li><a href="http://redisdoc.com/internal/sync.html" target="_blank" rel="noopener">SYNC</a></li>
+<li><a href="http://redisdoc.com/internal/psync.html" target="_blank" rel="noopener">PSYNC</a></li>
+</ul>
+</li>
+<li>功能文档<ul>
+<li><a href="http://redisdoc.com/topic/cluster-spec.html" target="_blank" rel="noopener">Redis 集群规范</a></li>
+<li><a href="http://redisdoc.com/topic/persistence.html" target="_blank" rel="noopener">持久化（persistence）</a></li>
+<li><a href="http://redisdoc.com/topic/pubsub.html" target="_blank" rel="noopener">发布与订阅（pub/sub）</a></li>
+<li><a href="http://redisdoc.com/topic/sentinel.html" target="_blank" rel="noopener">Sentinel</a></li>
+<li><a href="http://redisdoc.com/topic/cluster-tutorial.html" target="_blank" rel="noopener">集群教程</a></li>
+<li><a href="http://redisdoc.com/topic/notification.html" target="_blank" rel="noopener">键空间通知（keyspace notification）</a></li>
+<li><a href="http://redisdoc.com/topic/protocol.html" target="_blank" rel="noopener">通信协议（protocol）</a></li>
+<li><a href="http://redisdoc.com/topic/replication.html" target="_blank" rel="noopener">复制（Replication）</a></li>
+<li><a href="http://redisdoc.com/topic/transaction.html" target="_blank" rel="noopener">事务（transaction）</a></li>
+</ul>
+</li>
+</ul>
+<p>redis key集中过期问题，集中过期导致redis压力过大而卡顿</p>
+<p>采用一定范围内的随机过期时间</p>
+<p>Redis也提供了一些简单的计算功能，比如排序、聚合等，对于这些操作，单线程模型实际会严重影响整体吞吐量，CPU计算过程中，整个IO调度都是被阻塞住的。</p>
+<p><strong>redis分布式锁参考 本博客<a href="https://muggle.javaboy.org/2019/04/23/thread-3/" target="_blank" rel="noopener">多线程进阶篇</a></strong></p>
+<h2 id="springboot-分布式session"><a href="#springboot-分布式session" class="headerlink" title="springboot 分布式session"></a>springboot 分布式session</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>  </span><br><span class="line"><span class="meta">@EnableRedisHttpSession</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisSessionConfig</span> </span>&#123;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.session<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-session-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host=localhost  </span><br><span class="line">spring.redis.port=6379</span><br></pre></td></tr></table></figure>
+<p><strong>注意：springboot2.1有包冲突，本配置只适用于2.1以下</strong></p>
+<h2 id="redis作为mybatis的二级缓存"><a href="#redis作为mybatis的二级缓存" class="headerlink" title="redis作为mybatis的二级缓存"></a>redis作为mybatis的二级缓存</h2><p>二级缓存是mapper级别的缓存，多个SqlSession去操作同一个Mapper的sql语句，多个SqlSession可以共用二级缓存，二级缓存是跨SqlSession的。</p>
+<p>UserMapper有一个二级缓存区域（按namespace分），其它mapper也有自己的二级缓存区域（按namespace分）。每一个namespace的mapper都有一个二级缓存区域，两个mapper的namespace如果相同，这两个mapper执行sql查询到数据将存在相同的二级缓存区域中。sql节点可配置userCache flushcache</p>
+<p>打开二级缓存总开关（springboot默认开启），在mapper中使用<code>&lt;cache/&gt;</code>打开二级缓存 在分布式系统中不能直接使用二级缓存</p>
+<p><code>&lt;cache /&gt;</code>的属性：</p>
+<ul>
+<li>eviction：代表的是缓存收回策略，有一下策略：<ol>
+<li>LRU，  最近最少使用的，移除最长时间不用的对象。</li>
+<li>FIFO，先进先出，按对象进入缓存的顺序来移除他们</li>
+<li>SOFT， 软引用，移除基于垃圾回收器状态和软引用规则的对象。</li>
+<li>WEAK，若引用，更积极的移除基于垃圾收集器状态和若引用规则的对象</li>
+</ol>
+</li>
+<li>flushInterval：刷新间隔时间，单位为毫秒，默认是当sql执行的时候才回去刷新。</li>
+<li>size：引用数目，一个正整数，代表缓存最多可以存储多少对象，不宜设置过大，过大会造成内存溢出。</li>
+<li>readOnly：只读，意味着缓存数据只能读取，不能修改，这样设置的好处是我们可以快速读取缓存，去诶但是我们没有办法修改缓存。默认值为false，不允许我们修改。</li>
+</ul>
+<p>分布式缓存策略：</p>
+<p>mybatis整合ehcache实现分布式缓存、jetcache、spring cache</p>
+<p>jetcache整合笔记：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alicp.jetcache<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetcache-starter-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableMethodCache</span>(basePackages = <span class="string">"com.muggle.jetcahetest"</span>)</span><br><span class="line"><span class="meta">@EnableCreateCacheAnnotation</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JetcaheTestApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(JetcaheTestApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Cached</span>(cacheType = CacheType.REMOTE)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">test</span> <span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerImpl</span> <span class="keyword">implements</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">test</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"&gt;&gt;&gt;"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">666</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多文档参考[jetCache github 地址)[<a href="https://github.com/alibaba/jetcache/wiki/GettingStarted_CN" target="_blank" rel="noopener">https://github.com/alibaba/jetcache/wiki/GettingStarted_CN</a>]</p>
+<h2 id="分布式缓存原理分析"><a href="#分布式缓存原理分析" class="headerlink" title="分布式缓存原理分析"></a>分布式缓存原理分析</h2><ul>
+<li>传统分布式算法</li>
+<li>Consistent hashing一致性算法原理</li>
+<li>Hash倾斜性</li>
+<li>虚拟节点</li>
+<li>Consistent hashing命中率</li>
+</ul>
+<h2 id="redis运维（抄录自-https-mp-weixin-qq-com-s-TvIxovAi6XfR7RGigtHRtQ）"><a href="#redis运维（抄录自-https-mp-weixin-qq-com-s-TvIxovAi6XfR7RGigtHRtQ）" class="headerlink" title="redis运维（抄录自 https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）"></a>redis运维（抄录自 <a href="https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）</a></h2><h3 id="快照持久化"><a href="#快照持久化" class="headerlink" title="快照持久化"></a>快照持久化</h3><p>redis中的快照持久化默认是开启的，redis.conf中相关配置主要有如下几项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line">rdbcompression yes</span><br><span class="line">dbfilename dump.rdb</span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure>
+<p>前面三个save相关的选项表示备份的频率，分别表示<code>900秒内至少一个键被更改则进行快照，300秒内至少10个键被更改则进行快照，60秒内至少10000个键被更改则进行快照，</code>stop-writes-on-bgsave-error表示在快照创建出错后，是否继续执行写命令，rdbcompression则表示是否对快照文件进行压缩，dbfilename表示生成的快照文件的名字，dir则表示生成的快照文件的位置，在redis中，快照持久化默认就是开启的。</p>
+<p>1.在redis运行过程中，我们可以向redis发送一条save命令来创建一个快照，save是一个阻塞命令，redis在接收到save命令之后，开始执行备份操作之后，在备份操作执行完毕之前，将不再处理其他请求，其他请求将被挂起，因此这个命令我们用的不多。save命令执行如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SAVE</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<p>2.在redis运行过程中，我们也可以发送一条bgsave命令来创建一个快照，不同于save命令，bgsave命令会fork一个子进程，然后这个子进程负责执行将快照写入硬盘，而父进程则继续处理客户端发来的请求，这样就不会导致客户端命令阻塞了。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; BGSAVE</span><br><span class="line">Background saving started</span><br></pre></td></tr></table></figure>
+<p>3.如果我们在redis.conf中配置了如下选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br></pre></td></tr></table></figure>
+<p>那么当条件满足时，比如900秒内有一个key被操作了，那么redis就会自动触发bgsava命令进行备份。我们可以根据实际需求在redis.conf中配置多个这种触发规则。</p>
+<p>4.还有一种情况也会触发save命令，那就是我们执行shutdown命令时，当我们用shutdown命令关闭redis时，此时也会执行一个save命令进行备份操作，并在备份操作完成后将服务器关闭。</p>
+<p>5.还有一种特殊情况也会触发bgsave命令，就是在主从备份的时候。当从机连接上主机后，会发送一条sync命令来开始一次复制操作，此时主机会开始一次bgsave操作，并在bgsave操作结束后向从机发送快照数据实现数据同步。</p>
+<h3 id="aof持久化"><a href="#aof持久化" class="headerlink" title="aof持久化"></a>aof持久化</h3><p>与快照持久化不同，AOF持久化是将被执行的命令写到aof文件末尾，在恢复时只需要从头到尾执行一遍写命令即可恢复数据，AOF在redis中默认也是没有开启的，需要我们手动开启，开启方式如下：</p>
+<p>打开redis.conf配置文件，修改appendonly属性值为yes，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+<p>另外几个和AOF相关的属性如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line"># appendfsync always</span><br><span class="line">appendfsync everysec</span><br><span class="line"># appendfsync no</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
+<p>这几个属性的含义分别如下：</p>
+<p>1.appendfilename表示生成的AOF备份文件的文件名。<br>2.appendfsync表示备份的时机，always表示每执行一个命令就备份一次，everysec表示每秒备份一次，no表示将备份时机交给操作系统。<br>3.no-appendfsync-on-rewrite表示在对aof文件进行压缩时，是否执行同步操作。<br>4.最后两行配置表示AOF文件的压缩时机，这个我们一会再细说。</p>
+<p>同时为了避免快照备份的影响，我们将快照备份关闭，关闭方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">save &quot;&quot;</span><br><span class="line"># save 900 1</span><br><span class="line"># save 300 10</span><br><span class="line"># save 60 10000</span><br></pre></td></tr></table></figure>
+<p>此时，当我们在redis中进行数据操作时，就会自动生成AOF的配置文件appendonly.aof</p>
+<p>AOF备份的几个关键点</p>
+<p>1.通过上面的介绍，小伙伴们了解到appendfsync的取值一共有三种，我们在项目中首选everysec，always选项会严重降低redis性能。<br>2.使用everysec，最坏的情况下我们可能丢失1秒的数据。</p>
+<p>AOF文件的重写与压缩</p>
+<p>AOF备份有很多明显的优势，当然也有劣势，那就是文件大小。随着系统的运行，AOF的文件会越来越大，甚至把整个电脑的硬盘填满，AOF文件的重写与压缩机制可以在一定程度上缓解这个问题。<br>当AOF的备份文件过大时，我们可以向redis发送一条bgrewriteaof命令进行文件重写，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; BGREWRITEAOF</span><br><span class="line">Background append only file rewriting started</span><br><span class="line">(0.71s)</span><br></pre></td></tr></table></figure>
+<p>bgrewriteaof的执行原理和我们上文说的bgsave的原理一致，这里我就不再赘述，因此bgsave执行过程中存在的问题在这里也一样存在。</p>
+<p>bgrewriteaof也可以自动执行，自动执行时间则依赖于auto-aof-rewrite-percentage和auto-aof-rewrite-min-size配置，auto-aof-rewrite-percentage 100表示当目前aof文件大小超过上一次重写时的aof文件大小的百分之多少时会再次进行重写，如果之前没有重写，则以启动时的aof文件大小为依据，同时还要求AOF文件的大小至少要大于64M(auto-aof-rewrite-min-size 64mb)。</p>
+<h3 id="redis主从复制"><a href="#redis主从复制" class="headerlink" title="redis主从复制"></a>redis主从复制</h3><p>6379是主机，即master，6380和6381是从机，即slave，那么如何配置这种实例关系呢，很简单，分别在6380和6381上执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6381&gt; SLAVEOF 127.0.0.1 6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<p>这一步也可以通过在两个从机的redis.conf中添加如下配置来解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof 127.0.0.1 6379</span><br></pre></td></tr></table></figure>
+<p>主从复制注意点</p>
+<p>1.如果主机已经运行了一段时间了，并且了已经存储了一些数据了，此时从机连上来，那么从机会将主机上所有的数据进行备份，而不是从连接的那个时间点开始备份。<br>2.配置了主从复制之后，主机上可读可写，但是从机只能读取不能写入（可以通过修改redis.conf中 slave-read-only 的值让从机也可以执行写操作）。<br>3.在整个主从结构运行过程中，如果主机不幸挂掉，重启之后，他依然是主机，主从复制操作也能够继续进行。</p>
+<p>复制原理</p>
+<p>每一个master都有一个replication ID，这是一个较大的伪随机字符串，标记了一个给定的数据集。每个master也持有一个偏移量，master将自己产生的复制流发送给slave时，发送多少个字节的数据，自身的偏移量就会增加多少，目的是当有新的操作修改自己的数据集时，它可以以此更新slave的状态。复制偏移量即使在没有一个slave连接到master时，也会自增，所以基本上每一对给定的Replication ID, offset都会标识一个master数据集的确切版本。当slave连接到master时，它们使用PSYNC命令来发送它们记录的旧的master replication ID和它们至今为止处理的偏移量。通过这种方式，master能够仅发送slave所需的增量部分。但是如果master的缓冲区中没有足够的命令积压缓冲记录，或者如果slave引用了不再知道的历史记录（replication ID），则会转而进行一个全量重同步：在这种情况下，slave会得到一个完整的数据集副本，从头开始(参考redis官网)。</p>
+<p>简单来说，就是以下几个步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.slave启动成功连接到master后会发送一个sync命令。  </span><br><span class="line">2.Master接到命令启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令。  </span><br><span class="line">3.在后台进程执行完毕之后，master将传送整个数据文件到slave,以完成一次完全同步。  </span><br><span class="line">4.全量复制：而slave服务在接收到数据库文件数据后，将其存盘并加载到内存中。  </span><br><span class="line">5.增量复制：Master继续将新的所有收集到的修改命令依次传给slave,完成同步。  </span><br><span class="line">6.但是只要是重新连接master,一次完全同步（全量复制)将被自动执行。</span><br></pre></td></tr></table></figure>
+<p>我们搭建的主从复制模式是下面这样的：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibiaq4WfV2TDDvyGMsfjVVZ3K8oKEYT6m7YfJQekNiayQ4PfknStVl21QQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">  </p>
+<p>实际上，一主二仆的主从复制，我们可以搭建成下面这种结构：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibbMvoJzK9ycEft3gcMssde1knu6OlGzgBWlRFRNyZYFuIc3pBUIce7g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">  </p>
+<p>哨兵模式，其实并不复杂，我们还是在我们前面的基础上来搭建哨兵模式。假设现在我的master是6379，两个从机分别是6380和6381，两个从机都是从6379上复制数据。先按照上文的步骤，我们配置好一主二仆，然后在redis目录下打开sentinel.conf文件，做如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster 127.0.0.1 6379 1</span><br></pre></td></tr></table></figure>
+<p>其中mymaster是给要监控的主机取的名字，随意取，后面是主机地址，最后面的2表示有多少个sentinel认为主机挂掉了，就进行切换（我这里只有一个，因此设置为1）。好了，配置完成后，输入如下命令启动哨兵：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel sentinel.conf</span><br></pre></td></tr></table></figure>
+<p>6379挂掉之后，redis内部重新举行了选举，6380重新上位。此时，如果6379重启，也不再是扛把子了，只能屈身做一个slave了。</p>
+<h3 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h3><p>Redis集群架构如下图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYmokRcFGBAhCcEXKrK04yXHyTcYLtNXvWCZjjS5Vl9wWsg323VBBmboGhJ6Ovfia4Pqc2oLadKcqvg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">  </p>
+<p>Redis集群运行原理如下：</p>
+<p>1.所有的Redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽<br>2.节点的fail是通过集群中超过半数的节点检测失效时才生效<br>3.客户端与Redis节点直连,不需要中间proxy层，客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可<br>4.Redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster (簇)负责维护<code>node&lt;-&gt;slot&lt;-&gt;value</code>。Redis集群中内置了16384个哈希槽，当需要在Redis集群中放置一个key-value时，Redis先对key使用crc16算法算出一个结果，然后把结果对 16384 求余数，这样每个key都会对应一个编号在 0-16383 之间的哈希槽，Redis 会根据节点数量大致均等的将哈希槽映射到不同的节点</p>
+<h2 id="分布式缓存算法"><a href="#分布式缓存算法" class="headerlink" title="分布式缓存算法"></a>分布式缓存算法</h2>
       
 
       
@@ -1393,7 +1834,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="源码未就绪，延迟更新"><a href="#源码未就绪，延迟更新" class="headerlink" title="源码未就绪，延迟更新"></a>源码未就绪，延迟更新</h2>
+        <p>dubbo 架构介绍</p>
+<p>注册中心 服务提供者 消费者 管理者 容器</p>
+<p>registry provider consumer monitor container</p>
         
       
 
@@ -3580,7 +4023,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3588,11 +4031,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3600,15 +4039,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">home</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">home</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3632,6 +4071,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
@@ -3640,11 +4083,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">

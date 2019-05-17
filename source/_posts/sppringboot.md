@@ -46,8 +46,6 @@ tags: springboot
 
 @enableAspectJAutoProxy
 
-
-
 @enable AutoConfiguration
 
 @enableManagementContext

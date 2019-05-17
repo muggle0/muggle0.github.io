@@ -34,3 +34,7 @@ tags: home
 
 [江南一点雨的es大作](https://mp.weixin.qq.com/s/Qy0q-IKJFZ0DwL7vMjBi1A) —— 江大师的redis docker 也写的很棒
 
+[java spi](https://www.cnblogs.com/huzi007/p/6679215.html)
+
+[库存设计的思考](<https://my.oschina.net/yangyishe/blog/1927466>)
+
