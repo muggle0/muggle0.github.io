@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>spi | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的爪哇和日常记录博客">
-<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
+  <meta name="description" content="今天介绍两个你每天都在用但是你却很少去了解它的知识点：spi和jar运行机制 首先我们新建一个普通的maven项目，在resources文件夹下新建META-INF.services 然后https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ">
+<meta name="keywords" content="javase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spi">
 <meta property="og:url" content="http://muggle0.github.io/2019/05/17/spi/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我的爪哇和日常记录博客">
+<meta property="og:description" content="今天介绍两个你每天都在用但是你却很少去了解它的知识点：spi和jar运行机制 首先我们新建一个普通的maven项目，在resources文件夹下新建META-INF.services 然后https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-17T03:48:07.905Z">
+<meta property="og:updated_time" content="2019-05-17T07:15:54.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spi">
-<meta name="twitter:description" content="我的爪哇和日常记录博客">
+<meta name="twitter:description" content="今天介绍两个你每天都在用但是你却很少去了解它的知识点：spi和jar运行机制 首先我们新建一个普通的maven项目，在resources文件夹下新建META-INF.services 然后https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -177,7 +177,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>今天介绍两个你每天都在用但是你却很少去了解它的知识点：spi和jar运行机制</p>
+<p>首先我们新建一个普通的maven项目，在<code>resources</code>文件夹下新建<code>META-INF.services</code></p>
+<p>然后<a href="https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ</a></p>
+
       
 
       
@@ -211,6 +214,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javase</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -360,11 +374,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -388,11 +402,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -400,7 +414,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -408,7 +422,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">

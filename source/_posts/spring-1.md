@@ -20,11 +20,9 @@ core beans context expression language
 
 spring
 
-1.  读取bean的配置信息
-
-2.  根据配置信息实例化一个bean
-
-3.  调用实例化后的实例
+1. 读取bean的配置信息
+2. 根据配置信息实例化一个bean
+3. 调用实例化后的实例
 
 beanFactory
 
@@ -49,19 +47,15 @@ objectFactory
 
 singletonFactory
 
-1.  检查缓存是否已经加载过
-
-2.  若没加载就记录下来
+1. 检查缓存是否已经加载过
+2. 若没加载就记录下来
 
 创建bean
 
-1.  classname
-
-2.  检查override
-
-3.  检查bean是否已经存在
-
-4.  创建bean
+1. classname
+2. 检查override
+3. 检查bean是否已经存在
+4. 创建bean
 
 实例化前置处理器
 
