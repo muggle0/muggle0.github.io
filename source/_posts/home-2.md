@@ -38,3 +38,5 @@ tags: home
 
 [库存设计的思考](<https://my.oschina.net/yangyishe/blog/1927466>)
 
+[Seata-Cient](<https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ>)
+

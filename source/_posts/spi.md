@@ -8,4 +8,5 @@ tags: javase
 
 首先我们新建一个普通的maven项目，在`resources`文件夹下新建`META-INF.services`
 
-然后https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ
+然后
+
