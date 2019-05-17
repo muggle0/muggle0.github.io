@@ -1,7 +1,7 @@
 ---
 title: redis笔记
 date: 2019-05-06 09:53:26
-tags: 中间件
+tags: developing
 ---
 
 <!--more-->
@@ -17,6 +17,8 @@ redis序列化协议 resp
 - 整数回复（integer reply）的第一个字节是 `":"`
 - 批量回复（bulk reply）的第一个字节是 `"$"`
 - 多条批量回复（multi bulk reply）的第一个字节是 `"*"`
+
+<!--more-->
 
 举例：
 
@@ -264,7 +266,7 @@ spring.redis.port=6379
 
 **注意：springboot2.1有包冲突，本配置只适用于2.1以下**
 
-## redis作为mybatis的二级缓存
+## mybatis的二级缓存
 
 二级缓存是mapper级别的缓存，多个SqlSession去操作同一个Mapper的sql语句，多个SqlSession可以共用二级缓存，二级缓存是跨SqlSession的。
 
@@ -283,7 +285,11 @@ UserMapper有一个二级缓存区域（按namespace分），其它mapper也有�
 - size：引用数目，一个正整数，代表缓存最多可以存储多少对象，不宜设置过大，过大会造成内存溢出。
 - readOnly：只读，意味着缓存数据只能读取，不能修改，这样设置的好处是我们可以快速读取缓存，去诶但是我们没有办法修改缓存。默认值为false，不允许我们修改。
 
-分布式缓存策略：
+
+
+## 分布式缓存
+
+分布式缓存策略
 
 mybatis整合ehcache实现分布式缓存、jetcache、spring cache
 
@@ -333,15 +339,41 @@ public class ServerImpl implements Server {
 }
 ```
 
-更多文档参考[jetCache github 地址)[<https://github.com/alibaba/jetcache/wiki/GettingStarted_CN>]
+更多文档参考[jetCache github 地址][]
 
-## 分布式缓存原理分析
+分布式缓存的应用
 
-- 传统分布式算法
+合并批量更新，提高io
+
+缓存的粒度问题，缓存数据是全量还是部分
+
+### cache cloud 使用
+
+### 分布式缓存原理分析
+
+- 传统分布式算法：HASH算法或者取模算法
 - Consistent hashing一致性算法原理
 - Hash倾斜性
 - 虚拟节点
 - Consistent hashing命中率
+
+Consistent hashing 是一致性hash算法
+
+博客：[一致性哈希](<https://blog.csdn.net/qq_35956041/article/details/81026972>)
+
+哈希倾斜：缓存任务分配不均，采用虚拟节点避免
+
+缓存穿透：缓存未起作用
+
+缓存雪崩：缓存雪崩可能是因为数据未加载到缓存中，或者缓存同一时间大面积的失效，从而导致所有请求都去查数据库，导致数据库CPU和内存负载过高，甚至宕机。
+
+缓存的算法
+
+FIFO算法：First in First out，先进先出。原则：一个数据最先进入缓存中，则应该最早淘汰掉。也就是说，当缓存满的时候，应当把最先进入缓存的数据给淘汰掉。
+LFU算法：Least Frequently Used，最不经常使用算法。
+LRU算法：Least Recently Used，近期最少使用算法。
+
+LRU和LFU的区别。LFU算法是根据在一段时间里数据项被使用的次数选择出最少使用的数据项，即根据使用次数的差异来决定。而LRU是根据使用时间的差异来决定的
 
 ## redis运维（抄录自 https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）
 
@@ -520,5 +552,5 @@ Redis集群运行原理如下：
 3.客户端与Redis节点直连,不需要中间proxy层，客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可
 4.Redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster (簇)负责维护`node<->slot<->value`。Redis集群中内置了16384个哈希槽，当需要在Redis集群中放置一个key-value时，Redis先对key使用crc16算法算出一个结果，然后把结果对 16384 求余数，这样每个key都会对应一个编号在 0-16383 之间的哈希槽，Redis 会根据节点数量大致均等的将哈希槽映射到不同的节点
 
-## 分布式缓存算法
+
 
