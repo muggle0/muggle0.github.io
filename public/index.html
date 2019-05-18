@@ -180,7 +180,7 @@
       
         <p>今天介绍两个你每天都在用但是你却很少去了解它的知识点：spi和jar运行机制</p>
 <p>首先我们新建一个普通的maven项目，在<code>resources</code>文件夹下新建<code>META-INF.services</code></p>
-<p>然后<a href="https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/OYzwKcGrpc8Spt-wlVssSQ</a></p>
+<p>然后</p>
 
       
 
@@ -3446,7 +3446,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="什么是接口幂等"><a href="#什么是接口幂等" class="headerlink" title="什么是接口幂等"></a>什么是接口幂等</h1>
+        <p>在数学里，幂等有两种主要的定义：在某二元运算下，幂等元素是指被自己重复运算(或对于函数是为复合)的结果等于它自己的元素。如，乘法运算下，0和1符合的自乘运算符和幂等，即s*s=s某一元运算为幂等的时，其作用在任一元素两次后会和其作用一次的结果相同。例如，高斯符号便是幂等的，即f(f(x))=f(x)在计算机中，表示对同一个过程应用相同的参数多次和应用一次产生的效果是一样，这样的过程即被称为满足幂等性在分布式和前后端分离的的项目中，对于restful风格的接口，我们需要保证其接口的幂等性，说白了就是就是一个接口被反复调用不会影响最终结果；为什么呢，因为前后端分离的项目可能会发生这样的场景：前端发出一个请求，但这个请求被阻塞了，然后其重试机制再次发起请求，而恰好此时被阻塞的那个请求又好了，那么这个时候，会对后端发起连续两次请求；对于 get，put,delete 都没问题，连续的两次或者三次都不会影响请求处理结果，但post就有问题了；它会往数据库插入两条数据。</p>
         
       
 
@@ -3754,19 +3754,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3794,11 +3794,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">

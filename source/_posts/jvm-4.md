@@ -7,10 +7,11 @@ tags: jvm
 ### 1 标记-清除算法
 标记-清除算法是最基础的算法，算法分为标记和清除两个阶段，首先标记出要清除的对象，在标记完后统一回收所有被标记的对象，标记方式为j《jvm系列之垃圾收集器》里面所提到的。这种算法标记和清除两个过程效率都不高；并且在标记清除后，内存空间变得很零散，产生大量内存碎片。当需要分配一个比较大的对象时有可能会导致找不到足够大的内存。<!--more-->
 
-标记清除算法图解（图片来源于百度图片）：![timg.jpg](https://upload-images.jianshu.io/upload_images/13612520-e59da44ca1b963c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+标记清除算法图解（图片来源于百度图片）：![timg.jpg](https://upload-images.jianshu.io/upload_images/13612520-e59da44ca1b963c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
 
+### 3 清除-复制算法
 
-&emsp; &emsp;为了解决标记清除效率低的问题，出现了复制算法；这种算法将内存划分为大小相等的两块内存，只使用其中一块。当这一块内存使用完了就将存活的对象复制到另一块上面去，然后把已使用的内存空间一次性清理掉，这种方法不必考虑内存碎片的情况，运行高效，实现简单。缺点是浪费了一半的内存。复制算法图解（图片来源百度图片）：![timg (1).jpg](https://upload-images.jianshu.io/upload_images/13612520-2f12466c88adfd82.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+&emsp;为了解决标记清除效率低的问题，出现了复制算法；这种算法将内存划分为大小相等的两块内存，只使用其中一块。当这一块内存使用完了就将存活的对象复制到另一块上面去，然后把已使用的内存空间一次性清理掉，这种方法不必考虑内存碎片的情况，运行高效，实现简单。缺点是浪费了一半的内存。复制算法图解（图片来源百度图片）：![timg (1).jpg](https://upload-images.jianshu.io/upload_images/13612520-2f12466c88adfd82.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 3 标记-整理算法
 &emsp; &emsp;复制收集算法在对象存活率较高的时候就要进行较多的复制操作，导致效率变低。而且老年代很少会有内存回收，对老年代而言，复制算法做了大量的无用功。针对复制算法存在的的问题，有人提出了标记-整理算法。标记过程和标记-清除算法过程一样，但后续不是直接对可回收对象进行清理，而是让所有存活对象都向一方移动，整理内存，然后再进行清理。标记-整理算法图解（图片来源百度图片）：![timg (2).jpg](https://upload-images.jianshu.io/upload_images/13612520-4fd6dd6461485a3c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

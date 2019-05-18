@@ -109,6 +109,8 @@ server.port=8081
 
 [dubbo-monitor-simple](https://github.com/apache/incubator-dubbo-admin/tree/master/dubbo-monitor-simple)
 
+dubbo-admin 管理平台 `<http://localhost:7001/governance/services>`
+
 # dubbo架构
 
 [dubbo架构图](<http://dubbo.apache.org/zh-cn/docs/dev/design.html>)

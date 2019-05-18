@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="作者：muggle netty框架代码很猛（读源码有益身心健康），学习起来也比较难；在阅读这篇文章我假设你有了一定nio基础，tcp网络协议基础，否则不建议阅读。 关于netty的学习视频我推荐B站张龙的教学视频，讲的很不错。学netty之前先学会用，然后在去看他的原理这样学起来会轻松不少。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T08:12:04.410Z">
+<meta property="og:updated_time" content="2019-05-18T01:59:42.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" netty学习笔记第一篇">
 <meta name="twitter:description" content="作者：muggle netty框架代码很猛（读源码有益身心健康），学习起来也比较难；在阅读这篇文章我假设你有了一定nio基础，tcp网络协议基础，否则不建议阅读。 关于netty的学习视频我推荐B站张龙的教学视频，讲的很不错。学netty之前先学会用，然后在去看他的原理这样学起来会轻松不少。">
@@ -203,7 +203,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       EventLoopGroup boss = <span class="keyword">new</span> NioEventLoopGroup();</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           Bootstrap bootstrap = <span class="keyword">new</span> Bootstrap();</span><br><span class="line">           bootstrap.group(boss).channel(NioSocketChannel.class).handler(<span class="keyword">new</span> MyClientInitializer());</span><br><span class="line">           ChannelFuture sync = bootstrap.connect(<span class="string">"127.0.0.1"</span>,<span class="number">8081</span>).sync();</span><br><span class="line">           Channel channel = sync.channel();</span><br><span class="line">           BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">           <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">               channel.writeAndFlush(bufferedReader.readLine());</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           boss.shutdownGracefully();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>其他和服务端一样，所以略；</p>
 <p>服务端启动类<code>serverBootstrap.bind(8081).sync()</code> 而客户端启动类配置是<code>ChannelFuture sync = bootstrap.connect(&quot;127.0.0.1&quot;,8081).sync();</code>区别就在这里</p>
-<h3 id="websocket-demo"><a href="#websocket-demo" class="headerlink" title="websocket demo"></a>websocket demo</h3>
+<h3 id="websocket-demo"><a href="#websocket-demo" class="headerlink" title="websocket demo"></a>websocket demo</h3><p><a href="https://github.com/muggle0/learn/tree/all" target="_blank" rel="noopener">github</a> netty模块 下有所有代码</p>
+
       
 
       
@@ -406,19 +407,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -446,11 +447,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="dubbo 架构介绍 注册中心 服务提供者 消费者 管理者 容器 registry provider consumer monitor container">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-16T06:03:09.868Z">
+<meta property="og:updated_time" content="2019-05-18T02:00:55.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dubbo学习笔记">
 <meta name="twitter:description" content="dubbo 架构介绍 注册中心 服务提供者 消费者 管理者 容器 registry provider consumer monitor container">
@@ -227,7 +227,24 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.dubbo.application.id=live-dubbo-provider</span><br><span class="line">spring.dubbo.application.name=live-dubbo-provider</span><br><span class="line">spring.dubbo.registry.address=zookeeper://127.0.0.1:2181</span><br><span class="line">spring.dubbo.server=true</span><br><span class="line">spring.dubbo.protocol.name=dubbo</span><br><span class="line">spring.dubbo.protocol.port=20880</span><br><span class="line">server.port=8081</span><br></pre></td></tr></table></figure>
 <p>需要引入zk客户端依赖：com.101tec 和curator-framework</p>
 <p>这里不介绍鸟毛的dubbo配置，在nacos整合dubbo中说明</p>
-<h2 id="监控中心"><a href="#监控中心" class="headerlink" title="监控中心"></a>监控中心</h2><h1 id="Hessian-Serialization-序列化"><a href="#Hessian-Serialization-序列化" class="headerlink" title="Hessian Serialization 序列化"></a>Hessian Serialization 序列化</h1>
+<h2 id="监控中心"><a href="#监控中心" class="headerlink" title="监控中心"></a>监控中心</h2><p><a href="https://github.com/apache/incubator-dubbo-admin/tree/master/dubbo-monitor-simple" target="_blank" rel="noopener">dubbo-monitor-simple</a></p>
+<p>dubbo-admin 管理平台 <code>&lt;http://localhost:7001/governance/services&gt;</code></p>
+<h1 id="dubbo架构"><a href="#dubbo架构" class="headerlink" title="dubbo架构"></a>dubbo架构</h1><p><a href="http://dubbo.apache.org/zh-cn/docs/dev/design.html" target="_blank" rel="noopener">dubbo架构图</a></p>
+<p>dubbo 绑定端口，通道初始化，注册到选择器上 选择器监听 acccept事件</p>
+<p>处理数据 客户端生成channel </p>
+<p>business</p>
+<p>​        接口</p>
+<p>rpc</p>
+<p>​    配置层 收集配置数据</p>
+<p>​    服务代理层 代理调用方法</p>
+<p>​    registry 注册中心</p>
+<p>​    cluster 路由层 负载均衡层</p>
+<p>​    moniter 监控层 </p>
+<p>​    protocol远程调用层</p>
+<p>​    调用层核心  invoker protocol  exporter</p>
+<p>remothing 远程通信层 ，架起管道 封装数据。netty框架工作在这</p>
+<p>serialize 序列化层</p>
+
       
 
       
@@ -430,19 +447,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,11 +487,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
