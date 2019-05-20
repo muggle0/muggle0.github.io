@@ -131,3 +131,24 @@ ApplicationContext
 ApplicationContext ap = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 得到一个spring容器，那么在传统ssm项目中是如何。。知道了
+
+## spring bean的生命周期
+
+实例化bean对象(通过构造方法或者工厂方法)
+
+设置对象属性(setter等)（依赖注入）
+
+如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）
+
+如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身
+
+将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法
+
+调用Bean的初始化方法
+
+将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法
+
+使用Bean
+
+容器关闭之前，调用Bean的销毁方法
+
