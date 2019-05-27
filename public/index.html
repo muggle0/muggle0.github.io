@@ -158,6 +158,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/git/">git</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/24/git/" class="archive-article-date">
+  	<time datetime="2019-05-24T06:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="初始化并提交到远程"><a href="#初始化并提交到远程" class="headerlink" title="初始化并提交到远程"></a>初始化并提交到远程</h4><p>git init <br><br>git config –global user.name”ssss”<br>git add README.md <br><br>git commit -m “first commit” <br><br>git remote add origin <a href="https://github.com/Xanthuim/nodejs_express_sample.git" target="_blank" rel="noopener">https://github.com/Xanthuim/nodejs_express_sample.git</a> <br><br>git push -u origin master <br>（$ git push -u origin master 上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了）</p>
+<p>git branch –set-upstream-to master origin/master或者git fetch关联远程分支，然后git pull origin master –allow-unrelated-histories强制合并</p>
+<h4 id="远程仓库初始化并关联本地"><a href="#远程仓库初始化并关联本地" class="headerlink" title="远程仓库初始化并关联本地"></a>远程仓库初始化并关联本地</h4><p>git clone url<br><br>git config –global user.name”ss”<br><br>git push<br></p>
+<h4 id="HEAD的含义"><a href="#HEAD的含义" class="headerlink" title="HEAD的含义"></a>HEAD的含义</h4><p>代表当前仓库版本号<br><br>HEAD^ 和HEAD~<br><br>HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。<br>HEAD~(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br><br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD~。HEAD^和HEAD~或HEAD^^和HEAD~~并没有区别，只有HEAD^+数字才和HEAD~有区别。</p>
+<h4 id="git-reset-撤销方式"><a href="#git-reset-撤销方式" class="headerlink" title="$ git reset 撤销方式"></a>$ git reset 撤销方式</h4><p>git reset –soft 版本号<br><br>只撤销本地仓库数据到版本号 <br><br>git reset –mixed 版本号<br><br>撤销本地和暂存区仓库到版本号<br><br>git reset –hard 版本号<br><br>撤销 工作区 暂存区 本地仓库到版本号<br><br>git reset –hard origin/master<br></p>
+<p>####</p>
+<p>HEAD的含义：代表当前仓库最新版本。HEAD^ 和HEAD~的意义和区别HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。HEAD~(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD~。HEAD^和HEAD~或HEAD^^和HEAD~~并没有区别，只有HEAD^+数字才和HEAD~有区别。 git reset 撤销方式git reset –soft 版本号只撤销本地仓库数据到版本号git reset –mixed 版本号该方式为默认方式（即git reset 版本号）撤销本地和暂存区仓库到版本号git reset –hard 版本号撤销 工作区 暂存区 本地仓库到版本号git reset –hard origin/master远程仓库代码覆盖工作区 暂存区 本地仓库以上指令都不会对未归入git控制的文件进行管理也就是从未add过的文件git是不会去删除撤销它的撤销单个文件的修改git reset HEAD xxx.txt本地覆盖暂存区的代码git checkout xxx.txtgit checkout .将暂存区的代码覆盖工作区 “.”是通配所有文件</p>
+<p>git 强制pull </p>
+<p>git pull origin master –allow-unrelated-histories </p>
+<p>git 强制push git push -f </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/24/git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-spi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -861,31 +944,10 @@
     <article id="post-java8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/07/java8/">java8函数式编程</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/07/java8/" class="archive-article-date">
-  	<time datetime="2019-05-07T03:23:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-07</time>
-</a>
-        
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="什么是函数式编程"><a href="#什么是函数式编程" class="headerlink" title="什么是函数式编程"></a>什么是函数式编程</h1><p>方法参数化</p>
-<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>只有一个方法的接口，在java中为了规范用 @FunctionalInterface 标注</p>
-<p>lambda 表示函数式接口 ：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Runnable runnable=()-&gt;&#123;</span><br><span class="line">    System.out.println(<span class="string">"test"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>核心思想就是尽量简化，没必要写的不写，实现的相关技术：类型推断</p>
-<p>方法参数化的另外一种体现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student::goHome;</span><br><span class="line"></span><br><span class="line">System.out.println;</span><br></pre></td></tr></table></figure>
-        
+        <p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </p>
+
       
 
       
@@ -893,17 +955,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">developing</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -3762,11 +3813,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3782,19 +3837,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3810,11 +3861,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
             
             <div class="clearfix"></div>

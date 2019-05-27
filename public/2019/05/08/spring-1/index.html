@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-16a1a229cda57201.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-ca7b32793a6d88cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-3ca9287803145b3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-17T07:39:00.904Z">
+<meta property="og:updated_time" content="2019-05-20T08:10:54.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring笔记">
 <meta name="twitter:description" content="分为20个模块 core container">
@@ -252,6 +252,15 @@
 <p>我们可以通过</p>
 <p>ApplicationContext ap = new ClassPathXmlApplicationContext(“applicationContext.xml”);</p>
 <p>得到一个spring容器，那么在传统ssm项目中是如何。。知道了</p>
+<h2 id="spring-bean的生命周期"><a href="#spring-bean的生命周期" class="headerlink" title="spring bean的生命周期"></a>spring bean的生命周期</h2><p>实例化bean对象(通过构造方法或者工厂方法)</p>
+<p>设置对象属性(setter等)（依赖注入）</p>
+<p>如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）</p>
+<p>如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身</p>
+<p>将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法</p>
+<p>调用Bean的初始化方法</p>
+<p>将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法</p>
+<p>使用Bean</p>
+<p>容器关闭之前，调用Bean的销毁方法</p>
 
       
 
@@ -321,7 +330,7 @@
   
   
     <a href="/2019/05/07/java8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java8函数式编程</div>
+      <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -463,11 +472,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,19 +496,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,11 +520,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
             
             <div class="clearfix"></div>

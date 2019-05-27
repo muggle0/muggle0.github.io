@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="作者：muggle oauth2 相关概念文章参考理解OAuth 2.0 oauth2 角色关系在oauth2中分为以下几个角色：Resource server、Authorization server、Resource Owner、application。 Resource server:资源服务器 Authorization server:认证服务器 Resource Owner:资源拥有者">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-23T09:24:14.382Z">
+<meta property="og:updated_time" content="2019-05-20T09:51:07.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="security-oauth2学习笔记">
 <meta name="twitter:description" content="作者：muggle oauth2 相关概念文章参考理解OAuth 2.0 oauth2 角色关系在oauth2中分为以下几个角色：Resource server、Authorization server、Resource Owner、application。 Resource server:资源服务器 Authorization server:认证服务器 Resource Owner:资源拥有者">
@@ -190,7 +190,9 @@
 <h3 id="oauth2的授权方式"><a href="#oauth2的授权方式" class="headerlink" title="oauth2的授权方式"></a>oauth2的授权方式</h3><p>第三方应用必须得到用户的授权（authorization grant），才能获得令牌（access token）。OAuth 2.0定义了四种授权方式。</p>
 <p>授权码模式（authorization code）<br>简化模式（implicit）<br>密码模式（resource owner password credentials）<br>客户端模式（client credentials</p>
 <p>各个模式具体流程略微复杂，这里节省时间不做介绍，想了解的请参看<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">理解OAuth 2.0</a></p>
-<h2 id="spring-security-oauth2原理分析"><a href="#spring-security-oauth2原理分析" class="headerlink" title="spring-security-oauth2原理分析"></a>spring-security-oauth2原理分析</h2><h3 id="授权端点一览表"><a href="#授权端点一览表" class="headerlink" title="授权端点一览表"></a>授权端点一览表</h3><p>oauth2提供了一系列URL来完成相应的认证授权相关功能，这些URL都是可配置的，下面贴出各url及其功能；</p>
+<h2 id="spring-security-oauth2原理分析"><a href="#spring-security-oauth2原理分析" class="headerlink" title="spring-security-oauth2原理分析"></a>spring-security-oauth2原理分析</h2><p>在oauth2的框架中，其流程是基于security扩展起来的，在原先的流程上最后面加了一个endpoint节点。其认证服务器其实可以看做拥有两套代码，一套是对第三方应用的权限进行管控的代码，一套是对用户权限进行管控的代码。</p>
+<p>对应的配置类分别是：<code>AuthorizationServerConfigurerAdapter</code> 和<code>WebSecurityConfigurerAdapter</code></p>
+<h3 id="授权端点一览表"><a href="#授权端点一览表" class="headerlink" title="授权端点一览表"></a>授权端点一览表</h3><p>oauth2提供了一系列URL来完成相应的认证授权相关功能，这些URL都是可配置的，下面贴出各url及其功能；</p>
 <table>
 <thead>
 <tr>
@@ -234,7 +236,7 @@
 <ul>
 <li><p>clients.withClientDetails()：类似于springSecurity的UserDetailService，对应的也有ClientDetailsService 和 ClientDetails；</p>
 </li>
-<li><p>clients.jdbc():传入一个dataSource(搞不懂，既然有withClientDetails了，为啥还来个这个)；</p>
+<li><p>clients.jdbc():传入一个dataSource(detaliService 是自定义service，更加灵活，这个是为基于数据库准备的)；</p>
 </li>
 <li><p>clients.inMemory() 基于内存，也就是在代码里写死</p>
 </li>
@@ -243,28 +245,24 @@
 <p>验证参数说明</p>
 <blockquote>
 <p>从ClientDetails我们就能很清晰的分辨出客户端需要配置哪些参数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClientDetail</span>  <span class="keyword">implements</span> <span class="title">ClientDetails</span> </span>&#123;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> String <span class="title">getClientId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">getResourceIds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSecretRequired</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> String <span class="title">getClientSecret</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isScoped</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">getScope</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">getAuthorizedGrantTypes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">getRegisteredRedirectUri</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Collection&lt;GrantedAuthority&gt; <span class="title">getAuthorities</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Integer <span class="title">getAccessTokenValiditySeconds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Integer <span class="title">getRefreshTokenValiditySeconds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAutoApprove</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt;<span class="meta">@Override</span></span><br><span class="line">&gt;<span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getAdditionalInformation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>clientId:客户端ID</p>
-<p>secret:客户端密钥</p>
-<p>scope:客户受限的范围。如果范围未定义或为空（默认值），则客户端不受范围限制</p>
+<p>clientId:客户端ID<br>secret:客户端密钥<br>scope:客户受限的范围。如果范围未定义或为空（默认值），则客户端不受范围限制</p>
 <p>authorizedGrantTypes:授权客户端使用的授权类型。默认值为空。</p>
 <p>authorities：授予客户端的权限（常规Spring Security权限）</p>
+<p>如果我们使用的是数据库存储第三方应用的信息，框架替我们提供了建表语句，<a href="https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql" target="_blank" rel="noopener">https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql</a>  但对于 MYSQL 来说，默认建表语句中主键为 Varchar(256)，这超过了最大的主键长度，可改成 128，并用 BLOB 替换语句中的 LONGVARBINARY 类型</p>
 </blockquote>
 <p><em>AuthorizationServerSecurityConfigurer</em></p>
 <blockquote>
 <p>该类共有13个配置相关的方法：</p>
 <ul>
-<li>passwordEncoder():通过源码猜测springSecurity中一样，用于编解码secret，未验证，官网也未发现资料</li>
+<li>passwordEncoder():编解码器</li>
 <li>tokenKeyAccess（）：oauth2授权服务器会提供一个<code>/oauth/token_key</code>的url来供资源服务器获取公钥，这个方法就是配置获取公钥的权限范围，它使用的是SpEL表达式且默认不开启，如果你没用到公钥，则不必管他，在<a href="http://projects.spring.io/spring-security-oauth/docs/oauth2.html#resource-server-configuration" target="_blank" rel="noopener">官方文档</a> 上使用JwtToken中使用了该方法，如果你用的是JwtToken请注意</li>
 <li>checkTokenAccess（）：授权服务器提供一个<code>/oauth/check_token</code>的url来供资源服务器解码令牌，该方法就是配置权限范围，同样使用的是SpEL表达式且默认不开启</li>
 <li>sslOnly()：普通HTTP适用于测试，但授权服务器只能在生产中通过SSL使用，调用方法<code>sslOnly()</code>则强制使用ssl。</li>
 <li>getTokenKeyAccess()：就方法名的意思，获得tokenKeyAccess所设置的SpEL表达式</li>
-<li>getCheckTokenAccess()：同上</li>
-<li>accessDeniedHandler()：拒绝访问处理器，猜测和springSecurity中类似，未验证</li>
+<li>getCheckTokenAccess()：获得checkTokenAccess所设置的SpEL表达式</li>
+<li>accessDeniedHandler()：拒绝访问处理器</li>
 <li>realm()：默认值为 “oauth2/client”,用处未知</li>
-<li>authenticationEntryPoint():在springSecurity中是处理验证失败的，这里同样未做验证</li>
+<li>authenticationEntryPoint()：处理验证失败的</li>
 <li>是allowFormAuthenticationForClients： 允许客户端进行表单身份验证，主要是让/oauth/token支持client_id以及client_secret作登录认证</li>
 <li>addTokenEndpointAuthenticationFilter：添加令牌端点身份验证过滤器</li>
 <li>tokenEndpointAuthenticationFilters：添加多个过滤器</li>
@@ -277,12 +275,22 @@
 <ul>
 <li>pathMapping()：修改授权端点一览表的那些URL</li>
 <li>tokenStore()：生成Token后的存储方式，可以new RedisTokenStore()来使用redis存储</li>
-<li>authenticationManager()：身份验证管理器，参考springSecurity中的 authenticationManager</li>
+<li>authenticationManager()：用于密码授权的AuthenticationManager。 当采用密码模式的时候，第三方应用直接提供用户的用户名密码，所以这里需要配置AuthenticationManager（AuthenticationManager的作用参考我security配置解析的文章）</li>
 <li>allowedTokenEndpointRequestMethods()：允许的请求方式</li>
 </ul>
 </blockquote>
+<h3 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h3><p>oauth2中增加了两个很重要的类<code>TokenEndPoint</code>类和<code>AuthorizationEndpoint</code>类。<code>AuthorizationEndpoint</code> 为授权码模式的端点，它在执行流程的最后位置，它会检验用户是否已经登陆，检验第三方用户，检验授权范围，最后生成code重定向到redirect_uri。</p>
+<p><code>TokenEndPoint</code>和<code>AuthorizationEndpoint</code> `类似，它用于获取token，在返回token时也会做相应的校验</p>
 <h3 id="认证服务器使用"><a href="#认证服务器使用" class="headerlink" title="认证服务器使用"></a>认证服务器使用</h3><p>为便于学习，我们单独搭一个认证服务器并使用它</p>
-
+<p>依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-oauth2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoseidonCloudOauthApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(PoseidonCloudOauthApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> WebSecurityConfigurerAdapter <span class="title">webSecurityConfigurerAdapter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> WebSecurityConfigurerAdapter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                httpSecurity.formLogin().and().csrf().disable();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试用例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TestRestTemplate restTemplate;</span><br><span class="line">	<span class="comment">// 密码模式测试</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">token_password</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MultiValueMap&lt;String, String&gt; params = <span class="keyword">new</span> LinkedMultiValueMap&lt;&gt;();</span><br><span class="line">        params.add(<span class="string">"grant_type"</span>, <span class="string">"password"</span>);</span><br><span class="line">        params.add(<span class="string">"username"</span>, <span class="string">"admin"</span>);</span><br><span class="line">        params.add(<span class="string">"password"</span>, <span class="string">"admin"</span>);</span><br><span class="line">        params.add(<span class="string">"scope"</span>, <span class="string">"scope1 scope2"</span>);</span><br><span class="line"><span class="comment">//        第三方应用登陆</span></span><br><span class="line">        String response = restTemplate.withBasicAuth(<span class="string">"clientId"</span>, <span class="string">"clientSecret"</span>).</span><br><span class="line"><span class="comment">//                用户的用户名密码</span></span><br><span class="line">                postForObject(<span class="string">"/oauth/token"</span>, params, String.class);</span><br><span class="line">        System.out.println(response);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 客户端模式</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">token_client</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MultiValueMap&lt;String, String&gt; params = <span class="keyword">new</span> LinkedMultiValueMap&lt;&gt;();</span><br><span class="line">        params.add(<span class="string">"grant_type"</span>, <span class="string">"client_credentials"</span>);</span><br><span class="line">        String response = restTemplate.withBasicAuth(<span class="string">"clientId"</span>, <span class="string">"clientSecret"</span>).</span><br><span class="line">                postForObject(<span class="string">"/oauth/token"</span>, params, String.class);</span><br><span class="line">        System.out.println(response);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>授权码模式要通过测试工具来测；</p>
+<p>这里涉及到一个<code>BasicAuth</code>的概念，说明一下，其实就是将用户名密码用<code>username:password</code> 这样的形式拼接，然后base64编码后得到一个code，在请求头的<code>Authorization</code> 中添加 <code>Basic code</code>。而postman也支持<code>BasicAuth</code>,测试细节略。</p>
+<h2 id="oauth2扩展"><a href="#oauth2扩展" class="headerlink" title="oauth2扩展"></a>oauth2扩展</h2>
       
 
       
@@ -493,11 +501,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,19 +525,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,11 +549,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
             
             <div class="clearfix"></div>
