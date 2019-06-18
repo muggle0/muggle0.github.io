@@ -12,6 +12,8 @@ tags: cloud
 
 Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 `check="true"`。
 
+<!--more-->
+
 ### 配置方式
 
 java -D 启动时配置》dubbo.xml（application.properties）》dubbo.properties

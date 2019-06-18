@@ -158,6 +158,144 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-zookeeper" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/15/zookeeper/">zookeeper</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/15/zookeeper/" class="archive-article-date">
+  	<time datetime="2019-06-15T09:23:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/15/zookeeper/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-dubbo-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/dubbo-2/">dubbo运维相关知识</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/27/dubbo-2/" class="archive-article-date">
+  	<time datetime="2019-05-27T09:36:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>重要</strong></p>
+<p><a href="http://dubbo.apache.org/zh-cn/docs/dev/design.html" target="_blank" rel="noopener">架构图</a></p>
+<h3 id="启动时检查"><a href="#启动时检查" class="headerlink" title="启动时检查"></a>启动时检查</h3><p>Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 <code>check=&quot;true&quot;</code>。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/27/dubbo-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -179,16 +317,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="初始化并提交到远程"><a href="#初始化并提交到远程" class="headerlink" title="初始化并提交到远程"></a>初始化并提交到远程</h4><p>git init <br><br>git config –global user.name”ssss”<br>git add README.md <br><br>git commit -m “first commit” <br><br>git remote add origin <a href="https://github.com/Xanthuim/nodejs_express_sample.git" target="_blank" rel="noopener">https://github.com/Xanthuim/nodejs_express_sample.git</a> <br><br>git push -u origin master <br>（$ git push -u origin master 上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了）</p>
-<p>git branch –set-upstream-to master origin/master或者git fetch关联远程分支，然后git pull origin master –allow-unrelated-histories强制合并</p>
-<h4 id="远程仓库初始化并关联本地"><a href="#远程仓库初始化并关联本地" class="headerlink" title="远程仓库初始化并关联本地"></a>远程仓库初始化并关联本地</h4><p>git clone url<br><br>git config –global user.name”ss”<br><br>git push<br></p>
-<h4 id="HEAD的含义"><a href="#HEAD的含义" class="headerlink" title="HEAD的含义"></a>HEAD的含义</h4><p>代表当前仓库版本号<br><br>HEAD^ 和HEAD~<br><br>HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。<br>HEAD~(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br><br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD~。HEAD^和HEAD~或HEAD^^和HEAD~~并没有区别，只有HEAD^+数字才和HEAD~有区别。</p>
-<h4 id="git-reset-撤销方式"><a href="#git-reset-撤销方式" class="headerlink" title="$ git reset 撤销方式"></a>$ git reset 撤销方式</h4><p>git reset –soft 版本号<br><br>只撤销本地仓库数据到版本号 <br><br>git reset –mixed 版本号<br><br>撤销本地和暂存区仓库到版本号<br><br>git reset –hard 版本号<br><br>撤销 工作区 暂存区 本地仓库到版本号<br><br>git reset –hard origin/master<br></p>
-<p>####</p>
-<p>HEAD的含义：代表当前仓库最新版本。HEAD^ 和HEAD~的意义和区别HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。HEAD~(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD~。HEAD^和HEAD~或HEAD^^和HEAD~~并没有区别，只有HEAD^+数字才和HEAD~有区别。 git reset 撤销方式git reset –soft 版本号只撤销本地仓库数据到版本号git reset –mixed 版本号该方式为默认方式（即git reset 版本号）撤销本地和暂存区仓库到版本号git reset –hard 版本号撤销 工作区 暂存区 本地仓库到版本号git reset –hard origin/master远程仓库代码覆盖工作区 暂存区 本地仓库以上指令都不会对未归入git控制的文件进行管理也就是从未add过的文件git是不会去删除撤销它的撤销单个文件的修改git reset HEAD xxx.txt本地覆盖暂存区的代码git checkout xxx.txtgit checkout .将暂存区的代码覆盖工作区 “.”是通配所有文件</p>
-<p>git 强制pull </p>
-<p>git pull origin master –allow-unrelated-histories </p>
-<p>git 强制push git push -f </p>
-
+        
       
 
       
@@ -3477,6 +3606,85 @@
 
 
   
+    <article id="post-home-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/home-3/">草稿箱</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/27/home-3/" class="archive-article-date">
+  	<time datetime="2019-03-27T03:53:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。</span><br><span class="line"></span><br><span class="line">至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直接使用安全的collection更聪明。</span><br><span class="line"></span><br><span class="line">也就是说，如果不使用Iterator迭代器的话，使用了安全的collection以后，其实我们不需要再用Synchronized代码块修饰了，这样使用上更方便。</span><br><span class="line"></span><br><span class="line">反过来说，使用Iterator迭代器的话，似乎也没必要用Collections.synchronizedList的方法来包装了——反正都是必须要使用Synchronized代码块包起来的。</span><br><span class="line"></span><br><span class="line">所以总的来说，Collections.synchronizedXX这种做法，适合不需要使用Iterator、对性能要求也不高的情况。</span><br><span class="line">    *</span><br><span class="line">    * */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">*</span><br><span class="line">*  这就是所谓的线程安全的类，在多线程中一样会有问题，那这是为什么呢。后来在一篇博文当中看到了说Vector的contains方法和remove方法之前不具备原子性，这点给了提示。</span><br><span class="line">*  我现在认为出错的原因是在get和remove之间并没有在以上环境中做到同步，比方说，一个线程的get（2）操作发生时，正好遇到了remove操作的正在进行，这时get（2）这个操作就会阻塞，</span><br><span class="line">*  等待remove操作释放锁之后去操作。如果这时候remove操作的正好是remov（2）这个操作，等到去get的时候，这个元素已经没有了，get自然就只能是空欢喜一场。</span><br><span class="line">    这里原因找到了，就该说解决办法了，在说解决办法之前，可能还会困惑，说好的线程安全呢，</span><br><span class="line">    我的理解是，线程安全并不代表使用安全，在实际使用时还是需要考虑当前环境中是否会出现问题的。那么问题来了，java提供线程安全的某些类的意义在哪里呢，反正还是会出问题。</span><br><span class="line">    这就显得比较鸡肋了，但是也不能说没有意义，毕竟写程序还是要独立思考的。</span><br><span class="line">    解决办法就比较简单了，在两个线程的run方法里加上synchronized (testVector)，这样就会使得读取、删除线程中只会有一个对testVector进行操作，也就不会有上述情况出现。</span><br><span class="line">    从这个错误来看的话，编程一定要谨慎，使用到的技术一定要深入了解，不能说不出问题，但是在出了问题之后能找出原因并解决，</span><br><span class="line">    如果没有这个把握就不要轻易去使用，尤其在正式项目中，可能会让你欲哭无泪啊！</span><br><span class="line"></span><br><span class="line">* */</span><br></pre></td></tr></table></figure>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><ul>
+<li>deque 双端对列</li>
+<li>queue 阻塞队列 ArrayBlockingQueue ：一个由数组支持的有界队列。LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。</li>
+<li>PriorityQueue 和 ConcurrentLinkedQueue 非阻塞队列</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">home</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/27/home-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-javaee-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -3801,11 +4009,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3813,15 +4021,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -3829,15 +4033,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">

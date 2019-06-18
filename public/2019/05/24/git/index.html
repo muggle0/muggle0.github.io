@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="初始化并提交到远程git init git config –global user.name”ssss”git add README.md git commit -m “first commit” git remote add origin https://github.com/Xanthuim/nodejs_express_sample.git git push -u origin master">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-24T06:25:42.342Z">
+<meta property="og:updated_time" content="2019-06-15T09:18:26.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git">
 <meta name="twitter:description" content="初始化并提交到远程git init git config –global user.name”ssss”git add README.md git commit -m “first commit” git remote add origin https://github.com/Xanthuim/nodejs_express_sample.git git push -u origin master">
@@ -178,6 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="初始化并提交到远程"><a href="#初始化并提交到远程" class="headerlink" title="初始化并提交到远程"></a>初始化并提交到远程</h4><p>git init <br><br>git config –global user.name”ssss”<br>git add README.md <br><br>git commit -m “first commit” <br><br>git remote add origin <a href="https://github.com/Xanthuim/nodejs_express_sample.git" target="_blank" rel="noopener">https://github.com/Xanthuim/nodejs_express_sample.git</a> <br><br>git push -u origin master <br>（$ git push -u origin master 上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了）</p>
+<a id="more"></a>
 <p>git branch –set-upstream-to master origin/master或者git fetch关联远程分支，然后git pull origin master –allow-unrelated-histories强制合并</p>
 <h4 id="远程仓库初始化并关联本地"><a href="#远程仓库初始化并关联本地" class="headerlink" title="远程仓库初始化并关联本地"></a>远程仓库初始化并关联本地</h4><p>git clone url<br><br>git config –global user.name”ss”<br><br>git push<br></p>
 <h4 id="HEAD的含义"><a href="#HEAD的含义" class="headerlink" title="HEAD的含义"></a>HEAD的含义</h4><p>代表当前仓库版本号<br><br>HEAD^ 和HEAD~<br><br>HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。<br>HEAD~(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br><br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD~。HEAD^和HEAD~或HEAD^^和HEAD~~并没有区别，只有HEAD^+数字才和HEAD~有区别。</p>
@@ -187,6 +188,12 @@
 <p>git 强制pull </p>
 <p>git pull origin master –allow-unrelated-histories </p>
 <p>git 强制push git push -f </p>
+<p>合并</p>
+<p>git merge origin master </p>
+<p>git status</p>
+<p>git 保存工作区修改 不提交</p>
+<p>git stash save “xxx” （入栈，工作区代码放入到stash中）</p>
+<p>git stash pop (出栈，从stash中拿保存的代码)</p>
 
       
 
@@ -244,6 +251,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/05/27/dubbo-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          dubbo运维相关知识
+        
+      </div>
+    </a>
   
   
     <a href="/2019/05/17/spi/" id="article-nav-older" class="article-nav-link-wrap">
@@ -377,11 +393,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -389,15 +405,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -405,15 +417,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -55,3 +55,9 @@ git 强制push git push -f
 git merge origin master 
 
 git status
+
+git 保存工作区修改 不提交
+
+git stash save "xxx" （入栈，工作区代码放入到stash中）
+
+git stash pop (出栈，从stash中拿保存的代码)
