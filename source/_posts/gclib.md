@@ -1,7 +1,7 @@
 ---
 title: java动态代理
 date: 2019-05-13 09:58:38
-tags: javase
+tags: 设计模式
 ---
 
 ## 动态代理

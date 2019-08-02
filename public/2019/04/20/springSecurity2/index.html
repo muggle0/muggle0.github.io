@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="作者：muggle 前言由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。 security原理分析springSecurity过滤器链springSecurity 采用的是责任链的设计模式，它有一条很长的过滤器链。现在对这条过滤器链的各个进行说明   WebAsyncManagerIntegrationFilter：将Sec">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-26T01:45:14.754Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+<meta property="og:updated_time" content="2019-06-22T16:52:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springSecurity深度解析第二版">
 <meta name="twitter:description" content="作者：muggle 前言由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。 security原理分析springSecurity过滤器链springSecurity 采用的是责任链的设计模式，它有一条很长的过滤器链。现在对这条过滤器链的各个进行说明   WebAsyncManagerIntegrationFilter：将Sec">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -206,7 +206,7 @@
 </blockquote>
 <h2 id="springSecurity-流程图"><a href="#springSecurity-流程图" class="headerlink" title="springSecurity 流程图"></a>springSecurity 流程图</h2><p>上一版是通过debug的方法告诉读者springSecurity的一个执行过程，发现反而把问题搞复杂了，这一版我决定画一个流程图来说明其执行过程，只要把springSecurity的执行过程弄明白了，这个框架就会变得很简单</p>
 <a id="more"></a>
-<p><img src="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="security.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="security.png"></p>
 <h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><ol>
 <li><p>客户端发起一个请求，进入security过滤器链；</p>
 </li>
@@ -295,6 +295,11 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于security的扩展配置关键在于<code>configure(HttpSecurity http)</code>方法；扩展认证方式可以自定义<code>authenticationManager</code>并加入自己验证器，在验证器中抛出异常不会终止验证流程；扩展鉴权方式可以自定义<code>accessDecisionManager</code>然后添加自己的投票器并绑定到对应的url（url 匹配方式为ant）上，投票器<code>vote(Authentication authentication, FilterInvocation fi, Collection&lt;ConfigAttribute&gt; attributes)</code>方法返回值为三种：-1 0 1，分别表示反对弃权赞成；</p>
 <p>对于token认证的校验方式，可以暴露一个获取的接口，或者重写<code>UsernamePasswordAuthenticationFilter</code>过滤器和扩展登陆成功处理器来获取token，然后在<code>LogoutFilter</code>之后添加一个自定义过滤器，用于校验和填充SecurityContextHolder</p>
 <p>security的处理器大部分都是重定向的，我们的项目如果是前后端分离的话，我们希望无论什么情况都返回json,那么就需要重写各个处理器了。</p>
+<h2 id="勘误"><a href="#勘误" class="headerlink" title="勘误"></a>勘误</h2><p>2018/6/23: 在和别人讲解security的时候发现漏了一个处理器，401用户未登陆处理器，其默认是跳转到登陆页；现贴出其写法和配置方法，使其返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: poseidon</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 未登录处理</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: muggle</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2018-12-31</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoseidonLoginUrlAuthenticationEntryPoint</span> <span class="keyword">extends</span> <span class="title">LoginUrlAuthenticationEntryPoint</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PoseidonLoginUrlAuthenticationEntryPoint</span><span class="params">(String loginFormUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(loginFormUrl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commence</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        response.setContentType(<span class="string">"application/json;charset=UTF-8"</span>);</span><br><span class="line">        <span class="keyword">final</span> PrintWriter writer = response.getWriter();</span><br><span class="line">        writer.write(<span class="string">"&#123;\"code\":\"401\",\"msg\":\"用户未登录\"&#125;"</span>);</span><br><span class="line">        writer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在config 方法中加上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.exceptionHandling().authenticationEntryPoint( <span class="keyword">new</span> PoseidonLoginUrlAuthenticationEntryPoint(<span class="string">"/login"</span>)).accessDeniedHandler(<span class="keyword">new</span> PoseidonAccessDeniedHandler());</span><br></pre></td></tr></table></figure>
+<p>具体细节可参看我的poseidon项目和sofia脚手架。</p>
 
       
 
@@ -490,7 +495,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,11 +503,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,19 +519,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+                <a href="javascript:void(0)" class="js-tag color5">home</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,6 +536,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">log</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

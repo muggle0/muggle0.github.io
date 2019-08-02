@@ -39,7 +39,7 @@ springSecurity 采用的是责任链的设计模式，它有一条很长的过�
 
 <!--more-->
 
-![security.png](https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![security.png](https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 ## 流程说明
 
@@ -568,3 +568,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 对于token认证的校验方式，可以暴露一个获取的接口，或者重写`UsernamePasswordAuthenticationFilter`过滤器和扩展登陆成功处理器来获取token，然后在`LogoutFilter`之后添加一个自定义过滤器，用于校验和填充SecurityContextHolder
 
 security的处理器大部分都是重定向的，我们的项目如果是前后端分离的话，我们希望无论什么情况都返回json,那么就需要重写各个处理器了。
+
+##  勘误
+
+2018/6/23: 在和别人讲解security的时候发现漏了一个处理器，401用户未登陆处理器，其默认是跳转到登陆页；现贴出其写法和配置方法，使其返回
+
+
+
+```java
+/**
+ * @program: poseidon
+ * @description: 未登录处理
+ * @author: muggle
+ * @create: 2018-12-31
+ **/
+public class PoseidonLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
+    public PoseidonLoginUrlAuthenticationEntryPoint(String loginFormUrl) {
+        super(loginFormUrl);
+    }
+
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.setContentType("application/json;charset=UTF-8");
+        final PrintWriter writer = response.getWriter();
+        writer.write("{\"code\":\"401\",\"msg\":\"用户未登录\"}");
+        writer.close();
+    }
+}
+```
+
+在config 方法中加上
+
+```java
+http.exceptionHandling().authenticationEntryPoint( new PoseidonLoginUrlAuthenticationEntryPoint("/login")).accessDeniedHandler(new PoseidonAccessDeniedHandler());
+```
+
+具体细节可参看我的poseidon项目和sofia脚手架。

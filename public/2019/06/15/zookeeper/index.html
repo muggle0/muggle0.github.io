@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>zookeeper | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的爪哇和日常记录博客">
-<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
+  <meta name="description" content="zookeeper 浅解ZK的安装与尝鲜从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为">
+<meta name="keywords" content="中间件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="zookeeper">
 <meta property="og:url" content="http://muggle0.github.io/2019/06/15/zookeeper/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我的爪哇和日常记录博客">
+<meta property="og:description" content="zookeeper 浅解ZK的安装与尝鲜从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-15T09:23:46.798Z">
+<meta property="og:updated_time" content="2019-07-18T06:12:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zookeeper">
-<meta name="twitter:description" content="我的爪哇和日常记录博客">
+<meta name="twitter:description" content="zookeeper 浅解ZK的安装与尝鲜从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -177,7 +177,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="zookeeper-浅解"><a href="#zookeeper-浅解" class="headerlink" title="zookeeper 浅解"></a>zookeeper 浅解</h1><h2 id="ZK的安装与尝鲜"><a href="#ZK的安装与尝鲜" class="headerlink" title="ZK的安装与尝鲜"></a>ZK的安装与尝鲜</h2><p>从官网 <a href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/" target="_blank" rel="noopener">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
+<a id="more"></a>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkCli.<span class="built_in">cmd</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">2181</span></span><br></pre></td></tr></table></figure>
+<p>运行客户端连接上zk后我们可以在客户端cmd窗口输入一些指令来操作zk：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ls 查看命令(默认只有根节点和zookeeper一个节点)</span><br><span class="line">ls /</span><br><span class="line">ls /zookeeper</span><br><span class="line"><span class="meta">#</span>get 获取节点数据和更新信息</span><br><span class="line">get /zookeeper</span><br><span class="line"><span class="meta">#</span> stat 获得节点的更新信息</span><br><span class="line">stat /zookeeper</span><br><span class="line"><span class="meta">#</span> create -e 创建临时节点</span><br><span class="line">create -e /a/b</span><br><span class="line"><span class="meta">#</span> set path data [version] 修改节点</span><br><span class="line"><span class="meta">#</span> 修改节点内容为sss</span><br><span class="line">set /a sss</span><br><span class="line"><span class="meta">#</span> delete path [version] 删除节点</span><br><span class="line"><span class="meta">#</span> delete /a/b</span><br></pre></td></tr></table></figure>
+<p>通过操作部分指令我们看到，zk提供了对数据的增删改查。</p>
+
       
 
       
@@ -211,6 +217,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -223,6 +240,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/07/17/design-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          设计模式——三个工厂模式
+        
+      </div>
+    </a>
   
   
     <a href="/2019/05/27/dubbo-2/" id="article-nav-older" class="article-nav-link-wrap">
@@ -352,7 +378,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -360,11 +386,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -376,19 +402,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+                <a href="javascript:void(0)" class="js-tag color5">home</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -397,6 +419,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">log</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
