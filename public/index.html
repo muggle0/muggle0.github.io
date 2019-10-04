@@ -158,6 +158,315 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-design-5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/design-5/">设计模式——单例模式</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/30/design-5/" class="archive-article-date">
+  	<time datetime="2019-08-30T12:06:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>单例模式 （Singleton Pattern）使用的比较多，比如我们的 controller 和 service 都是单例的，但是其和标准的单例模式是有区别的。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/30/design-5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitmq-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/rabbitmq-1/">rabbitmq+springboot 第二篇</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/30/rabbitmq-1/" class="archive-article-date">
+  	<time datetime="2019-08-30T00:25:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-持久化"><a href="#1-持久化" class="headerlink" title="1. 持久化"></a>1. 持久化</h2><p>RabbitMQ通过消息持久化来保证消息的可靠性——为了保证RabbitMQ在退出或者发生异常情况下数据不会丢失，需要将 queue ，exchange 和 Message 都持久化。下面分别介绍它们持久化配置的方式。</p>
+<p>对于 queue ，exchange 在创建的时候都会提供一个参数用以设置是否持久化，而如果使用它们对应的建造者而不是new，就能很清晰的看到是怎么指定持久化的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  创建 queue 指定为非持久化</span></span><br><span class="line">    QueueBuilder.nonDurable(<span class="string">"xxx"</span>).build();</span><br><span class="line"><span class="comment">//  指定非持久化</span></span><br><span class="line">     <span class="keyword">return</span> QueueBuilder.durable(<span class="string">"second-direct-queue"</span>).build();</span><br><span class="line"><span class="comment">//  durable 为true则是持久化，false非持久化</span></span><br><span class="line">    ExchangeBuilder.topicExchange(<span class="string">"topic"</span>).durable(<span class="keyword">true</span>).build();</span><br></pre></td></tr></table></figure>
+<p>这里需要注意一个地方，<strong>直接在原队列的基础上添加属性是会报错的，它会告诉你队列已经存在。需要你手动打开管理界面把那个队列删除掉，然后重启项目</strong>。</p>
+<p>你如果将 queue 的持久化标识 durable 设置为true ,则代表是一个持久的队列，那么在服务重启之后，也会存在，因为服务会把持久化的 queue 存放在硬盘上，当服务重启的时候，会重新什么之前被持久化的queue；但是里面的消息是否为持久化还需要看消息是否做了持久化设置。exchange 的持久化和 Queue 一样将交换机保存在磁盘，重启后这个交换机还会存在。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/30/rabbitmq-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitmq" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/rabbitmq/">rabbitMQ+springboot实践第一篇</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/30/rabbitmq/" class="archive-article-date">
+  	<time datetime="2019-08-30T00:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-rabbitMQ简介"><a href="#1-rabbitMQ简介" class="headerlink" title="1. rabbitMQ简介"></a>1. rabbitMQ简介</h2><p><code>rabbitMQ</code>是基于<code>AMQP</code>协议的消息中间件，即<code>Advanced Message Queuing Protocol</code>，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。消息中间件主要用于组件之间的解耦，消息的发送者无需知道消息使用者的存在，反之亦然。 AMQP的主要特征是面向消息、队列、路由（包括点对点和发布/订阅）。基于AMQP协议的消息中间件还有<code>kafka</code>，<code>rocketMQ</code>等。还有另外一类基于jms协议的消息中间件（如activeMQ），这类MQ相对AMQP来说扩展性有所不足，因此大部分公司都会选择AMQP产品。而rabbitMQ以其安装部署简单，上手门槛低，功能丰富，集群易扩展，有强大的WEB管理页面，消息可靠投递机制等优点受广大开发人员欢迎。</p>
+<p>介绍了这么多，或许有的小伙伴还是不太明白MQ的使用场景，MQ作用就六个字——异步，削峰，解耦。它在大型电子商务类网站，如京东、淘宝、去哪儿等网站有着深入的应用。比如一个下单流程，在不使用消息队列的情况下，用户的请求数据直接写入数据库，在高并发的情况下，会对数据库造成巨大的压力，同时也使得系统响应延迟加剧。在使用队列后，用户的请求发给队列后立即返回，后续处理交给队列，在业务逻辑上只需要做简单修改即可（如告诉用户系统确认订单中，等MQ处理完再更新订单状态），这只是一个简单的使用场景，MQ的用武之地还很多。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/30/rabbitmq/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-intresting" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/02/intresting/">鸟瞰MYSQL</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/02/intresting/" class="archive-article-date">
+  	<time datetime="2019-08-02T12:36:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者: muggle</p>
+<h2 id="1-mysql-架构"><a href="#1-mysql-架构" class="headerlink" title="1 mysql 架构"></a>1 mysql 架构</h2><p>mysql分为server层和存储引擎</p>
+<h3 id="1-1-server层"><a href="#1-1-server层" class="headerlink" title="1.1  server层"></a>1.1  server层</h3><ul>
+<li>连接器：管理连接权限验证</li>
+<li>查询缓存：命中缓存直接换回查询结果</li>
+<li>分析器：分析语法</li>
+<li>优化器：生成执行计划，选择索引</li>
+<li>执行器：操作索引返回结果</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/02/intresting/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-design-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -178,7 +487,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="muggle-源码日记之适配器模式（Adapter）"><a href="#muggle-源码日记之适配器模式（Adapter）" class="headerlink" title="muggle 源码日记之适配器模式（Adapter）"></a>muggle 源码日记之适配器模式（Adapter）</h1><p>适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
+        <p>适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
 <h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>适配器模式包含如下角色：</p>
 <ul>
 <li>Target：目标抽象类</li>
@@ -259,7 +568,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h1><p>桥接模式(Bridge Pattern)：将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
+        <p>桥接模式(Bridge Pattern)：将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
 <p>设想如果要绘制矩形、圆形、椭圆、正方形，我们至少需要4个形状类，但是如果绘制的图形需要具有不同的颜色，如红色、绿色、蓝色等，此时至少有如下两种设计方案：</p>
 <ol>
 <li>为每一种形状都提供一套各种颜色的版本。</li>
@@ -400,7 +709,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/15/zookeeper/">zookeeper</a>
+      <a class="article-title" href="/2019/06/15/zookeeper/">zookeeper 浅解</a>
     </h1>
   
 
@@ -413,7 +722,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="zookeeper-浅解"><a href="#zookeeper-浅解" class="headerlink" title="zookeeper 浅解"></a>zookeeper 浅解</h1><h2 id="ZK的安装与尝鲜"><a href="#ZK的安装与尝鲜" class="headerlink" title="ZK的安装与尝鲜"></a>ZK的安装与尝鲜</h2><p>从官网 <a href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/" target="_blank" rel="noopener">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
+        <p>从官网 <a href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/" target="_blank" rel="noopener">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
         
       
 
@@ -624,7 +933,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/17/spi/">spi</a>
+      <a class="article-title" href="/2019/05/17/spi/">spi和jar</a>
     </h1>
   
 
@@ -1008,90 +1317,6 @@
 
 
   
-    <article id="post-windows" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/13/windows/">windows使用技巧</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/13/windows/" class="archive-article-date">
-  	<time datetime="2019-05-13T02:04:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="window使用技巧"><a href="#window使用技巧" class="headerlink" title="window使用技巧"></a>window使用技巧</h2><p>muggle <a href="javascript:void(0" target="_blank" rel="noopener">六个核弹</a>;) <em>2018-11-19</em></p>
-<h3 id="window使用技巧-1"><a href="#window使用技巧-1" class="headerlink" title="window使用技巧"></a>window使用技巧</h3><p><strong>每次开机都启动一堆软件，很麻烦，该肿么办？</strong></p>
-<p>写个批处理文件 步骤（这里以启动微信为例 ）：</p>
-<ol>
-<li>新建一个文本文档</li>
-<li>输入以下命令：</li>
-</ol>
-<blockquote>
-<p>start “xx” “xxx”</p>
-</blockquote>
-<p>xx 代表程序名称，可以随便起；xxx代表你想启动的程序的位置 获取程序位置的方法：</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/13/windows/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-gclib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1112,7 +1337,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>&emsp; &emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：<a href="https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg" target="_blank" rel="noopener">https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg</a></p>
+        <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>&emsp; &emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：<a href="https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg" target="_blank" rel="noopener">https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg</a></p>
 <p>&emsp; &emsp;在JDK中提供了实现动态代理模式的机制，cglib也是一个用于实现动态代理的框架，在这里我介绍jdk自带的动态代理机制是如何使用的。先上代码再慢慢解释：</p>
         
       
@@ -1359,7 +1584,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">developing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
         		</li>
       		
 		</ul>
@@ -1435,7 +1660,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javaee</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
         		</li>
       		
 		</ul>
@@ -1475,6 +1700,89 @@
 
 
   
+    <article id="post-windows" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/01/windows/">windows使用技巧</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/01/windows/" class="archive-article-date">
+  	<time datetime="2019-05-01T02:04:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>每次开机都启动一堆软件，很麻烦，该肿么办？</strong></p>
+<p>写个批处理文件 步骤（这里以启动微信为例 ）：</p>
+<ol>
+<li>新建一个文本文档</li>
+<li>输入以下命令：</li>
+</ol>
+<blockquote>
+<p>start “xx” “xxx”</p>
+</blockquote>
+<p>xx 代表程序名称，可以随便起；xxx代表你想启动的程序的位置 获取程序位置的方法：</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/01/windows/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-reptile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1482,7 +1790,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/30/reptile/">reptile</a>
+      <a class="article-title" href="/2019/04/30/reptile/">java撸一只爬虫</a>
     </h1>
   
 
@@ -1495,8 +1803,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="java撸一只爬虫"><a href="#java撸一只爬虫" class="headerlink" title="java撸一只爬虫"></a>java撸一只爬虫</h1>
-        
+        <a id="more"></a>
       
 
       
@@ -1570,6 +1877,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <a id="more"></a>
+
       
 
       
@@ -4204,19 +4512,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -4236,6 +4540,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
@@ -4244,11 +4552,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -4273,6 +4581,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

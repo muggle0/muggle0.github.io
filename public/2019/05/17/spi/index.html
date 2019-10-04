@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>spi | muggle</title>
+  <title>spi和jar | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="今天介绍两个大家每天都在用但是却很少去了解它的知识点：spi和jar运行机制，废话不多说，开始正题 spi是Java提供的一套用来被第三方实现或者扩展的API，它可以用来启用框架扩展和替换组件。spi机制是这样的：读取META-INF/services/目录下的元信息，然后ServiceLoader根据信息加载对应的类，你可以在自己的代码中使用这个被加载的类。要使用Java SPI，需要遵循如下约">
 <meta name="keywords" content="javase">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spi">
+<meta property="og:title" content="spi和jar">
 <meta property="og:url" content="http://muggle0.github.io/2019/05/17/spi/index.html">
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="今天介绍两个大家每天都在用但是却很少去了解它的知识点：spi和jar运行机制，废话不多说，开始正题 spi是Java提供的一套用来被第三方实现或者扩展的API，它可以用来启用框架扩展和替换组件。spi机制是这样的：读取META-INF/services/目录下的元信息，然后ServiceLoader根据信息加载对应的类，你可以在自己的代码中使用这个被加载的类。要使用Java SPI，需要遵循如下约">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-13T07:06:02.000Z">
+<meta property="og:updated_time" content="2019-08-02T12:03:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spi">
+<meta name="twitter:title" content="spi和jar">
 <meta name="twitter:description" content="今天介绍两个大家每天都在用但是却很少去了解它的知识点：spi和jar运行机制，废话不多说，开始正题 spi是Java提供的一套用来被第三方实现或者扩展的API，它可以用来启用框架扩展和替换组件。spi机制是这样的：读取META-INF/services/目录下的元信息，然后ServiceLoader根据信息加载对应的类，你可以在自己的代码中使用这个被加载的类。要使用Java SPI，需要遵循如下约">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
@@ -164,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      spi
+      spi和jar
     </h1>
   
 
@@ -434,19 +434,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -466,6 +462,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
@@ -474,11 +474,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -503,6 +503,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

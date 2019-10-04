@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>zookeeper | muggle</title>
+  <title>zookeeper 浅解 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="zookeeper 浅解ZK的安装与尝鲜从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为">
+  <meta name="description" content="从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为 data和log的路径。现在启动zk，在">
 <meta name="keywords" content="中间件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zookeeper">
+<meta property="og:title" content="zookeeper 浅解">
 <meta property="og:url" content="http://muggle0.github.io/2019/06/15/zookeeper/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="zookeeper 浅解ZK的安装与尝鲜从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为">
+<meta property="og:description" content="从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为 data和log的路径。现在启动zk，在">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-18T06:12:30.000Z">
+<meta property="og:updated_time" content="2019-08-30T00:19:11.042Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zookeeper">
-<meta name="twitter:description" content="zookeeper 浅解ZK的安装与尝鲜从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为">
+<meta name="twitter:title" content="zookeeper 浅解">
+<meta name="twitter:description" content="从官网 https://apache.org/dist/zookeeper/zookeeper-3.5.5/ 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个zoo_sample.cfg 复制到同目录下改名为zoo.cfg，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 dataLogDir为 data和log的路径。现在启动zk，在">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -164,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      zookeeper
+      zookeeper 浅解
     </h1>
   
 
@@ -177,12 +177,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="zookeeper-浅解"><a href="#zookeeper-浅解" class="headerlink" title="zookeeper 浅解"></a>zookeeper 浅解</h1><h2 id="ZK的安装与尝鲜"><a href="#ZK的安装与尝鲜" class="headerlink" title="ZK的安装与尝鲜"></a>ZK的安装与尝鲜</h2><p>从官网 <a href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/" target="_blank" rel="noopener">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
+        <p>从官网 <a href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/" target="_blank" rel="noopener">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
 <a id="more"></a>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkCli.<span class="built_in">cmd</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">2181</span></span><br></pre></td></tr></table></figure>
-<p>运行客户端连接上zk后我们可以在客户端cmd窗口输入一些指令来操作zk：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ls 查看命令(默认只有根节点和zookeeper一个节点)</span><br><span class="line">ls /</span><br><span class="line">ls /zookeeper</span><br><span class="line"><span class="meta">#</span>get 获取节点数据和更新信息</span><br><span class="line">get /zookeeper</span><br><span class="line"><span class="meta">#</span> stat 获得节点的更新信息</span><br><span class="line">stat /zookeeper</span><br><span class="line"><span class="meta">#</span> create -e 创建临时节点</span><br><span class="line">create -e /a/b</span><br><span class="line"><span class="meta">#</span> set path data [version] 修改节点</span><br><span class="line"><span class="meta">#</span> 修改节点内容为sss</span><br><span class="line">set /a sss</span><br><span class="line"><span class="meta">#</span> delete path [version] 删除节点</span><br><span class="line"><span class="meta">#</span> delete /a/b</span><br></pre></td></tr></table></figure>
-<p>通过操作部分指令我们看到，zk提供了对数据的增删改查。</p>
+<h2 id="1-ZK介绍"><a href="#1-ZK介绍" class="headerlink" title="1 ZK介绍"></a>1 ZK介绍</h2><p><code>zookeeper</code>是基于观察者模式设计的分布式服务管理框架，它负责存储和管理比较重要的分布式数据并通知观察者数据的变化状态，直白的说zookeeper是一个数据存储加消息通知系统。zookeeper的应用场景有:</p>
+<ul>
+<li>统一命名服务：在分布式系统中给每个应用配置一个全局唯一名称，并统一管理</li>
+<li>统一配置管理：将分布式系统一些配置信息放入到ZK中进行管理</li>
+<li>统一集群管理：管理监听集群状态</li>
+<li>服务节点动态上下线：实时通知应用分布式系统中有哪些服务节点。</li>
+</ul>
+<p>zk的特性：</p>
+<ul>
+<li>顺序一致性： 从同一客户端发起的事务请求，最终将会严格地按照顺序被应用到 ZooKeeper 中去。</li>
+<li>原子性： 所有事务请求的处理结果在整个集群中所有机器上的应用情况是一致的，也就是说，要么整个集群中所有的机器都成功应用了某一个事务，要么都没有应用。</li>
+<li>单一系统映像 ： 无论客户端连到哪一个 ZooKeeper 服务器上，其看到的服务端数据模型都是一致的。</li>
+<li>可靠性： 一旦一次更改请求被应用，更改的结果就会被持久化，直到被下一次更改覆盖。</li>
+</ul>
+<h2 id="2-ZNode"><a href="#2-ZNode" class="headerlink" title="2 ZNode"></a>2 ZNode</h2><p>zookeeper的数据结构整体上一棵树，每个节点被称作<code>ZNode</code>，每个ZNode默认存储1MB的数据，每个ZNode 都可以通过路径唯一标识。ZNode共有四种类型：</p>
+<ul>
+<li>持久节点：指在节点创建后，就一直存在，直到有删除操作来主动清除这个节点。不会因为客户端会话失效而清除；</li>
+<li><p>持久顺序节点：在持久节点基础上增加了有序性，其每创建一个子节点都会自动为给节点名加上一个数字后缀作为新的节点名。</p>
+</li>
+<li><p>临时节点：临时节点的生命周期和客户端会话绑定。也就是说，如果客户端会话失效，那么这个节点就会自动被清除掉。</p>
+</li>
+<li>临时顺序节点：在临时节点基础上增加了有序性；参考持久顺序节点。</li>
+</ul>
+<h2 id="3-ZK指令"><a href="#3-ZK指令" class="headerlink" title="3 ZK指令"></a>3 ZK指令</h2><p>在ZK的安装包中有一个ZK客户端，启动ZK客户端可在其中输入相应的指令来操作ZK，下面对这些指令做简单介绍：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>help</td>
+<td>显示所有操作命令</td>
+</tr>
+<tr>
+<td>ls path [watch]</td>
+<td>查看当前节点内容</td>
+</tr>
+<tr>
+<td>ls2  path [watch]</td>
+<td>查看当前节点数据并能看到更新次数等数据</td>
+</tr>
+<tr>
+<td>create</td>
+<td>不带参数创建普通持久节点，-s 创建持久顺序节点 -e 创建临时节点，-s -e 创建 临时顺序节点</td>
+</tr>
+<tr>
+<td>get path [wathc]</td>
+<td>获取节点值</td>
+</tr>
+<tr>
+<td>set path</td>
+<td>给节点赋值</td>
+</tr>
+<tr>
+<td>stat path</td>
+<td>查看节点状态</td>
+</tr>
+<tr>
+<td>delete path</td>
+<td>删除节点</td>
+</tr>
+<tr>
+<td>rmr</td>
+<td>递归删除节点 (参考rm-rf）</td>
+</tr>
+</tbody>
+</table>
+<p>操作示例：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 连接zk</span><br><span class="line">./zkCli.sh -server master 2181</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 列出 / 下的节点</span><br><span class="line">ls /</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 创建节点</span><br><span class="line">create /zk-test "123"</span><br><span class="line">create  -s   /zk-test  “test123”</span><br><span class="line">create -e /zk-test123 "test1234"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 删除节点</span><br><span class="line">delete /zk-test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 获取节点</span><br><span class="line">get /zk-123</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>更新节点</span><br><span class="line">set  /zk-123 "d"</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-ZK配置文件"><a href="#4-ZK配置文件" class="headerlink" title="4 ZK配置文件"></a>4 ZK配置文件</h2><p>示例：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">dataDir=E:/zookeeper/zookeeper-3.4.8 - colony/zookeeper-1/tmp/zookeeper/</span><br><span class="line">clientPort=2181</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">server.1=127.0.0.1:2888:3888</span><br><span class="line">server.2=127.0.0.1:2889:3889</span><br><span class="line">server.3=127.0.0.1:2890:3890</span><br></pre></td></tr></table></figure></p>
+<p>配置项说明：<br>简单列举，详细参考 <a href="http://www.aboutyun.com/forum.php?mod=viewthread&amp;tid=13909" target="_blank" rel="noopener">http://www.aboutyun.com/forum.php?mod=viewthread&amp;tid=13909</a></p>
+<ul>
+<li>clientPort: 客户端连接server的端口，即zk对外服务端口，一般设置为2181。</li>
+<li>dataDir : 把内存中的数据存储成快照文件snapshot的目录</li>
+<li>tickTime: ZK中的一个时间单元</li>
+<li>syncLimit: 如果Leader发出心跳包在syncLimit之后，还没有从Follower那里收到响应，那么就认为这个Follower已经不在线了。</li>
+</ul>
+<h2 id="5-ZK机制"><a href="#5-ZK机制" class="headerlink" title="5 ZK机制"></a>5 ZK机制</h2><h3 id="5-1-Zookeeper工作原理"><a href="#5-1-Zookeeper工作原理" class="headerlink" title="5.1 Zookeeper工作原理"></a>5.1 Zookeeper工作原理</h3><p>Zab协议 的全称是 Zookeeper Atomic Broadcast （Zookeeper原子广播）。ZAB协议定义了 选举（election）、发现（discovery）、同步（sync）、广播(Broadcast) 四个阶段；<br>选举阶段就是选举出leader。发现阶段follower节点向准leader推送自己的信息，接受准leader的newEpoch指令，检查newEpoch有效性,如果校验没有问题则正式进入一个新的leader统治时期（epoch）。同步阶段将Follower与Leader的数据进行同步，由Leader发起同步指令，最终保持集群数据的一致性；广播阶段，leader发起广播，Follower开始提交事务。</p>
+<p>为了保证事务的顺序一致性，zookeeper采用了递增的事务id号（zxid）来标识事务。所有的提议（proposal）都在被提出的时候加上了zxid。zxid是一个64位的数字，它高32位用来标识leader关系是否改变，每次一个leader被选出来，它都会有一个新的标识，代表当前leader，低32位用于递增计数。<br>在ZK集群中，Server有三种状态： </p>
+<ul>
+<li>LOOKING：当前Server不知道leader是谁，正在搜寻</li>
+<li>LEADING：当前Server即为选举出来的leader</li>
+<li>FOLLOWING：leader已经选举出来，当前Server与之同步</li>
+</ul>
+<p>当ZK的server挂掉半数以上，leader就认为集群不能再正常工作了；所以ZK集群一般为奇数个。 </p>
+<h3 id="5-2-ZK选主流程"><a href="#5-2-ZK选主流程" class="headerlink" title="5.2 ZK选主流程"></a>5.2 ZK选主流程</h3><p>ZK集群中每个Server启动，首先会投自己一票，然后向外对其他ZK发送报文，如果有响应则互相交换投票结果，如果结果无法确定leader是谁则继续投票。投票规则是优先投票给id最大的server，且不能重复投某个server。因此一个server若想做leader，它的id要足够大（通过配置文件配置），而且还有尽快和其他server建立通讯。</p>
+<h3 id="5-3-Broadcast-广播"><a href="#5-3-Broadcast-广播" class="headerlink" title="5.3 Broadcast(广播)"></a>5.3 Broadcast(广播)</h3><p>当客户端提交事务请求时Leader节点为每一个请求生成一个Proposal(提案)，将其发送给集群中所有的Follower节点，收到过半Follower的反馈后开始对事务进行提交；只需要得到过半的Follower节点反馈Ack（同意）就可以对事务进行提交；过半的Follower节点反馈Ack 后，leader发送commit消息同时自身也会完成事务提交，Follower 接收到 commit 消息后，会将事务提交。</p>
+<p>Follower必须保证事务的顺序一致性的，也就是说先被发送的Proposal必须先被；消息广播使用了TCP协议进行通讯所有保证了接受和发送事务的顺序性。广播消息时Leader节点为每个Proposal分配一个全局递增的ZXID（事务ID），每个Proposal都按照ZXID顺序来处理。</p>
+<p>如果我们连接上某个zk发送一个写请求，如果这个zk不是Leader，那么它会把接受到的请求进一步转发给Leader，然后leader就会执行上面的广播过程。而其他的zk就能同步写数据，保证数据一致。</p>
+<h2 id="6-ZK面试问题"><a href="#6-ZK面试问题" class="headerlink" title="6  ZK面试问题"></a>6  ZK面试问题</h2><ul>
+<li>脑裂：由于心跳超时（网络原因导致的）认为master死了，但其实master还存活着（假死），假死会发起新的master选举，选举出一个新的master。但是客户端还能和旧的master通信，导致一部分客户端连接旧master（直连）,一部分客户端连接新的master</li>
+<li>znode类型：临时无序，临时有序，持久无序，持久有序</li>
+<li>Zookeeper通知机制：client端会对某个znode建立一个watcher事件，当该znode发生变化时，这些client会收到zk的通知，然后client可以根据znode变化来做出业务上的改变等。</li>
+<li>概述zk 工作原理：Zookeeper 的核心是原子广播，这个机制保证了各个Server之间的同步。实现这个机制的协议叫做Zab协议。Zab协议有两种模式，它们分别是恢复模式（选主）和广播模式（同步）。当服务启动或者在领导者崩溃后，Zab就进入了恢复模式，当领导者被选举出来，且大多数Server完成了和 leader的状态同步以后，恢复模式就结束了。状态同步保证了leader和Server具有相同的系统状态。</li>
+</ul>
 
       
 
@@ -378,19 +472,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -410,6 +500,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
@@ -418,11 +512,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,6 +541,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

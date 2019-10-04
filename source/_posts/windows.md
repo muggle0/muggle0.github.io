@@ -1,14 +1,8 @@
 ---
 title: windows使用技巧
-date: 2019-05-13 10:04:45
+date: 2019-05-01 10:04:45
 tags: tool
 ---
-
-## window使用技巧
-
-muggle [六个核弹](javascript:void(0);) *2018-11-19*
-
-### window使用技巧
 
 **每次开机都启动一堆软件，很麻烦，该肿么办？**
 

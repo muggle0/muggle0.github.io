@@ -1,7 +1,7 @@
 ---
 title: redis笔记
 date: 2019-05-06 09:53:26
-tags: developing
+tags: redis
 ---
 
 ## redis基础知识
