@@ -1,7 +1,7 @@
 ---
 title: jvm系列之对象引用分析
 date: 2019-05-09 12:02:50
-tags: developing
+tags: jvm
 ---
 
 # java 引用介绍

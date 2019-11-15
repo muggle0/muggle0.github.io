@@ -379,7 +379,8 @@ public class RabbitConfig {
     @Autowired
     public RabbitConfig( RabbitTemplate rabbitTemplate,MyConfirmCallback confirmCallback,MyReturnCallback returnCallback){
 //        rabbitTemplate.setReturnCallback(returnCallback);
-//        rabbitTemplate.setConfirmCallback(confirmCallback);
+//        rabbitTemplate.setConfirmCallback(confirmCallback);+-96
+        
         // 设置事务环境，使得可以使用RabbitMQ事务
         rabbitTemplate.setChannelTransacted(true);
     }
