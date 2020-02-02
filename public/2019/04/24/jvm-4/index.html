@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-e59da44ca1b963c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-2f12466c88adfd82.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-4fd6dd6461485a3c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-18T09:19:14.000Z">
+<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm基础篇四之垃圾收集算法">
 <meta name="twitter:description" content="1 标记-清除算法标记-清除算法是最基础的算法，算法分为标记和清除两个阶段，首先标记出要清除的对象，在标记完后统一回收所有被标记的对象，标记方式为j《jvm系列之垃圾收集器》里面所提到的。这种算法标记和清除两个过程效率都不高；并且在标记清除后，内存空间变得很零散，产生大量内存碎片。当需要分配一个比较大的对象时有可能会导致找不到足够大的内存。">
@@ -28,7 +28,7 @@
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -52,7 +52,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">muggle</a></h1>
@@ -64,18 +64,16 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/2019/03/20/home">主页</a></li>
+				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">所有文章</a></li>
-	        
-				<li><a href="/2019/04/20/photo/">相册</a></li>
+				<li><a href="/2019/03/20/home/">个人简介</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">目录</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
@@ -90,9 +88,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+		        
+					<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+		        
+					<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 		        
 			</div>
 		</nav>
@@ -110,7 +112,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">muggle</h1>
@@ -124,29 +126,29 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+			        
+						<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+			        
+						<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/2019/03/20/home">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/">所有文章</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/2019/04/20/photo/">相册</a></li>
+					<li style="width: 50%"><a href="/2019/03/20/home/">个人简介</a></li>
 		        
 				</ul>
 			</nav>
@@ -190,54 +192,71 @@
 <thead>
 <tr>
 <th>收集器名称</th>
-<th style="text-align:center">区 &emsp; 域</th>
-<th style="text-align:right">说明  &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;</th>
+<th align="center">区 &emsp; 域</th>
+<th align="right">说明  &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Serial</td>
-<td style="text-align:center">新生代</td>
-<td style="text-align:right">单线程，GC时必须停止其它线程直到收集结束；JVM运行在client模式下新生代的默认收集器，简单有效；采用复制算法</td>
+<td align="center">新生代</td>
+<td align="right">单线程，GC时必须停止其它线程直到收集结束；JVM运行在client模式下新生代的默认收集器，简单有效；采用复制算法</td>
 </tr>
 <tr>
 <td>ParNew</td>
-<td style="text-align:center">新生代</td>
-<td style="text-align:right">Serial收集的多线程版，保留Serial的参数控制，算法等，暂停所有用户线程，采用复制算法；JVM运行在server的首先的新生代收集器；只有它能和CMS配合工作</td>
+<td align="center">新生代</td>
+<td align="right">Serial收集的多线程版，保留Serial的参数控制，算法等，暂停所有用户线程，采用复制算法；JVM运行在server的首先的新生代收集器；只有它能和CMS配合工作</td>
 </tr>
 <tr>
 <td>Parallel Scavenge</td>
-<td style="text-align:center">新生代</td>
-<td style="text-align:right">采用复制算法，并行的多线程收集器，与ParNew不同的是，关注点不是停顿时间，而是可控制的吞吐量，即运行用户代码的时间/（运行用户代码的时间+垃圾收集的时间）。可设置最大GC时间和吞吐量大小等参数，也可以让JVM自适应调整策略</td>
+<td align="center">新生代</td>
+<td align="right">采用复制算法，并行的多线程收集器，与ParNew不同的是，关注点不是停顿时间，而是可控制的吞吐量，即运行用户代码的时间/（运行用户代码的时间+垃圾收集的时间）。可设置最大GC时间和吞吐量大小等参数，也可以让JVM自适应调整策略</td>
 </tr>
 <tr>
 <td>CMS</td>
-<td style="text-align:center">新生代</td>
-<td style="text-align:right">concurrent Mark Sweep，已获取最短回收停顿为目标，大部分的互联网站及服务端采用的方式，标记-清除算法</td>
+<td align="center">新生代</td>
+<td align="right">concurrent Mark Sweep，已获取最短回收停顿为目标，大部分的互联网站及服务端采用的方式，标记-清除算法</td>
 </tr>
 <tr>
 <td>G1</td>
-<td style="text-align:center">新生代/老年代</td>
-<td style="text-align:right">收集器最前沿版本，JDK 1.7，代替CMS的新产品</td>
+<td align="center">新生代/老年代</td>
+<td align="right">收集器最前沿版本，JDK 1.7，代替CMS的新产品</td>
 </tr>
 <tr>
 <td>Serial Old（MSC）</td>
-<td style="text-align:center">老年代</td>
-<td style="text-align:right">Serial的老年版，单线程收集器，采用标记-整理算法，主要是client模式的JVM使用</td>
+<td align="center">老年代</td>
+<td align="right">Serial的老年版，单线程收集器，采用标记-整理算法，主要是client模式的JVM使用</td>
 </tr>
 <tr>
 <td>Parallel Old</td>
-<td style="text-align:center">老年代</td>
-<td style="text-align:right">Parallel Scavenge的老年版，多线程，标记整理算法</td>
+<td align="center">老年代</td>
+<td align="right">Parallel Scavenge的老年版，多线程，标记整理算法</td>
 </tr>
-</tbody>
-</table>
-<h3 id="jdk11-垃圾收集器——ZGC"><a href="#jdk11-垃圾收集器——ZGC" class="headerlink" title="jdk11 垃圾收集器——ZGC"></a>jdk11 垃圾收集器——ZGC</h3><p>&emsp; &emsp;（网上搜的）ZGC是一个处于实验阶段的，可扩展的低延迟垃圾回收器，旨在实现以下几个目标：</p>
-<ul>
-<li>停顿时间不超过10ms</li>
-<li>停顿时间不随heap大小或存活对象大小增大而增大</li>
-<li>可以处理从几百兆到几T的内存大小</li>
-</ul>
+<tr>
+<td>### jdk11 垃圾收集器——ZGC</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>&emsp; &emsp;（网上搜的）ZGC是一个处于实验阶段的，可扩展的低延迟垃圾回收器，旨在实现以下几个目标：</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>- 停顿时间不超过10ms</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>- 停顿时间不随heap大小或存活对象大小增大而增大</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td>- 可以处理从几百兆到几T的内存大小</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
 <p>限制：</p>
 <ul>
 <li>当前版本不支持类卸载</li>
@@ -248,32 +267,6 @@
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://oscimg.oschina.net/oscnet/644c5ef3741558453d5c9473e0689a19e9e.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -294,6 +287,57 @@
 
       
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/04/24/jvm-4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -357,7 +401,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 muggle
+    		&copy; 2020 muggle
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -411,7 +455,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">目录</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
@@ -448,11 +492,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,6 +509,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,7 +536,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">photo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,29 +562,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
@@ -568,19 +612,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://www.javaboy.org" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南一点雨</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">
-              <a href="/利" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>卖女孩的小火柴</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
             <li class="search-li">
-              <a href="/国" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
             </li>
           
             <li class="search-li">
-              <a href="/蛤" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
             </li>
           
             <li class="search-li">
@@ -599,7 +643,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">对酒当歌，呵呵呵呵&lt;br&gt;仗剑天涯，奈何没马&lt;br&gt;94年好动型狗子&lt;br&gt;程序猿一枚&lt;br&gt;请赐教</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">90后有梦想的狗子&lt;br&gt;java工程师&lt;br&gt;公众号：六个核弹&lt;br&gt;喜欢就关注我吧</div>
   	  	
     	</section>
     

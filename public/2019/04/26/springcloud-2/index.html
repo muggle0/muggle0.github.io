@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="作者：muggle 服务治理 服务治理是微服务架构中最为核心和基础的模块。它主要用来实现各个微服务实例的自动化注册与发现。随着服务的越来越多，越来越杂，服务之间的调用会越来越复杂，越来越难以管理。而当某个服务发生了变化，或者由于压力性能问题，多部署了几台服务，怎么让服务的消费者知晓变化，就显得很重要了。不然就会存在调用的服务其实已经下线了，但调用者不知道等异常情况。这个时候有个服务组件去统一治理就">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-26T07:29:42.000Z">
+<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springcloud-Eureka">
 <meta name="twitter:description" content="作者：muggle 服务治理 服务治理是微服务架构中最为核心和基础的模块。它主要用来实现各个微服务实例的自动化注册与发现。随着服务的越来越多，越来越杂，服务之间的调用会越来越复杂，越来越难以管理。而当某个服务发生了变化，或者由于压力性能问题，多部署了几台服务，怎么让服务的消费者知晓变化，就显得很重要了。不然就会存在调用的服务其实已经下线了，但调用者不知道等异常情况。这个时候有个服务组件去统一治理就">
@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -48,7 +48,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">muggle</a></h1>
@@ -60,18 +60,16 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/2019/03/20/home">主页</a></li>
+				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">所有文章</a></li>
-	        
-				<li><a href="/2019/04/20/photo/">相册</a></li>
+				<li><a href="/2019/03/20/home/">个人简介</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">目录</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
@@ -86,9 +84,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+		        
+					<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+		        
+					<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 		        
 			</div>
 		</nav>
@@ -106,7 +108,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">muggle</h1>
@@ -120,29 +122,29 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+			        
+						<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+			        
+						<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/2019/03/20/home">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/">所有文章</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/2019/04/20/photo/">相册</a></li>
+					<li style="width: 50%"><a href="/2019/03/20/home/">个人简介</a></li>
 		        
 				</ul>
 			</nav>
@@ -180,60 +182,43 @@
         <p>作者：muggle</p>
 <h3 id="服务治理"><a href="#服务治理" class="headerlink" title="服务治理"></a>服务治理</h3><p> 服务治理是微服务架构中最为核心和基础的模块。它主要用来实现各个微服务实例的自动化注册与发现。随着服务的越来越多，越来越杂，服务之间的调用会越来越复杂，越来越难以管理。而当某个服务发生了变化，或者由于压力性能问题，多部署了几台服务，怎么让服务的消费者知晓变化，就显得很重要了。不然就会存在调用的服务其实已经下线了，但调用者不知道等异常情况。这个时候有个服务组件去统一治理就相当重要了。Eureka便是服务治理的组件。</p>
 <a id="more"></a>
+
 <h3 id="Eureka介绍"><a href="#Eureka介绍" class="headerlink" title="Eureka介绍"></a>Eureka介绍</h3><p> Eureka包含Server和Client两部分。Server也称为注册中心，用于提供服务的注册与发现（服务注册是指微服务在启动时，将自己的信息注册到服务治理组件上的过程，服务发现是指查询可用微服务列表及其网络地址的机制。）。支持高可用配置，依托与强一致性提供良好的服务实例可用性，可以应对多种不同的故障场景。</p>
 <p> Client主要处理服务的注册与发现；客户端服务通过注解和参数配置方式，嵌入在客户端的应用程序代码中，在应用程序启动时，向注册中心注册自身提供的服务并周期性地发送心跳来更新它的服务租约。同时，它也能从服务端查询当前注册的服务信息并把它们缓存到本地并周期性地刷新服务状态。</p>
 <h3 id="创建Eureka服务端"><a href="#创建Eureka服务端" class="headerlink" title="创建Eureka服务端"></a>创建Eureka服务端</h3><p>1.创建一个springboot工程，导入依赖：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
 <p>2.配置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=eureka-service</span><br><span class="line"># 修改端口</span><br><span class="line">server.port=<span class="number">8180</span></span><br><span class="line"></span><br><span class="line"># 实例的主机名称</span><br><span class="line">eureka.instance.hostname=localhost</span><br><span class="line"></span><br><span class="line">## 不要向注册中心注册自己</span><br><span class="line">eureka.client.register-with-eureka=<span class="keyword">false</span></span><br><span class="line">## 表示不去检索其他的服务，因为服务注册中心本身的职责就是维护服务实例，它也不需要去检索其他服务</span><br><span class="line">eureka.client.fetch-registry=<span class="keyword">false</span></span><br><span class="line"></span><br><span class="line"># 指定服务注册中心地址 这里直接指向了本服务 localhost:8180/eureka/</span><br><span class="line"># map对象，使用IDE的提示功能是不会出现 注意大小写</span><br><span class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure>
+
 <p>3.启动类上添加注解@EnableEurekaServer</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EnableEurekaServer</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringcloudApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(SpringcloudApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>启动项目后访问 <a href="http://localhost:8180/" target="_blank" rel="noopener">http://localhost:8180/</a> 就能看到注册中心界面了</p>
 <h3 id="创建Eureka客户端"><a href="#创建Eureka客户端" class="headerlink" title="创建Eureka客户端"></a>创建Eureka客户端</h3><p>Eureka客户端，其实就是服务的提供方，对外提供服务的应用。</p>
 <p>1.创建一个springboot项目，导入依赖</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"><span class="comment">// 写一个接口方便测试</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
 <p>2.配置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=eureka-client</span><br><span class="line">server.port=<span class="number">8080</span></span><br><span class="line"></span><br><span class="line"># 注册中心地址</span><br><span class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//localhost:8180/eureka</span></span><br><span class="line"># 启用ip配置 这样在注册中心列表中看见的是以ip+端口呈现的</span><br><span class="line">eureka.instance.prefer-ip-address=<span class="keyword">true</span></span><br><span class="line"># 实例名称  最后呈现地址：ip:8080</span><br><span class="line">eureka.instance.instance-id=$&#123;spring.cloud.client.ip-address&#125;:$&#123;server.port&#125;</span><br></pre></td></tr></table></figure>
+
 <p>3.启动类加入注解@EnableEurekaClient (也可使用 @EnableDiscoveryClient)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MsetApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MsetApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>4.写个接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RestController</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"sss"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>启动应用，再次访问：<a href="http://localhost:8180/" target="_blank" rel="noopener">http://localhost:8180/</a> ，可以看见服务已经注册成功。</p>
 <h3 id="Eureka自我保护模式"><a href="#Eureka自我保护模式" class="headerlink" title="Eureka自我保护模式"></a>Eureka自我保护模式</h3><p>默认情况下，如果Eureka Server在一定时间内没有接收到某个微服务实例的心跳，Eureka Server将会注销该实例（默认90秒）。但是当网络分区故障发生时，微服务与Eureka Server之间无法正常通信，这就可能变得非常危险了，因为微服务本身是健康的，此时本不应该注销这个微服务。</p>
 <p>Eureka Server通过“自我保护模式”来解决这个问题，当Eureka Server节点在短时间内丢失过多客户端时（可能发生了网络分区故障），那么这个节点就会进入自我保护模式。一旦进入该模式，Eureka Server就会保护服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）。当网络故障恢复后，该Eureka Server节点会自动退出自我保护模式。</p>
 <p>可以通过配置：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eureka.server.enable-self-preservation=<span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+
 <p>关闭自我保护模式。</p>
 <p><a href="http://cloud.spring.io/spring-cloud-static/Finchley.RELEASE/single/spring-cloud.html#_appendix_compendium_of_configuration_properties" target="_blank" rel="noopener">springcloud官方文档</a></p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://oscimg.oschina.net/oscnet/644c5ef3741558453d5c9473e0689a19e9e.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -254,6 +239,57 @@
 
       
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/04/26/springcloud-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -317,7 +353,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 muggle
+    		&copy; 2020 muggle
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -371,7 +407,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">目录</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
@@ -408,11 +444,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -425,6 +461,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -448,7 +488,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">photo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,29 +514,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
@@ -528,19 +564,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://www.javaboy.org" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南一点雨</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">
-              <a href="/利" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>卖女孩的小火柴</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
             <li class="search-li">
-              <a href="/国" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
             </li>
           
             <li class="search-li">
-              <a href="/蛤" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
             </li>
           
             <li class="search-li">
@@ -559,7 +595,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">对酒当歌，呵呵呵呵&lt;br&gt;仗剑天涯，奈何没马&lt;br&gt;94年好动型狗子&lt;br&gt;程序猿一枚&lt;br&gt;请赐教</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">90后有梦想的狗子&lt;br&gt;java工程师&lt;br&gt;公众号：六个核弹&lt;br&gt;喜欢就关注我吧</div>
   	  	
     	</section>
     

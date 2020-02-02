@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="什么是代理&amp;emsp; &amp;emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg &amp;emsp; &amp;emsp;在JDK中提供了实现动态代理模式的机制，cglib也是一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-02T12:01:40.000Z">
+<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java动态代理">
 <meta name="twitter:description" content="什么是代理&amp;emsp; &amp;emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg &amp;emsp; &amp;emsp;在JDK中提供了实现动态代理模式的机制，cglib也是一">
@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -48,7 +48,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">muggle</a></h1>
@@ -60,18 +60,16 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/2019/03/20/home">主页</a></li>
+				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">所有文章</a></li>
-	        
-				<li><a href="/2019/04/20/photo/">相册</a></li>
+				<li><a href="/2019/03/20/home/">个人简介</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">目录</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
@@ -86,9 +84,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+		        
+					<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+		        
+					<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 		        
 			</div>
 		</nav>
@@ -106,7 +108,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">muggle</h1>
@@ -120,29 +122,29 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+			        
+						<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+			        
+						<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/2019/03/20/home">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/">所有文章</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/2019/04/20/photo/">相册</a></li>
+					<li style="width: 50%"><a href="/2019/03/20/home/">个人简介</a></li>
 		        
 				</ul>
 			</nav>
@@ -180,11 +182,18 @@
         <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>&emsp; &emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：<a href="https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg" target="_blank" rel="noopener">https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg</a></p>
 <p>&emsp; &emsp;在JDK中提供了实现动态代理模式的机制，cglib也是一个用于实现动态代理的框架，在这里我介绍jdk自带的动态代理机制是如何使用的。先上代码再慢慢解释：</p>
 <a id="more"></a>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个接口，接口中只有一个抽象方法，这个方法便是将要被代理的方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">test</span><span class="params">(String string)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 一个类实现这个方法，方法里写上自己的逻辑。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectImpl</span> <span class="keyword">implements</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String string)</span> </span>&#123;</span><br><span class="line">      String test=string+string;</span><br><span class="line">      <span class="keyword">return</span> test;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="comment">// 定义一个代理类，这个代理必须要实现invocaHandler 接口，用以指定这个类为一个代理类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyProxy</span><span class="params">( Object target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target=target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实现 invoke方法，这个方法将是后面代码中实际执行的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"开始执行动态代理"</span>);</span><br><span class="line">        Object result=method.invoke(target,args);</span><br><span class="line">        <span class="keyword">return</span>  result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Proxy类为反射机制中的一个类，用于获得代理对象</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="comment">/* newProxyInstance方法的参数解释：</span></span><br><span class="line"><span class="comment">      ** 被代理对象的类加载器：target.getClass().getClassLoader()</span></span><br><span class="line"><span class="comment">      ** 被代理的方法：target.getClass().getInterfaces()</span></span><br><span class="line"><span class="comment">      **代理对象：this</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">        <span class="keyword">return</span> (T) Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(),<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个被代理对象</span></span><br><span class="line">       Subject subject=<span class="keyword">new</span> SubjectImpl();</span><br><span class="line">       <span class="comment">// 创建一个代理对象</span></span><br><span class="line">       Subject proxy=<span class="keyword">new</span> MyProxy(subject).getProxy();</span><br><span class="line">       <span class="comment">// 调用代理的方法</span></span><br><span class="line">       System.out.println(proxy.test(<span class="string">"test"</span>));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">开始执行动态代理</span><br><span class="line">testtest</span><br></pre></td></tr></table></figure></p>
+
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">开始执行动态代理</span><br><span class="line">testtest</span><br></pre></td></tr></table></figure>
+
 <p>&emsp; &emsp;我们知道spring 的AOP是通过动态代理实现的,现在让我们好好分析一下动态代理，示例中定义了一个接口 Subject，一个继承接口的SubjectImpl类,一个实现了InvocationHandler的MyProxy类，并调用了Proxy.newProxyInstance方法。Subject定义了将要被代理执行的方法，SubjectImpl是被代理的类（雇主），MyProxy类是代理执行的类（跑腿的），它的invoke(Object proxy, Method method, Object[] args)方法便是实际被执行的方法，它的第一个参数proxy作用：</p>
 <blockquote>
 <ul>
@@ -197,32 +206,6 @@
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://oscimg.oschina.net/oscnet/644c5ef3741558453d5c9473e0689a19e9e.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -243,6 +226,57 @@
 
       
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/05/13/gclib/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -306,7 +340,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 muggle
+    		&copy; 2020 muggle
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -360,7 +394,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">目录</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
@@ -397,11 +431,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -414,6 +448,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -437,7 +475,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">photo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,29 +501,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
@@ -517,19 +551,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://www.javaboy.org" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南一点雨</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">
-              <a href="/利" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>卖女孩的小火柴</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
             <li class="search-li">
-              <a href="/国" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
             </li>
           
             <li class="search-li">
-              <a href="/蛤" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
             </li>
           
             <li class="search-li">
@@ -548,7 +582,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">对酒当歌，呵呵呵呵&lt;br&gt;仗剑天涯，奈何没马&lt;br&gt;94年好动型狗子&lt;br&gt;程序猿一枚&lt;br&gt;请赐教</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">90后有梦想的狗子&lt;br&gt;java工程师&lt;br&gt;公众号：六个核弹&lt;br&gt;喜欢就关注我吧</div>
   	  	
     	</section>
     

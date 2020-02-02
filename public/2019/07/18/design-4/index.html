@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-02T12:01:24.000Z">
+<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-适配器">
 <meta name="twitter:description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -48,7 +48,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">muggle</a></h1>
@@ -60,18 +60,16 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/2019/03/20/home">主页</a></li>
+				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">所有文章</a></li>
-	        
-				<li><a href="/2019/04/20/photo/">相册</a></li>
+				<li><a href="/2019/03/20/home/">个人简介</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">目录</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
@@ -86,9 +84,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+		        
+					<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+		        
+					<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 		        
 			</div>
 		</nav>
@@ -106,7 +108,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">muggle</h1>
@@ -120,29 +122,29 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+			        
+						<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+			        
+						<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/2019/03/20/home">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/">所有文章</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/2019/04/20/photo/">相册</a></li>
+					<li style="width: 50%"><a href="/2019/03/20/home/">个人简介</a></li>
 		        
 				</ul>
 			</nav>
@@ -186,6 +188,7 @@
 <li>Client：客户类</li>
 </ul>
 <a id="more"></a>
+
 <h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>我们都知道springMVC就用到了适配器模式，那他是怎么适配呢，我们来看看它的源码，首先我们要清楚springMVC的执行原理，它的整个流程我这里就不像述了，说一下关键的部分：</p>
 <ol>
 <li><code>DispatcherServlte</code>会根据配置文件信息注册<code>HandlerAdapter</code>，如果在配置文件中没有配置，那么<code>DispatcherServlte</code>会获取<code>HandlerAdapter</code>的默认配置，如果是读取默认配置的话，<code>DispatcherServlte</code>会读取<code>DispatcherServlte.properties</code>文件,该文件中配置了三种<code>HandlerAdapter</code>：<code>HttpRequestHandlerAdapter</code>，<code>SimpleControllerHandlerAdapter</code>和<code>AnnotationMethodHandlerAdapter</code>。<code>DispatcherServlte</code>会将这三个<code>HandlerAdapter</code>对象存储到它的<code>handlerAdapters</code>这个集合属性中，这样就完成了<code>HandlerAdapter</code>的注册。</li>
@@ -193,41 +196,17 @@
 </ol>
 <p><code>DispatcherServlte</code>部分源码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DispatcherServlet</span> <span class="keyword">extends</span> <span class="title">FrameworkServlet</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;HandlerMapping&gt; handlerMappings;</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;HandlerAdapter&gt; handlerAdapters;</span><br><span class="line"> 	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doDispatch</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HttpServletRequest processedRequest = request;</span><br><span class="line">        HandlerExecutionChain mappedHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">boolean</span> multipartRequestParsed = <span class="keyword">false</span>;</span><br><span class="line">        WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ModelAndView mv = <span class="keyword">null</span>;</span><br><span class="line">                Object dispatchException = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    ......</span><br><span class="line">                    ......</span><br><span class="line"></span><br><span class="line">                    HandlerAdapter ha = <span class="keyword">this</span>.getHandlerAdapter(mappedHandler.getHandler());</span><br><span class="line">                    ......</span><br><span class="line">                    ......</span><br><span class="line"></span><br><span class="line">                    mv = ha.handle(processedRequest, response, mappedHandler.getHandler());</span><br><span class="line">                    <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">this</span>.applyDefaultViewName(processedRequest, mv);</span><br><span class="line">                    mappedHandler.applyPostHandle(processedRequest, response, mv);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception var20) &#123;</span><br><span class="line">                    dispatchException = var20;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable var21) &#123;</span><br><span class="line">				......</span><br><span class="line">                &#125;</span><br><span class="line">			......</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception var22) &#123;</span><br><span class="line">               ......</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable var23) &#123;</span><br><span class="line"> 			  ......</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            ......</span><br><span class="line">            ......</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这里只放上比较关键的代码，我们可以看到当一个请求进入<code>doDispatch()</code>方法的时候，它先去<code>getHandlerAdapter()</code>中拿到适配器，这就是第二步中根据<code>handlerMapping</code>中的<code>controller</code>找到对应适配器。找到适配器后通过<code>ha.handle(processedRequest, response, mappedHandler.getHandler())</code>执行我们自己的<code>controller</code>，<code>mappedHandler.getHandler()</code>就是我们自己的<code>controller</code>。</p>
 <p>至于<code>handler()</code>如何知道该去执行controller中哪个方法，当然是通过注解去转换对应方法的。因此，这里的适配器模式还不是特别的纯粹，还结合了反射机制。<code>DispatcherServlte</code>属于客户端，我们的<code>Controller</code>属于被适配的类，<code>HandlerAdapter</code>属于适配器。</p>
 <p>现在我们假定需要写一个线程池任务调度框架，我们知道JDK自带的线程框架可以创建一个线程池，但是线程池只能传入实现<code>runnable</code>接口或者<code>callable</code>接口的对象。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService cachedThreadPool = Executors.newCachedThreadPool();</span><br><span class="line">cachedThreadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <p>那我们要咋样可以让客户端使用的时候无须继承<code>runnable</code>来使用我们的这个框架呢。你可以像springMVC一样使用适配器加注解。也可以提供一个实现<code>Runnable</code>接口的抽象适配器类，让客户端进行一定的配置来将普通的类适配到<code>Runnable</code>。</p>
 <p>关于适配器的使用方面还有很多，比如<code>spring security</code>的<code>WebSecurityConfigurerAdapter</code>和<code>netty</code>中的<code>ChannelInboundHandlerAdapter</code> 对于适配器模式类名一般都以<code>Adapter</code>结尾</p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://oscimg.oschina.net/oscnet/644c5ef3741558453d5c9473e0689a19e9e.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -248,6 +227,57 @@
 
       
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/07/18/design-4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -311,7 +341,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 muggle
+    		&copy; 2020 muggle
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -365,7 +395,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">目录</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
@@ -402,11 +432,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -419,6 +449,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -442,7 +476,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">photo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,29 +502,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
@@ -522,19 +552,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://www.javaboy.org" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南一点雨</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">
-              <a href="/利" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>卖女孩的小火柴</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
             <li class="search-li">
-              <a href="/国" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
             </li>
           
             <li class="search-li">
-              <a href="/蛤" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
             </li>
           
             <li class="search-li">
@@ -553,7 +583,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">对酒当歌，呵呵呵呵&lt;br&gt;仗剑天涯，奈何没马&lt;br&gt;94年好动型狗子&lt;br&gt;程序猿一枚&lt;br&gt;请赐教</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">90后有梦想的狗子&lt;br&gt;java工程师&lt;br&gt;公众号：六个核弹&lt;br&gt;喜欢就关注我吧</div>
   	  	
     	</section>
     

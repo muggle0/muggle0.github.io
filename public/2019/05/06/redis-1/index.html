@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibiaq4WfV2TDDvyGMsfjVVZ3K8oKEYT6m7YfJQekNiayQ4PfknStVl21QQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibbMvoJzK9ycEft3gcMssde1knu6OlGzgBWlRFRNyZYFuIc3pBUIce7g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYmokRcFGBAhCcEXKrK04yXHyTcYLtNXvWCZjjS5Vl9wWsg323VBBmboGhJ6Ovfia4Pqc2oLadKcqvg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:updated_time" content="2019-08-30T00:20:45.126Z">
+<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis笔记">
 <meta name="twitter:description" content="redis基础知识客户端与服务端的通讯协议是建立在TCP协议之上构建的； redis序列化协议 resp  状态回复（status reply）的第一个字节是 &amp;quot;+&amp;quot; 错误回复（error reply）的第一个字节是 &amp;quot;-&amp;quot; 整数回复（integer reply）的第一个字节是 &amp;quot;:&amp;quot; 批量回复（bulk reply）的第一个字节是 &amp;q">
@@ -28,7 +28,7 @@
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -52,7 +52,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+			<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">muggle</a></h1>
@@ -64,18 +64,16 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/2019/03/20/home">主页</a></li>
+				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/">所有文章</a></li>
-	        
-				<li><a href="/2019/04/20/photo/">相册</a></li>
+				<li><a href="/2019/03/20/home/">个人简介</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">目录</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
@@ -90,9 +88,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+		        
+					<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+		        
+					<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 		        
 			</div>
 		</nav>
@@ -110,7 +112,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/300/format/webp" class="js-avatar">
+				<img src="https://upload.jianshu.io/users/upload_avatars/13612520/3c6496ca-f05e-4c67-98a9-eb774580ad41?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">muggle</h1>
@@ -124,29 +126,29 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/muggle0" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/fighting-v" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="jianshu" target="_blank" href="https://www.jianshu.com/u/9f9dcfd03cea" title="jianshu"><i class="icon-jianshu"></i></a>
+			        
+						<a class="segmentfault" target="_blank" href="https://segmentfault.com/a/1190000020791223" title="segmentfault"><i class="icon-segmentfault"></i></a>
+			        
+						<a class="csdn" target="_blank" href="https://me.csdn.net/qq_40506829" title="csdn"><i class="icon-csdn"></i></a>
 			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/2019/03/20/home">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/">所有文章</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/2019/04/20/photo/">相册</a></li>
+					<li style="width: 50%"><a href="/2019/03/20/home/">个人简介</a></li>
 		        
 				</ul>
 			</nav>
@@ -191,8 +193,10 @@
 <li>多条批量回复（multi bulk reply）的第一个字节是 <code>&quot;*&quot;</code></li>
 </ul>
 <a id="more"></a>
+
 <p>举例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET mykey myvalue</span><br><span class="line">*3\r\n$3\r\nSET\r\n$5\r\mykey\r\n$7\r\myvalue\r\n</span><br></pre></td></tr></table></figure>
+
 <p>指令表：</p>
 <p><a href="http://redisdoc.com/" target="_blank" rel="noopener">redis命令表</a></p>
 <ul>
@@ -441,8 +445,11 @@
 <p>Redis也提供了一些简单的计算功能，比如排序、聚合等，对于这些操作，单线程模型实际会严重影响整体吞吐量，CPU计算过程中，整个IO调度都是被阻塞住的。</p>
 <p><strong>redis分布式锁参考 本博客<a href="https://muggle.javaboy.org/2019/04/23/thread-3/" target="_blank" rel="noopener">多线程进阶篇</a></strong></p>
 <h2 id="springboot-分布式session"><a href="#springboot-分布式session" class="headerlink" title="springboot 分布式session"></a>springboot 分布式session</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>  </span><br><span class="line"><span class="meta">@EnableRedisHttpSession</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisSessionConfig</span> </span>&#123;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.session<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-session-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host=localhost  </span><br><span class="line">spring.redis.port=6379</span><br></pre></td></tr></table></figure>
+
 <p><strong>注意：springboot2.1有包冲突，本配置只适用于2.1以下</strong></p>
 <h2 id="mybatis的二级缓存"><a href="#mybatis的二级缓存" class="headerlink" title="mybatis的二级缓存"></a>mybatis的二级缓存</h2><p>二级缓存是mapper级别的缓存，多个SqlSession去操作同一个Mapper的sql语句，多个SqlSession可以共用二级缓存，二级缓存是跨SqlSession的。</p>
 <p>UserMapper有一个二级缓存区域（按namespace分），其它mapper也有自己的二级缓存区域（按namespace分）。每一个namespace的mapper都有一个二级缓存区域，两个mapper的namespace如果相同，这两个mapper执行sql查询到数据将存在相同的二级缓存区域中。sql节点可配置userCache flushcache</p>
@@ -464,9 +471,13 @@
 <p>mybatis整合ehcache实现分布式缓存、jetcache、spring cache</p>
 <p>jetcache整合笔记：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alicp.jetcache<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetcache-starter-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableMethodCache</span>(basePackages = <span class="string">"com.muggle.jetcahetest"</span>)</span><br><span class="line"><span class="meta">@EnableCreateCacheAnnotation</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JetcaheTestApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(JetcaheTestApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Cached</span>(cacheType = CacheType.REMOTE)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">test</span> <span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerImpl</span> <span class="keyword">implements</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">test</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"&gt;&gt;&gt;"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">666</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>更多文档参考[jetCache github 地址][]</p>
 <p>分布式缓存的应用</p>
 <p>合并批量更新，提高io</p>
@@ -488,85 +499,72 @@
 <p>LRU和LFU的区别。LFU算法是根据在一段时间里数据项被使用的次数选择出最少使用的数据项，即根据使用次数的差异来决定。而LRU是根据使用时间的差异来决定的</p>
 <h2 id="redis运维（抄录自-https-mp-weixin-qq-com-s-TvIxovAi6XfR7RGigtHRtQ）"><a href="#redis运维（抄录自-https-mp-weixin-qq-com-s-TvIxovAi6XfR7RGigtHRtQ）" class="headerlink" title="redis运维（抄录自 https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）"></a>redis运维（抄录自 <a href="https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/TvIxovAi6XfR7RGigtHRtQ）</a></h2><h3 id="快照持久化"><a href="#快照持久化" class="headerlink" title="快照持久化"></a>快照持久化</h3><p>redis中的快照持久化默认是开启的，redis.conf中相关配置主要有如下几项：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br><span class="line">stop-writes-on-bgsave-error yes</span><br><span class="line">rdbcompression yes</span><br><span class="line">dbfilename dump.rdb</span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure>
+
 <p>前面三个save相关的选项表示备份的频率，分别表示<code>900秒内至少一个键被更改则进行快照，300秒内至少10个键被更改则进行快照，60秒内至少10000个键被更改则进行快照，</code>stop-writes-on-bgsave-error表示在快照创建出错后，是否继续执行写命令，rdbcompression则表示是否对快照文件进行压缩，dbfilename表示生成的快照文件的名字，dir则表示生成的快照文件的位置，在redis中，快照持久化默认就是开启的。</p>
 <p>1.在redis运行过程中，我们可以向redis发送一条save命令来创建一个快照，save是一个阻塞命令，redis在接收到save命令之后，开始执行备份操作之后，在备份操作执行完毕之前，将不再处理其他请求，其他请求将被挂起，因此这个命令我们用的不多。save命令执行如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SAVE</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
 <p>2.在redis运行过程中，我们也可以发送一条bgsave命令来创建一个快照，不同于save命令，bgsave命令会fork一个子进程，然后这个子进程负责执行将快照写入硬盘，而父进程则继续处理客户端发来的请求，这样就不会导致客户端命令阻塞了。如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; BGSAVE</span><br><span class="line">Background saving started</span><br></pre></td></tr></table></figure>
+
 <p>3.如果我们在redis.conf中配置了如下选项：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br></pre></td></tr></table></figure>
+
 <p>那么当条件满足时，比如900秒内有一个key被操作了，那么redis就会自动触发bgsava命令进行备份。我们可以根据实际需求在redis.conf中配置多个这种触发规则。</p>
 <p>4.还有一种情况也会触发save命令，那就是我们执行shutdown命令时，当我们用shutdown命令关闭redis时，此时也会执行一个save命令进行备份操作，并在备份操作完成后将服务器关闭。</p>
 <p>5.还有一种特殊情况也会触发bgsave命令，就是在主从备份的时候。当从机连接上主机后，会发送一条sync命令来开始一次复制操作，此时主机会开始一次bgsave操作，并在bgsave操作结束后向从机发送快照数据实现数据同步。</p>
 <h3 id="aof持久化"><a href="#aof持久化" class="headerlink" title="aof持久化"></a>aof持久化</h3><p>与快照持久化不同，AOF持久化是将被执行的命令写到aof文件末尾，在恢复时只需要从头到尾执行一遍写命令即可恢复数据，AOF在redis中默认也是没有开启的，需要我们手动开启，开启方式如下：</p>
 <p>打开redis.conf配置文件，修改appendonly属性值为yes，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+
 <p>另外几个和AOF相关的属性如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line"># appendfsync always</span><br><span class="line">appendfsync everysec</span><br><span class="line"># appendfsync no</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
+
 <p>这几个属性的含义分别如下：</p>
 <p>1.appendfilename表示生成的AOF备份文件的文件名。<br>2.appendfsync表示备份的时机，always表示每执行一个命令就备份一次，everysec表示每秒备份一次，no表示将备份时机交给操作系统。<br>3.no-appendfsync-on-rewrite表示在对aof文件进行压缩时，是否执行同步操作。<br>4.最后两行配置表示AOF文件的压缩时机，这个我们一会再细说。</p>
 <p>同时为了避免快照备份的影响，我们将快照备份关闭，关闭方式如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">save &quot;&quot;</span><br><span class="line"># save 900 1</span><br><span class="line"># save 300 10</span><br><span class="line"># save 60 10000</span><br></pre></td></tr></table></figure>
+
 <p>此时，当我们在redis中进行数据操作时，就会自动生成AOF的配置文件appendonly.aof</p>
 <p>AOF备份的几个关键点</p>
 <p>1.通过上面的介绍，小伙伴们了解到appendfsync的取值一共有三种，我们在项目中首选everysec，always选项会严重降低redis性能。<br>2.使用everysec，最坏的情况下我们可能丢失1秒的数据。</p>
 <p>AOF文件的重写与压缩</p>
 <p>AOF备份有很多明显的优势，当然也有劣势，那就是文件大小。随着系统的运行，AOF的文件会越来越大，甚至把整个电脑的硬盘填满，AOF文件的重写与压缩机制可以在一定程度上缓解这个问题。<br>当AOF的备份文件过大时，我们可以向redis发送一条bgrewriteaof命令进行文件重写，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; BGREWRITEAOF</span><br><span class="line">Background append only file rewriting started</span><br><span class="line">(0.71s)</span><br></pre></td></tr></table></figure>
+
 <p>bgrewriteaof的执行原理和我们上文说的bgsave的原理一致，这里我就不再赘述，因此bgsave执行过程中存在的问题在这里也一样存在。</p>
 <p>bgrewriteaof也可以自动执行，自动执行时间则依赖于auto-aof-rewrite-percentage和auto-aof-rewrite-min-size配置，auto-aof-rewrite-percentage 100表示当目前aof文件大小超过上一次重写时的aof文件大小的百分之多少时会再次进行重写，如果之前没有重写，则以启动时的aof文件大小为依据，同时还要求AOF文件的大小至少要大于64M(auto-aof-rewrite-min-size 64mb)。</p>
 <h3 id="redis主从复制"><a href="#redis主从复制" class="headerlink" title="redis主从复制"></a>redis主从复制</h3><p>6379是主机，即master，6380和6381是从机，即slave，那么如何配置这种实例关系呢，很简单，分别在6380和6381上执行如下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6381&gt; SLAVEOF 127.0.0.1 6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
 <p>这一步也可以通过在两个从机的redis.conf中添加如下配置来解决：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof 127.0.0.1 6379</span><br></pre></td></tr></table></figure>
+
 <p>主从复制注意点</p>
 <p>1.如果主机已经运行了一段时间了，并且了已经存储了一些数据了，此时从机连上来，那么从机会将主机上所有的数据进行备份，而不是从连接的那个时间点开始备份。<br>2.配置了主从复制之后，主机上可读可写，但是从机只能读取不能写入（可以通过修改redis.conf中 slave-read-only 的值让从机也可以执行写操作）。<br>3.在整个主从结构运行过程中，如果主机不幸挂掉，重启之后，他依然是主机，主从复制操作也能够继续进行。</p>
 <p>复制原理</p>
 <p>每一个master都有一个replication ID，这是一个较大的伪随机字符串，标记了一个给定的数据集。每个master也持有一个偏移量，master将自己产生的复制流发送给slave时，发送多少个字节的数据，自身的偏移量就会增加多少，目的是当有新的操作修改自己的数据集时，它可以以此更新slave的状态。复制偏移量即使在没有一个slave连接到master时，也会自增，所以基本上每一对给定的Replication ID, offset都会标识一个master数据集的确切版本。当slave连接到master时，它们使用PSYNC命令来发送它们记录的旧的master replication ID和它们至今为止处理的偏移量。通过这种方式，master能够仅发送slave所需的增量部分。但是如果master的缓冲区中没有足够的命令积压缓冲记录，或者如果slave引用了不再知道的历史记录（replication ID），则会转而进行一个全量重同步：在这种情况下，slave会得到一个完整的数据集副本，从头开始(参考redis官网)。</p>
 <p>简单来说，就是以下几个步骤：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.slave启动成功连接到master后会发送一个sync命令。  </span><br><span class="line">2.Master接到命令启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令。  </span><br><span class="line">3.在后台进程执行完毕之后，master将传送整个数据文件到slave,以完成一次完全同步。  </span><br><span class="line">4.全量复制：而slave服务在接收到数据库文件数据后，将其存盘并加载到内存中。  </span><br><span class="line">5.增量复制：Master继续将新的所有收集到的修改命令依次传给slave,完成同步。  </span><br><span class="line">6.但是只要是重新连接master,一次完全同步（全量复制)将被自动执行。</span><br></pre></td></tr></table></figure>
+
 <p>我们搭建的主从复制模式是下面这样的：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibiaq4WfV2TDDvyGMsfjVVZ3K8oKEYT6m7YfJQekNiayQ4PfknStVl21QQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">  </p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibiaq4WfV2TDDvyGMsfjVVZ3K8oKEYT6m7YfJQekNiayQ4PfknStVl21QQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">  </p>
 <p>实际上，一主二仆的主从复制，我们可以搭建成下面这种结构：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibbMvoJzK9ycEft3gcMssde1knu6OlGzgBWlRFRNyZYFuIc3pBUIce7g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">  </p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYnKsYW7dwk0aaRIrKcESa9ibbMvoJzK9ycEft3gcMssde1knu6OlGzgBWlRFRNyZYFuIc3pBUIce7g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">  </p>
 <p>哨兵模式，其实并不复杂，我们还是在我们前面的基础上来搭建哨兵模式。假设现在我的master是6379，两个从机分别是6380和6381，两个从机都是从6379上复制数据。先按照上文的步骤，我们配置好一主二仆，然后在redis目录下打开sentinel.conf文件，做如下配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor mymaster 127.0.0.1 6379 1</span><br></pre></td></tr></table></figure>
+
 <p>其中mymaster是给要监控的主机取的名字，随意取，后面是主机地址，最后面的2表示有多少个sentinel认为主机挂掉了，就进行切换（我这里只有一个，因此设置为1）。好了，配置完成后，输入如下命令启动哨兵：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel sentinel.conf</span><br></pre></td></tr></table></figure>
+
 <p>6379挂掉之后，redis内部重新举行了选举，6380重新上位。此时，如果6379重启，也不再是扛把子了，只能屈身做一个slave了。</p>
 <h3 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h3><p>Redis集群架构如下图：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYmokRcFGBAhCcEXKrK04yXHyTcYLtNXvWCZjjS5Vl9wWsg323VBBmboGhJ6Ovfia4Pqc2oLadKcqvg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">  </p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/GvtDGKK4uYmokRcFGBAhCcEXKrK04yXHyTcYLtNXvWCZjjS5Vl9wWsg323VBBmboGhJ6Ovfia4Pqc2oLadKcqvg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img">  </p>
 <p>Redis集群运行原理如下：</p>
 <p>1.所有的Redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽<br>2.节点的fail是通过集群中超过半数的节点检测失效时才生效<br>3.客户端与Redis节点直连,不需要中间proxy层，客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可<br>4.Redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster (簇)负责维护<code>node&lt;-&gt;slot&lt;-&gt;value</code>。Redis集群中内置了16384个哈希槽，当需要在Redis集群中放置一个key-value时，Redis先对key使用crc16算法算出一个结果，然后把结果对 16384 求余数，这样每个key都会对应一个编号在 0-16383 之间的哈希槽，Redis 会根据节点数量大致均等的将哈希槽映射到不同的节点</p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://oscimg.oschina.net/oscnet/644c5ef3741558453d5c9473e0689a19e9e.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -587,6 +585,57 @@
 
       
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/05/06/redis-1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -650,7 +699,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 muggle
+    		&copy; 2020 muggle
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -704,7 +753,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">目录</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
@@ -741,11 +790,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,6 +807,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,7 +834,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">photo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,29 +860,13 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
               </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
             
             <div class="clearfix"></div>
           </ul>
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
@@ -861,19 +910,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://www.javaboy.org" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>江南一点雨</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">
-              <a href="/利" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>卖女孩的小火柴</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
             <li class="search-li">
-              <a href="/国" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
             </li>
           
             <li class="search-li">
-              <a href="/蛤" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
             </li>
           
             <li class="search-li">
@@ -892,7 +941,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">对酒当歌，呵呵呵呵&lt;br&gt;仗剑天涯，奈何没马&lt;br&gt;94年好动型狗子&lt;br&gt;程序猿一枚&lt;br&gt;请赐教</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">90后有梦想的狗子&lt;br&gt;java工程师&lt;br&gt;公众号：六个核弹&lt;br&gt;喜欢就关注我吧</div>
   	  	
     	</section>
     
