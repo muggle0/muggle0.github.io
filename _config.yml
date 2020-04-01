@@ -77,10 +77,7 @@ theme: yilia
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repository: git@github.com:muggle0/muggle0.github.io.git
-  branch: master
+
 
 jsonContent:
     meta: false
