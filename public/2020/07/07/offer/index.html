@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>设计模式-命令模式 | muggle</title>
+  <title>4年开发-java-袁泽宁 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
-<meta name="keywords" content="设计模式">
+  <meta name="description" content="个人简历姓 名：  袁泽宁      性 别：男          出生年月：1994年9月  籍 贯：湖南邵阳     学 历：本科      手 机：15013653025 电子邮箱：isocket@outlook.com      工作地点：深圳    毕业院校：河北科技大学 专业技能 有项目管理经验 熟悉Spring 、SpringBoot 及 SpringCloud 框架，阅读过相关源码">
+<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-命令模式">
-<meta property="og:url" content="http://muggle0.github.io/2020/02/02/design-12/index.html">
+<meta property="og:title" content="4年开发-java-袁泽宁">
+<meta property="og:url" content="http://muggle0.github.io/2020/07/07/offer/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+<meta property="og:description" content="个人简历姓 名：  袁泽宁      性 别：男          出生年月：1994年9月  籍 贯：湖南邵阳     学 历：本科      手 机：15013653025 电子邮箱：isocket@outlook.com      工作地点：深圳    毕业院校：河北科技大学 专业技能 有项目管理经验 熟悉Spring 、SpringBoot 及 SpringCloud 框架，阅读过相关源码">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-02T09:38:46.774Z">
+<meta property="og:updated_time" content="2020-07-07T12:21:25.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式-命令模式">
-<meta name="twitter:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+<meta name="twitter:title" content="4年开发-java-袁泽宁">
+<meta name="twitter:description" content="个人简历姓 名：  袁泽宁      性 别：男          出生年月：1994年9月  籍 贯：湖南邵阳     学 历：本科      手 机：15013653025 电子邮箱：isocket@outlook.com      工作地点：深圳    毕业院校：河北科技大学 专业技能 有项目管理经验 熟悉Spring 、SpringBoot 及 SpringCloud 框架，阅读过相关源码">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -159,46 +159,92 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-12" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-offer" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      设计模式-命令模式
+      4年开发-java-袁泽宁
     </h1>
   
 
         
-        <a href="/2020/02/02/design-12/" class="archive-article-date">
-  	<time datetime="2020-02-02T09:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
+        <a href="/2020/07/07/offer/" class="archive-article-date">
+  	<time datetime="2020-07-07T11:34:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。</p>
-<p>在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。</p>
-<p>命令（Command）模式的定义如下：将一个请求封装为一个对象，使发出请求的责任和执行请求的责任分割开。这样两者之间通过命令对象进行沟通，这样方便将命令对象进行储存、传递、调用、增加与管理。<br>命令模式的优点：</p>
+        <h1 id="个人简历"><a href="#个人简历" class="headerlink" title="个人简历"></a>个人简历</h1><p><strong>姓 名：</strong>  <strong>袁泽宁</strong>      <strong>性 别：男</strong>          <strong>出生年月：1994年9月</strong> </p>
+<p><strong>籍 贯：湖南邵阳</strong>     <strong>学 历：本科</strong>      <strong>手 机：15013653025</strong></p>
+<p><strong>电子邮箱：<a href="mailto:isocket@outlook.com" target="_blank" rel="noopener">isocket@outlook.com</a></strong>      <strong>工作地点：深圳</strong>   </p>
+<p><strong>毕业院校：河北科技大学</strong></p>
+<h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><ol>
+<li>有项目管理经验</li>
+<li>熟悉Spring 、SpringBoot 及 SpringCloud 框架，阅读过相关源码；</li>
+<li>熟练使用 Nginx ，RabbitMQ , ZooKeeper，logstash，sharding-jdbc等中间件；</li>
+<li>熟悉Linux及docker，了解 jenkins，gitee ，k8s等工具；</li>
+<li>熟悉并使用过dubbo框架，阅读过相关源码；</li>
+<li>熟悉netty及tcp相关知识；</li>
+<li>熟悉mysql，mongodb，Redis 等数据库，对mysql和redis有较深的理解;</li>
+<li>java基础扎实，熟悉jvm 、并发编程、NIO等知识。</li>
+</ol>
+<h2 id="个人经历"><a href="#个人经历" class="headerlink" title="个人经历"></a>个人经历</h2><p> 广州九富信息科技有限公司    后端开发工程师    2019.9——2020.6</p>
+<p>东莞市海勒科技有限公司        Java 开发组长         2017.3——2019.8</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="林氏木业新平台功能迭代"><a href="#林氏木业新平台功能迭代" class="headerlink" title="林氏木业新平台功能迭代"></a>林氏木业新平台功能迭代</h3><p>开发周期：2019.9-2020.6<br>技术架构：dubbo+restEasy+Mybatis<br>项目描述：对平台下各个服务的功能进行升级<br>责任描述：</p>
 <ul>
-<li>降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦。</li>
-<li>增加或删除命令非常方便。采用命令模式增加与删除命令不会影响其他类，它满足“开闭原则”，对扩展比较灵活。</li>
-<li>可以实现宏命令。命令模式可以与组合模式结合，将多个命令装配成一个组合命令，即宏命令。</li>
-<li>方便实现 Undo 和 Redo 操作。命令模式可以与后面介绍的备忘录模式结合，实现命令的撤销与恢复。</li>
+<li>完成日常平台功能迭代需求</li>
+<li>优化项目组件<br>技术描述：</li>
+<li>dubbo框架的使用</li>
+<li>redis缓存技术的使用</li>
+<li>quartz框架管理定时任务<br>珠宝销售crm系统功能迭代<br>开发周期：2019.4-2019.7<br>技术架构：springboot+MybatisPlus+jetCache<br>项目描述：将原crm系统迁移至珠宝销售平台项目下<br>责任描述：</li>
+<li>部分代码重构与封装</li>
+<li>定时拉取更新广告主等站外信息</li>
+<li>客户留资信息查询与维护</li>
+<li>用户呼叫功能相关历史数据维护<br>技术描述：</li>
+<li>使用项目脚手架对项目进行重构</li>
+<li>使用rabbitMQ对留资信息进行维护</li>
+<li>使用gZip和jetCache 技术提高系统响应效率</li>
+<li>优化sql及数据库结构，提高查询效率</li>
 </ul>
-<h1 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h1><p>命令模式包含以下主要角色：</p>
+<h3 id="珠宝销售客服系统"><a href="#珠宝销售客服系统" class="headerlink" title="珠宝销售客服系统"></a>珠宝销售客服系统</h3><p>开发周期：2018.12-2019.4<br>技术架构：springboot+MybatisPlus+jetCache<br>项目描述：千牛平台下的客服系统，为客服人员提供商品，单据查询等功能<br>责任描述：</p>
 <ul>
-<li>抽象命令类（Command）角色：声明执行命令的接口，拥有执行命令的抽象方法 execute()。</li>
-<li>具体命令角色（Concrete Command）角色：是抽象命令类的具体实现类，它拥有接收者对象，并通过调用接收者的功能来完成命令要执行的操作。</li>
-<li>实现者/接收者（Receiver）角色：执行命令功能的相关操作，是具体命令对象业务的真正实现者。</li>
-<li>调用者/请求者（Invoker）角色：是请求的发送者，它通常拥有很多的命令对象，并通过访问命令对象来执行相关请求，它不直接访问接收者。</li>
+<li>使用公司项目脚手开发珠宝销售平台下的微服务</li>
+<li>对接erp系统查询商品信息并展示在千牛应用上</li>
+<li>提供物流查询，价格计算，问题反馈等功能</li>
+<li>代码审查<br>技术描述：</li>
+<li>淘宝RDS对接，定时更新商品信息</li>
+<li>开发线程池异步功能并模块化</li>
+<li>整合Springboot admin，nacos</li>
 </ul>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>在springboot的redis客户端的<code>redisTemplate</code>类中就有使用到命令模式。<br>在命令模式中，有三个重要的角色，我们只要找到这三个重要的角色就能捋清命令模式的的脉络了，这三个角色是“客户端”，“命令”，“服务端”。<br>在<code>RedisTemplate</code> 中存在一个<code>execute</code> 方法，这个就是服务端执行命令的方法，而它的方法参数<code>RedisCallback</code> 就是命令类了，我们看看如何在客户端构造一个命令给<code>RedisTemplate</code>去执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public boolean lockByLua(String key, String value, Long expiredTime)&#123;</span><br><span class="line">        String strExprie = String.valueOf(expiredTime);</span><br><span class="line">        StringBuilder sb = new StringBuilder();</span><br><span class="line">        sb.append(&quot;if redis.call(\&quot;setnx\&quot;,KEYS[1],ARGV[1])==1 &quot;);</span><br><span class="line">        sb.append(&quot;then &quot;);</span><br><span class="line">        sb.append(&quot;    redis.call(\&quot;pexpire\&quot;,KEYS[1],KEYS[2]) &quot;);</span><br><span class="line">        sb.append(&quot;    return 1 &quot;);</span><br><span class="line">        sb.append(&quot;else &quot;);</span><br><span class="line">        sb.append(&quot;    return 0 &quot;);</span><br><span class="line">        sb.append(&quot;end &quot;);</span><br><span class="line">        String script = sb.toString();</span><br><span class="line">        RedisCallback&lt;Boolean&gt; callback = (connection) -&gt; &#123;</span><br><span class="line">            return connection.eval(script.getBytes(), ReturnType.BOOLEAN, 2, key.getBytes(Charset.forName(&quot;UTF-8&quot;)),strExprie.getBytes(Charset.forName(&quot;UTF-8&quot;)), value.getBytes(Charset.forName(&quot;UTF-8&quot;)));</span><br><span class="line">        &#125;;</span><br><span class="line">        Boolean execute = stringRedisTemplate.execute(callback);</span><br><span class="line">        return execute;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上代码是通过<code>stringRedisTemplate</code>执行一个lua脚本，<code>lockByLua</code>就是客户端的方法。对于命令模式而言，命令执行方法都是按照<code>executeXXX</code>这样的格式命名。</p>
+<h3 id="珠宝销售综合平台"><a href="#珠宝销售综合平台" class="headerlink" title="珠宝销售综合平台"></a>珠宝销售综合平台</h3><p>开发周期：2018.9-2019.3<br>技术架构：alibaba spring cloud<br>项目描述：对原项目全面升级，使用 alibaba spring cloud 组件<br>责任描述：</p>
+<ul>
+<li>开发安全认证模块</li>
+<li>构建springboot脚手架</li>
+<li>搭建简单的系统管理端</li>
+<li>整合 spring cloud 组件</li>
+<li>编写说明文档</li>
+<li>代码审查<br>技术描述：</li>
+<li>开发用户中心微服务，修改 SpringSecurity 源码以适配业务需求 ;</li>
+<li>开发日志中心，收集用户行为日志，整合logstash，对异常细粒度追踪；</li>
+<li>开发项目脚手架，对异常，切面等基础功能进行封装。</li>
+</ul>
+<h3 id="珠宝销售erp系统"><a href="#珠宝销售erp系统" class="headerlink" title="珠宝销售erp系统"></a>珠宝销售erp系统</h3><p>开发周期：2018.2-2018.7<br>技术架构：spingboot +springdata jpa +jedis+poi+spreingSecurity<br>项目描述：管理珠宝原石以及成品进销存，对单据流程进行流程控制，规范化业务员做单流程<br>责任描述：</p>
+<ul>
+<li>参与需求分析，讨论业务方案</li>
+<li>实现报表查询导入导出等功能</li>
+<li>实现业务流程灵活定制<br>技术描述：</li>
+<li>对通用功能的封装，这是后续分布式项目的脚手架原型</li>
+<li>整合flowable工作流引擎，减轻项目开发难度及提高代码规范程度</li>
+<li>整合 spring StateMachine状态机管理单据流转状态</li>
+<li>redis缓存技术提高报表查询效率</li>
+</ul>
+<h3 id="自我评价"><a href="#自我评价" class="headerlink" title="自我评价"></a>自我评价</h3><p>1.有较强的责任感<br>2.具备团队合作意识,善于协调团队中的人际关系</p>
+<p>Github:<a href="https://github.com/muggle0" target="_blank" rel="noopener">https://github.com/muggle0</a><br>博客: <a href="https://muggle.javaboy.org/" target="_blank" rel="noopener">https://muggle.javaboy.org/</a>   <a href="https://muggle-book.gitee.io/" target="_blank" rel="noopener">https://muggle-book.gitee.io/</a></p>
 
       
 
@@ -207,17 +253,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -268,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/02/02/design-12/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/07/07/offer/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,18 +317,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/02/02/design-13/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          设计模式-责任链模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/02/02/design-11/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式-策略模式</div>
+    <a href="/2020/02/02/design-13/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-责任链模式</div>
       <i class="icon-circle-right"></i>
     </a>
   

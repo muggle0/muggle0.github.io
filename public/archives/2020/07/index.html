@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>设计模式-命令模式 | muggle</title>
+  <title>Archives: 2020/7 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
-<meta name="keywords" content="设计模式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-命令模式">
-<meta property="og:url" content="http://muggle0.github.io/2020/02/02/design-12/index.html">
+  <meta name="description" content="我的爪哇和日常记录博客">
+<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
+<meta property="og:type" content="website">
+<meta property="og:title" content="muggle">
+<meta property="og:url" content="http://muggle0.github.io/archives/2020/07/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+<meta property="og:description" content="我的爪哇和日常记录博客">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-02T09:38:46.774Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式-命令模式">
-<meta name="twitter:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+<meta name="twitter:title" content="muggle">
+<meta name="twitter:description" content="我的爪哇和日常记录博客">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -159,174 +158,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-12" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      设计模式-命令模式
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/07/07/offer/" class="archive-article-date">
+  	<time datetime="2020-07-07T11:34:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-07</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/07/07/offer/">4年开发-java-袁泽宁</a>
     </h1>
   
 
-        
-        <a href="/2020/02/02/design-12/" class="archive-article-date">
-  	<time datetime="2020-02-02T09:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。</p>
-<p>在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。</p>
-<p>命令（Command）模式的定义如下：将一个请求封装为一个对象，使发出请求的责任和执行请求的责任分割开。这样两者之间通过命令对象进行沟通，这样方便将命令对象进行储存、传递、调用、增加与管理。<br>命令模式的优点：</p>
-<ul>
-<li>降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦。</li>
-<li>增加或删除命令非常方便。采用命令模式增加与删除命令不会影响其他类，它满足“开闭原则”，对扩展比较灵活。</li>
-<li>可以实现宏命令。命令模式可以与组合模式结合，将多个命令装配成一个组合命令，即宏命令。</li>
-<li>方便实现 Undo 和 Redo 操作。命令模式可以与后面介绍的备忘录模式结合，实现命令的撤销与恢复。</li>
-</ul>
-<h1 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h1><p>命令模式包含以下主要角色：</p>
-<ul>
-<li>抽象命令类（Command）角色：声明执行命令的接口，拥有执行命令的抽象方法 execute()。</li>
-<li>具体命令角色（Concrete Command）角色：是抽象命令类的具体实现类，它拥有接收者对象，并通过调用接收者的功能来完成命令要执行的操作。</li>
-<li>实现者/接收者（Receiver）角色：执行命令功能的相关操作，是具体命令对象业务的真正实现者。</li>
-<li>调用者/请求者（Invoker）角色：是请求的发送者，它通常拥有很多的命令对象，并通过访问命令对象来执行相关请求，它不直接访问接收者。</li>
-</ul>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>在springboot的redis客户端的<code>redisTemplate</code>类中就有使用到命令模式。<br>在命令模式中，有三个重要的角色，我们只要找到这三个重要的角色就能捋清命令模式的的脉络了，这三个角色是“客户端”，“命令”，“服务端”。<br>在<code>RedisTemplate</code> 中存在一个<code>execute</code> 方法，这个就是服务端执行命令的方法，而它的方法参数<code>RedisCallback</code> 就是命令类了，我们看看如何在客户端构造一个命令给<code>RedisTemplate</code>去执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public boolean lockByLua(String key, String value, Long expiredTime)&#123;</span><br><span class="line">        String strExprie = String.valueOf(expiredTime);</span><br><span class="line">        StringBuilder sb = new StringBuilder();</span><br><span class="line">        sb.append(&quot;if redis.call(\&quot;setnx\&quot;,KEYS[1],ARGV[1])==1 &quot;);</span><br><span class="line">        sb.append(&quot;then &quot;);</span><br><span class="line">        sb.append(&quot;    redis.call(\&quot;pexpire\&quot;,KEYS[1],KEYS[2]) &quot;);</span><br><span class="line">        sb.append(&quot;    return 1 &quot;);</span><br><span class="line">        sb.append(&quot;else &quot;);</span><br><span class="line">        sb.append(&quot;    return 0 &quot;);</span><br><span class="line">        sb.append(&quot;end &quot;);</span><br><span class="line">        String script = sb.toString();</span><br><span class="line">        RedisCallback&lt;Boolean&gt; callback = (connection) -&gt; &#123;</span><br><span class="line">            return connection.eval(script.getBytes(), ReturnType.BOOLEAN, 2, key.getBytes(Charset.forName(&quot;UTF-8&quot;)),strExprie.getBytes(Charset.forName(&quot;UTF-8&quot;)), value.getBytes(Charset.forName(&quot;UTF-8&quot;)));</span><br><span class="line">        &#125;;</span><br><span class="line">        Boolean execute = stringRedisTemplate.execute(callback);</span><br><span class="line">        return execute;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        <div class="article-info info-on-right">
+          
+          
 
-<p>以上代码是通过<code>stringRedisTemplate</code>执行一个lua脚本，<code>lockByLua</code>就是客户端的方法。对于命令模式而言，命令执行方法都是按照<code>executeXXX</code>这样的格式命名。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/02/02/design-12/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/02/02/design-13/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          设计模式-责任链模式
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/02/02/design-11/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式-策略模式</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -349,8 +223,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
