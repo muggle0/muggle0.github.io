@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>设计模式-适配器 | muggle</title>
+  <title>java-code | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
-<meta name="keywords" content="设计模式">
+  <meta name="description" content="操作码介绍我们都知在Java中我们的类会被编译成字节码然后放到虚拟机中去执行，字节码里面的内容其实我们也是可以去“阅读”的，方法就是通过 jdk自带的工具翻译成操作码。在操作码中我们能看到一些我们平时看不到的关于java的秘密。 Java虚拟机的指令由一个字节长度的的数字以及跟随其后的零至多个代表此操作所需的参数构成。即：Java指令 = 操作码 + 操作数。Java虚拟机本身是采用面向操作数栈而">
+<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-适配器">
-<meta property="og:url" content="http://muggle0.github.io/2019/07/18/design-4/index.html">
+<meta property="og:title" content="java-code">
+<meta property="og:url" content="http://muggle0.github.io/2020/09/07/java-code/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
+<meta property="og:description" content="操作码介绍我们都知在Java中我们的类会被编译成字节码然后放到虚拟机中去执行，字节码里面的内容其实我们也是可以去“阅读”的，方法就是通过 jdk自带的工具翻译成操作码。在操作码中我们能看到一些我们平时看不到的关于java的秘密。 Java虚拟机的指令由一个字节长度的的数字以及跟随其后的零至多个代表此操作所需的参数构成。即：Java指令 = 操作码 + 操作数。Java虚拟机本身是采用面向操作数栈而">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
+<meta property="og:updated_time" content="2020-09-07T07:02:35.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式-适配器">
-<meta name="twitter:description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
+<meta name="twitter:title" content="java-code">
+<meta name="twitter:description" content="操作码介绍我们都知在Java中我们的类会被编译成字节码然后放到虚拟机中去执行，字节码里面的内容其实我们也是可以去“阅读”的，方法就是通过 jdk自带的工具翻译成操作码。在操作码中我们能看到一些我们平时看不到的关于java的秘密。 Java虚拟机的指令由一个字节长度的的数字以及跟随其后的零至多个代表此操作所需的参数构成。即：Java指令 = 操作码 + 操作数。Java虚拟机本身是采用面向操作数栈而">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -159,51 +159,113 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-4" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java-code" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      设计模式-适配器
+      java-code
     </h1>
   
 
         
-        <a href="/2019/07/18/design-4/" class="archive-article-date">
-  	<time datetime="2019-07-18T12:19:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-18</time>
+        <a href="/2020/09/07/java-code/" class="archive-article-date">
+  	<time datetime="2020-09-07T06:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>适配器模式包含如下角色：</p>
-<ul>
-<li>Target：目标抽象类</li>
-<li>Adapter：适配器类</li>
-<li>Adaptee：适配者类</li>
-<li>Client：客户类</li>
-</ul>
+        <h1 id="操作码介绍"><a href="#操作码介绍" class="headerlink" title="操作码介绍"></a>操作码介绍</h1><p>我们都知在Java中我们的类会被编译成字节码然后放到虚拟机中去执行，字节码里面的内容其实我们也是可以去“阅读”的，方法就是通过 jdk自带的工具翻译成操作码。在操作码中我们能看到一些我们平时看不到的关于java的秘密。</p>
+<p>Java虚拟机的指令由一个字节长度的的数字以及跟随其后的零至多个代表此操作所需的参数构成。即：Java指令 = 操作码 + 操作数。Java虚拟机本身是采用面向操作数栈而不是寄存器的架构，所以大多数的指令都不包含操作数，只有一个操作码。通过阅读操作码我们能直观的看到一些方法的执行过程。</p>
 <a id="more"></a>
 
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>我们都知道springMVC就用到了适配器模式，那他是怎么适配呢，我们来看看它的源码，首先我们要清楚springMVC的执行原理，它的整个流程我这里就不像述了，说一下关键的部分：</p>
-<ol>
-<li><code>DispatcherServlte</code>会根据配置文件信息注册<code>HandlerAdapter</code>，如果在配置文件中没有配置，那么<code>DispatcherServlte</code>会获取<code>HandlerAdapter</code>的默认配置，如果是读取默认配置的话，<code>DispatcherServlte</code>会读取<code>DispatcherServlte.properties</code>文件,该文件中配置了三种<code>HandlerAdapter</code>：<code>HttpRequestHandlerAdapter</code>，<code>SimpleControllerHandlerAdapter</code>和<code>AnnotationMethodHandlerAdapter</code>。<code>DispatcherServlte</code>会将这三个<code>HandlerAdapter</code>对象存储到它的<code>handlerAdapters</code>这个集合属性中，这样就完成了<code>HandlerAdapter</code>的注册。</li>
-<li><code>DispatcherServlte</code>会根据<code>handlerMapping</code>传过来的<code>controller</code>与已经注册好了的<code>HandlerAdapter</code>一一匹配，看哪一种<code>HandlerAdapter</code>是支持该controller类型的，如果找到了其中一种<code>HandlerAdapter</code>是支持传过来的<code>controller</code>类型，那么该<code>HandlerAdapter</code>会调用自己的handle方法，handle方法运用java的反射机制执行controller的具体方法来获得<code>ModelAndView</code></li>
-</ol>
-<p><code>DispatcherServlte</code>部分源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DispatcherServlet</span> <span class="keyword">extends</span> <span class="title">FrameworkServlet</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;HandlerMapping&gt; handlerMappings;</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;HandlerAdapter&gt; handlerAdapters;</span><br><span class="line"> 	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doDispatch</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HttpServletRequest processedRequest = request;</span><br><span class="line">        HandlerExecutionChain mappedHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">boolean</span> multipartRequestParsed = <span class="keyword">false</span>;</span><br><span class="line">        WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ModelAndView mv = <span class="keyword">null</span>;</span><br><span class="line">                Object dispatchException = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    ......</span><br><span class="line">                    ......</span><br><span class="line"></span><br><span class="line">                    HandlerAdapter ha = <span class="keyword">this</span>.getHandlerAdapter(mappedHandler.getHandler());</span><br><span class="line">                    ......</span><br><span class="line">                    ......</span><br><span class="line"></span><br><span class="line">                    mv = ha.handle(processedRequest, response, mappedHandler.getHandler());</span><br><span class="line">                    <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">this</span>.applyDefaultViewName(processedRequest, mv);</span><br><span class="line">                    mappedHandler.applyPostHandle(processedRequest, response, mv);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception var20) &#123;</span><br><span class="line">                    dispatchException = var20;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable var21) &#123;</span><br><span class="line">				......</span><br><span class="line">                &#125;</span><br><span class="line">			......</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception var22) &#123;</span><br><span class="line">               ......</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable var23) &#123;</span><br><span class="line"> 			  ......</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            ......</span><br><span class="line">            ......</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="查看操作码"><a href="#查看操作码" class="headerlink" title="查看操作码"></a>查看操作码</h2><p>我们随便找一个 .class 文件(我这里是Test.class)，然后在命令行执行:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -v -l -p -s -sysinfo  -constants Test.class</span><br></pre></td></tr></table></figure>
 
-<p>这里只放上比较关键的代码，我们可以看到当一个请求进入<code>doDispatch()</code>方法的时候，它先去<code>getHandlerAdapter()</code>中拿到适配器，这就是第二步中根据<code>handlerMapping</code>中的<code>controller</code>找到对应适配器。找到适配器后通过<code>ha.handle(processedRequest, response, mappedHandler.getHandler())</code>执行我们自己的<code>controller</code>，<code>mappedHandler.getHandler()</code>就是我们自己的<code>controller</code>。</p>
-<p>至于<code>handler()</code>如何知道该去执行controller中哪个方法，当然是通过注解去转换对应方法的。因此，这里的适配器模式还不是特别的纯粹，还结合了反射机制。<code>DispatcherServlte</code>属于客户端，我们的<code>Controller</code>属于被适配的类，<code>HandlerAdapter</code>属于适配器。</p>
-<p>现在我们假定需要写一个线程池任务调度框架，我们知道JDK自带的线程框架可以创建一个线程池，但是线程池只能传入实现<code>runnable</code>接口或者<code>callable</code>接口的对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService cachedThreadPool = Executors.newCachedThreadPool();</span><br><span class="line">cachedThreadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><code>Test.java</code> 源码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String a;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String STR=<span class="string">"hello word"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(STR);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>那我们要咋样可以让客户端使用的时候无须继承<code>runnable</code>来使用我们的这个框架呢。你可以像springMVC一样使用适配器加注解。也可以提供一个实现<code>Runnable</code>接口的抽象适配器类，让客户端进行一定的配置来将普通的类适配到<code>Runnable</code>。</p>
-<p>关于适配器的使用方面还有很多，比如<code>spring security</code>的<code>WebSecurityConfigurerAdapter</code>和<code>netty</code>中的<code>ChannelInboundHandlerAdapter</code> 对于适配器模式类名一般都以<code>Adapter</code>结尾</p>
+<p>执行指令后可在命令行窗口看到:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">Classfile /G:Test.class</span><br><span class="line">  Last modified <span class="number">2020</span>-<span class="number">8</span>-<span class="number">9</span>; size <span class="number">585</span> bytes</span><br><span class="line">  MD5 checksum <span class="number">09</span>bb7ece9c879902984714504494a9e3</span><br><span class="line">  Compiled from <span class="string">"Test.java"</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span></span><br><span class="line">  minor version: 0</span><br><span class="line">  major version: <span class="number">52</span></span><br><span class="line">  flags: ACC_PUBLIC, ACC_SUPER</span><br><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #6.#24         // java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">   #2 = Fieldref           #25.#26        // java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">   #3 = Class              #27            // Test</span><br><span class="line">   #4 = String             #28            // hello word</span><br><span class="line">   #5 = Methodref          #29.#30        // java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">   #6 = Class              #31            // java/lang/Object</span><br><span class="line">   #7 = Utf8               a</span><br><span class="line">   #8 = Utf8               Ljava/lang/String;</span><br><span class="line">   #9 = Utf8               STR</span><br><span class="line">  #10 = Utf8               ConstantValue</span><br><span class="line">  #11 = Utf8               &lt;init&gt;</span><br><span class="line">  #12 = Utf8               ()V</span><br><span class="line">  #13 = Utf8               Code</span><br><span class="line">  #14 = Utf8               LineNumberTable</span><br><span class="line">  #15 = Utf8               LocalVariableTable</span><br><span class="line">  #16 = Utf8               this</span><br><span class="line">  #17 = Utf8               LTest;</span><br><span class="line">  #18 = Utf8               main</span><br><span class="line">  #19 = Utf8               ([Ljava/lang/String;)V</span><br><span class="line">  #20 = Utf8               args</span><br><span class="line">  #21 = Utf8               [Ljava/lang/String;</span><br><span class="line">  #22 = Utf8               SourceFile</span><br><span class="line">  #23 = Utf8               Test.java</span><br><span class="line">  #24 = NameAndType        #11:#12        // "&lt;init&gt;":()V</span><br><span class="line">  #25 = Class              #32            // java/lang/System</span><br><span class="line">  #26 = NameAndType        #33:#34        // out:Ljava/io/PrintStream;</span><br><span class="line">  #27 = Utf8               Test</span><br><span class="line">  #28 = Utf8               hello word</span><br><span class="line">  #29 = Class              #35            // java/io/PrintStream</span><br><span class="line">  #30 = NameAndType        #36:#37        // println:(Ljava/lang/String;)V</span><br><span class="line">  #31 = Utf8               java/lang/Object</span><br><span class="line">  #32 = Utf8               java/lang/System</span><br><span class="line">  #33 = Utf8               out</span><br><span class="line">  #34 = Utf8               Ljava/io/PrintStream;</span><br><span class="line">  #35 = Utf8               java/io/PrintStream</span><br><span class="line">  #36 = Utf8               println</span><br><span class="line">  #37 = Utf8               (Ljava/lang/String;)V</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">private</span> java.lang.String a;</span><br><span class="line">    descriptor: Ljava/lang/String;</span><br><span class="line">    flags: ACC_PRIVATE</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> java.lang.String STR = <span class="string">"hello word"</span>;</span><br><span class="line">    descriptor: Ljava/lang/String;</span><br><span class="line">    flags: ACC_PRIVATE, ACC_STATIC, ACC_FINAL</span><br><span class="line">    ConstantValue: String hello word</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Test</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: invokespecial #1                  // Method java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">         <span class="number">4</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">1</span>: <span class="number">0</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">5</span>     <span class="number">0</span>  <span class="keyword">this</span>   LTest;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">         3: ldc           #4                  // String hello word</span><br><span class="line">         5: invokevirtual #5                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">         <span class="number">8</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">5</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">6</span>: <span class="number">8</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">9</span>     <span class="number">0</span>  args   [Ljava/lang/String;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有的小伙伴可能没有将 jdk的bin目录配置到环境变量，执行<code>javap</code>指令的时候识别不了该指令，我们只需要指定指令的全路径就ok了，比如我的 bin 目录是 <code>C:\jdk\bin</code> 那我的指令就是 <code>C:\jdk\bin\javap.exe -v -l -p -s -sy、sinfo  -constants Test.class</code>。javap 指令的参数含义可以通过 <code>javap -help</code>查看 这里不多做介绍。</p>
+<h2 id="操作码阅读指南"><a href="#操作码阅读指南" class="headerlink" title="操作码阅读指南"></a>操作码阅读指南</h2><p>通过命令行窗口输出的内容分为以下几个部分：</p>
+<ul>
+<li>Classfile 是一些类信息，</li>
+<li>Constant pool 是编译时常量池，<code>Constant pool</code> 中我们能看到方法信息、变量信息、关键字信息等，</li>
+<li>{} 里面的内容是方法的一些执行指令。</li>
+</ul>
+<p>我们将字节码文件翻译成了操作码，里面的信息量很大，别着急，我们一点点的去解读。Classfile部分是一些类信息，这一部分不是我们研究的重点，因此我这里不做太多介绍。<br>阅读操作码我们需要去查阅操作码指令表，在网上就能搜到。我在这里罗列一些比较重要的操作码。</p>
+<p>数据类型相关</p>
+<ul>
+<li>iload指令用于从局部变量表中加载int型的数据到操作数栈中；</li>
+<li>fload指令则是从局部变量表中加载float类型的数据到操作数栈中；</li>
+<li>i代表int类型，l代表long类型，s代表short类型，b代表byte类型，a代表reference类型；以此类推</li>
+</ul>
+<p>加载和存储指令相关</p>
+<ul>
+<li>将一个局部变量加载到操作数栈，有iload、iload_<n>、lload、lload_<n>、aload、aload_<n>等</n></n></n></li>
+<li>将一个数值从操作数栈存储到局部变量表，有istore、istore_<n>、lstore、lstore_<n>、astore、astore_<n>等</n></n></n></li>
+<li>将一个常量加载到操作数栈，有bipush、sipush、ldc、aconst_null、iconst_<i>等</i></li>
+</ul>
+<p>运算指令相关</p>
+<ul>
+<li>加法指令 iadd、ladd、fadd、dadd，</li>
+<li>减法指令 isub、lsub、fsub、dsub，</li>
+<li>乘法指令 imul、lmul、fmul、dmul，</li>
+<li>除法指令 idiv、ldiv、fdiv、ddiv，</li>
+<li>求余指令 irem、lrem、frem、drem</li>
+<li>取反指令 ineg、lneg、fneg、dneg</li>
+<li>位指令 ior、lor 是或运算，iand、land 是与运算 ixor、lxor 是异或运算</li>
+<li>其他 iinc 是自增运算 dcmpg、dcmpl、fcmpg、fcmpl、lcmp 是比较运算</li>
+</ul>
+<p>操作数栈指令</p>
+<ul>
+<li>出栈指令 pop、pop2 </li>
+<li>复制压栈 dup、dup2、dup_x1、dup2_x1、dup_x2、dup2_x2</li>
+<li>将栈最顶端的两个数值互换 swap</li>
+<li>条件分支 ifeq、iflt、ifle、ifne </li>
+<li>无条件分支 goto、goto_w、jsr、jsr_w、ret</li>
+<li>复合条件分支tableswitch、lookupswitch</li>
+</ul>
+<p>方法调用相关</p>
+<ul>
+<li>方法返回值类型表示方式 ()V 表示 void 方法  ()Ljava/lang/String 表示 返回 String 类型，()I 表示返回int类型，以此类推</li>
+<li>invokevirtual指令用于调用对象的实例方法，</li>
+<li>invokeinterface指令用于调用接口方法，</li>
+<li>invokespecial指令用于调用一些需要特殊处理的实例方法</li>
+<li>invokestatic指令用于调用静态方法</li>
+<li>invokedynamic指令用于在运行时动态解析出调用点限定符所引用的方法</li>
+<li>athrow指令用来实现显式抛出异常的操作</li>
+<li>monitorenter和monitorexit两条指令来支持synchronized关键字的语义</li>
+</ul>
+<h2 id="操作码相关源码解读"><a href="#操作码相关源码解读" class="headerlink" title="操作码相关源码解读"></a>操作码相关源码解读</h2><p>前文提到过操作码可以看到 java 的一些秘密，下面我们由难到易解读几个案例。</p>
+<p><strong>案例一 this 关键字的加载时机</strong></p>
+<p>我们思考下面一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String test;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">"执行动态代码块"</span>);</span><br><span class="line">        <span class="keyword">this</span>.test=<span class="string">"执行动态代码块"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(test);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码相信有工作经验的朋友都研究过，但是现在我们不是来讨论代码的额执行顺序，而是讨论另外一个问题：为什么动态代码块里面可以用 this 关键字？ 我们思考一下，this代指当前对象，而构造函数还没有执行我们哪来的对象？那还没有对象，我们的this又指向谁？这是一个值得思考的问题。那我们来看看这段代码的操作码吧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Test</span><span class="params">()</span></span>;</span><br><span class="line">   descriptor: ()V</span><br><span class="line">   flags: ACC_PUBLIC</span><br><span class="line">   Code:</span><br><span class="line">     stack=<span class="number">2</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">        <span class="number">0</span>: aload_0</span><br><span class="line">        1: invokespecial #1                  // Method java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">        4: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">        7: ldc           #3                  // String 执行动态代码块</span><br><span class="line">        9: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">       <span class="number">12</span>: aload_0</span><br><span class="line">       13: ldc           #3                  // String 执行动态代码块</span><br><span class="line">       15: putfield      #5                  // Field test:Ljava/lang/String;</span><br><span class="line">       18: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">       <span class="number">21</span>: aload_0</span><br><span class="line">       22: getfield      #5                  // Field test:Ljava/lang/String;</span><br><span class="line">       25: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">       <span class="number">28</span>: <span class="keyword">return</span></span><br><span class="line">     LineNumberTable:</span><br><span class="line">       line <span class="number">9</span>: <span class="number">0</span></span><br><span class="line">       line <span class="number">5</span>: <span class="number">4</span></span><br><span class="line">       line <span class="number">6</span>: <span class="number">12</span></span><br><span class="line">       line <span class="number">10</span>: <span class="number">18</span></span><br><span class="line">       line <span class="number">11</span>: <span class="number">28</span></span><br><span class="line">     LocalVariableTable:</span><br><span class="line">       Start  Length  Slot  Name   Signature</span><br><span class="line">           <span class="number">0</span>      <span class="number">29</span>     <span class="number">0</span>  <span class="keyword">this</span>   LTest;</span><br></pre></td></tr></table></figure>
+
+<p>我们仔细阅读发现，其实它的构造方法组成并不是我们在类里面看到的那样，第一步先执行 <code>aload_0</code> 然后 通过<code>invokespecial</code> 指令调用了 对象初始化方法 <code>&lt;init&gt;</code> ，然后再是正真的执行我们构造函数自己的逻辑。注意了，这里的 <code>aload_0</code> 就是加载this关键字，也就是其实动态代码块是直接编译在构造函数之中的，而且 this关键字的产生是对象产生的第一步；也就是说我们创建的对象从操作码的角度来讲，首先就是先加载一个 this 上来，然后再初始化对象，再实例化对象。</p>
+<p>案例二 sychornized 关键字原理。</p>
+<p>sychornized 从操作码的层面来观察是比较直观的，我们百度sychornized关键字原理的时候，通常是这么解释的：jvm基于进入和退出 <code>Monitor</code> 对象来实现方法同步和代码块同步，而这个 <code>Monitor</code> 是存储在Java对象头里的。<br>我们理解起来可能比较抽象，让我们读操作码来分析吧：</p>
+<p>同步方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title">testSyn</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(Test.class)&#123;</span><br><span class="line">        System.out.println(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的部分操作码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testSyn</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">   descriptor: (I)V</span><br><span class="line">   flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">   Code:</span><br><span class="line">     stack=<span class="number">2</span>, locals=<span class="number">3</span>, args_size=<span class="number">1</span></span><br><span class="line">        0: ldc           #6                  // class Test</span><br><span class="line">        <span class="number">2</span>: dup</span><br><span class="line">        <span class="number">3</span>: astore_1</span><br><span class="line">        <span class="number">4</span>: monitorenter</span><br><span class="line">        5: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;</span><br><span class="line">        8: ldc           #7                  // String &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span><br><span class="line">       10: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V</span><br><span class="line">       <span class="number">13</span>: aload_1</span><br><span class="line">       <span class="number">14</span>: monitorexit</span><br><span class="line">       <span class="number">15</span>: goto          <span class="number">23</span></span><br><span class="line">       <span class="number">18</span>: astore_2</span><br><span class="line">       <span class="number">19</span>: aload_1</span><br><span class="line">       <span class="number">20</span>: monitorexit</span><br><span class="line">       <span class="number">21</span>: aload_2</span><br><span class="line">       <span class="number">22</span>: athrow</span><br><span class="line">       <span class="number">23</span>: <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<p>结合前文的操作码指令介绍，我们可以看到同步代码块的执行过程，先执行 monitorenter 指令获取锁，当获取锁成功，执行下面的指令，最后 monitorexit 释放锁，monitorenter 被jvm封装成一个完整指令，其执行原理就是前面所说的内容，而再往深究的话就是通过互斥原语（CPU lock 指令加 对象头锁标记位）来实现的。</p>
+<p>案例三 对象初始化死锁。</p>
+<p>这是一个很有意思的题，在b站上能搜到它的操作码分析视频，关键字  小马哥每日一问 2019.07.18 期 。我把题目贴出来，大佬们自己动手研究一下，阅后习题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> initialized=<span class="keyword">false</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">static</span> &#123;</span><br><span class="line">      Thread t=<span class="keyword">new</span> Thread(()-&gt; initialized=<span class="keyword">true</span>);</span><br><span class="line">      t.start();</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          t.join();</span><br><span class="line">      &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(e);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(initialized);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">以上程序输出内容是？</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>. <span class="keyword">true</span></span><br><span class="line"><span class="number">2</span>. <span class="keyword">false</span></span><br><span class="line"><span class="number">3</span>. 编译错误</span><br><span class="line"><span class="number">4</span>. 以上答案都不对</span><br></pre></td></tr></table></figure>
+
+<p>上面这个题目是很有意思的，小伙伴们仔细研究一下。</p>
 
       
 
@@ -212,17 +274,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -273,7 +324,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/07/18/design-4/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/09/07/java-code/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -287,18 +338,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/02/intresting/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          鸟瞰MYSQL
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/17/design-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式——桥接模式</div>
+    <a href="/2020/02/02/design-13/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-责任链模式</div>
       <i class="icon-circle-right"></i>
     </a>
   

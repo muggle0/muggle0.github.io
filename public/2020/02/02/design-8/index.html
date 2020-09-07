@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>设计模式-装饰器模式（Decorator） | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。 模式结构装饰器模式的角色如下：  顶层接口 被装饰者 装饰器抽象类 装饰器  源码导读装饰">
+  <meta name="description" content="装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式-装饰器模式（Decorator）">
 <meta property="og:url" content="http://muggle0.github.io/2020/02/02/design-8/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。 模式结构装饰器模式的角色如下：  顶层接口 被装饰者 装饰器抽象类 装饰器  源码导读装饰">
+<meta property="og:description" content="装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-02T09:34:24.369Z">
+<meta property="og:updated_time" content="2020-09-07T07:03:12.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-装饰器模式（Decorator）">
-<meta name="twitter:description" content="装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。 模式结构装饰器模式的角色如下：  顶层接口 被装饰者 装饰器抽象类 装饰器  源码导读装饰">
+<meta name="twitter:description" content="装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -180,6 +180,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。</p>
+<a id="more"></a>
+
 <h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>装饰器模式的角色如下：</p>
 <ul>
 <li>顶层接口</li>
@@ -430,10 +432,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
@@ -446,7 +444,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,15 +452,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

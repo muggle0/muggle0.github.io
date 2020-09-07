@@ -160,6 +160,72 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java-code" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/07/java-code/">java-code</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/07/java-code/" class="archive-article-date">
+  	<time datetime="2020-09-07T06:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="操作码介绍"><a href="#操作码介绍" class="headerlink" title="操作码介绍"></a>操作码介绍</h1><p>我们都知在Java中我们的类会被编译成字节码然后放到虚拟机中去执行，字节码里面的内容其实我们也是可以去“阅读”的，方法就是通过 jdk自带的工具翻译成操作码。在操作码中我们能看到一些我们平时看不到的关于java的秘密。</p>
+<p>Java虚拟机的指令由一个字节长度的的数字以及跟随其后的零至多个代表此操作所需的参数构成。即：Java指令 = 操作码 + 操作数。Java虚拟机本身是采用面向操作数栈而不是寄存器的架构，所以大多数的指令都不包含操作数，只有一个操作码。通过阅读操作码我们能直观的看到一些方法的执行过程。</p>
+        
+          <a class="article-more-a" href="/2020/09/07/java-code/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/07/java-code/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-design-13" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -183,28 +249,9 @@
         <p>责任链（Chain of Responsibility）模式的定义：为了避免请求发送者与多个请求处理者耦合在一起，将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。</p>
 <p>责任链模式也叫职责链模式。</p>
 <p>在责任链模式中，客户只需要将请求发送到责任链上即可，无须关心请求的处理细节和请求的传递过程，所以责任链将请求的发送者和请求的处理者解耦了。</p>
-<p>责任链模式是一种对象行为型模式，其主要优点如下。<br>降低了对象之间的耦合度。该模式使得一个对象无须知道到底是哪一个对象处理其请求以及链的结构，发送者和接收者也无须拥有对方的明确信息。<br>增强了系统的可扩展性。可以根据需要增加新的请求处理类，满足开闭原则。<br>增强了给对象指派职责的灵活性。当工作流程发生变化，可以动态地改变链内的成员或者调动它们的次序，也可动态地新增或者删除责任。<br>责任链简化了对象之间的连接。每个对象只需保持一个指向其后继者的引用，不需保持其他所有处理者的引用，这避免了使用众多的 if 或者 if···else 语句。<br>责任分担。每个类只需要处理自己该处理的工作，不该处理的传递给下一个对象完成，明确各类的责任范围，符合类的单一职责原则。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>职责链模式主要包含以下角色：<br>抽象处理者（Handler）角色：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。<br>具体处理者（Concrete Handler）角色：实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者。<br>客户类（Client）角色：创建处理链，并向链头的具体处理者对象提交请求，它不关心处理细节和请求的传递过程。</p>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>在<code>spring security</code> 中其核心设计模式就是责任链模式；它通过注册过滤器链来实现责任链模式，每个过滤器链都只做一件事。springSecurity的责任链顺序如下</p>
-<blockquote>
-<p>WebAsyncManagerIntegrationFilter：将Security上下文与Spring Web中用于处理异步请求映射的 WebAsyncManager 进行集成。</p>
-<p>SecurityContextPersistenceFilter：在每次请求处理之前将该请求相关的安全上下文信息加载到SecurityContextHolder中，然后在该次请求处理完成之后，将SecurityContextHolder中关于这次请求的信息存储到一个“仓储”中，然后将SecurityContextHolder中的信息清除<br>例如在Session中维护一个用户的安全信息就是这个过滤器处理的。</p>
-<p>HeaderWriterFilter：用于将头信息加入响应中</p>
-<p>CsrfFilter：用于处理跨站请求伪造</p>
-<p>LogoutFilter：用于处理退出登录</p>
-<p>UsernamePasswordAuthenticationFilter：用于处理基于表单的登录请求，从表单中获取用户名和密码。默认情况下处理来自“/login”的请求。从表单中获取用户名和密码时，默认使用的表单name值为“username”和“password”，这两个值可以通过设置这个过滤器的usernameParameter 和 passwordParameter 两个参数的值进行修改。</p>
-<p>DefaultLoginPageGeneratingFilter：如果没有配置登录页面，那系统初始化时就会配置这个过滤器，并且用于在需要进行登录时生成一个登录表单页面。</p>
-<p>BasicAuthenticationFilter：检测和处理http basic认证</p>
-<p>RequestCacheAwareFilter：用来处理请求的缓存</p>
-<p>SecurityContextHolderAwareRequestFilter：主要是包装请求对象request</p>
-<p>AnonymousAuthenticationFilter：检测SecurityContextHolder中是否存在Authentication对象，如果不存在为其提供一个匿名Authentication</p>
-<p>SessionManagementFilter：管理session的过滤器</p>
-<p>ExceptionTranslationFilter：处理 AccessDeniedException 和 AuthenticationException 异常</p>
-<p>FilterSecurityInterceptor：可以看做过滤器链的出口</p>
-<p>RememberMeAuthenticationFilter：当用户没有登录而直接访问资源时, 从cookie里找出用户的信息, 如果Spring Security能够识别出用户提供的remember me cookie, 用户将不必填写用户名和密码, 而是直接登录进入系统，该过滤器默认不开启。</p>
-</blockquote>
-<p>而责任链的客户类是<code>HttpSecurity</code>,它负责对责任链的创建和管理，它的<code>addFilterAt(Filter filter, Class atFilter)</code> 方法可在责任链中添加一个过滤器。<br>在这个框架中 过滤器作为了<code>抽象处理者（Handler</code>的角色，各个具体的过滤器类是<code>具体处理者（Concrete Handler</code>角色 <code>HttpSecueiry</code>是<code>客户类</code>角色。</p>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-13/#more">more >></a>
+        
       
 
       
@@ -279,25 +326,9 @@
       
         <p>当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。</p>
 <p>在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。</p>
-<p>命令（Command）模式的定义如下：将一个请求封装为一个对象，使发出请求的责任和执行请求的责任分割开。这样两者之间通过命令对象进行沟通，这样方便将命令对象进行储存、传递、调用、增加与管理。<br>命令模式的优点：</p>
-<ul>
-<li>降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦。</li>
-<li>增加或删除命令非常方便。采用命令模式增加与删除命令不会影响其他类，它满足“开闭原则”，对扩展比较灵活。</li>
-<li>可以实现宏命令。命令模式可以与组合模式结合，将多个命令装配成一个组合命令，即宏命令。</li>
-<li>方便实现 Undo 和 Redo 操作。命令模式可以与后面介绍的备忘录模式结合，实现命令的撤销与恢复。</li>
-</ul>
-<h1 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h1><p>命令模式包含以下主要角色：</p>
-<ul>
-<li>抽象命令类（Command）角色：声明执行命令的接口，拥有执行命令的抽象方法 execute()。</li>
-<li>具体命令角色（Concrete Command）角色：是抽象命令类的具体实现类，它拥有接收者对象，并通过调用接收者的功能来完成命令要执行的操作。</li>
-<li>实现者/接收者（Receiver）角色：执行命令功能的相关操作，是具体命令对象业务的真正实现者。</li>
-<li>调用者/请求者（Invoker）角色：是请求的发送者，它通常拥有很多的命令对象，并通过访问命令对象来执行相关请求，它不直接访问接收者。</li>
-</ul>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>在springboot的redis客户端的<code>redisTemplate</code>类中就有使用到命令模式。<br>在命令模式中，有三个重要的角色，我们只要找到这三个重要的角色就能捋清命令模式的的脉络了，这三个角色是“客户端”，“命令”，“服务端”。<br>在<code>RedisTemplate</code> 中存在一个<code>execute</code> 方法，这个就是服务端执行命令的方法，而它的方法参数<code>RedisCallback</code> 就是命令类了，我们看看如何在客户端构造一个命令给<code>RedisTemplate</code>去执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public boolean lockByLua(String key, String value, Long expiredTime)&#123;</span><br><span class="line">        String strExprie = String.valueOf(expiredTime);</span><br><span class="line">        StringBuilder sb = new StringBuilder();</span><br><span class="line">        sb.append(&quot;if redis.call(\&quot;setnx\&quot;,KEYS[1],ARGV[1])==1 &quot;);</span><br><span class="line">        sb.append(&quot;then &quot;);</span><br><span class="line">        sb.append(&quot;    redis.call(\&quot;pexpire\&quot;,KEYS[1],KEYS[2]) &quot;);</span><br><span class="line">        sb.append(&quot;    return 1 &quot;);</span><br><span class="line">        sb.append(&quot;else &quot;);</span><br><span class="line">        sb.append(&quot;    return 0 &quot;);</span><br><span class="line">        sb.append(&quot;end &quot;);</span><br><span class="line">        String script = sb.toString();</span><br><span class="line">        RedisCallback&lt;Boolean&gt; callback = (connection) -&gt; &#123;</span><br><span class="line">            return connection.eval(script.getBytes(), ReturnType.BOOLEAN, 2, key.getBytes(Charset.forName(&quot;UTF-8&quot;)),strExprie.getBytes(Charset.forName(&quot;UTF-8&quot;)), value.getBytes(Charset.forName(&quot;UTF-8&quot;)));</span><br><span class="line">        &#125;;</span><br><span class="line">        Boolean execute = stringRedisTemplate.execute(callback);</span><br><span class="line">        return execute;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上代码是通过<code>stringRedisTemplate</code>执行一个lua脚本，<code>lockByLua</code>就是客户端的方法。对于命令模式而言，命令执行方法都是按照<code>executeXXX</code>这样的格式命名。</p>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-12/#more">more >></a>
+        
       
 
       
@@ -378,23 +409,9 @@
 <li>策略模式提供了对开闭原则的完美支持，可以在不修改原代码的情况下，灵活增加新算法。</li>
 <li>策略模式把算法的使用放到环境类中，而算法的实现移到具体策略类中，实现了二者的分离。</li>
 </ul>
-<h1 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h1><p>策略模式是准备一组算法，并将这组算法封装到一系列的策略类里面，作为一个抽象策略类的子类。策略模式的重心不是如何实现算法，而是如何组织这些算法，从而让程序结构更加灵活，具有更好的维护性和扩展性，现在我们来分析其基本结构和实现方法。<br>策略模式的主要角色如下：</p>
-<ul>
-<li>抽象策略（Strategy）类：定义了一个公共接口，各种不同的算法以不同的方式实现这个接口，环境角色使用这个接口调用不同的算法，一般使用接口或抽象类实现。</li>
-<li>具体策略（Concrete Strategy）类：实现了抽象策略定义的接口，提供具体的算法实现。</li>
-<li>环境（Context）类：持有一个策略类的引用，最终给客户端调用。</li>
-</ul>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>策略模式的结构很简单，而spring的bean注入特性让我们在spring 框架中使用策略模式很方便，在spring中，对于同一类bean不同的别名是可以注入到一个map中或者list中的，下面的代码演示了如何在spring中方便的使用策略模式<br>先定义一个抽象父类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public interface Message &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 抽象策略</span><br><span class="line">     */</span><br><span class="line">    String test(String test);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>再定义不同的实现类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@Service(&quot;testA&quot;)</span><br><span class="line">public class TestA&#123;</span><br><span class="line">    @Override</span><br><span class="line">    String test(String test) &#123;</span><br><span class="line">        return &quot;testA:&quot;+test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Service(&quot;testB&quot;)</span><br><span class="line">public class TestA&#123;</span><br><span class="line">    @Override</span><br><span class="line">    String test(String test) &#123;</span><br><span class="line">        return &quot;testB:&quot;+test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Service(&quot;testC&quot;)</span><br><span class="line">public class TestA&#123;</span><br><span class="line">    @Override</span><br><span class="line">    String test(String test) &#123;</span><br><span class="line">        return &quot;testC:&quot;+test;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后在环境类中使用这些策略</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class Subject&#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    Map&lt;String,Message&gt; messageStrategy</span><br><span class="line"></span><br><span class="line">    public void check()&#123;</span><br><span class="line">       Message message= messageStrategy.get(&quot;testB&quot;)</span><br><span class="line">       System.out.print(message.test())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上就是一个简单的策略模式，在spring中使用该模式可以减少条件分支的代码量，而且它的扩展性也很好。</p>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-11/#more">more >></a>
+        
       
 
       
@@ -470,34 +487,9 @@
         <p>代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。</p>
 <p>代理模式的主要优点有：<br>代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；<br>代理对象可以扩展目标对象的功能；<br>代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；</p>
 <p>其主要缺点是：<br>在客户端和目标对象之间增加一个代理对象，会造成请求处理速度变慢；<br>增加了系统的复杂度；</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>代理模式的主要角色如下。<br>抽象主题（Subject）类：通过接口或抽象类声明真实主题和代理对象实现的业务方法。<br>真实主题（Real Subject）类：实现了抽象主题中的具体业务，是代理对象所代表的真实对象，是最终要引用的对象。<br>代理（Proxy）类：提供了与真实主题相同的接口，其内部含有对真实主题的引用，它可以访问、控制或扩展真实主题的功能。</p>
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>在代理模式中动态代理是在各个框架中使用最广泛的一种设计模式，dubbo中 feign中 mybaits中，都有使用到动态代理。在dubbo中，在接口上添加@refrence ，dubbo就会根据这个接口生成一个代理实例来供消费者用生产者。在feign中也是一样；mybatis中你只要指定包扫描的路径，就会在spring中注入一个mapper，实际上这个mapper就是根据接口和xml生成的代理对象。实际上，这种“申明式的”功能实现方式，都是通过代理模式来实现的。</p>
-<p>下面我们通过cglib来写一个“残疾缩水”版的mybatis：</p>
-<p>首先要整一个xml，我这里用properties代替</p>
-<p>test.properties:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testA=select * from user where id=</span><br><span class="line">testB=select * from user where username=</span><br></pre></td></tr></table></figure>
-
-<p>再整一个接口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  interface Test &#123;</span><br><span class="line"></span><br><span class="line">    String testA(int id);</span><br><span class="line">    String testB(String username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>再是代码增强处理器，这里面完成对接口的代理逻辑</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class MyInvokationHandler implements MethodInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    private static Map&lt;String,String&gt; sqlMap;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        HashMap&lt;String, String&gt; map = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Properties prop = new Properties();</span><br><span class="line">        InputStream in = SystemMenuController.class.getClassLoader().getResourceAsStream(&quot;test.properties&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            prop.load(in);</span><br><span class="line">            Iterator&lt;String&gt; it = prop.stringPropertyNames().iterator();</span><br><span class="line">            while (it.hasNext()) &#123;</span><br><span class="line">                String key = it.next();</span><br><span class="line">                map.put(key,prop.getProperty(key));</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; catch (java.io.IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        sqlMap=map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable &#123;</span><br><span class="line">        String name = method.getName();</span><br><span class="line">        String s = sqlMap.get(name);</span><br><span class="line">        return s+objects[0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包扫描和启动时注入容器略，数据源也略,用个main方法模拟一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">      Enhancer enhancer = new Enhancer();</span><br><span class="line">      enhancer.setSuperclass(Test.class);</span><br><span class="line">      enhancer.setCallback(new MyInvokationHandler());</span><br><span class="line">      Test test = (Test) enhancer.create();</span><br><span class="line">      System.out.println(test.testA(1));</span><br><span class="line">       System.out.println(test.testB(&quot;hhh&quot;));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>最终在控制台中打印：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where id=1</span><br><span class="line">select * from user where id=hhh</span><br></pre></td></tr></table></figure>
-
-<p>代理模式是一个很强大实用性很强的模式，动态代理大大减少了我们的开发任务，同时减少了对业务接口的依赖，降低了耦合度。代理模式的使用场景可以总结为：</p>
-<ul>
-<li>远程代理，这种方式通常是为了隐藏目标对象存在于不同地址空间的事实，方便客户端访问。例如，用户申请某些网盘空间时，会在用户的文件系统中建立一个虚拟的硬盘，用户访问虚拟硬盘时实际访问的是网盘空间。</li>
-<li>虚拟代理，这种方式通常用于要创建的目标对象开销很大时。例如，下载一幅很大的图像需要很长时间，因某种计算比较复杂而短时间无法完成，这时可以先用小比例的虚拟代理替换真实的对象，消除用户对服务器慢的感觉。</li>
-<li>安全代理，这种方式通常用于控制不同种类客户对真实对象的访问权限。</li>
-<li>智能指引，主要用于调用目标对象时，代理附加一些额外的处理功能。例如，增加计算真实对象的引用次数的功能，这样当该对象没有被引用时，就可以自动释放它。</li>
-<li>延迟加载，指为了提高系统的性能，延迟对目标的加载。例如，Hibernate 中就存在属性的延迟加载和关联表的延时加载。</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-10/#more">more >></a>
+        
       
 
       
@@ -571,21 +563,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>组合（Composite）模式的定义：有时又叫作部分-整体模式，它是一种将对象组合成树状的层次结构的模式，用来表示“部分-整体”的关系。组合模式使得客户端代码可以一致地处理单个对象和组合对象，无须关心自己处理的是单个对象，还是组合对象，这简化了客户端代码；</p>
-<h1 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h1><ul>
-<li>顶层抽象：树枝或者树叶的抽象接口</li>
-<li>树枝：是组合中的叶节点对象，它没有子节点，用于实现抽象构件角色中 声明的公共接口。</li>
-<li>树叶：是组合中的分支节点对象，它有子节点。它实现了抽象构件角色中声明的接口，它的主要作用是存储和管理子部件</li>
-</ul>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>组合模式分为透明模式和安全模式；透明模式是在顶层抽象中声明了所有管理子对象的方法，树叶节点点和树枝节点对于客户端来说没有区别。安全模式是在顶层抽象中只声明叶子和树枝公有的抽象方法，而将对叶子和树枝的管理方法实现到对应的类中，因此客户端就需要区分该节点是树枝还是叶子从而调用对应的方法。</p>
-<p>对组合模式来说，List Set等这些集合类属于不那么严格的组合模式。由于没有找到太好的源码，因此我在这里分别对透明模式和安全模式组合说明</p>
-<p>透明模式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Component&#123;</span><br><span class="line">    private String name;</span><br><span class="line">    public Component(string name)</span><br><span class="line">    &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public abstract boolean Add(Component component);</span><br><span class="line"></span><br><span class="line">    public abstract boolean Remove(Component component);</span><br><span class="line"></span><br><span class="line">    public String getName()&#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Branch extend Component&#123;</span><br><span class="line">    private List&lt;Component&gt; tree=new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public Branch(String name)&#123;</span><br><span class="line">        super(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean add(Componet component)&#123;</span><br><span class="line">        tree.add(component);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean Remove(Component component)&#123;</span><br><span class="line">        tree.remove(component);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Leaf extend Component&#123;</span><br><span class="line"></span><br><span class="line">     public Leaf(String name)&#123;</span><br><span class="line">        super(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     public boolean add(Componet component)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean Remove(Component component)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>安全模式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Component&#123;</span><br><span class="line">    private String name;</span><br><span class="line">    public Component(string name)</span><br><span class="line">    &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName()&#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Branch extend Component&#123;</span><br><span class="line">    private List&lt;Component&gt; tree=new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public Branch(String name)&#123;</span><br><span class="line">        super(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean add(Componet component)&#123;</span><br><span class="line">        tree.add(component);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean Remove(Component component)&#123;</span><br><span class="line">        tree.remove(component);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;Component&gt; getTree()&#123;</span><br><span class="line">        return tree;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Leaf extend Component&#123;</span><br><span class="line"></span><br><span class="line">     public Leaf(String name)&#123;</span><br><span class="line">        super(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>组合模式适用的场景为需要表述一个系统（组件）的整体与部分的结构层次的场合；组合模式可对客户端隐藏组合对象和单个对象的不同，以便客户端可以使用用统一的接口使用组合结构中的所有对象，对于该类场合也适用于组合模式</p>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-9/#more">more >></a>
+        
       
 
       
@@ -659,21 +639,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>装饰器（Decorator）模式指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。采用装饰模式扩展对象的功能比采用继承方式更加灵活；可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。但是装饰模式增加了许多子类，如果过度使用会使程序变得很复杂。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>装饰器模式的角色如下：</p>
-<ul>
-<li>顶层接口</li>
-<li>被装饰者</li>
-<li>装饰器抽象类</li>
-<li>装饰器</li>
-</ul>
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>装饰器模式使用的典型就是io流了，前面适配器模式我们说到过io流使用了适配器模式，用于字节流转换到字符流；装饰器模式在io流中也是一个很经典的使用。其使用的地方就是给流装饰上缓存。以输入流为例， <code>BufferedInputStream</code>就是对 <code>FileInputStream</code>的装饰，我们看一下这段代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String file = &quot;out.txt&quot;;        InputStream ins = new FileInputStream(file);     BufferedInputStream bufin= new BufferedInputStream(ins);     int b;     while((b=bufin.read())!=-1)&#123;         System.out.println(Integer.toHexString(b));    &#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>BufferedInputStream</code> 源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class BufferedInputStream extends FilterInputStream &#123;     public BufferedInputStream(InputStream in) &#123;        this(in, DEFAULT_BUFFER_SIZE);    &#125;    ......    public synchronized int read(byte b[], int off, int len) throws IOException&#123;        ......    &#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>它继承了 <code>FilterInputStream</code>，而 <code>FilterInputStream</code> 继承了 <code>InputStream</code>， <code>FileInputStream</code>也继承了 <code>InputStream</code> 。所以这里的角色关系为 <code>InputStream</code> 是顶层类（接口）， <code>FileInputStream</code> 是被装饰类， <code>BufferedInputStream</code> 是装饰类。<code>BufferedInputStream</code> 对 <code>FileInputStream</code>从 <code>InputStream</code>继承过来的方法进行了装饰，这里的。<code>FilterInputStream</code>占据的角色是装饰器抽象类，但其并不是个抽象类；这并不影响我们对其模式的理解。</p>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-8/#more">more >></a>
+        
       
 
       
@@ -747,26 +715,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>建造者模式(Builder)是一步一步创建一个复杂的对象，它允许用户只通过指定复杂对象的类型和内容就可以构建它们，用户不需要知道内部的具体构建细节。建造者模式属于对象创建型模式。我们获得一个对象的时候不是直接new这个对象出来，而是对其建造者进行属性设置，然后建造者在根据设置建造出各个对象出来。建造者模式又可以称为生成器模式。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>一个标准的建造者模式包含如下角色：</p>
-<ul>
-<li>Builder：抽象建造者</li>
-<li>ConcreteBuilder：具体建造者</li>
-<li>Director：指挥者</li>
-<li>Product：产品角色</li>
-</ul>
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>建造者模式使用比较简单，场景也比较清晰。protobuf中protobuf对应的java类就是使用建造者模式来创建对象的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static PersonEntity.Person create() &#123;    PersonEntity.Person person = PersonEntity.Person.newBuilder()            .setId(1)            .setName(&quot;Pushy&quot;)            .setEmail(&quot;1437876073@qq.com&quot;)            .build();    System.out.println(person);    return person;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>一般建造者模式结合<strong>链式编程</strong>来使用，代码上更加美观。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring security`中也有使用到建造者模式，其 `AuthenticationManagerBuilder`是 `AuthenticationManager`的建造者，我们可以通过配置 `AuthenticationManagerBuilder`来建造一个 `AuthenticationManager</span><br><span class="line">public class SecurityConfig extends WebSecurityConfigurerAdapter &#123;    @Override    protected void configure(AuthenticationManagerBuilder auth) throws Exception &#123;        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);    &#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们来看看 <code>AuthenticationManagerBuilder</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class AuthenticationManagerBuilder extends AbstractConfiguredSecurityBuilder&lt;AuthenticationManager, AuthenticationManagerBuilder&gt; implements ProviderManagerBuilder&lt;AuthenticationManagerBuilder&gt; &#123;    ......    ......     public final AuthenticationManager build() throws Exception &#123;        if (this.building.compareAndSet(false, true)) &#123;            this.object = this.doBuild();            return this.object;        &#125; else &#123;            throw new AlreadyBuiltException(&quot;This object has already been built&quot;);        &#125;    &#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里抽象建造者是 <code>ProviderManagerBuilder</code>，具体建造者是 <code>AuthenticationManagerBuilder</code>，被建造的对象是 <code>AuthenticationManager</code> 建造方法是 <code>build()</code>方法。</p>
-<p>一般建造者模式中建造者类命名以 <code>builder</code>结尾，而建造方法命名为 <code>build()</code>。</p>
-<p>lombok中@builder就是对实体类使用创造者模式，如果你项目中用到了lombok那么使用建造者模式就很方便，一个注解搞定。</p>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-7/#more">more >></a>
+        
       
 
       
@@ -841,37 +792,9 @@
       
         <p>门面（Facade）模式的定义：是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体的细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。</p>
 <p>门面模式又被称作外观模式，这个模式特点很鲜明，在生活中我们就能找到不少例子。比如110，我们生活中遇到困难或者危险等一系列问题，我们都是直接打110找警察同志，然后由公安局统一处理，对应不同的情况再细化到公安的各个部门去处理。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>门面模式是“迪米特法则”的应用，它的优点：</p>
-<ol>
-<li>降低了子系统与客户端之间的耦合度，使得子系统的变化不会影响调用它的客户类。</li>
-<li>对客户屏蔽了子系统组件，减少了客户处理的对象数目，并使得子系统使用起来更加容易。</li>
-<li>降低了大型软件系统中的编译依赖性，简化了系统在不同平台之间的移植过程，因为编译一个子系统不会影响其他的子系统，也不会影响外观对象。</li>
-</ol>
-<p>门面模式的缺点：</p>
-<ol>
-<li>不能很好地限制客户使用子系统类。</li>
-<li>增加新的子系统可能需要修改外观类或客户端的源代码，违背了“开闭原则”。</li>
-</ol>
-<p>它的结构如下：</p>
-<ol>
-<li>外观（Facade）角色：为多个子系统对外提供一个共同的接口。</li>
-<li>子系统（Sub System）角色：实现系统的部分功能，客户可以通过外观角色访问它。</li>
-<li>客户端：通过一个外观角色访问各个子系统的功能。</li>
-</ol>
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>在 <code>servlet</code> 中 <code>httprequest</code> 使用的便是门面模式；我们想要 获得请求信息或者是使用请求的一些功能的时候，我们只需要找<code>HttpServletRequest</code> 这个接口就行，这个接口提供了获取请求头信息，请求方式，Context等信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">public interface HttpServletRequest extends ServletRequest &#123;</span><br><span class="line">    String BASIC_AUTH = &quot;BASIC&quot;;</span><br><span class="line">    String FORM_AUTH = &quot;FORM&quot;;</span><br><span class="line">    String CLIENT_CERT_AUTH = &quot;CLIENT_CERT&quot;;</span><br><span class="line">    String DIGEST_AUTH = &quot;DIGEST&quot;;</span><br><span class="line"></span><br><span class="line">    String getAuthType();</span><br><span class="line"></span><br><span class="line">    Cookie[] getCookies();</span><br><span class="line"></span><br><span class="line">    long getDateHeader(String var1);</span><br><span class="line"></span><br><span class="line">    String getHeader(String var1);</span><br><span class="line"></span><br><span class="line">    Enumeration getHeaders(String var1);</span><br><span class="line"></span><br><span class="line">    Enumeration getHeaderNames();</span><br><span class="line"></span><br><span class="line">    int getIntHeader(String var1);</span><br><span class="line"></span><br><span class="line">    String getMethod();</span><br><span class="line"></span><br><span class="line">    String getPathInfo();</span><br><span class="line"></span><br><span class="line">    String getPathTranslated();</span><br><span class="line"></span><br><span class="line">    String getContextPath();</span><br><span class="line"></span><br><span class="line">    String getQueryString();</span><br><span class="line"></span><br><span class="line">    String getRemoteUser();</span><br><span class="line"></span><br><span class="line">    boolean isUserInRole(String var1);</span><br><span class="line"></span><br><span class="line">    Principal getUserPrincipal();</span><br><span class="line"></span><br><span class="line">    String getRequestedSessionId();</span><br><span class="line"></span><br><span class="line">    String getRequestURI();</span><br><span class="line"></span><br><span class="line">    StringBuffer getRequestURL();</span><br><span class="line"></span><br><span class="line">    String getServletPath();</span><br><span class="line"></span><br><span class="line">    HttpSession getSession(boolean var1);</span><br><span class="line"></span><br><span class="line">    HttpSession getSession();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdValid();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdFromCookie();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdFromURL();</span><br><span class="line"></span><br><span class="line">    /** @deprecated */</span><br><span class="line">    boolean isRequestedSessionIdFromUrl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>而其实现类 <code>RequestFacade</code> 就是web封装的门面实现类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class RequestFacade implements HttpServletRequest &#123;</span><br><span class="line">     protected Request request = null;</span><br><span class="line">    protected static final StringManager sm = StringManager.getManager(RequestFacade.class);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当我们想要请求信息的时候就不必在取找其他类，第一时间想到的是从 <code>HttpServletRequest</code> 中获取。</p>
-<p>外观模式的使用场景：</p>
-<ul>
-<li>分层结构系统构建时，使用外观模式定义子系统中每层的入口点可以简化子系统之间的依赖关系。</li>
-<li>外观模式可以屏蔽系统的复杂性，对外提供统一接口。</li>
-<li>当客户端依赖多个子系统时，提供一个门面可分离这种依赖性。</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2020/02/02/design-6/#more">more >></a>
+        
       
 
       
@@ -4840,7 +4763,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/28/hello-world/">胡思乱想</a>
+      <a class="article-title" href="/2019/03/28/hello-world/">xxx</a>
     </h1>
   
 
@@ -4853,11 +4776,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;&emsp;我是猿家枪第十八代传人，第十八代是我爹告诉我的，他说多少代就是多少代————等我有了儿子了，我也会告诉他，他是猿家第十八代传人；因为，我觉得十八这个数字挺顺。我妈告诉我，我爸以前是走镖的，武艺高强，好打抱不平。半辈子结交了不少好汉，也得罪了不少人；因为害怕报复，回老家花钱买了栋宅院做起了小生意，退出了江湖。</p>
-<p>&emsp;&emsp;我六岁就开始站桩，每天都要早起站一炷香。要是哪天起晚了我爹踢开门就是一耳刮子，他手上全是老茧，呼脸上生疼；我见过我爹一拳把木头桩子给打折了，我常想，要是我爹一耳刮子把我头给打折了，我还能不能活？我小时候就很怕死怕疼，所以我从不敢赖床，鸡一打鸣我就起来了；上武场练我爹教我的那几个起手式，我爹管这叫晨练一口气，具体什么意思我就不太清楚了。</p>
-        
-          <a class="article-more-a" href="/2019/03/28/hello-world/#more">more >></a>
-        
+        <p>????????????????????????????????????????????????</p>
+
       
 
       
@@ -5340,10 +5260,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
@@ -5356,7 +5272,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -5364,15 +5280,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

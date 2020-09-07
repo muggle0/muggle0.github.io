@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>设计模式-适配器 | muggle</title>
+  <title>Archives: 2020/9 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
-<meta name="keywords" content="设计模式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-适配器">
-<meta property="og:url" content="http://muggle0.github.io/2019/07/18/design-4/index.html">
+  <meta name="description" content="我的爪哇和日常记录博客">
+<meta name="keywords" content="java,spring,springboot,netty,springcloud,中间件,redis">
+<meta property="og:type" content="website">
+<meta property="og:title" content="muggle">
+<meta property="og:url" content="http://muggle0.github.io/archives/2020/09/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
+<meta property="og:description" content="我的爪哇和日常记录博客">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-04T15:55:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式-适配器">
-<meta name="twitter:description" content="适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。 模式结构适配器模式包含如下角色：  Target：目标抽象类 Adapter：适配器类 Adaptee：适配者类 Client：客户类">
+<meta name="twitter:title" content="muggle">
+<meta name="twitter:description" content="我的爪哇和日常记录博客">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -159,179 +158,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-4" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      设计模式-适配器
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/09/07/java-code/" class="archive-article-date">
+  	<time datetime="2020-09-07T06:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/09/07/java-code/">java-code</a>
     </h1>
   
 
-        
-        <a href="/2019/07/18/design-4/" class="archive-article-date">
-  	<time datetime="2019-07-18T12:19:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>适配器模式(Adapter Pattern) ：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>适配器模式包含如下角色：</p>
-<ul>
-<li>Target：目标抽象类</li>
-<li>Adapter：适配器类</li>
-<li>Adaptee：适配者类</li>
-<li>Client：客户类</li>
-</ul>
-<a id="more"></a>
+        <div class="article-info info-on-right">
+          
+          
 
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>我们都知道springMVC就用到了适配器模式，那他是怎么适配呢，我们来看看它的源码，首先我们要清楚springMVC的执行原理，它的整个流程我这里就不像述了，说一下关键的部分：</p>
-<ol>
-<li><code>DispatcherServlte</code>会根据配置文件信息注册<code>HandlerAdapter</code>，如果在配置文件中没有配置，那么<code>DispatcherServlte</code>会获取<code>HandlerAdapter</code>的默认配置，如果是读取默认配置的话，<code>DispatcherServlte</code>会读取<code>DispatcherServlte.properties</code>文件,该文件中配置了三种<code>HandlerAdapter</code>：<code>HttpRequestHandlerAdapter</code>，<code>SimpleControllerHandlerAdapter</code>和<code>AnnotationMethodHandlerAdapter</code>。<code>DispatcherServlte</code>会将这三个<code>HandlerAdapter</code>对象存储到它的<code>handlerAdapters</code>这个集合属性中，这样就完成了<code>HandlerAdapter</code>的注册。</li>
-<li><code>DispatcherServlte</code>会根据<code>handlerMapping</code>传过来的<code>controller</code>与已经注册好了的<code>HandlerAdapter</code>一一匹配，看哪一种<code>HandlerAdapter</code>是支持该controller类型的，如果找到了其中一种<code>HandlerAdapter</code>是支持传过来的<code>controller</code>类型，那么该<code>HandlerAdapter</code>会调用自己的handle方法，handle方法运用java的反射机制执行controller的具体方法来获得<code>ModelAndView</code></li>
-</ol>
-<p><code>DispatcherServlte</code>部分源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DispatcherServlet</span> <span class="keyword">extends</span> <span class="title">FrameworkServlet</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;HandlerMapping&gt; handlerMappings;</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;HandlerAdapter&gt; handlerAdapters;</span><br><span class="line"> 	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doDispatch</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HttpServletRequest processedRequest = request;</span><br><span class="line">        HandlerExecutionChain mappedHandler = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">boolean</span> multipartRequestParsed = <span class="keyword">false</span>;</span><br><span class="line">        WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ModelAndView mv = <span class="keyword">null</span>;</span><br><span class="line">                Object dispatchException = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    ......</span><br><span class="line">                    ......</span><br><span class="line"></span><br><span class="line">                    HandlerAdapter ha = <span class="keyword">this</span>.getHandlerAdapter(mappedHandler.getHandler());</span><br><span class="line">                    ......</span><br><span class="line">                    ......</span><br><span class="line"></span><br><span class="line">                    mv = ha.handle(processedRequest, response, mappedHandler.getHandler());</span><br><span class="line">                    <span class="keyword">if</span> (asyncManager.isConcurrentHandlingStarted()) &#123;</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">this</span>.applyDefaultViewName(processedRequest, mv);</span><br><span class="line">                    mappedHandler.applyPostHandle(processedRequest, response, mv);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception var20) &#123;</span><br><span class="line">                    dispatchException = var20;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Throwable var21) &#123;</span><br><span class="line">				......</span><br><span class="line">                &#125;</span><br><span class="line">			......</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception var22) &#123;</span><br><span class="line">               ......</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable var23) &#123;</span><br><span class="line"> 			  ......</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            ......</span><br><span class="line">            ......</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里只放上比较关键的代码，我们可以看到当一个请求进入<code>doDispatch()</code>方法的时候，它先去<code>getHandlerAdapter()</code>中拿到适配器，这就是第二步中根据<code>handlerMapping</code>中的<code>controller</code>找到对应适配器。找到适配器后通过<code>ha.handle(processedRequest, response, mappedHandler.getHandler())</code>执行我们自己的<code>controller</code>，<code>mappedHandler.getHandler()</code>就是我们自己的<code>controller</code>。</p>
-<p>至于<code>handler()</code>如何知道该去执行controller中哪个方法，当然是通过注解去转换对应方法的。因此，这里的适配器模式还不是特别的纯粹，还结合了反射机制。<code>DispatcherServlte</code>属于客户端，我们的<code>Controller</code>属于被适配的类，<code>HandlerAdapter</code>属于适配器。</p>
-<p>现在我们假定需要写一个线程池任务调度框架，我们知道JDK自带的线程框架可以创建一个线程池，但是线程池只能传入实现<code>runnable</code>接口或者<code>callable</code>接口的对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService cachedThreadPool = Executors.newCachedThreadPool();</span><br><span class="line">cachedThreadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>那我们要咋样可以让客户端使用的时候无须继承<code>runnable</code>来使用我们的这个框架呢。你可以像springMVC一样使用适配器加注解。也可以提供一个实现<code>Runnable</code>接口的抽象适配器类，让客户端进行一定的配置来将普通的类适配到<code>Runnable</code>。</p>
-<p>关于适配器的使用方面还有很多，比如<code>spring security</code>的<code>WebSecurityConfigurerAdapter</code>和<code>netty</code>中的<code>ChannelInboundHandlerAdapter</code> 对于适配器模式类名一般都以<code>Adapter</code>结尾</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/07/18/design-4/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/02/intresting/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          鸟瞰MYSQL
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/07/17/design-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式——桥接模式</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -354,8 +223,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

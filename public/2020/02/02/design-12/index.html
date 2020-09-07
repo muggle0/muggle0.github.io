@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>设计模式-命令模式 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+  <meta name="description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式-命令模式">
 <meta property="og:url" content="http://muggle0.github.io/2020/02/02/design-12/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+<meta property="og:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-02T09:38:46.774Z">
+<meta property="og:updated_time" content="2020-09-07T07:03:39.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-命令模式">
-<meta name="twitter:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。 命令（Command）模式的定义如下：将一个请求封装为一">
+<meta name="twitter:description" content="当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。 在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -181,6 +181,10 @@
       
         <p>当我们的代码中”方法的请求者” 和 “方法的实现者” 之间存在较为紧密的耦合的时候，这段代码的后续维护会变得很困难。如果我们想对方法进行回滚 撤销等操作的话就会很困难；使用命名模式可解决这一问题。</p>
 <p>在现实生活中，这样的例子也很多，例如，电视机遥控器（命令发送者）通过按钮（具体命令）来遥控电视机（命令接收者），还有计算机键盘上的“功能键”等。</p>
+<a id="more"></a>
+
+
+
 <p>命令（Command）模式的定义如下：将一个请求封装为一个对象，使发出请求的责任和执行请求的责任分割开。这样两者之间通过命令对象进行沟通，这样方便将命令对象进行储存、传递、调用、增加与管理。<br>命令模式的优点：</p>
 <ul>
 <li>降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦。</li>
@@ -435,10 +439,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
@@ -451,7 +451,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -459,15 +459,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">log</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
