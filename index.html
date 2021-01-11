@@ -155,6 +155,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-kafka-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/11/kafka-2/">kafka系列——kafka高级特性解析</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/11/kafka-2/" class="archive-article-date">
+  	<time datetime="2021-01-11T08:30:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/11/kafka-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-codeStyle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -314,7 +387,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/07/kafka-1/">kafka-1</a>
+      <a class="article-title" href="/2020/09/07/kafka-1/">kafka 系列——kafka原理浅解</a>
     </h1>
   
 
@@ -327,10 +400,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>todo </p>
-        
-          <a class="article-more-a" href="/2020/09/07/kafka-1/#more">more >></a>
-        
+        <a id="more"></a>
+
+<h1 id="kafka-原理"><a href="#kafka-原理" class="headerlink" title="kafka 原理"></a>kafka 原理</h1><p>消息队列一般包含两种模式，一种是点对点的模式，一种是发布订阅的模式。前文提到过 kafka 是一款基于发布订阅的消息队列。<br>那么kafka是怎么去发布消息，怎么去保存消息，订阅消息的呢？首先我们从kafka的发布订阅模型开始分析。</p>
+<p>下图为kafka的发布订阅模型：<br><img src="kafka%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%9E%8B.png" alt="kafka发布订阅模型"></p>
+<h2 id="kafka-运行流程"><a href="#kafka-运行流程" class="headerlink" title="kafka 运行流程"></a>kafka 运行流程</h2><p>kafka 总体流程可以粗略的归纳为：<br>Producer 生产一个消息并指定消息的主题 Topic -&gt; producer 将生产的消息投递给 kafka cluster -&gt; kafka cluster<br>将消息根据 Topic 拆分成多个partition 存储到各个 broker 中 -&gt; 消费者组订阅主题，负载均衡的消费消息。<br>接下来我们分析 kafka 的数据分区保存和记录消息消费与生产的方式。</p>
+<h2 id="partition-分区"><a href="#partition-分区" class="headerlink" title="partition(分区)"></a>partition(分区)</h2><p>kafka 对于 topic 有一个分区的默认值，通过config/server.properties中通过配置项num.partitions来指定新建Topic的默认Partition数量，<br>同时也可在创建Topic时通过参数指定或者在Topic创建之后通过Kafka提供的工具修改。生产者将数据写入到kafka主题后，<br>kafka通过不同的策略将数据分配到不同分区中，常见的有三种策略，轮询策略，随机策略，和按键保存策略。</p>
+<p>在消费者这一端，一个consumer可以消费一个或多个partition，1个partition只能被同组的一个consumer消费，<br>但是可以被不同组的多个 consumer 消费。如果一个consumer group中的consumer个数多于topic中的partition的个数，<br>多出来的consumer会闲置。</p>
+<p>分区本身会有多个副本，这多个副本中只有一个是leader，而其他的都是follower。仅有leader副本可以对外提供服务。<br>通常follower不和leader在同一个broker中，这样当leader 挂掉 follower 不会跟着挂，<br>而是从众多follower中选一个出来作为leader继续提供服务。</p>
+<h2 id="offset"><a href="#offset" class="headerlink" title="offset"></a>offset</h2><p>每个分区中还会维护一个 offset (偏移量)，这是一个很重要的数据，消息的存取都依赖它。<br>现在我们可以先简单的理解为往每个分区中写一条数据就会加一个偏移量，而消费一条数据就会减一个偏移量，就好像队列的游标一样。<br>后文会具体分析它的工作原理。下图为 offset 示意图：</p>
+<p><img src="kafka-partition-offset.png" alt="offset"></p>
+<p>通常由如下几种 Kafka Offset 的管理方式：</p>
+<ul>
+<li><p>Spark Checkpoint：在 Spark Streaming 执行Checkpoint 操作时，将 Kafka Offset 一并保存到 HDFS 中。</p>
+</li>
+<li><p>HBASE、Redis 等外部 NOSQL 数据库：这一方式可以支持大吞吐量的 Offset 更新。</p>
+</li>
+<li><p>ZOOKEEPER：老版本的位移offset是提交到zookeeper中的，目录结构是 ：/consumers/&lt;group.id&gt;/offsets/ <topic>/<partitionId> ，当存在频繁的 Offset 更新时，ZOOKEEPER 集群本身可能成为瓶颈。</p>
+</li>
+<li><p>KAFKA：存入自身的一个特殊 Topic中，这种方式支持大吞吐量的Offset 更新，又不需要手动编写 Offset 管理程序或者维护一套额外的集群。</p>
+</li>
+</ul>
+<p>后文我们会介绍关于 kafka 的 partition 与 offset 的一些机制，如数据存储与同步，分区原则，分区策略，可靠性保证，高效读写原理等。</p>
+
       
 
       
@@ -2826,7 +2918,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/28/kafka/">kafka</a>
+      <a class="article-title" href="/2019/04/28/kafka/">kafka系列-安装和使用kafka</a>
     </h1>
   
 
@@ -2840,8 +2932,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         <a id="more"></a>
-
-
+<h1 id="kafka-介绍"><a href="#kafka-介绍" class="headerlink" title="kafka 介绍"></a>kafka 介绍</h1><p>kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，<br>Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。</p>
+<h2 id="kafka-概念角色介绍"><a href="#kafka-概念角色介绍" class="headerlink" title="kafka 概念角色介绍"></a>kafka 概念角色介绍</h2><ul>
+<li>Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交消息到磁盘保存；</li>
+<li>Topic：Topic为主题，也就是相当于消息系统中的队列(queue)，一个Topic中存在多个Partition；注意，这里区别于 rabbitMQ 的 Topic；</li>
+<li>Partition：Partition为分区，是构成Kafka存储结构的最小单位；</li>
+<li>Group：消费者组，一组消费者构成消费者组</li>
+<li>Message：消息</li>
+</ul>
+<h1 id="kafka-安装及使用"><a href="#kafka-安装及使用" class="headerlink" title="kafka 安装及使用"></a>kafka 安装及使用</h1><p>kafka 的运行依赖于 zookeeper，它的安装相对于 rabbitMQ来说比较简单。下面介绍Windows下 kafka的安装及其使用。</p>
+<p>kafka是依赖于zookeeper的，所以我们先要安装zookeeper ，当然kafka的二进制包里面，包含了zookeeper 的安装包，我们不需要单独的再去下载ZK的安装包；</p>
+<p> 在 kafka 官网下载 二进制的 tgz 压缩包： <a target="_blank" rel="noopener" href="http://kafka.apache.org/downloads.html，解压后它的">http://kafka.apache.org/downloads.html，解压后它的</a> bin/windows下有 zk的启动脚本和kafka的启动脚本，<br> zk的配置文件和kafka的配置文件在 config文件夹下，分别对应 zookeeper.properties和server.properties。<br> 由于本人对zk使用的频率也比较高，因此我是单独安装的zk。</p>
+<p> 下面我们对kafka进行配置及启动，配置文件说明：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> # 对外暴露的服务端口</span><br><span class="line">advertised.listeners&#x3D;PLAINTEXT:&#x2F;&#x2F;ip:9092</span><br><span class="line"># 机器的标识</span><br><span class="line">broker.id&#x3D;1</span><br><span class="line"># kafka日志存储的位置</span><br><span class="line">log.dirs&#x3D;c:xxx</span><br><span class="line"># zk的地址</span><br><span class="line">zookeeper.connect&#x3D;localhost:2181</span><br></pre></td></tr></table></figure></p>
+<p>启动脚本：<br> <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-server-<span class="built_in">start</span>.bat .\config\server.properties</span><br></pre></td></tr></table></figure><br>接下来我们做一下简单的测试。</p>
+<p>执行脚本</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">1</span> --topic test</span><br></pre></td></tr></table></figure>
+<p>该操作创建了一个 名为 test 的 kafka 主题，接下来我们可以在主题中写入消息并消费消息了。</p>
+<p>执行脚本</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-console-producer.bat --broker-list <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">9092</span> --topic test </span><br><span class="line">xxx</span><br><span class="line">xxx</span><br></pre></td></tr></table></figure>
+<p>该操作创建了一个消息生产者，并发送消息 “xxx”</p>
+<p>执行脚本,消费消息：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.bat --bootstrap-server localhost:<span class="number">9092</span> --topic test --from-beginning</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
 
       

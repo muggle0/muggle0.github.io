@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>kafka | muggle</title>
+  <title>kafka系列-安装和使用kafka | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="kafka">
+  <meta name="description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。 kafka 概念角色介绍 Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka系列-安装和使用kafka">
 <meta property="og:url" content="http://muggle0.github.io/2019/04/28/kafka/index.html">
 <meta property="og:site_name" content="muggle">
+<meta property="og:description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。 kafka 概念角色介绍 Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-28T09:54:17.000Z">
-<meta property="article:modified_time" content="2021-01-11T07:31:23.308Z">
+<meta property="article:modified_time" content="2021-01-11T08:25:06.932Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -160,7 +162,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      kafka
+      kafka系列-安装和使用kafka
     </h1>
   
 
@@ -174,8 +176,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         <a id="more"></a>
-
-
+<h1 id="kafka-介绍"><a href="#kafka-介绍" class="headerlink" title="kafka 介绍"></a>kafka 介绍</h1><p>kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，<br>Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。</p>
+<h2 id="kafka-概念角色介绍"><a href="#kafka-概念角色介绍" class="headerlink" title="kafka 概念角色介绍"></a>kafka 概念角色介绍</h2><ul>
+<li>Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交消息到磁盘保存；</li>
+<li>Topic：Topic为主题，也就是相当于消息系统中的队列(queue)，一个Topic中存在多个Partition；注意，这里区别于 rabbitMQ 的 Topic；</li>
+<li>Partition：Partition为分区，是构成Kafka存储结构的最小单位；</li>
+<li>Group：消费者组，一组消费者构成消费者组</li>
+<li>Message：消息</li>
+</ul>
+<h1 id="kafka-安装及使用"><a href="#kafka-安装及使用" class="headerlink" title="kafka 安装及使用"></a>kafka 安装及使用</h1><p>kafka 的运行依赖于 zookeeper，它的安装相对于 rabbitMQ来说比较简单。下面介绍Windows下 kafka的安装及其使用。</p>
+<p>kafka是依赖于zookeeper的，所以我们先要安装zookeeper ，当然kafka的二进制包里面，包含了zookeeper 的安装包，我们不需要单独的再去下载ZK的安装包；</p>
+<p> 在 kafka 官网下载 二进制的 tgz 压缩包： <a target="_blank" rel="noopener" href="http://kafka.apache.org/downloads.html，解压后它的">http://kafka.apache.org/downloads.html，解压后它的</a> bin/windows下有 zk的启动脚本和kafka的启动脚本，<br> zk的配置文件和kafka的配置文件在 config文件夹下，分别对应 zookeeper.properties和server.properties。<br> 由于本人对zk使用的频率也比较高，因此我是单独安装的zk。</p>
+<p> 下面我们对kafka进行配置及启动，配置文件说明：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> # 对外暴露的服务端口</span><br><span class="line">advertised.listeners&#x3D;PLAINTEXT:&#x2F;&#x2F;ip:9092</span><br><span class="line"># 机器的标识</span><br><span class="line">broker.id&#x3D;1</span><br><span class="line"># kafka日志存储的位置</span><br><span class="line">log.dirs&#x3D;c:xxx</span><br><span class="line"># zk的地址</span><br><span class="line">zookeeper.connect&#x3D;localhost:2181</span><br></pre></td></tr></table></figure></p>
+<p>启动脚本：<br> <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-server-<span class="built_in">start</span>.bat .\config\server.properties</span><br></pre></td></tr></table></figure><br>接下来我们做一下简单的测试。</p>
+<p>执行脚本</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">1</span> --topic test</span><br></pre></td></tr></table></figure>
+<p>该操作创建了一个 名为 test 的 kafka 主题，接下来我们可以在主题中写入消息并消费消息了。</p>
+<p>执行脚本</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-console-producer.bat --broker-list <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">9092</span> --topic test </span><br><span class="line">xxx</span><br><span class="line">xxx</span><br></pre></td></tr></table></figure>
+<p>该操作创建了一个消息生产者，并发送消息 “xxx”</p>
+<p>执行脚本,消费消息：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.bat --bootstrap-server localhost:<span class="number">9092</span> --topic test --from-beginning</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
 
       
