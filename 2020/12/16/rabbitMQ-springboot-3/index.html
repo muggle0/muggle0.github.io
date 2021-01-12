@@ -16,7 +16,7 @@
 <meta property="og:description" content="ListenerContainer 的使用在消费端，我们的消费监听器是运行在 监听器容器之中的（ ListenerContainer ），springboot 给我们提供了两个监听器容器 SimpleMessageListenerContainer 和 DirectMessageListenerContainer 在配置文件中凡是以 spring.rabbitmq.listener.simple">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:30:58.483Z">
+<meta property="article:modified_time" content="2021-01-12T03:36:18.610Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -176,6 +176,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="ListenerContainer-的使用"><a href="#ListenerContainer-的使用" class="headerlink" title="ListenerContainer 的使用"></a><code>ListenerContainer</code> 的使用</h2><p>在消费端，我们的消费监听器是运行在 监听器容器之中的（ <code>ListenerContainer</code> ），springboot 给我们提供了两个监听器容器 <code>SimpleMessageListenerContainer</code> 和 <code>DirectMessageListenerContainer</code> 在配置文件中凡是以 <code>spring.rabbitmq.listener.simple</code> 开头的就是对第一个容器的配置，以 <code>spring.rabbitmq.listener.direct</code> 开头的是对第二个容器的配置。其实这两个容器类让我很费劲；首先官方文档并没有说哪个是默认的容器，似乎两个都能用；其次，它说这个容器默认是单例模式的，但它又提供了工厂方法，而且我们看 <code>@RabbitListener</code> 注解源码：</p>
+<a id="more"></a>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Target(&#123;ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@MessageMapping</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Repeatable(RabbitListeners.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RabbitListener &#123;</span><br><span class="line">    <span class="function">String <span class="title">id</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    <span class="function">String <span class="title">containerFactory</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>它是指定一个 <code>containerFactory</code> 那我通过 <code>@Bean</code> 注解注册一个 <code>ListenerContainer</code> ` 到底有没有用。</p>
 <p>保险起见这里教程中建议注册一个<code>containerFactory</code>  而不是一个单例的<code>ListenerContainer</code>  那我可以对这个容器工厂做哪些设置呢。它的官方文档<code>&lt;https://docs.spring.io/spring-amqp/docs/2.1.8.RELEASE/api/&gt;</code> 其中前往提到的序列化问题就可以配置这个工厂bean来解决：</p>

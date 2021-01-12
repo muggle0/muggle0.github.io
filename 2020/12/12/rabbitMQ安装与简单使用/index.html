@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="对 rabbitMQ 我们已经有了初步的了解，现在我们来安装 rabbitMQ 来进行一些操作。因为大部分人的操作系统都是windows 而且作者本人使用的也windows系统。所以这里只介绍在windows上安装rabbitMQ。mac用户自行解决（仇富脸）。 erlang的安装erlang 不好的地方是它不是向下兼容的，也就是说 rabbitMQ的版本和erlang的版本不匹配的话，会安装失败">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:/blog/worldpeace/mq/a.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/a.png">
 <meta property="article:published_time" content="2020-12-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:30:24.189Z">
+<meta property="article:modified_time" content="2021-01-12T03:46:39.031Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:/blog/worldpeace/mq/a.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/a.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -190,7 +190,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;rabbitmqctl status </span><br></pre></td></tr></table></figure>
 <p>可以看到rabbitMQ的一些信息，就说明rabbitMQ安装成功了。如果没有成功。检查一下版本和环境变量等信息，重新安装。</p>
 <h2 id="rabbitMQ的配置"><a href="#rabbitMQ的配置" class="headerlink" title="rabbitMQ的配置"></a>rabbitMQ的配置</h2><p>安装完成之后执行 sbin 下的 <code>rabbitmq-server.bat</code> 启动 rabbitMQ 访问 <a target="_blank" rel="noopener" href="http://localhost:15672">http://localhost:15672</a> 。我们会看到一个登录界面。用户名和密码都是guest。登录进去后能看到一些交换机 队列 用户 等的信息。</p>
-<p><img src="D:/blog/worldpeace/mq/a.png" alt="图 1：rabbit的web管理界面"></p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/a.png" alt="图 1：rabbit的web管理界面"></p>
 <p>​                                        图 1：rabbit的界面</p>
 <p>guest这个用户是只能本地访问rabbitMQ的，相当去 mysql 的 root 用户。下面我们配置一个可以远程使用的开发账号。</p>
 <p>创建用户指令：</p>
@@ -301,18 +301,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/12/12/MQ%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/12/13/rabbitMQ%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          MQ简介
+          rabbitMQ简介
         
       </div>
     </a>
   
   
-    <a href="/2020/09/07/java-code/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java-code</div>
+    <a href="/2020/12/11/MQ%E7%AE%80%E4%BB%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MQ简介</div>
       <i class="icon-circle-right"></i>
     </a>
   

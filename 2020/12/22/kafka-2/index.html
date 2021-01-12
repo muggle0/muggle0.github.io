@@ -15,16 +15,17 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="kafka 原理深度解读前文介绍了kafka的一些基本原理，接下来我们深入了解下关于kafka的一些机制和优化">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/2020/12/22/kafka-2/kafka_partition.png">
-<meta property="og:image" content="http://muggle0.github.io/2020/12/22/kafka-2/range.jpg">
-<meta property="og:image" content="http://muggle0.github.io/2020/12/22/kafka-2/roundbin.png">
-<meta property="og:image" content="http://muggle0.github.io/2020/12/22/kafka-2/leader.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka_partition.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/roundbin.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader1.png">
 <meta property="article:published_time" content="2020-12-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:32:13.898Z">
+<meta property="article:modified_time" content="2021-01-12T03:44:26.793Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/2020/12/22/kafka-2/kafka_partition.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka_partition.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -183,7 +184,7 @@
         <h1 id="kafka-原理深度解读"><a href="#kafka-原理深度解读" class="headerlink" title="kafka 原理深度解读"></a>kafka 原理深度解读</h1><p>前文介绍了kafka的一些基本原理，接下来我们深入了解下关于kafka的一些机制和优化</p>
 <a id="more"></a>
 
-<h2 id="partition-文件存储机制"><a href="#partition-文件存储机制" class="headerlink" title="partition 文件存储机制"></a>partition 文件存储机制</h2><p>前文提到过，一个topic是分成多个partition 存储的；topic是逻辑上的概念，partition是物理上的概念，如图所示：<br><img src="kafka_partition.png" alt="partition"><br>通过图片我们可以看出，虽然每个partition内部是有序的，但对于整个topic而言它是无法保证有序性的。<br>partition 的数据会以 日志文件的形式存储到磁盘中，在配置文件 <code>server.properties</code> 中通过属性 <code>log.dirs</code> 指定。<br>在该文件夹下会根据topic和序号来创建文件夹，在该 partition 文件夹中以 <code>.log</code> 结尾的文件是实际存储数据的文件，当生产者生产数据，。<br>以 <code>.index</code> 结尾的文件是索引文件，index 和log 组成一个 <code>segment</code>。 .log 文件默认只会保持7天内的数据，通过 <code>log.retention.hours</code> 配置项指定数据保持时长。<br>当.log 文件超出最大值时会创建新的 .log文件和.index文件，也就是一个新的segment；其中文件的名称以消息起始偏移量命名。<br><code>log.segment.bytes</code> 指定log文件的最大值。当我们去寻找一条消息的时候，会先根据偏移量来定位到属于哪一个 <code>segment</code>，<br>再通过二分查找从index文件中寻找该偏移量对应的索引，再通过索引去log文件中找到真正的消息。</p>
+<h2 id="partition-文件存储机制"><a href="#partition-文件存储机制" class="headerlink" title="partition 文件存储机制"></a>partition 文件存储机制</h2><p>前文提到过，一个topic是分成多个partition 存储的；topic是逻辑上的概念，partition是物理上的概念，如图所示：<br><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka_partition.png" alt="partition"><br>通过图片我们可以看出，虽然每个partition内部是有序的，但对于整个topic而言它是无法保证有序性的。<br>partition 的数据会以 日志文件的形式存储到磁盘中，在配置文件 <code>server.properties</code> 中通过属性 <code>log.dirs</code> 指定。<br>在该文件夹下会根据topic和序号来创建文件夹，在该 partition 文件夹中以 <code>.log</code> 结尾的文件是实际存储数据的文件，当生产者生产数据，。<br>以 <code>.index</code> 结尾的文件是索引文件，index 和log 组成一个 <code>segment</code>。 .log 文件默认只会保持7天内的数据，通过 <code>log.retention.hours</code> 配置项指定数据保持时长。<br>当.log 文件超出最大值时会创建新的 .log文件和.index文件，也就是一个新的segment；其中文件的名称以消息起始偏移量命名。<br><code>log.segment.bytes</code> 指定log文件的最大值。当我们去寻找一条消息的时候，会先根据偏移量来定位到属于哪一个 <code>segment</code>，<br>再通过二分查找从index文件中寻找该偏移量对应的索引，再通过索引去log文件中找到真正的消息。</p>
 <h2 id="数据可靠性保证"><a href="#数据可靠性保证" class="headerlink" title="数据可靠性保证"></a>数据可靠性保证</h2><p>为保证producer 发送的数据不丢失，broker 接收到数据后都需要对producer发送ack(确认接收) ，如果producer 未收到ack则会重新发送该条消息。producer 的 ack 策略又分为三种：</p>
 <ul>
 <li>ack=0 producer不等待broker同步完成的确认，继续发送下一条(批)信息</li>
@@ -191,7 +192,8 @@
 <li>ack=-1 producer得到follwer确认(全副本同步完成)，才发送下一条数据</li>
 </ul>
 <h2 id="isr（同步副本表）"><a href="#isr（同步副本表）" class="headerlink" title="isr（同步副本表）"></a>isr（同步副本表）</h2><p>采用全副本同步完成再ack会有一个问题：<br>当leader 接收完数据，所有的follower开始同步数据，但一旦有一个follower不能与leader进行同步，那leader会一直等下去，这样会非常的浪费时间。<br>为此kafka引入了 isr 机制——leader会维护一个动态的 isr（in-sync replica set）列表，这个列表维护了和leader保持同步的集合。当ISR中的follower完成数据的同步之后，leader就会发送ack。如果follower 长时间未向leader同步数据，则该follower将会被踢出 isr，当其他满足条件的follower也会被加入到isr。这个同步最大时间配置项为<code>replica.lag.time.max.ms</code> 参数设置。如果leader故障了，也会从isr的follower中选举新的leader。</p>
-<h2 id="数据一致性问题"><a href="#数据一致性问题" class="headerlink" title="数据一致性问题"></a>数据一致性问题</h2><p>因为副本的消息数是存在差异的，可能leader10条，而follower只同步了8条；当leader挂掉，数据就有可能会发生丢失，通过一种机制来保证消费者消费数据的一致性就很有必要了。kafka的数据一致性通过  LEO（每个副本的最后一条o’f’fset）和HW（所有的LEO中最小的那个）来保证。示意图：<br>消费者只能看到offset&lt;=HW 的消息。</p>
+<h2 id="数据一致性问题"><a href="#数据一致性问题" class="headerlink" title="数据一致性问题"></a>数据一致性问题</h2><p>因为副本的消息数是存在差异的，可能leader10条，而follower只同步了8条；当leader挂掉，数据就有可能会发生丢失，通过一种机制来保证消费者消费数据的一致性就很有必要了。kafka的数据一致性通过  LEO（每个副本的最后一条o’f’fset）和HW（所有的LEO中最小的那个）来保证。示意图：<br><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg" alt="range"></p>
+<p>消费者只能看到offset&lt;=HW 的消息。</p>
 <h2 id="消费策略"><a href="#消费策略" class="headerlink" title="消费策略"></a>消费策略</h2><p>kafka 对消息消费的处理有两种：</p>
 <ul>
 <li>（at least once）至少一次</li>
@@ -200,13 +202,13 @@
 </ul>
 <p>因为ack机制的存在，producer 向kafka发送消息时如果 ack=0，由于producer不等确认消息是否投递成功就不管了 ，可能丢失数据，此时消费者最多消费一次消息；如果ack=1，当producer未收到消息确认投递成功时会再次投递，这个时候可能消息被投递了多次，可能会存在重复消费的情况。当kafka开启数据幂等性且ack=1的时候，此时重复的消息会被去重，因此不会产生重复消费的情况。<br>启用幂等性的方式是将producer中的参数 <code>enable.idompotence</code> 设置为true。</p>
 <h2 id="消费者相关特性"><a href="#消费者相关特性" class="headerlink" title="消费者相关特性"></a>消费者相关特性</h2><p>和rabbitMQ一样，可以指定消费者消费消息是推模式还是拉模式，逻辑是和 rabbit 一样的，这里就不多做解释了。在消费者组中，有多个消费者，一个topic中有多个partition。那么消息的分配是怎么样的呢，首先前文提到过一个消费者组中的消费者不能同时消费同一个partition，这是基本原则。<br>然后partiotion的分配机制有两种，一种是range（范围） 一种是 RoundRobin（轮询），range示 意图：</p>
-<p><img src="range.jpg" alt="range"></p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader.png" alt="leader"></p>
 <p>RoundRobin 示意图：</p>
-<p><img src="roundbin.png" alt="range"></p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/roundbin.png" alt="range"></p>
 <p>由于consumer也可能会宕机挂掉，当consumer恢复的时候必须要能够从上一次消费的地方重新开始消费。所以consumer需要实时记录自己消费到了哪一个offset，以便能够恢复到宕机前状态。</p>
 <h2 id="kafka高效读写保证"><a href="#kafka高效读写保证" class="headerlink" title="kafka高效读写保证"></a>kafka高效读写保证</h2><p>kafka的producer生产数据，要以追加的形式写入到log文件中，这个写磁盘的过程是顺序写，相对于磁盘的随机写来说，这个效率要高出很多，这个是kafka高效读写的保证之一。而另外的一个保证高效读写的技术是零拷贝，用过netty的小伙伴应该知道这个技术，中间少了两次用户态的切换。</p>
 <h2 id="kafka-集群特性"><a href="#kafka-集群特性" class="headerlink" title="kafka 集群特性"></a>kafka 集群特性</h2><p>kafka的集群中会有一个broker会被选举为 controller，负责管理集群broker的上下线，所有topic的副本leader的选举工作，<br>而controller的这些管理工作都是需要依赖于kafka的。下图为leader的选举示意图：</p>
-<p><img src="leader.png" alt="range"></p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader1.png" alt="range"></p>
 <p>kafka特性介绍完毕，接下来进入springboot实战章节</p>
 
       

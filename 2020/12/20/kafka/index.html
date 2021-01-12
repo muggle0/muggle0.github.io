@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>kafka系列-安装和使用kafka | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。 kafka 概念角色介绍 Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交">
+  <meta name="description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kafka系列-安装和使用kafka">
 <meta property="og:url" content="http://muggle0.github.io/2020/12/20/kafka/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。 kafka 概念角色介绍 Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交">
+<meta property="og:description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:31:44.140Z">
+<meta property="article:modified_time" content="2021-01-12T03:36:40.994Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -175,8 +175,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h1 id="kafka-介绍"><a href="#kafka-介绍" class="headerlink" title="kafka 介绍"></a>kafka 介绍</h1><p>kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，<br>Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。</p>
+        <h1 id="kafka-介绍"><a href="#kafka-介绍" class="headerlink" title="kafka 介绍"></a>kafka 介绍</h1><p>kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，<br>Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。</p>
+<a id="more"></a>
 <h2 id="kafka-概念角色介绍"><a href="#kafka-概念角色介绍" class="headerlink" title="kafka 概念角色介绍"></a>kafka 概念角色介绍</h2><ul>
 <li>Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交消息到磁盘保存；</li>
 <li>Topic：Topic为主题，也就是相当于消息系统中的队列(queue)，一个Topic中存在多个Partition；注意，这里区别于 rabbitMQ 的 Topic；</li>
