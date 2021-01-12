@@ -16,12 +16,12 @@
 <meta property="og:description" content="kafka 原理深度解读前文介绍了kafka的一些基本原理，接下来我们深入了解下关于kafka的一些机制和优化">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka_partition.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/roundbin.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader1.png">
 <meta property="article:published_time" content="2020-12-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:44:26.793Z">
+<meta property="article:modified_time" content="2021-01-12T03:57:32.518Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
 <li>ack=-1 producer得到follwer确认(全副本同步完成)，才发送下一条数据</li>
 </ul>
 <h2 id="isr（同步副本表）"><a href="#isr（同步副本表）" class="headerlink" title="isr（同步副本表）"></a>isr（同步副本表）</h2><p>采用全副本同步完成再ack会有一个问题：<br>当leader 接收完数据，所有的follower开始同步数据，但一旦有一个follower不能与leader进行同步，那leader会一直等下去，这样会非常的浪费时间。<br>为此kafka引入了 isr 机制——leader会维护一个动态的 isr（in-sync replica set）列表，这个列表维护了和leader保持同步的集合。当ISR中的follower完成数据的同步之后，leader就会发送ack。如果follower 长时间未向leader同步数据，则该follower将会被踢出 isr，当其他满足条件的follower也会被加入到isr。这个同步最大时间配置项为<code>replica.lag.time.max.ms</code> 参数设置。如果leader故障了，也会从isr的follower中选举新的leader。</p>
-<h2 id="数据一致性问题"><a href="#数据一致性问题" class="headerlink" title="数据一致性问题"></a>数据一致性问题</h2><p>因为副本的消息数是存在差异的，可能leader10条，而follower只同步了8条；当leader挂掉，数据就有可能会发生丢失，通过一种机制来保证消费者消费数据的一致性就很有必要了。kafka的数据一致性通过  LEO（每个副本的最后一条o’f’fset）和HW（所有的LEO中最小的那个）来保证。示意图：<br><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg" alt="range"></p>
+<h2 id="数据一致性问题"><a href="#数据一致性问题" class="headerlink" title="数据一致性问题"></a>数据一致性问题</h2><p>因为副本的消息数是存在差异的，可能leader10条，而follower只同步了8条；当leader挂掉，数据就有可能会发生丢失，通过一种机制来保证消费者消费数据的一致性就很有必要了。kafka的数据一致性通过  LEO（每个副本的最后一条o’f’fset）和HW（所有的LEO中最小的那个）来保证。示意图：<br><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader.png" alt="hw"></p>
 <p>消费者只能看到offset&lt;=HW 的消息。</p>
 <h2 id="消费策略"><a href="#消费策略" class="headerlink" title="消费策略"></a>消费策略</h2><p>kafka 对消息消费的处理有两种：</p>
 <ul>
@@ -202,7 +202,7 @@
 </ul>
 <p>因为ack机制的存在，producer 向kafka发送消息时如果 ack=0，由于producer不等确认消息是否投递成功就不管了 ，可能丢失数据，此时消费者最多消费一次消息；如果ack=1，当producer未收到消息确认投递成功时会再次投递，这个时候可能消息被投递了多次，可能会存在重复消费的情况。当kafka开启数据幂等性且ack=1的时候，此时重复的消息会被去重，因此不会产生重复消费的情况。<br>启用幂等性的方式是将producer中的参数 <code>enable.idompotence</code> 设置为true。</p>
 <h2 id="消费者相关特性"><a href="#消费者相关特性" class="headerlink" title="消费者相关特性"></a>消费者相关特性</h2><p>和rabbitMQ一样，可以指定消费者消费消息是推模式还是拉模式，逻辑是和 rabbit 一样的，这里就不多做解释了。在消费者组中，有多个消费者，一个topic中有多个partition。那么消息的分配是怎么样的呢，首先前文提到过一个消费者组中的消费者不能同时消费同一个partition，这是基本原则。<br>然后partiotion的分配机制有两种，一种是range（范围） 一种是 RoundRobin（轮询），range示 意图：</p>
-<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader.png" alt="leader"></p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg" alt="range"></p>
 <p>RoundRobin 示意图：</p>
 <p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/roundbin.png" alt="range"></p>
 <p>由于consumer也可能会宕机挂掉，当consumer恢复的时候必须要能够从上一次消费的地方重新开始消费。所以consumer需要实时记录自己消费到了哪一个offset，以便能够恢复到宕机前状态。</p>
@@ -430,6 +430,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
@@ -463,10 +467,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
