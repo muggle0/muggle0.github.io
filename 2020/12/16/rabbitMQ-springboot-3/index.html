@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>kafka系列-安装和使用kafka | muggle</title>
+  <title>rabbitMQ 结合 springboot 使用 三 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。 kafka 概念角色介绍 Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交">
+  <meta name="description" content="ListenerContainer 的使用在消费端，我们的消费监听器是运行在 监听器容器之中的（ ListenerContainer ），springboot 给我们提供了两个监听器容器 SimpleMessageListenerContainer 和 DirectMessageListenerContainer 在配置文件中凡是以 spring.rabbitmq.listener.simple">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kafka系列-安装和使用kafka">
-<meta property="og:url" content="http://muggle0.github.io/2019/04/28/kafka/index.html">
+<meta property="og:title" content="rabbitMQ 结合 springboot 使用 三">
+<meta property="og:url" content="http://muggle0.github.io/2020/12/16/rabbitMQ-springboot-3/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="kafka 介绍kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。 kafka 概念角色介绍 Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交">
+<meta property="og:description" content="ListenerContainer 的使用在消费端，我们的消费监听器是运行在 监听器容器之中的（ ListenerContainer ），springboot 给我们提供了两个监听器容器 SimpleMessageListenerContainer 和 DirectMessageListenerContainer 在配置文件中凡是以 spring.rabbitmq.listener.simple">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-04-28T09:54:17.000Z">
-<meta property="article:modified_time" content="2021-01-11T08:25:06.932Z">
+<meta property="article:published_time" content="2020-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-12T03:30:58.483Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -155,48 +155,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-kafka" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-rabbitMQ-springboot-3" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      kafka系列-安装和使用kafka
+      rabbitMQ 结合 springboot 使用 三
     </h1>
   
 
         
-        <a href="/2019/04/28/kafka/" class="archive-article-date">
-  	<time datetime="2019-04-28T09:54:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
+        <a href="/2020/12/16/rabbitMQ-springboot-3/" class="archive-article-date">
+  	<time datetime="2020-12-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h1 id="kafka-介绍"><a href="#kafka-介绍" class="headerlink" title="kafka 介绍"></a>kafka 介绍</h1><p>kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，<br>Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。</p>
-<h2 id="kafka-概念角色介绍"><a href="#kafka-概念角色介绍" class="headerlink" title="kafka 概念角色介绍"></a>kafka 概念角色介绍</h2><ul>
-<li>Broker：kafka 中 broker概念和rabbitMQ的broker概念类似，一个独立的 Kafka 服务器被称为broker，接收来自生产者的消息，为消息设置偏移量，并提交消息到磁盘保存；</li>
-<li>Topic：Topic为主题，也就是相当于消息系统中的队列(queue)，一个Topic中存在多个Partition；注意，这里区别于 rabbitMQ 的 Topic；</li>
-<li>Partition：Partition为分区，是构成Kafka存储结构的最小单位；</li>
-<li>Group：消费者组，一组消费者构成消费者组</li>
-<li>Message：消息</li>
-</ul>
-<h1 id="kafka-安装及使用"><a href="#kafka-安装及使用" class="headerlink" title="kafka 安装及使用"></a>kafka 安装及使用</h1><p>kafka 的运行依赖于 zookeeper，它的安装相对于 rabbitMQ来说比较简单。下面介绍Windows下 kafka的安装及其使用。</p>
-<p>kafka是依赖于zookeeper的，所以我们先要安装zookeeper ，当然kafka的二进制包里面，包含了zookeeper 的安装包，我们不需要单独的再去下载ZK的安装包；</p>
-<p> 在 kafka 官网下载 二进制的 tgz 压缩包： <a target="_blank" rel="noopener" href="http://kafka.apache.org/downloads.html，解压后它的">http://kafka.apache.org/downloads.html，解压后它的</a> bin/windows下有 zk的启动脚本和kafka的启动脚本，<br> zk的配置文件和kafka的配置文件在 config文件夹下，分别对应 zookeeper.properties和server.properties。<br> 由于本人对zk使用的频率也比较高，因此我是单独安装的zk。</p>
-<p> 下面我们对kafka进行配置及启动，配置文件说明：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> # 对外暴露的服务端口</span><br><span class="line">advertised.listeners&#x3D;PLAINTEXT:&#x2F;&#x2F;ip:9092</span><br><span class="line"># 机器的标识</span><br><span class="line">broker.id&#x3D;1</span><br><span class="line"># kafka日志存储的位置</span><br><span class="line">log.dirs&#x3D;c:xxx</span><br><span class="line"># zk的地址</span><br><span class="line">zookeeper.connect&#x3D;localhost:2181</span><br></pre></td></tr></table></figure></p>
-<p>启动脚本：<br> <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-server-<span class="built_in">start</span>.bat .\config\server.properties</span><br></pre></td></tr></table></figure><br>接下来我们做一下简单的测试。</p>
-<p>执行脚本</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">1</span> --topic test</span><br></pre></td></tr></table></figure>
-<p>该操作创建了一个 名为 test 的 kafka 主题，接下来我们可以在主题中写入消息并消费消息了。</p>
-<p>执行脚本</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-console-producer.bat --broker-list <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">9092</span> --topic test </span><br><span class="line">xxx</span><br><span class="line">xxx</span><br></pre></td></tr></table></figure>
-<p>该操作创建了一个消息生产者，并发送消息 “xxx”</p>
-<p>执行脚本,消费消息：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.bat --bootstrap-server localhost:<span class="number">9092</span> --topic test --from-beginning</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h2 id="ListenerContainer-的使用"><a href="#ListenerContainer-的使用" class="headerlink" title="ListenerContainer 的使用"></a><code>ListenerContainer</code> 的使用</h2><p>在消费端，我们的消费监听器是运行在 监听器容器之中的（ <code>ListenerContainer</code> ），springboot 给我们提供了两个监听器容器 <code>SimpleMessageListenerContainer</code> 和 <code>DirectMessageListenerContainer</code> 在配置文件中凡是以 <code>spring.rabbitmq.listener.simple</code> 开头的就是对第一个容器的配置，以 <code>spring.rabbitmq.listener.direct</code> 开头的是对第二个容器的配置。其实这两个容器类让我很费劲；首先官方文档并没有说哪个是默认的容器，似乎两个都能用；其次，它说这个容器默认是单例模式的，但它又提供了工厂方法，而且我们看 <code>@RabbitListener</code> 注解源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Target(&#123;ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@MessageMapping</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Repeatable(RabbitListeners.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RabbitListener &#123;</span><br><span class="line">    <span class="function">String <span class="title">id</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    <span class="function">String <span class="title">containerFactory</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它是指定一个 <code>containerFactory</code> 那我通过 <code>@Bean</code> 注解注册一个 <code>ListenerContainer</code> ` 到底有没有用。</p>
+<p>保险起见这里教程中建议注册一个<code>containerFactory</code>  而不是一个单例的<code>ListenerContainer</code>  那我可以对这个容器工厂做哪些设置呢。它的官方文档<code>&lt;https://docs.spring.io/spring-amqp/docs/2.1.8.RELEASE/api/&gt;</code> 其中前往提到的序列化问题就可以配置这个工厂bean来解决：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SimpleRabbitListenerContainerFactory <span class="title">rabbitListenerContainerFactory</span><span class="params">(ConnectionFactory connectionFactory)</span> </span>&#123;</span><br><span class="line">        SimpleRabbitListenerContainerFactory factory = <span class="keyword">new</span> SimpleRabbitListenerContainerFactory();</span><br><span class="line">        factory.setConnectionFactory(connectionFactory);</span><br><span class="line">        <span class="comment">// 传入一个序列化器 也可以通过 rabbitTemplate.setMessageConverter(）来配置</span></span><br><span class="line">        factory.setMessageConverter(<span class="keyword">new</span> MessagingMessageConverter());</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>除此之外 它还能设置事务的长度，消费者并发数，消息重试的相关参数等。小伙伴自己按需查阅资料去进行尝试，这里由于篇幅问题就不做说明了。</p>
+<h2 id="8-惰性队列"><a href="#8-惰性队列" class="headerlink" title="8. 惰性队列"></a>8. 惰性队列</h2><p>在 rabbit3.6 版本引入了惰性队列的的概念；默认情况下队列的消息会尽可能的存储在内存之中，这样可以更加快速的将消息发送给消费者，就算持久化的消息也会在内存中做备份。当 rabbit 需要释放内存的时候，会将内存中的消息写入磁盘。这个操作不仅耗时还阻塞队列，让队列无法写入消息。于是 rabbit 将队列分为了两中模式——<code>default</code> 模式和 <code>lazy</code> 模式来解决这一问题。<code>lazy</code> 模式即为惰性队列的模式。惰性队列 通过参数 <code>x-queue-mode</code>来配置，代码可参考死信队列，通过  <code>QueueBuilder</code> 的 <code>withArgument</code> 来指定参数。</p>
+<p>惰性队列和普通队列相比，只有很小的内存开销。惰性队列会将消息直接写入到磁盘，需要消费的时候再取出来。当消息量级很大，内存完全不够用的时候，普通队列要经历这样的过程——将消息读到内存 —&gt; 内存满了需要给后面的消息腾地方，将消息写入磁盘—&gt;消费到这条消息，将消息又读入内存。所以当消息量级很大的时候，惰性队列性能要好过普通队列，当内存完全够用的时候则不然。</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>  事务特性是针对生产者投递消息而言的，对我们的项目来说 rabbit 的事务是很重要的；假如没有事务特性，在一个方法中，数据库插入数据失败回滚了，而对应的消息却无法回滚，就会产生一条错误的消息。</p>
+<p>rabbit 中的事务机制和 callable 机制是互斥的，也就是说只有 <code>spring.rabbitmq.template.mandatory=false</code> 的时候才能使用。rabbit 事务的声明，提交，回滚的方法是channel的 <code>txSelect()</code>，<code>txCoomit()</code> ，<code>txRollback()</code>。但是在 springboot 我们大可不必去手动提交和回滚，可以使用 spring 的声明式事务，上代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Order(1)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RabbitConfig</span><span class="params">( RabbitTemplate rabbitTemplate,MyConfirmCallback confirmCallback,MyReturnCallback returnCallback)</span></span>&#123;</span><br><span class="line"><span class="comment">//        rabbitTemplate.setReturnCallback(returnCallback);</span></span><br><span class="line"><span class="comment">//        rabbitTemplate.setConfirmCallback(confirmCallback);</span></span><br><span class="line">        <span class="comment">// 设置事务环境，使得可以使用RabbitMQ事务</span></span><br><span class="line">        rabbitTemplate.setChannelTransacted(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生产者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitTestService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RabbitTemplate template;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">            template.convertAndSend(<span class="string">&quot;test for &quot;</span> + i);</span><br><span class="line">            System.out.println(<span class="string">&quot;&gt;&gt;&gt;&gt;&gt;&quot;</span> +i);</span><br><span class="line">        &#125;</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过管理界面和，消费者打印窗口，可确定声明式事务是否配置成功。</p>
+<h2 id="备胎机"><a href="#备胎机" class="headerlink" title="备胎机"></a>备胎机</h2><p>备胎机顾名思义就是替代现任的备胎，“正主” 没了后可以及时上位。在rabbitMQ中，如果生产者发送消息，由于路由错误等原因不能到达指定队列，就会路由到备胎队列消费。这样做可以保证未被路由的消息不会丢失。</p>
+<p>备胎交换机的参数为 <code>alternate-exchange</code>来指定做谁的备胎：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> DirectExchange <span class="title">alternateExchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">     <span class="comment">//指定做哪个交换机的备胎</span></span><br><span class="line">     arguments.put(<span class="string">&quot;alternate-exchange&quot;</span>, <span class="string">&quot;exchange-boss&quot;</span>);</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> DirectExchange(<span class="string">&quot;xxxqueue&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, arguments);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> FanoutExchange <span class="title">bossExchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="comment">// 执行业务的交换机</span></span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> FanoutExchange(<span class="string">&quot;exchange-boss&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>到这里，你已经学习完了rabbitMQ在springboot中的实战相关技术，下一章节我们将学习rabbitMQ运维相关知识</p>
+<hr>
+<p>作者：muggle <a target="_blank" rel="noopener" href="https://muggle.javaboy.org/2019/03/20/home/">点我关注作者</a> </p>
+<p>出处：<a target="_blank" rel="noopener" href="https://muggle-book.gitee.io/">https://muggle-book.gitee.io/</a></p>
+<p>版权：本文版权归作者所有 </p>
+<p>转载：欢迎转载，但未经作者同意，必须保留此段声明；必须在文章中给出原文连接；否则必究法律责任</p>
+
       
 
       
@@ -265,7 +267,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2019/04/28/kafka/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/12/16/rabbitMQ-springboot-3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -279,18 +281,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/30/reptile/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/12/17/rabbitMQ-yunwei/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          java撸一只爬虫
+          rabbitMQ 运维相关
         
       </div>
     </a>
   
   
-    <a href="/2019/04/27/home-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">好文收集</div>
+    <a href="/2020/12/15/rabbitMQ-springboot-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">rabbitMQ 结合 springboot 使用 二</div>
       <i class="icon-circle-right"></i>
     </a>
   

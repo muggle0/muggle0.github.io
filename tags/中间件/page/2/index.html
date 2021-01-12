@@ -6,19 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>rabbitmq-3 | muggle</title>
+  <title>Tag: 中间件 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="备胎机备胎机顾名思义就是替代现任的备胎，“正主” 没了后可以及时上位。在rabbitMQ中，如果生产者发送消息，由于路由错误等原因不能到达指定队列，就会路由到备胎队列消费。这样做可以保证未被路由的消息不会丢失。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="rabbitmq-3">
-<meta property="og:url" content="http://muggle0.github.io/2020/09/07/rabbitmq-3/index.html">
+  <meta name="description" content="我的爪哇和日常记录博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="muggle">
+<meta property="og:url" content="http://muggle0.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/page/2/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="备胎机备胎机顾名思义就是替代现任的备胎，“正主” 没了后可以及时上位。在rabbitMQ中，如果生产者发送消息，由于路由错误等原因不能到达指定队列，就会路由到备胎队列消费。这样做可以保证未被路由的消息不会丢失。">
+<meta property="og:description" content="我的爪哇和日常记录博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-07T08:17:20.000Z">
-<meta property="article:modified_time" content="2021-01-11T07:31:23.312Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="中间件">
+<meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
@@ -155,56 +153,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-rabbitmq-3" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      rabbitmq-3
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/06/15/zookeeper/" class="archive-article-date">
+  	<time datetime="2019-06-15T09:23:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-15</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/06/15/zookeeper/">zookeeper 浅解</a>
     </h1>
   
 
-        
-        <a href="/2020/09/07/rabbitmq-3/" class="archive-article-date">
-  	<time datetime="2020-09-07T08:17:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="备胎机"><a href="#备胎机" class="headerlink" title="备胎机"></a>备胎机</h2><p>备胎机顾名思义就是替代现任的备胎，“正主” 没了后可以及时上位。在rabbitMQ中，如果生产者发送消息，由于路由错误等原因不能到达指定队列，就会路由到备胎队列消费。这样做可以保证未被路由的消息不会丢失。</p>
-<a id="more"></a>
-
-<p>备胎交换机的参数为 <code>alternate-exchange</code>来指定做谁的备胎：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> DirectExchange <span class="title">alternateExchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     Map&lt;String, Object&gt; arguments = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">     <span class="comment">//指定做哪个交换机的备胎</span></span><br><span class="line">     arguments.put(<span class="string">&quot;alternate-exchange&quot;</span>, <span class="string">&quot;exchange-boss&quot;</span>);</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> DirectExchange(<span class="string">&quot;xxxqueue&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, arguments);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> FanoutExchange <span class="title">bossExchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="comment">// 执行业务的交换机</span></span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> FanoutExchange(<span class="string">&quot;exchange-boss&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="rabbitMQ集群"><a href="#rabbitMQ集群" class="headerlink" title="rabbitMQ集群"></a>rabbitMQ集群</h2><p>单台 RabbitMQ 服务器可以满足每秒 1000 条消息的吞吐量，如果对吞吐量要求更高就需要构建rabbitMQ集群了。RabbitMQ 集群允许消费者和生产者在 RabbitMQ 单个节点崩惯的情况下继续运行，它可以 通过添加更多的节点来线性地扩展消息通信的吞吐量。当失去一个 RabbitMQ 节点时，客户端 能够重新连接到集群中的任何其他节点并继续生产或者消费。</p>
-<p>RabbitMQ 集群不能保证消息的万无一失。即使将消息、队列、交换器等都设置为可持久化，生产端和消费端都正确地使用了确认方式，当集群中一个 RabbitMQ 节点崩溃时，该节 点上的所有队列中的消息也会丢失。 RabbitMQ 集群中的所有节点都会备份所有的元数据信息， 包括队列的名称及属性，交换器的名称及属性，交换器与队列或者交换器与交换器之间的绑定关系， 但是不会备份消息（可以通过镜像队列来解决这个问题）。</p>
-<p>rabbitmq可以通过三种方式来部署分布式集群系统，分别是：cluster、federation、shovel。</p>
-<p>cluster的特点为:</p>
-<ul>
-<li>不支持夸网段，用于同一个网段内的局域网</li>
-<li>可以随意动态的增加和减少</li>
-<li>节点之间需要运行相同版本的rabbitmq和erlang</li>
-</ul>
-<p>federation特点为:</p>
-<ul>
-<li>需要配置联邦交换机和联邦队列</li>
-<li>应用于广域网，允许单台服务器上的交换机或队列接收发布到另一台服务器交换机或队列的消息</li>
-<li>消息会在联盟队列之间转发任意次，直到被消费者接受。</li>
-</ul>
-<p>shovel:连接方式与federation的连接方式类似，相当于建立一个消费者，来将消息从一个队列转移到另一个队列。</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#开启WEB后台监控</span><br><span class="line">.&#x2F;rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">#启停服务</span><br><span class="line">service rabbitmq-server start</span><br><span class="line">service rabbitmq-server stop</span><br><span class="line">service rabbitmq-server restart</span><br><span class="line">#查看状态</span><br><span class="line">service rabbitmq-server status</span><br><span class="line">#运行节点</span><br><span class="line">rabbitmq-server -detached</span><br><span class="line"># rabbitmqctl（命令行工具）</span><br><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl start_app</span><br><span class="line">#初始化node状态，会从集群中删除该节点</span><br><span class="line">rabbitmqctl reset</span><br><span class="line">#无条件的初始化node状态</span><br><span class="line">rabbitmqctl force_reset</span><br><span class="line">#[--ram]不写则默认为disc</span><br><span class="line">rabbitmqctl join_cluster &lt;clusternode&gt; [--ram]</span><br><span class="line">rabbitmqctl cluster_status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -216,114 +194,22 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/09/07/rabbitmq-3/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2021/01/11/codeStyle/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          聊一聊代码规范
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/09/07/kafka-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kafka 系列——kafka原理浅解</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">&amp;laquo; Prev</a><a class="page-number" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -347,9 +233,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
