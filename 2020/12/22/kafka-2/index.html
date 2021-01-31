@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/roundbin.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader1.png">
 <meta property="article:published_time" content="2020-12-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:57:32.518Z">
+<meta property="article:modified_time" content="2021-01-31T03:32:08.182Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
 <h2 id="kafka高效读写保证"><a href="#kafka高效读写保证" class="headerlink" title="kafka高效读写保证"></a>kafka高效读写保证</h2><p>kafka的producer生产数据，要以追加的形式写入到log文件中，这个写磁盘的过程是顺序写，相对于磁盘的随机写来说，这个效率要高出很多，这个是kafka高效读写的保证之一。而另外的一个保证高效读写的技术是零拷贝，用过netty的小伙伴应该知道这个技术，中间少了两次用户态的切换。</p>
 <h2 id="kafka-集群特性"><a href="#kafka-集群特性" class="headerlink" title="kafka 集群特性"></a>kafka 集群特性</h2><p>kafka的集群中会有一个broker会被选举为 controller，负责管理集群broker的上下线，所有topic的副本leader的选举工作，<br>而controller的这些管理工作都是需要依赖于kafka的。下图为leader的选举示意图：</p>
 <p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader1.png" alt="range"></p>
-<p>kafka特性介绍完毕，接下来进入springboot实战章节</p>
+<p>kafka特性介绍完毕，接下来介绍kafka 事务相关的知识</p>
 
       
 
