@@ -14,7 +14,7 @@ tags: 中间件
 
 一个生产者向rabbit投递消息，然后消费者消费这个消息的过程是这样的——生产者将消息投递给rabbit，在rabbit中`exchange`（交换机）首先会接收到这个消息，交换机相当于一个“分拣员”的角色，负责分拣消息，将这些消息存储到和自己绑定的`queue`（队列）中去，然后和队列绑定的消费者会消费这些消息。队列和交换机绑定通过一个`binding-key`（绑定键）来标记，而生产者投递消息给交换机的时候会指定一个`routing-key`（路由键），而交换机会根据路由和绑定键来判断将消息放到那些队列中去（扩展：kafka的数据是存储在 exchange 中，它的 queue 只是逻辑队列）。
 图一是rabbitMQ的一个概念简图：
-![rabbitMQ概念简图](D:\blog\worldpeace\mq\rabbitmq架构.jpg)
+![rabbitMQ概念简图](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/rabbitmq架构.jpg)
 																	图一：rabbitMQ 概念简图
 
 ## rabbitMQ交换机类型

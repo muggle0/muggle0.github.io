@@ -10,7 +10,7 @@ tags: 中间件
 那么kafka是怎么去发布消息，怎么去保存消息，订阅消息的呢？首先我们从kafka的发布订阅模型开始分析。
 <!--more-->
 下图为kafka的发布订阅模型：
-![kafka发布订阅模型](kafka发布订阅模型.png)
+![kafka发布订阅模型](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%9E%8B.png)
 
 ## kafka 运行流程
 
@@ -39,7 +39,7 @@ kafka通过不同的策略将数据分配到不同分区中，常见的有三种
 现在我们可以先简单的理解为往每个分区中写一条数据就会加一个偏移量，而消费一条数据就会减一个偏移量，就好像队列的游标一样。
 后文会具体分析它的工作原理。下图为 offset 示意图：
 
-![offset](kafka-partition-offset.png)
+![offset](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka-partition-offset.png)
 
 
 通常由如下几种 Kafka Offset 的管理方式：

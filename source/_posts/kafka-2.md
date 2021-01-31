@@ -14,7 +14,7 @@ tags: 中间件
 ## partition 文件存储机制
 
 前文提到过，一个topic是分成多个partition 存储的；topic是逻辑上的概念，partition是物理上的概念，如图所示：
-![partition](kafka_partition.png)
+![partition](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/kafka_partition.png)
 通过图片我们可以看出，虽然每个partition内部是有序的，但对于整个topic而言它是无法保证有序性的。
 partition 的数据会以 日志文件的形式存储到磁盘中，在配置文件 `server.properties` 中通过属性 `log.dirs` 指定。
 在该文件夹下会根据topic和序号来创建文件夹，在该 partition 文件夹中以 `.log` 结尾的文件是实际存储数据的文件，当生产者生产数据，。
@@ -38,6 +38,8 @@ partition 的数据会以 日志文件的形式存储到磁盘中，在配置文
 
 ## 数据一致性问题
 因为副本的消息数是存在差异的，可能leader10条，而follower只同步了8条；当leader挂掉，数据就有可能会发生丢失，通过一种机制来保证消费者消费数据的一致性就很有必要了。kafka的数据一致性通过  LEO（每个副本的最后一条o'f'fset）和HW（所有的LEO中最小的那个）来保证。示意图：
+![hw](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader.png)
+
 消费者只能看到offset<=HW 的消息。
 
 ## 消费策略
@@ -55,11 +57,11 @@ kafka 对消息消费的处理有两种：
 和rabbitMQ一样，可以指定消费者消费消息是推模式还是拉模式，逻辑是和 rabbit 一样的，这里就不多做解释了。在消费者组中，有多个消费者，一个topic中有多个partition。那么消息的分配是怎么样的呢，首先前文提到过一个消费者组中的消费者不能同时消费同一个partition，这是基本原则。
 然后partiotion的分配机制有两种，一种是range（范围） 一种是 RoundRobin（轮询），range示 意图：
 
-![range](range.jpg)
+![range](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/range.jpg)
 
 RoundRobin 示意图：
 
-![range](roundbin.png)
+![range](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/roundbin.png)
 
 
 由于consumer也可能会宕机挂掉，当consumer恢复的时候必须要能够从上一次消费的地方重新开始消费。所以consumer需要实时记录自己消费到了哪一个offset，以便能够恢复到宕机前状态。
@@ -73,6 +75,6 @@ kafka的producer生产数据，要以追加的形式写入到log文件中，这�
 kafka的集群中会有一个broker会被选举为 controller，负责管理集群broker的上下线，所有topic的副本leader的选举工作，
 而controller的这些管理工作都是需要依赖于kafka的。下图为leader的选举示意图：
 
-![range](leader.png)
+![range](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/leader1.png)
 
-kafka特性介绍完毕，接下来进入springboot实战章节
+kafka特性介绍完毕，接下来介绍kafka 事务相关的知识

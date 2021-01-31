@@ -171,11 +171,11 @@ public class QueueMessageHandler {
 
 值得注意的是，springboot为了使我们的代码可读性更好，还非常贴心的提供 `Exchange`,`Binding`,`Queue`的`Builder`（建造者），因此你可以使用它们对应建造者，也可以使用直接 new 的方式进行创建。另外创建的这些 exchange queue 都能在管理界面上看到，如图 2 ，图 3 ：
 
-![图 2：队列信息](b.png)
+![图 2：队列信息](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/b.png)
 
 ​											图 2：队列信息
 
-![图 3：交换机信息](c.png)
+![图 3：交换机信息](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/c.png)
 
 ​										图 3：交换机信息
 
