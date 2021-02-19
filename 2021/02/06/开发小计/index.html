@@ -16,7 +16,7 @@
 <meta property="og:description" content="接手项目的一次采坑springboot 有读取外部配置文件的方法，如下优先级： 第一种是在jar包的同一目录下建一个config文件夹，然后把配置文件放到这个文件夹下。 第二种是直接把配置文件放到jar包的同级目录。 第三种在classpath下建一个config文件夹，然后把配置文件放进去。 第四种是在classpath下直接放配置文件。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-06T09:47:50.000Z">
-<meta property="article:modified_time" content="2021-02-06T09:52:01.786Z">
+<meta property="article:modified_time" content="2021-02-19T02:48:17.879Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="javaee">
 <meta name="twitter:card" content="summary">
@@ -187,6 +187,10 @@
 <p>1、方式一<br>java -jar x.jar a b c  通过main(String[] args ) ,传入到args</p>
 <p>2、方式二<br>java -jar x.jar -Da=111 -Db=222 -Dc=3333 通过  System.getProperty(“a”); 方式获取。作为环境变量</p>
 <p>3、方式三<br>java -jar x.jar –a=111 –b=2222 是springboot支持的写法，可以通过@Value(“${a}”） 获取</p>
+<p>maven dockerfile 打包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package org.springframework.boot:spring-boot-maven-plugin:2.3.5.RELEASE:build-info dockerfile:build</span><br></pre></td></tr></table></figure>
+<p>指定settings</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mvn install --settings &#x2F;xxx&#x2F;settings.xml</span><br></pre></td></tr></table></figure>
 
       
 
