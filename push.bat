@@ -1,1 +1,1 @@
-git add . && git commit -m "auto commit muggle" && git subtree push -P public origin master
+git add . && git commit -m "auto commit muggle" && git subtree push -P public origin dev
