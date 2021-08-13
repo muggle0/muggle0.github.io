@@ -18,7 +18,6 @@ tags: tool
 npm install -g hexo-cli
 ```
 
-<!--more-->
 
 创建一个名为blog的博客项目
 
