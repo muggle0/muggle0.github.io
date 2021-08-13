@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>草稿箱 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="12345678910111213141516171819202122232425262728&#x2F;*    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直">
+  <meta name="description" content="12345678910111213141516171819202122232425262728&#x2F;*    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰">
 <meta property="og:type" content="article">
 <meta property="og:title" content="草稿箱">
 <meta property="og:url" content="http://muggle0.github.io/2019/03/27/home-3/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728&#x2F;*    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728&#x2F;*    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-03-27T03:53:49.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.302Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="home">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -175,8 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。</span><br><span class="line"></span><br><span class="line">至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直接使用安全的collection更聪明。</span><br><span class="line"></span><br><span class="line">也就是说，如果不使用Iterator迭代器的话，使用了安全的collection以后，其实我们不需要再用Synchronized代码块修饰了，这样使用上更方便。</span><br><span class="line"></span><br><span class="line">反过来说，使用Iterator迭代器的话，似乎也没必要用Collections.synchronizedList的方法来包装了——反正都是必须要使用Synchronized代码块包起来的。</span><br><span class="line"></span><br><span class="line">所以总的来说，Collections.synchronizedXX这种做法，适合不需要使用Iterator、对性能要求也不高的情况。</span><br><span class="line">    *</span><br><span class="line">    * */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">*</span><br><span class="line">*  这就是所谓的线程安全的类，在多线程中一样会有问题，那这是为什么呢。后来在一篇博文当中看到了说Vector的contains方法和remove方法之前不具备原子性，这点给了提示。</span><br><span class="line">*  我现在认为出错的原因是在get和remove之间并没有在以上环境中做到同步，比方说，一个线程的get（2）操作发生时，正好遇到了remove操作的正在进行，这时get（2）这个操作就会阻塞，</span><br><span class="line">*  等待remove操作释放锁之后去操作。如果这时候remove操作的正好是remov（2）这个操作，等到去get的时候，这个元素已经没有了，get自然就只能是空欢喜一场。</span><br><span class="line">    这里原因找到了，就该说解决办法了，在说解决办法之前，可能还会困惑，说好的线程安全呢，</span><br><span class="line">    我的理解是，线程安全并不代表使用安全，在实际使用时还是需要考虑当前环境中是否会出现问题的。那么问题来了，java提供线程安全的某些类的意义在哪里呢，反正还是会出问题。</span><br><span class="line">    这就显得比较鸡肋了，但是也不能说没有意义，毕竟写程序还是要独立思考的。</span><br><span class="line">    解决办法就比较简单了，在两个线程的run方法里加上synchronized (testVector)，这样就会使得读取、删除线程中只会有一个对testVector进行操作，也就不会有上述情况出现。</span><br><span class="line">    从这个错误来看的话，编程一定要谨慎，使用到的技术一定要深入了解，不能说不出问题，但是在出了问题之后能找出原因并解决，</span><br><span class="line">    如果没有这个把握就不要轻易去使用，尤其在正式项目中，可能会让你欲哭无泪啊！</span><br><span class="line"></span><br><span class="line">* */</span><br></pre></td></tr></table></figure>
-
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。</span><br><span class="line"></span><br><span class="line">至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直接使用安全的collection更聪明。</span><br><span class="line"></span><br><span class="line">也就是说，如果不使用Iterator迭代器的话，使用了安全的collection以后，其实我们不需要再用Synchronized代码块修饰了，这样使用上更方便。</span><br><span class="line"></span><br><span class="line">反过来说，使用Iterator迭代器的话，似乎也没必要用Collections.synchronizedList的方法来包装了——反正都是必须要使用Synchronized代码块包起来的。</span><br><span class="line"></span><br><span class="line">所以总的来说，Collections.synchronizedXX这种做法，适合不需要使用Iterator、对性能要求也不高的情况。</span><br><span class="line">    *</span><br><span class="line">    * *&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">*</span><br><span class="line">*  这就是所谓的线程安全的类，在多线程中一样会有问题，那这是为什么呢。后来在一篇博文当中看到了说Vector的contains方法和remove方法之前不具备原子性，这点给了提示。</span><br><span class="line">*  我现在认为出错的原因是在get和remove之间并没有在以上环境中做到同步，比方说，一个线程的get（2）操作发生时，正好遇到了remove操作的正在进行，这时get（2）这个操作就会阻塞，</span><br><span class="line">*  等待remove操作释放锁之后去操作。如果这时候remove操作的正好是remov（2）这个操作，等到去get的时候，这个元素已经没有了，get自然就只能是空欢喜一场。</span><br><span class="line">    这里原因找到了，就该说解决办法了，在说解决办法之前，可能还会困惑，说好的线程安全呢，</span><br><span class="line">    我的理解是，线程安全并不代表使用安全，在实际使用时还是需要考虑当前环境中是否会出现问题的。那么问题来了，java提供线程安全的某些类的意义在哪里呢，反正还是会出问题。</span><br><span class="line">    这就显得比较鸡肋了，但是也不能说没有意义，毕竟写程序还是要独立思考的。</span><br><span class="line">    解决办法就比较简单了，在两个线程的run方法里加上synchronized (testVector)，这样就会使得读取、删除线程中只会有一个对testVector进行操作，也就不会有上述情况出现。</span><br><span class="line">    从这个错误来看的话，编程一定要谨慎，使用到的技术一定要深入了解，不能说不出问题，但是在出了问题之后能找出原因并解决，</span><br><span class="line">    如果没有这个把握就不要轻易去使用，尤其在正式项目中，可能会让你欲哭无泪啊！</span><br><span class="line"></span><br><span class="line">* *&#x2F;</span><br></pre></td></tr></table></figure>
 <h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><ul>
 <li>deque 双端对列</li>
 <li>queue 阻塞队列 ArrayBlockingQueue ：一个由数组支持的有界队列。LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。</li>
@@ -402,11 +401,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -414,7 +409,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -426,23 +437,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,19 +449,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,6 +470,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

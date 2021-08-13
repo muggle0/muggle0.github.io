@@ -16,7 +16,7 @@
 <meta property="og:description" content="作者：muggle nio介绍传统的IO又称BIO，即阻塞式IO，NIO就是非阻塞IO了，而NIO在jdk1.7后又进行了升级成为nio.2也就是aio；Java IO的各种流是阻塞的。这意味着，当一个线程调用read()或 write()时，该线程被阻塞，直到有一些数据被读取，或数据完全写入。该线程在此期间不能再干任何事情了。 Java NIO的非阻塞模式，使一个线程从某通道发送请求读取数据，但">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-26T03:49:48.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.310Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="javase">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -209,14 +209,11 @@
 <p>ransferTo()方法将数据从FileChannel传输到其他的channel中。</p>
 <p>InputStream get出来的通道只能用于输入，outputStream同理</p>
 <p>文件读操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(<span class="string">"test.txt"</span>);</span><br><span class="line">FileInputStream fin = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line"></span><br><span class="line">FileChannel channel = fin.getChannel();</span><br><span class="line">ByteBuffer buf = ByteBuffer.allocate(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">int</span> read = channel.read(buf);</span><br><span class="line"><span class="keyword">while</span> (read&gt;<span class="number">0</span>)&#123;</span><br><span class="line">     buf.flip();</span><br><span class="line">    <span class="keyword">byte</span>[] array = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> limit = buf.limit();</span><br><span class="line">    <span class="keyword">if</span> (limit&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">         buf.get(array);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        array=<span class="keyword">new</span> <span class="keyword">byte</span>[limit];</span><br><span class="line">        buf.get(array);</span><br><span class="line">    &#125;</span><br><span class="line">    String s = <span class="keyword">new</span> String(array);</span><br><span class="line">    System.out.print(s);</span><br><span class="line">    buf.clear();</span><br><span class="line">     read = channel.read(buf);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">FileInputStream fin = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line"></span><br><span class="line">FileChannel channel = fin.getChannel();</span><br><span class="line">ByteBuffer buf = ByteBuffer.allocate(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">int</span> read = channel.read(buf);</span><br><span class="line"><span class="keyword">while</span> (read&gt;<span class="number">0</span>)&#123;</span><br><span class="line">     buf.flip();</span><br><span class="line">    <span class="keyword">byte</span>[] array = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> limit = buf.limit();</span><br><span class="line">    <span class="keyword">if</span> (limit&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">         buf.get(array);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        array=<span class="keyword">new</span> <span class="keyword">byte</span>[limit];</span><br><span class="line">        buf.get(array);</span><br><span class="line">    &#125;</span><br><span class="line">    String s = <span class="keyword">new</span> String(array);</span><br><span class="line">    System.out.print(s);</span><br><span class="line">    buf.clear();</span><br><span class="line">     read = channel.read(buf);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>文件写操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile rw = <span class="keyword">new</span> RandomAccessFile(<span class="string">"test.txt"</span>, <span class="string">"rw"</span>);</span><br><span class="line">FileChannel channel = rw.getChannel();</span><br><span class="line">ByteBuffer allocate = ByteBuffer.allocate(<span class="number">1000</span>);</span><br><span class="line">allocate.put(<span class="string">"wwwww"</span>.getBytes());</span><br><span class="line">allocate.flip();</span><br><span class="line">channel.write(allocate);</span><br><span class="line">channel.write(wrap);</span><br><span class="line"><span class="comment">//      wrap 不需要 flip()</span></span><br><span class="line">ByteBuffer wrap = ByteBuffer.wrap(<span class="string">"sssssssssssss"</span>.getBytes());</span><br><span class="line">channel1.write(wrap);</span><br><span class="line">rw.close()</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile rw = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;test.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">FileChannel channel = rw.getChannel();</span><br><span class="line">ByteBuffer allocate = ByteBuffer.allocate(<span class="number">1000</span>);</span><br><span class="line">allocate.put(<span class="string">&quot;wwwww&quot;</span>.getBytes());</span><br><span class="line">allocate.flip();</span><br><span class="line">channel.write(allocate);</span><br><span class="line">channel.write(wrap);</span><br><span class="line"><span class="comment">//      wrap 不需要 flip()</span></span><br><span class="line">ByteBuffer wrap = ByteBuffer.wrap(<span class="string">&quot;sssssssssssss&quot;</span>.getBytes());</span><br><span class="line">channel1.write(wrap);</span><br><span class="line">rw.close()</span><br></pre></td></tr></table></figure>
 <p>通道间数据传输</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile rw = <span class="keyword">new</span> RandomAccessFile(<span class="string">"test.txt"</span>, <span class="string">"rw"</span>);</span><br><span class="line">RandomAccessFile rw2 = <span class="keyword">new</span> RandomAccessFile(<span class="string">"test2.txt"</span>, <span class="string">"rw"</span>);</span><br><span class="line">FileChannel channel = rw.getChannel();</span><br><span class="line">FileChannel channel2 = rw2.getChannel();</span><br><span class="line">channel2.transferFrom(channel,<span class="number">0</span>,channel.size());</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile rw = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;test.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">RandomAccessFile rw2 = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;test2.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">FileChannel channel = rw.getChannel();</span><br><span class="line">FileChannel channel2 = rw2.getChannel();</span><br><span class="line">channel2.transferFrom(channel,<span class="number">0</span>,channel.size());</span><br></pre></td></tr></table></figure>
 
       
 
@@ -437,11 +434,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -449,7 +442,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -461,23 +470,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,19 +482,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,6 +503,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-d99c0ddc3495634b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-3d8398f4cdb5af0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2019-05-15T09:29:58.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.301Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -198,10 +198,10 @@
 
 <p>可以说是maven有得gradle也有，maven没有的gradle也有。gradle在windows下安装也很简单，和maven一样：</p>
 <ol>
-<li>从<a href="https://gradle.org/releases/" target="_blank" rel="noopener">gradle官网</a> 下载安装包并解压</li>
+<li>从<a target="_blank" rel="noopener" href="https://gradle.org/releases/">gradle官网</a> 下载安装包并解压</li>
 <li>将解压的文件夹路径配置到环境变量，先添加一个<code>GRADLE_HOME</code> 然后在path下添加 <code>%GRADLE_HOME%\bin</code></li>
 <li>cmd跑 <code>gradle -v</code> 查看配置是否成功</li>
-<li><a href="https://docs.gradle.org/current/userguide/userguide.html" target="_blank" rel="noopener">gradle 用户手册</a> 方便平时查询相关操作</li>
+<li><a target="_blank" rel="noopener" href="https://docs.gradle.org/current/userguide/userguide.html">gradle 用户手册</a> 方便平时查询相关操作</li>
 </ol>
 <h2 id="gradle的基本使用"><a href="#gradle的基本使用" class="headerlink" title="gradle的基本使用"></a>gradle的基本使用</h2><p>idea中已经集成gradle环境，你可以使用idea来构建gradle项目也可以通过命令行来使用gradle。在idea中 file-&gt; setting -&gt;搜索框输入gradle可查看gradle相关配置。</p>
 <h3 id="使用gradle新建项目"><a href="#使用gradle新建项目" class="headerlink" title="使用gradle新建项目"></a>使用gradle新建项目</h3><p>新建普通项目：<br><img src="https://upload-images.jianshu.io/upload_images/13612520-7aec3520435c32c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="new_normal.png"><br>新建springboot项目：</p>
@@ -211,13 +211,12 @@
 <p>src结构和maven无异，不再介绍；gradle文件夹 存放gradle wrapper相关文件；build.gradle相当于maven里面的pom.xml，setting.gradle用于多模块的配置。</p>
 <p>gradle wrapper是gradle项目构建工具，它能在本地没有gradle的情况下，从远程下载gradle并自动解压缩以构建项目，自动管理gradle版本。<code>gradle-wrapper.properties</code>是gradle wrapper的配置，<code>distributionUrl</code>指定本地没有配置gradle的情况下从哪下载gradle，<code>distributionBase</code>指定gradle下载和缓存jar的根目录，默认用户目录。在实际使用中我们一般不直接使用gradle，而是使用gradle wrapper,而对于idea而言我们可以不去关心两者区别，idea的gradle环境是基于gradle wrapper的</p>
 <p>build.gradle结构</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">'java'</span></span><br><span class="line">&#125;</span><br><span class="line">group <span class="string">'com.muggle'</span></span><br><span class="line">version <span class="string">'1.0-SNAPSHOT'</span></span><br><span class="line">sourceCompatibility = <span class="number">1.8</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    <span class="comment">// mavenCentral()</span></span><br><span class="line">    maven &#123; url <span class="string">"http://maven.aliyun.com/nexus/content/groups/public/"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    testCompile <span class="string">group:</span> <span class="string">'junit'</span>, <span class="string">name:</span> <span class="string">'junit'</span>, <span class="string">version:</span> <span class="string">'4.12'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">group <span class="string">&#x27;com.muggle&#x27;</span></span><br><span class="line">version <span class="string">&#x27;1.0-SNAPSHOT&#x27;</span></span><br><span class="line">sourceCompatibility = <span class="number">1.8</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    <span class="comment">// mavenCentral()</span></span><br><span class="line">    maven &#123; url <span class="string">&quot;http://maven.aliyun.com/nexus/content/groups/public/&quot;</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    testCompile <span class="attr">group:</span> <span class="string">&#x27;junit&#x27;</span>, <span class="attr">name:</span> <span class="string">&#x27;junit&#x27;</span>, <span class="attr">version:</span> <span class="string">&#x27;4.12&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>节点说明</p>
 <ul>
 <li>sourceCompatibility：指定编译.java文件的jdk版本</li>
 <li>plugins：插件配置；格式为<code>id «plugin id» version «plugin version» [apply «false»]</code> Gradle的核心插件只需提供id的简称就可以</li>
-<li>repositories：仓库配置，<code>mavenCentral()</code>代表中央仓库，你也可以用<code>maven{url  ‘&lt;url&gt;’}</code>的方式添加一个仓库</li>
+<li>repositories：仓库配置，<code>mavenCentral()</code>代表中央仓库，你也可以用<code>maven&#123;url  ‘&lt;url&gt;’&#125;</code>的方式添加一个仓库</li>
 <li>dependencies：依赖的坐标集合</li>
 </ul>
 <h3 id="dependencies说明"><a href="#dependencies说明" class="headerlink" title="dependencies说明"></a>dependencies说明</h3><p>在idea中，你复制好maven的xml格式依赖 直接粘贴到<code>dependencies</code>节点里面它会自动调整成<code>compile &#39;groupId :artifactId:version&#39;</code>而不需要我们手动去改（但似乎有个时候不管用）。</p>
@@ -233,31 +232,26 @@
 <p>在idea中打开groovy console 点击 tool-&gt;groovy console 打开</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/13612520-3d8398f4cdb5af0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="groovy.png"></p>
 <p>写第一个程序</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一行注释</span></span><br><span class="line">println (<span class="string">"test"</span>)</span><br><span class="line"><span class="comment">// 简写</span></span><br><span class="line">println <span class="string">"ssssss"</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一行注释</span></span><br><span class="line">println (<span class="string">&quot;test&quot;</span>)</span><br><span class="line"><span class="comment">// 简写</span></span><br><span class="line">println <span class="string">&quot;ssssss&quot;</span></span><br></pre></td></tr></table></figure>
 <p>ctrl+enter 执行代码</p>
 <p>list map的应用</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义变量 相当于var 弱类型</span></span><br><span class="line"><span class="keyword">def</span> i=<span class="number">15</span></span><br><span class="line">println(i)</span><br><span class="line"><span class="keyword">def</span> s =<span class="string">"nihao"</span></span><br><span class="line">println s</span><br><span class="line"><span class="comment">// 集合定义</span></span><br><span class="line"><span class="keyword">def</span> list=[<span class="string">'s'</span>,<span class="string">'a'</span>]</span><br><span class="line"><span class="comment">// 添加元素</span></span><br><span class="line">list &lt;&lt; <span class="string">'c'</span></span><br><span class="line"><span class="comment">// 取出 元素</span></span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// map</span></span><br><span class="line"><span class="keyword">def</span> map=[<span class="string">'key'</span>:<span class="string">'value'</span>]</span><br><span class="line">println map.get(<span class="string">'key'</span>)</span><br><span class="line"><span class="comment">// 添</span></span><br><span class="line">map.test=<span class="string">'add'</span></span><br><span class="line">println map.get(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义变量 相当于var 弱类型</span></span><br><span class="line"><span class="keyword">def</span> i=<span class="number">15</span></span><br><span class="line">println(i)</span><br><span class="line"><span class="keyword">def</span> s =<span class="string">&quot;nihao&quot;</span></span><br><span class="line">println s</span><br><span class="line"><span class="comment">// 集合定义</span></span><br><span class="line"><span class="keyword">def</span> list=[<span class="string">&#x27;s&#x27;</span>,<span class="string">&#x27;a&#x27;</span>]</span><br><span class="line"><span class="comment">// 添加元素</span></span><br><span class="line">list &lt;&lt; <span class="string">&#x27;c&#x27;</span></span><br><span class="line"><span class="comment">// 取出 元素</span></span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line">println list.get(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// map</span></span><br><span class="line"><span class="keyword">def</span> map=[<span class="string">&#x27;key&#x27;</span>:<span class="string">&#x27;value&#x27;</span>]</span><br><span class="line">println map.get(<span class="string">&#x27;key&#x27;</span>)</span><br><span class="line"><span class="comment">// 添</span></span><br><span class="line">map.test=<span class="string">&#x27;add&#x27;</span></span><br><span class="line">println map.get(<span class="string">&#x27;test&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p>闭包的语法</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 闭包 相当于函数式编程</span></span><br><span class="line"><span class="keyword">def</span> close1=&#123;</span><br><span class="line">    println <span class="string">"你好"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方法定义</span></span><br><span class="line"><span class="keyword">def</span> test(Closure closure)&#123;</span><br><span class="line">    closure()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用闭包</span></span><br><span class="line">test(close1)</span><br><span class="line"><span class="comment">// 带参闭包</span></span><br><span class="line"><span class="keyword">def</span>  close2=&#123;</span><br><span class="line">    v-&gt; println v+v+v</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">def</span> test2(Closure closure)&#123;</span><br><span class="line">    closure(<span class="string">"sss"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用带参闭包</span></span><br><span class="line">test2(close2)</span><br><span class="line"><span class="comment">// 占位符</span></span><br><span class="line"><span class="keyword">def</span> close3=&#123;</span><br><span class="line">    v-&gt;</span><br><span class="line">        println(<span class="string">"test $v "</span>)</span><br><span class="line">&#125;</span><br><span class="line">test2(close3)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 闭包 相当于函数式编程</span></span><br><span class="line"><span class="keyword">def</span> close1=&#123;</span><br><span class="line">    println <span class="string">&quot;你好&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方法定义</span></span><br><span class="line"><span class="keyword">def</span> test(Closure closure)&#123;</span><br><span class="line">    closure()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用闭包</span></span><br><span class="line">test(close1)</span><br><span class="line"><span class="comment">// 带参闭包</span></span><br><span class="line"><span class="keyword">def</span>  close2=&#123;</span><br><span class="line">    v-&gt; println v+v+v</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">def</span> test2(Closure closure)&#123;</span><br><span class="line">    closure(<span class="string">&quot;sss&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用带参闭包</span></span><br><span class="line">test2(close2)</span><br><span class="line"><span class="comment">// 占位符</span></span><br><span class="line"><span class="keyword">def</span> close3=&#123;</span><br><span class="line">    v-&gt;</span><br><span class="line">        println(<span class="string">&quot;test $v &quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">test2(close3)</span><br></pre></td></tr></table></figure>
 <h2 id="gradle-实践"><a href="#gradle-实践" class="headerlink" title="gradle 实践"></a>gradle 实践</h2><h3 id="多模块"><a href="#多模块" class="headerlink" title="多模块"></a>多模块</h3><p>在idea中构建多模块很简单，和maven操作一样，但项目结构有所不同。在父模块中有一个<code>settings.gradle</code>文件，指定了子模块包含哪些，而需要继承给子模块的东西需要在父模块<code>build.gradle</code>中配置<code>subprojects</code>闭包。</p>
 <p>父模块<code>build.gradle</code> 示例</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">'java'</span></span><br><span class="line">&#125;</span><br><span class="line">group <span class="string">'com.muggle'</span></span><br><span class="line">version <span class="string">'1.0-SNAPSHOT'</span></span><br><span class="line">sourceCompatibility = <span class="number">1.8</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line">subprojects &#123;</span><br><span class="line">    apply <span class="string">plugin:</span> <span class="string">'java'</span></span><br><span class="line">    apply <span class="string">plugin:</span> <span class="string">'idea'</span></span><br><span class="line"></span><br><span class="line">    version = <span class="string">'1.0'</span></span><br><span class="line">    <span class="comment">// JVM 版本号要求</span></span><br><span class="line">    sourceCompatibility = <span class="number">1.8</span></span><br><span class="line">    targetCompatibility = <span class="number">1.8</span></span><br><span class="line">    <span class="comment">// java编译的时候缺省状态下会因为中文字符而失败</span></span><br><span class="line">    [compileJava,compileTestJava,javadoc]*.options*.encoding = <span class="string">'UTF-8'</span></span><br><span class="line">    <span class="comment">//相当于maven的properties</span></span><br><span class="line">    ext &#123;</span><br><span class="line">        springVersion = <span class="string">'4.3.3.RELEASE'</span></span><br><span class="line">    &#125;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        <span class="comment">// 通用依赖</span></span><br><span class="line">        compile(</span><br><span class="line">                <span class="string">"org.springframework:spring-context:$springVersion"</span>,</span><br><span class="line">                <span class="string">"org.springframework:spring-orm:$springVersion"</span>,</span><br><span class="line">        )</span><br><span class="line">        <span class="comment">// 依赖maven中不存在的jar</span></span><br><span class="line">        ext.jarTree = fileTree(<span class="string">dir:</span> <span class="string">'libs'</span>, <span class="string">include:</span> <span class="string">'**/*.jar'</span>)</span><br><span class="line">        <span class="comment">// 测试依赖</span></span><br><span class="line">        testCompile(</span><br><span class="line">                <span class="string">"org.springframework:spring-test:$springVersion"</span>,</span><br><span class="line">                <span class="string">"junit:junit:4.12"</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 显示当前项目下所有用于 compile 的 jar.</span></span><br><span class="line">    task listJars(<span class="string">description:</span> <span class="string">'Display all compile jars.'</span>) &lt;&lt; &#123;</span><br><span class="line">        configurations.compile.each &#123; File file -&gt; println file.name &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">group <span class="string">&#x27;com.muggle&#x27;</span></span><br><span class="line">version <span class="string">&#x27;1.0-SNAPSHOT&#x27;</span></span><br><span class="line">sourceCompatibility = <span class="number">1.8</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line">subprojects &#123;</span><br><span class="line">    apply <span class="attr">plugin:</span> <span class="string">&#x27;java&#x27;</span></span><br><span class="line">    apply <span class="attr">plugin:</span> <span class="string">&#x27;idea&#x27;</span></span><br><span class="line"></span><br><span class="line">    version = <span class="string">&#x27;1.0&#x27;</span></span><br><span class="line">    <span class="comment">// JVM 版本号要求</span></span><br><span class="line">    sourceCompatibility = <span class="number">1.8</span></span><br><span class="line">    targetCompatibility = <span class="number">1.8</span></span><br><span class="line">    <span class="comment">// java编译的时候缺省状态下会因为中文字符而失败</span></span><br><span class="line">    [compileJava,compileTestJava,javadoc]*.options*.encoding = <span class="string">&#x27;UTF-8&#x27;</span></span><br><span class="line">    <span class="comment">//相当于maven的properties</span></span><br><span class="line">    ext &#123;</span><br><span class="line">        springVersion = <span class="string">&#x27;4.3.3.RELEASE&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        <span class="comment">// 通用依赖</span></span><br><span class="line">        compile(</span><br><span class="line">                <span class="string">&quot;org.springframework:spring-context:$springVersion&quot;</span>,</span><br><span class="line">                <span class="string">&quot;org.springframework:spring-orm:$springVersion&quot;</span>,</span><br><span class="line">        )</span><br><span class="line">        <span class="comment">// 依赖maven中不存在的jar</span></span><br><span class="line">        ext.jarTree = fileTree(<span class="attr">dir:</span> <span class="string">&#x27;libs&#x27;</span>, <span class="attr">include:</span> <span class="string">&#x27;**/*.jar&#x27;</span>)</span><br><span class="line">        <span class="comment">// 测试依赖</span></span><br><span class="line">        testCompile(</span><br><span class="line">                <span class="string">&quot;org.springframework:spring-test:$springVersion&quot;</span>,</span><br><span class="line">                <span class="string">&quot;junit:junit:4.12&quot;</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 显示当前项目下所有用于 compile 的 jar.</span></span><br><span class="line">    task listJars(<span class="attr">description:</span> <span class="string">&#x27;Display all compile jars.&#x27;</span>) &lt;&lt; &#123;</span><br><span class="line">        configurations.compile.each &#123; File file -&gt; println file.name &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>子模块模块之间相互依赖方式：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies&#123;  </span><br><span class="line">    <span class="comment">// 这个子模块 依赖 test 模块</span></span><br><span class="line">    compile project(<span class="string">":test"</span>)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies&#123;  </span><br><span class="line">    <span class="comment">// 这个子模块 依赖 test 模块</span></span><br><span class="line">    compile project(<span class="string">&quot;:test&quot;</span>)  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 <p>如果项目需要达成war包 添加插件<code>apply plugin: &#39;war&#39;</code>。</p>
 <h3 id="task"><a href="#task" class="headerlink" title="task"></a>task</h3><p>task是gradle中的任务，包括任务动作(task action)和任务依赖(task dependency)。task代表细分的下来的构建任务：编译classes、生成jar包相关信息等一些任务。所以我们能编写task来控制打包过程。task和task之间也存在依赖关系，通过<code>task dependency</code>来指定。</p>
 <p>其实build指令本质就是执行各个task，在做protobuf开发的开发的时候我就可以通过配置task来在指定指定位置生成对应的java代码。</p>
 <p>task 示例代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task first &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        println <span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task first &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        println <span class="string">&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>右击idea右侧gradle中的first执行task</p>
 <pre><code>![demo.png](https://upload-images.jianshu.io/upload_images/13612520-25ae17571ab12d27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</code></pre><p>控制台输出：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; Task :first</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; Task :first</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>gradle相较maven来说更灵活，但现在市场占有率最大的还是maven，gradle在安卓开发的领域使用比较多。看过spring源码的就知道，spring就是用gradle来管理的。读完本篇博客后我希望你能顺畅的使用gradle构建一个普通的java项目、一个springboot项目、一个多模块项目。感谢阅读。</p>
 
@@ -480,11 +474,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,7 +482,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,23 +510,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,19 +522,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,6 +543,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

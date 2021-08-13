@@ -16,7 +16,7 @@
 <meta property="og:description" content="CAP 定理 原文链接 http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2018&#x2F;07&#x2F;cap.html 分布式系统的最大难点，就是各个节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。   Consistency 中文叫做”一致性”。意思是，写操作之后的读操作，必须返回该值。  Availability Availability 中文叫做”可用性”，意思">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-27T02:02:18.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.322Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="cloud">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -176,7 +176,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="CAP-定理"><a href="#CAP-定理" class="headerlink" title="CAP 定理"></a>CAP 定理</h1><blockquote>
-<p>原文链接 <a href="http://www.ruanyifeng.com/blog/2018/07/cap.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/07/cap.html</a><br><br> 分布式系统的最大难点，就是各个节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。</p>
+<p>原文链接 <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2018/07/cap.html">http://www.ruanyifeng.com/blog/2018/07/cap.html</a><br><br> 分布式系统的最大难点，就是各个节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。</p>
 </blockquote>
 <ul>
 <li><p>Consistency 中文叫做”一致性”。意思是，写操作之后的读操作，必须返回该值。</p>
@@ -203,17 +203,13 @@
 <p>Eureka Server的高可用，实际上就是将自己也作为服务向其他服务注册中心进行注册，这样就可以形成一组相互注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果。</p>
 <p>通过点对点配置，Eureka注册中心通过相互注册来实现高可用配置。以下构建一个双节点的集群模式。</p>
 <p>1.创建一个application-tran.properties配置文件，同时修改application.properties文件。修改本地的hosts文件<br>增加两个域名</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span>.0.1 test1</span><br><span class="line"><span class="number">127.0</span>.0.1 test2</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> test1</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> test2</span><br></pre></td></tr></table></figure>
 <p>application-tran.properties:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=eureka-service</span><br><span class="line"># 修改端口</span><br><span class="line">server.port=<span class="number">8181</span></span><br><span class="line"></span><br><span class="line"># 实例名称 两个名称需要不一样 值为域名或者ip</span><br><span class="line">eureka.instance.hostname=test2</span><br><span class="line"></span><br><span class="line">## 不要向注册中心注册自己</span><br><span class="line">eureka.client.register-with-eureka=<span class="keyword">false</span></span><br><span class="line">## 表示不去检索其他的服务，因为服务注册中心本身的职责就是维护服务实例，它也不需要去检索其他服务</span><br><span class="line">eureka.client.fetch-registry=<span class="keyword">false</span></span><br><span class="line"></span><br><span class="line"># 指定服务注册中心地址</span><br><span class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//test1:8180/eureka</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=eureka-service</span><br><span class="line"># 修改端口</span><br><span class="line">server.port=<span class="number">8181</span></span><br><span class="line"></span><br><span class="line"># 实例名称 两个名称需要不一样 值为域名或者ip</span><br><span class="line">eureka.instance.hostname=test2</span><br><span class="line"></span><br><span class="line">## 不要向注册中心注册自己</span><br><span class="line">eureka.client.register-with-eureka=<span class="keyword">false</span></span><br><span class="line">## 表示不去检索其他的服务，因为服务注册中心本身的职责就是维护服务实例，它也不需要去检索其他服务</span><br><span class="line">eureka.client.fetch-registry=<span class="keyword">false</span></span><br><span class="line"></span><br><span class="line"># 指定服务注册中心地址</span><br><span class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//test1:8180/eureka</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>application.properties:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=eureka-service</span><br><span class="line">server.port=<span class="number">8180</span></span><br><span class="line"># 实例名称 两个名称需要不一样 值为域名或者ip</span><br><span class="line">eureka.instance.hostname=test1</span><br><span class="line">eureka.client.register-with-eureka=<span class="keyword">false</span></span><br><span class="line">eureka.client.fetch-registry=<span class="keyword">false</span></span><br><span class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//test2:8181/eureka</span></span><br></pre></td></tr></table></figure>
-
 <p>使用spring.profiles.active特性来启动注册中心，spring.profiles.active相关知识这里不做介绍，第一个注册中心启动时会报错，等另外一个启动成功就正常了。<br>而向注册中心注册服务只需改一个地方</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//test1:8180/eureka,http://test2:8181/eureka</span></span><br></pre></td></tr></table></figure>
-
 <p>也可只注册到某个节点上，其他的节点也会有此服务列表的，一般建议以集群方式进行配置，即多注册中心配置。避免单点故障，Eureka在搜索注册中心时，根据defaultZone列表，找到一个可用的，之后就不会继续去下一个注册中心地址拉取服务列表了，此时若其中一个注册中心挂了，这个时候客户端会继续去第二个注册中心拉取服务列表的。</p>
 
       
@@ -435,11 +431,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,7 +439,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -459,23 +467,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,19 +479,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,6 +500,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

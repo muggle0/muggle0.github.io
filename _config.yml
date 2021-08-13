@@ -100,3 +100,8 @@ jsonContent:
       excerpt: false
       categories: false
       tags: true
+
+deploy:
+  type: git
+  repository: git@github.com:muggle0/muggle0.github.io.git
+  branch: master

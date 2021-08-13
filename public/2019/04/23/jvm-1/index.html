@@ -16,7 +16,7 @@
 <meta property="og:description" content="作者：muggle 运行时数据区域 &amp;emsp; &amp;emsp;想要了解jvm，那对其内存分配管理的学习是必不可少的；java虚拟机在执行java程序的时候会把它所管理的内存划分成若干数据区域。这些区域有着不同的功能、用途、创建&#x2F;销毁时间。java虚拟机所分配管理的内存区域如图1所示 程序计数器&amp;emsp; &amp;emsp;程序计数器是一块比较小的内存空间，它可以看做是当前线程所执行的字节码的执行位置的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-23T02:12:53.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.305Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -177,12 +177,12 @@
       
         <p>作者：muggle</p>
 <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p> &emsp; &emsp;想要了解jvm，那对其内存分配管理的学习是必不可少的；java虚拟机在执行java程序的时候会把它所管理的内存划分成若干数据区域。这些区域有着不同的功能、用途、创建/销毁时间。java虚拟机所分配管理的内存区域如图1所示</p>
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp; &emsp;程序计数器是一块比较小的内存空间，它可以看做是当前线程所执行的字节码的执行位置的指针。在虚拟机中字节码，解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的指令；虚拟机完成分支、循环、跳转、异常处理、线程恢复等功能都需要依靠它。<br>&emsp; &emsp;我们知道jvm多线程是通过线程的轮流切换并分配处理器执行时间的的方式来实现的，在任何时刻，一个处理器都只会执行一条线程中的指令。为了使线程被切换后能恢复到正确的执行位置，每条线程的程序计数器都应该是独立的，各条线程之间的计数器互不干涉，独立存储————程序计数器的内存区域为线程私有的内存。<br><br>&emsp; &emsp;如果线程正在执行的是java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果执行的是Native方法，这个计数器的值则为空。此内存区域是唯一一个在jvm规范中没有规定任何OutOfMemoryerror情况的区域</p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp; &emsp;程序计数器是一块比较小的内存空间，它可以看做是当前线程所执行的字节码的执行位置的指针。在虚拟机中字节码，解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的指令；虚拟机完成分支、循环、跳转、异常处理、线程恢复等功能都需要依靠它。<br>&emsp; &emsp;我们知道jvm多线程是通过线程的轮流切换并分配处理器执行时间的的方式来实现的，在任何时刻，一个处理器都只会执行一条线程中的指令。为了使线程被切换后能恢复到正确的执行位置，每条线程的程序计数器都应该是独立的，各条线程之间的计数器互不干涉，独立存储————程序计数器的内存区域为线程私有的内存。<br/><br>&emsp; &emsp;如果线程正在执行的是java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果执行的是Native方法，这个计数器的值则为空。此内存区域是唯一一个在jvm规范中没有规定任何OutOfMemoryerror情况的区域</p>
 <a id="more"></a>
 
 <h3 id="java虚拟机栈"><a href="#java虚拟机栈" class="headerlink" title="java虚拟机栈"></a>java虚拟机栈</h3><p>&emsp; &emsp;java虚拟机栈为线程私有的内存，其生命周期与线程相同。每个方法在执行的时候会创建一个栈帧用于存储局部变量表、操作数栈、方法出口等信息。每一个方法从调用到执行完成，就对应着一个栈帧在虚拟机中从入栈到出栈的过程。其局部变量表存放了方法编译期可知的各种基本数据类型、对象引用、returnAddress类型（指向一条字节码指令的地址）jvm规范中，这个区域规定了两种异常状况：StackOverflowError和OutOfMemoryError。</p>
 <h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>&emsp; &emsp;本地方法栈的作用和虚拟机栈的作用很相似，它们的区别在于虚拟机栈为虚拟机执行java方法服务，而本地方法栈则为执行本地方法服务。有的虚拟机直接把本地方法栈和虚拟机栈二合一。与虚拟机栈一样，本地方法栈的异常也有两个：StackOverflowError和OutOfMemoryError。</p>
-<h3 id="java堆区"><a href="#java堆区" class="headerlink" title="java堆区"></a>java堆区</h3><p>&emsp; &emsp;java堆是虚拟机所管理的内存中最大的一块，它是被所有线程共享的一块内存区域，该区域在虚拟机启动的时候创建。这个区域的唯一目的就是存放对象实例。java堆是垃圾收集器工作的主要区域，由于垃圾收集器基本都采用分代收集的算法，所以java堆从垃圾收集器的角度来划分可以细分为新生代和老年代；从内存分配的角度来看，线程共享的java堆可能划分出多个线程私有的分配缓冲区。<br><br>&emsp; &emsp;java堆区可以是物理上不连续的内存空间，只要逻辑上是连续的即可；一般而言我们的虚拟机java堆内存不是固定大小的，是可以扩展的。如果在堆中没有足够内存分配给对象实例，并且堆内存无法再扩展时，虚拟机将会抛出OutOfMemoryError异常。</p>
+<h3 id="java堆区"><a href="#java堆区" class="headerlink" title="java堆区"></a>java堆区</h3><p>&emsp; &emsp;java堆是虚拟机所管理的内存中最大的一块，它是被所有线程共享的一块内存区域，该区域在虚拟机启动的时候创建。这个区域的唯一目的就是存放对象实例。java堆是垃圾收集器工作的主要区域，由于垃圾收集器基本都采用分代收集的算法，所以java堆从垃圾收集器的角度来划分可以细分为新生代和老年代；从内存分配的角度来看，线程共享的java堆可能划分出多个线程私有的分配缓冲区。<br/><br>&emsp; &emsp;java堆区可以是物理上不连续的内存空间，只要逻辑上是连续的即可；一般而言我们的虚拟机java堆内存不是固定大小的，是可以扩展的。如果在堆中没有足够内存分配给对象实例，并且堆内存无法再扩展时，虚拟机将会抛出OutOfMemoryError异常。</p>
 <h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>&emsp; &emsp;方法区与java堆区一样是各个线程共享的内存区域，这个区域存储了类信息、常量、静态变量等数据。java虚拟机规范中把方法区描述为堆得一部分逻辑，它又有一个名字——非堆，目的是与普通java堆进行区分。相对而言垃圾收集器在这个区域很少活动，因此一部分人把这个区域叫做“永久代”。这个区域的内存回收目标主要是针对常量池的回收和类型的卸载，然而类型卸载的条件是很苛刻的。该区域和和java堆区一样，当内存不够分配时会抛出OutOfMemoryError.</p>
 <h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>&emsp; &emsp;运行时常量池是方法区的一部分；一个Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是编译时常量池，用于存放编译期生成的常量。编译时常量池在类被加载后会放入方法区的运行时常量池中。与编译期常量池不同的是，运运行时常量池是动态的，运行期间产生的新的常量也会被放入这个区域，如：String类的intern()方法。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>&emsp; &emsp;该篇对jvm内存只能算一个概览，给小伙伴们介绍了一些概念性的东西，很多地方是值得去深入研究的，比如具体一个对象实例是如何被分配到堆内存的，类的加载过程，方法执行时方法栈的入栈与出栈的具体过程······。jvm博大精深，我在这提供一个梗概，小伙伴们如果有时间可以细细推敲推敲。</p>
@@ -406,11 +406,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -418,7 +414,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -430,23 +442,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -458,19 +454,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,6 +475,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

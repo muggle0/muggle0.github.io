@@ -16,7 +16,7 @@
 <meta property="og:description" content="作者：muggle 准备工作安装hexo并创建一个博客项目在安装hexo之前请确保安装了git 和node.js 打开cmd，输入 1npm install -g hexo-cli">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-22T07:17:24.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.291Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -179,15 +179,12 @@
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装hexo并创建一个博客项目"><a href="#安装hexo并创建一个博客项目" class="headerlink" title="安装hexo并创建一个博客项目"></a>安装hexo并创建一个博客项目</h3><p>在安装hexo之前请确保安装了git 和node.js</p>
 <p>打开cmd，输入</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
 <a id="more"></a>
 
 <p>创建一个名为blog的博客项目</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ cd blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-
 <p>新建完成后，指定文件夹的目录如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
-
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>可以在 <code>_config.yml</code> 中修改大部分的配置。配置参数说明：</p>
 <table>
 <thead>
@@ -218,12 +215,11 @@
 </tr>
 <tr>
 <td align="left"><code>timezone</code></td>
-<td align="left">网站时区。Hexo 默认使用您电脑的时区。<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank" rel="noopener">时区列表</a>。比如说：<code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。</td>
+<td align="left">网站时区。Hexo 默认使用您电脑的时区。<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">时区列表</a>。比如说：<code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。</td>
 </tr>
 </tbody></table>
 <h2 id="撸博客"><a href="#撸博客" class="headerlink" title="撸博客"></a>撸博客</h2><h3 id="新建文章并查看效果"><a href="#新建文章并查看效果" class="headerlink" title="新建文章并查看效果"></a>新建文章并查看效果</h3><p>在项目文件夹下打开cmd 执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="string">"test"</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="string">&quot;test&quot;</span></span><br></pre></td></tr></table></figure>
 <p>test 为你的文件名，在source文件下的_posts 文件夹里有一个test.md；用markdown编辑器打开，就能写博客辣。</p>
 <p>在这个md文件头部有一个<code>title</code>的属性，就是你的博客名，还可以在该头部配置日期等属性，这个文件最上方以 <code>---</code> 分隔的区域叫Front-matter。以下是一些预先定义的参数，您可在模板中使用这些参数值并加以利用。</p>
 <table>
@@ -277,31 +273,23 @@
 </tbody></table>
 <p>写完文章保存后，在原来打开的命令窗口 运行</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
 <p>这个指令是构建静态页面，它会在项目下生成一个public文件夹，里面就是我们<code>hexo g</code>得到博客静态页面，运行</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>将代码部署到本地，访问<a href="http://localhost:4000/可以查看你的博客效果" target="_blank" rel="noopener">http://localhost:4000/可以查看你的博客效果</a></p>
+<p>将代码部署到本地，访问<a target="_blank" rel="noopener" href="http://localhost:4000/可以查看你的博客效果">http://localhost:4000/可以查看你的博客效果</a></p>
 <h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>博客上传之前需要在github上建立一个仓库，仓库名称要为<code>用户名.github.io</code>，因为我们博客就算基于gitpages来搭建的，所以我们要按照github的要求来命名。</p>
 <p>创建成功之后，修改 hexo 的 <code>_config.yml</code> 文件，配置 GitHub 地址，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:  </span><br><span class="line">	type: git  </span><br><span class="line">	repo: 仓库地址  </span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure>
-
 <p>配置完成运行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d </span><br></pre></td></tr></table></figure>
 <p>完成部署，这个时候可以访问 <code>用户名.github.io</code>这个网址来查看自己的博客</p>
 <h3 id="hexo命令一览"><a href="#hexo命令一览" class="headerlink" title="hexo命令一览"></a>hexo命令一览</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
-
 <p>新建一个网站。如果没有设置 <code>folder</code> ，Hexo 默认在目前的文件夹建立网站。</p>
 <p><strong>new</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-<p>新建一篇文章。如果没有设置 <code>layout</code> 的话，默认使用 <a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">_config.yml</a> 中的 <code>default_layout</code> 参数代替。如果标题包含空格的话，请使用引号括起来。</p>
+<p>新建一篇文章。如果没有设置 <code>layout</code> 的话，默认使用 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">_config.yml</a> 中的 <code>default_layout</code> 参数代替。如果标题包含空格的话，请使用引号括起来。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &quot;post title with whitespace&quot;</span><br></pre></td></tr></table></figure>
-
 <p><strong>generate</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
 <p>生成静态文件。</p>
 <table>
 <thead>
@@ -321,14 +309,11 @@
 </tbody></table>
 <p>该命令可以简写为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
-
 <p><strong>publish</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
-
 <p>发表草稿。</p>
 <p><strong>server</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
 <p>启动服务器。默认情况下，访问网址为： <code>http://localhost:4000/</code>。</p>
 <table>
 <thead>
@@ -352,7 +337,6 @@
 </tbody></table>
 <p><strong>deploy</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
 <p>部署网站。</p>
 <table>
 <thead>
@@ -368,10 +352,8 @@
 </tbody></table>
 <p>该命令可以简写为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-
 <p><strong>render</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
-
 <p>渲染文件。</p>
 <table>
 <thead>
@@ -387,88 +369,72 @@
 </tbody></table>
 <p><strong>migrate</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo migrate &lt;type&gt;</span><br></pre></td></tr></table></figure>
-
-<p>从其他博客系统 <a href="https://hexo.io/zh-cn/docs/migration" target="_blank" rel="noopener">迁移内容</a>。</p>
+<p>从其他博客系统 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/migration">迁移内容</a>。</p>
 <p><strong>clean</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
 <p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p>
 <p>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</p>
 <p><strong>list</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo list &lt;type&gt;</span><br></pre></td></tr></table></figure>
-
 <p>列出网站资料。</p>
 <p><strong>version</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
-
 <p>显示 Hexo 版本。</p>
 <p><strong>选项</strong></p>
 <p><strong>安全模式</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --safe</span><br></pre></td></tr></table></figure>
-
 <p>在安全模式下，不会载入插件和脚本。当您在安装新插件遭遇问题时，可以尝试以安全模式重新执行。</p>
 <p><strong>调试模式</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --debug</span><br></pre></td></tr></table></figure>
-
-<p>在终端中显示调试信息并记录到 <code>debug.log</code>。当您碰到问题时，可以尝试用调试模式重新执行一次，并 <a href="https://github.com/hexojs/hexo/issues/new" target="_blank" rel="noopener">提交调试信息到 GitHub</a>。</p>
+<p>在终端中显示调试信息并记录到 <code>debug.log</code>。当您碰到问题时，可以尝试用调试模式重新执行一次，并 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/new">提交调试信息到 GitHub</a>。</p>
 <p><strong>简洁模式</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --silent</span><br></pre></td></tr></table></figure>
-
 <p>隐藏终端信息。</p>
 <p><strong>自定义配置文件的路径</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --config custom.yml</span><br></pre></td></tr></table></figure>
-
 <p>自定义配置文件的路径，执行后将不再使用 <code>_config.yml</code>。</p>
 <p><strong>显示草稿</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --draft</span><br></pre></td></tr></table></figure>
-
 <p>显示 <code>source/_drafts</code> 文件夹中的草稿文章。</p>
 <p><strong>自定义 CWD</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd /path/to/cwd</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd &#x2F;path&#x2F;to&#x2F;cwd</span><br></pre></td></tr></table></figure>
 <p>自定义当前工作目录（Current working directory）的路径。</p>
 <h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><h3 id="换主题"><a href="#换主题" class="headerlink" title="换主题"></a>换主题</h3><p>下载主题到<code>./themes</code>目录下，修改 hexo 的 _config.yml 文件的theme属性为你的主题名就ok了，下面推荐几个hexo主题</p>
 <ul>
-<li><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">hexo-theme-next</a></li>
-<li><a href="https://link.zhihu.com/?target=https%3A//github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">hexo-theme-yilia</a></li>
-<li><a href="https://link.zhihu.com/?target=https%3A//github.com/daleanthony/uno" target="_blank" rel="noopener">uno</a></li>
-<li><a href="https://link.zhihu.com/?target=https%3A//github.com/17/hexo-theme-strict" target="_blank" rel="noopener">hexo-theme-strict</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">hexo-theme-next</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//github.com/litten/hexo-theme-yilia">hexo-theme-yilia</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//github.com/daleanthony/uno">uno</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//github.com/17/hexo-theme-strict">hexo-theme-strict</a></li>
 </ul>
 <h3 id="换域名"><a href="#换域名" class="headerlink" title="换域名"></a>换域名</h3><p>首先申请一个域名，然后在博客所在目录下的 source 目录中，创建一个 CNAME 文件，文件内容就是你的域名，然后执行 <code>hexo d</code> 命令将这个文件上传到 GitHub就可以了；域名换好后需要配置域名解析。</p>
-<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="markdown-语法一览"><a href="#markdown-语法一览" class="headerlink" title="markdown 语法一览"></a>markdown 语法一览</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 这是一级标题</span><br><span class="line">## 这是二级标题</span><br><span class="line">### 这是三级标题</span><br><span class="line">#### 这是四级标题</span><br><span class="line">##### 这是五级标题</span><br><span class="line">###### 这是六级标题</span><br><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~ 这是加删除线的文字~~</span><br><span class="line">&gt; 这是引用的内容</span><br><span class="line">三个或者三个以上的 - 或者 *为分割线</span><br><span class="line">![图片alt](图片地址 <span class="string">''</span>图片title<span class="string">''</span>)</span><br><span class="line">[超链接名](超链接地址 <span class="string">"超链接title"</span>)</span><br><span class="line">    </span><br><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br><span class="line">注意：- + * 跟内容之间都要有一个空格</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>.列表内容</span><br><span class="line"><span class="number">2</span>.列表内容</span><br><span class="line"><span class="number">3</span>.列表内容</span><br><span class="line"></span><br><span class="line">注意：序号跟内容之间要有空格</span><br><span class="line"></span><br><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line">`代码内容`</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
-
-<p>代码内容<br>​```</p>
-<pre><code>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="markdown-语法一览"><a href="#markdown-语法一览" class="headerlink" title="markdown 语法一览"></a>markdown 语法一览</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># 这是一级标题</span><br><span class="line">## 这是二级标题</span><br><span class="line">### 这是三级标题</span><br><span class="line">#### 这是四级标题</span><br><span class="line">##### 这是五级标题</span><br><span class="line">###### 这是六级标题</span><br><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~ 这是加删除线的文字~~</span><br><span class="line">&gt; 这是引用的内容</span><br><span class="line">三个或者三个以上的 - 或者 *为分割线</span><br><span class="line">![图片alt](图片地址 <span class="string">&#x27;&#x27;</span>图片title<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">[超链接名](超链接地址 <span class="string">&quot;超链接title&quot;</span>)</span><br><span class="line">    </span><br><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br><span class="line">注意：- + * 跟内容之间都要有一个空格</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span>列表内容</span><br><span class="line"><span class="number">2.</span>列表内容</span><br><span class="line"><span class="number">3.</span>列表内容</span><br><span class="line"></span><br><span class="line">注意：序号跟内容之间要有空格</span><br><span class="line"></span><br><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line">`代码内容`</span><br><span class="line">​```</span><br><span class="line">代码内容</span><br><span class="line">​```</span><br></pre></td></tr></table></figure>
 
 
-### markdown文档编辑器Typora
+<h3 id="markdown文档编辑器Typora"><a href="#markdown文档编辑器Typora" class="headerlink" title="markdown文档编辑器Typora"></a>markdown文档编辑器Typora</h3><p>百度Typora 下载安装好之后点 文件&gt;偏好设置&gt;勾选自动保存，这样就不怕忘记保存而文档丢失了；</p>
+<p>快捷键：</p>
+<ul>
+<li>标题：ctrl+数字</li>
+<li>表格：ctrl+t</li>
+<li>生成目录：[TOC]按回车</li>
+<li>选中一整行：ctrl+l</li>
+<li>选中单词：ctrl+d</li>
+<li>选中相同格式的文字：ctrl+e</li>
+<li>跳转到文章开头：ctrl+home</li>
+<li>跳转到文章结尾：ctrl+end</li>
+<li>搜索：ctrl+f</li>
+<li>替换：ctrl+h</li>
+<li>引用：输入&gt;之后输入空格</li>
+<li>代码块：ctrl+alt+f</li>
+<li>加粗：ctrl+b</li>
+<li>倾斜：ctrl+i</li>
+<li>下划线：ctrl+u</li>
+<li>删除线：alt+shift+5</li>
+<li>插入图片：直接拖动到指定位置即可或者ctrl+shift+i</li>
+<li>插入链接：ctrl + k</li>
+</ul>
+<p>左下角有一个 O 和 &lt;/&gt;的符号 O表示打开侧边栏 &lt;/&gt;查看文档源代码；</p>
+<p>可去官网下载好主题之后点 文件&gt;偏好设置&gt;打开主题文件夹将解压好的主题相关文件复制粘贴到该目录下（一般是一个  主题名称文件夹 和一个 主题名称.css文件）之后重启编辑器 然后点 主题可看见安装好的主题。</p>
 
-百度Typora 下载安装好之后点 文件&gt;偏好设置&gt;勾选自动保存，这样就不怕忘记保存而文档丢失了；
-
-快捷键：
-- 标题：ctrl+数字
-- 表格：ctrl+t
-- 生成目录：[TOC]按回车
-- 选中一整行：ctrl+l
-- 选中单词：ctrl+d
-- 选中相同格式的文字：ctrl+e
-- 跳转到文章开头：ctrl+home
-- 跳转到文章结尾：ctrl+end
-- 搜索：ctrl+f
-- 替换：ctrl+h
-- 引用：输入&gt;之后输入空格
-- 代码块：ctrl+alt+f
-- 加粗：ctrl+b
-- 倾斜：ctrl+i
-- 下划线：ctrl+u
-- 删除线：alt+shift+5
-- 插入图片：直接拖动到指定位置即可或者ctrl+shift+i
-- 插入链接：ctrl + k
-
-左下角有一个 O 和 &lt;/&gt;的符号 O表示打开侧边栏 &lt;/&gt;查看文档源代码；
-
-可去官网下载好主题之后点 文件&gt;偏好设置&gt;打开主题文件夹将解压好的主题相关文件复制粘贴到该目录下（一般是一个  主题名称文件夹 和一个 主题名称.css文件）之后重启编辑器 然后点 主题可看见安装好的主题。
-</code></pre>
       
 
       
@@ -688,11 +654,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -700,7 +662,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,23 +690,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -740,19 +702,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -765,6 +723,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

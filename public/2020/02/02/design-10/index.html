@@ -16,7 +16,7 @@
 <meta property="og:description" content="代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。 代理模式的主要优点有：代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；代理对象可以扩展目标对象的功能；代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度； 其主要缺点是：在客户端和目标对象之间增加一个代">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-02T09:35:26.000Z">
-<meta property="article:modified_time" content="2020-09-07T07:03:25.690Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.293Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -185,20 +185,15 @@
 <p>下面我们通过cglib来写一个“残疾缩水”版的mybatis：</p>
 <p>首先要整一个xml，我这里用properties代替</p>
 <p>test.properties:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testA=select * from user where id=</span><br><span class="line">testB=select * from user where username=</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testA&#x3D;select * from user where id&#x3D;</span><br><span class="line">testB&#x3D;select * from user where username&#x3D;</span><br></pre></td></tr></table></figure>
 <p>再整一个接口：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  interface Test &#123;</span><br><span class="line"></span><br><span class="line">    String testA(int id);</span><br><span class="line">    String testB(String username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>再是代码增强处理器，这里面完成对接口的代理逻辑</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class MyInvokationHandler implements MethodInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    private static Map&lt;String,String&gt; sqlMap;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        HashMap&lt;String, String&gt; map = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Properties prop = new Properties();</span><br><span class="line">        InputStream in = SystemMenuController.class.getClassLoader().getResourceAsStream(&quot;test.properties&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            prop.load(in);</span><br><span class="line">            Iterator&lt;String&gt; it = prop.stringPropertyNames().iterator();</span><br><span class="line">            while (it.hasNext()) &#123;</span><br><span class="line">                String key = it.next();</span><br><span class="line">                map.put(key,prop.getProperty(key));</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; catch (java.io.IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        sqlMap=map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable &#123;</span><br><span class="line">        String name = method.getName();</span><br><span class="line">        String s = sqlMap.get(name);</span><br><span class="line">        return s+objects[0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class MyInvokationHandler implements MethodInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    private static Map&lt;String,String&gt; sqlMap;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        HashMap&lt;String, String&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Properties prop &#x3D; new Properties();</span><br><span class="line">        InputStream in &#x3D; SystemMenuController.class.getClassLoader().getResourceAsStream(&quot;test.properties&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            prop.load(in);</span><br><span class="line">            Iterator&lt;String&gt; it &#x3D; prop.stringPropertyNames().iterator();</span><br><span class="line">            while (it.hasNext()) &#123;</span><br><span class="line">                String key &#x3D; it.next();</span><br><span class="line">                map.put(key,prop.getProperty(key));</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; catch (java.io.IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        sqlMap&#x3D;map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable &#123;</span><br><span class="line">        String name &#x3D; method.getName();</span><br><span class="line">        String s &#x3D; sqlMap.get(name);</span><br><span class="line">        return s+objects[0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>包扫描和启动时注入容器略，数据源也略,用个main方法模拟一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">      Enhancer enhancer = new Enhancer();</span><br><span class="line">      enhancer.setSuperclass(Test.class);</span><br><span class="line">      enhancer.setCallback(new MyInvokationHandler());</span><br><span class="line">      Test test = (Test) enhancer.create();</span><br><span class="line">      System.out.println(test.testA(1));</span><br><span class="line">       System.out.println(test.testB(&quot;hhh&quot;));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">      Enhancer enhancer &#x3D; new Enhancer();</span><br><span class="line">      enhancer.setSuperclass(Test.class);</span><br><span class="line">      enhancer.setCallback(new MyInvokationHandler());</span><br><span class="line">      Test test &#x3D; (Test) enhancer.create();</span><br><span class="line">      System.out.println(test.testA(1));</span><br><span class="line">       System.out.println(test.testB(&quot;hhh&quot;));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>最终在控制台中打印：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where id=1</span><br><span class="line">select * from user where id=hhh</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where id&#x3D;1</span><br><span class="line">select * from user where id&#x3D;hhh</span><br></pre></td></tr></table></figure>
 <p>代理模式是一个很强大实用性很强的模式，动态代理大大减少了我们的开发任务，同时减少了对业务接口的依赖，降低了耦合度。代理模式的使用场景可以总结为：</p>
 <ul>
 <li>远程代理，这种方式通常是为了隐藏目标对象存在于不同地址空间的事实，方便客户端访问。例如，用户申请某些网盘空间时，会在用户的文件系统中建立一个虚拟的硬盘，用户访问虚拟硬盘时实际访问的是网盘空间。</li>
@@ -427,11 +422,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -439,7 +430,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,23 +458,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,19 +470,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,6 +491,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

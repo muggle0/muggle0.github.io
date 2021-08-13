@@ -20,7 +20,7 @@
 <meta property="og:image" content="c:%5CUsers%5Cisock%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1557666285270.png">
 <meta property="og:image" content="c:%5CUsers%5Cisock%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1557667876620.png">
 <meta property="article:published_time" content="2019-04-27T02:17:48.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.310Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="cloud">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -180,11 +180,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="编辑中"><a href="#编辑中" class="headerlink" title="编辑中"></a>编辑中</h3><h1 id="nacos简介"><a href="#nacos简介" class="headerlink" title="nacos简介"></a>nacos简介</h1><p>​    在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，<a href="https://nacos.io/zh-cn/index.html" target="_blank" rel="noopener">nacos官方文档</a></p>
+        <h3 id="编辑中"><a href="#编辑中" class="headerlink" title="编辑中"></a>编辑中</h3><h1 id="nacos简介"><a href="#nacos简介" class="headerlink" title="nacos简介"></a>nacos简介</h1><p>​    在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/index.html">nacos官方文档</a></p>
 <a id="more"></a>
 
 <h2 id="nacos特性"><a href="#nacos特性" class="headerlink" title="nacos特性"></a>nacos特性</h2><h3 id="服务发现和服务健康监测"><a href="#服务发现和服务健康监测" class="headerlink" title="服务发现和服务健康监测"></a>服务发现和服务健康监测</h3><p>支持基于 DNS 和基于 RPC 的服务发现（<strong>可替代eureka</strong>）。Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。 对于复杂的云环境和网络拓扑环境中（如 VPC、边缘网络等）服务的健康检查，Nacos 提供了 agent 上报模式和服务端主动检测2种健康检查模式。Nacos 还提供了统一的健康检查仪表盘，帮助您根据健康状态管理服务的可用性及流量。</p>
-<h3 id="动态配置服务"><a href="#动态配置服务" class="headerlink" title="动态配置服务"></a>动态配置服务</h3><p>动态配置服务可以让您以中心化、外部化和动态化的方式管理所有环境的应用配置和服务配置（<strong>可以作为配置中心</strong>）。动态配置消除了配置变更时重新部署应用和服务的需要，让配置管理变得更加高效和敏捷。配置中心化管理让实现无状态服务变得更简单，让服务按需弹性扩展变得更容易。Nacos 提供了一个简洁易用的UI (<a href="http://console.nacos.io/nacos/index.html" target="_blank" rel="noopener">控制台样例 Demo</a>) 帮助您管理所有的服务和应用的配置。Nacos 还提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪在内的一系列开箱即用的配置管理特性，帮助您更安全地在生产环境中管理配置变更和降低配置变更带来的风险。</p>
+<h3 id="动态配置服务"><a href="#动态配置服务" class="headerlink" title="动态配置服务"></a>动态配置服务</h3><p>动态配置服务可以让您以中心化、外部化和动态化的方式管理所有环境的应用配置和服务配置（<strong>可以作为配置中心</strong>）。动态配置消除了配置变更时重新部署应用和服务的需要，让配置管理变得更加高效和敏捷。配置中心化管理让实现无状态服务变得更简单，让服务按需弹性扩展变得更容易。Nacos 提供了一个简洁易用的UI (<a target="_blank" rel="noopener" href="http://console.nacos.io/nacos/index.html">控制台样例 Demo</a>) 帮助您管理所有的服务和应用的配置。Nacos 还提供包括配置版本跟踪、金丝雀发布、一键回滚配置以及客户端配置更新状态跟踪在内的一系列开箱即用的配置管理特性，帮助您更安全地在生产环境中管理配置变更和降低配置变更带来的风险。</p>
 <h3 id="动态-DNS-服务"><a href="#动态-DNS-服务" class="headerlink" title="动态 DNS 服务"></a>动态 DNS 服务</h3><p>动态 DNS 服务支持权重路由，让您更容易地实现中间层负载均衡、更灵活的路由策略、流量控制以及数据中心内网的简单DNS解析服务（<strong>可做负载均衡</strong>）。动态DNS服务还能让您更容易地实现以 DNS 协议为基础的服务发现，以帮助您消除耦合到厂商私有服务发现 API 上的风险。</p>
 <h3 id="服务及其元数据管理"><a href="#服务及其元数据管理" class="headerlink" title="服务及其元数据管理"></a>服务及其元数据管理</h3><p>Nacos 能让您从微服务平台建设的视角管理数据中心的所有服务及元数据，包括管理服务的描述、生命周期、服务的静态依赖分析、服务的健康状态、服务的流量管理、路由及安全策略、服务的 SLA 以及最首要的 metrics 统计数据（<strong>不知道啥意思，以后研究</strong>）。</p>
 <h2 id="nacos的相关概念"><a href="#nacos的相关概念" class="headerlink" title="nacos的相关概念"></a>nacos的相关概念</h2><ul>
@@ -201,26 +201,22 @@
 <li>虚拟集群（Virtual Cluster）：同一个服务下的所有服务实例组成一个默认集群, 集群可以被进一步按需求划分，划分的单位可以是虚拟集群。</li>
 </ul>
 <h1 id="nacos-使用"><a href="#nacos-使用" class="headerlink" title="nacos 使用"></a>nacos 使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>可在github上下载安装包安装，或者采用docker安装；</p>
-<p>windows上运行：<a href="https://github.com/alibaba/nacos" target="_blank" rel="noopener">nacos github地址</a> 在github查看该项目的releases并下载最新版，解压后进入bin目录 运行<code>startup.cmd</code>。</p>
+<p>windows上运行：<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos">nacos github地址</a> 在github查看该项目的releases并下载最新版，解压后进入bin目录 运行<code>startup.cmd</code>。</p>
 <p>docker上运行：docker run –name nacos-standalone -e MODE=standalone -p 8848:8848 nacos/nacos-server:latest 可运行一个单机版nacos</p>
 <p>浏览器上访问 ip:8848/nacos 进入登陆界面，用户名和密码都是nacos；登陆成功就能看到控制台UI界面了。在安装包的./conf目录下有一个application.properties文件，这是nacos的配置文件，相关配置后期会说。</p>
 <h2 id="作为配置中心"><a href="#作为配置中心" class="headerlink" title="作为配置中心"></a>作为配置中心</h2><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>这里为方便讲解，我们现在Windows环境下运行一个单机版nacos，启动后登陆；创建一个springboot应用，导入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>然后删除application.properties 新建一个bootstrap.properties。这里可能还有同学不知道application和bootstrap的区别；在这里科普一下：在 Spring Boot 中有两种上下文，一种是 bootstrap, 另外一种是 application, bootstrap 是应用程序的父上下文，也就是说 bootstrap 加载优先于 applicaton。bootstrap 主要用于从额外的资源来加载配置信息，还可以在本地外部配置文件中解密属性。这两个上下文共用一个环境，它是任何Spring应用程序的外部属性的来源。bootstrap 里面的属性会优先加载，它们默认也不能被本地相同配置覆盖。bootstrap比application要先加载，bootstrap只在cloud项目中使用。</p>
 <p>添加配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#服务名</span><br><span class="line">spring.application.name=nacos-config-example</span><br><span class="line"># 配置中心url</span><br><span class="line">spring.cloud.nacos.config.server-addr=127.0.0.1:8848</span><br><span class="line"># 配置中心的配置语法</span><br><span class="line">spring.cloud.nacos.config.file-extension=properties</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#服务名</span></span><br><span class="line"><span class="meta">spring.application.name</span>=<span class="string">nacos-config-example</span></span><br><span class="line"><span class="comment"># 配置中心url</span></span><br><span class="line"><span class="meta">spring.cloud.nacos.config.server-addr</span>=<span class="string">127.0.0.1:8848</span></span><br><span class="line"><span class="comment"># 配置中心的配置语法</span></span><br><span class="line"><span class="meta">spring.cloud.nacos.config.file-extension</span>=<span class="string">properties</span></span><br></pre></td></tr></table></figure>
 <p>现在在nacos配置中心新建配置：</p>
 <p>dataId:nacos-config-example.properties</p>
 <p><img src="C:%5CUsers%5Cisock%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1556523308515.png" alt="1556523308515"></p>
 <p>启动项目，发现项目端口号是8082，我们的配置成功了。</p>
 <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>注意 图中几个选项 TEXT\JSON\ XML \YAML\ HTML\Propertiest这些并不是指定nacos以何种语法去解析配置文件，仅仅是提供语法提示，代码高亮辅助样式；第一次使用的人很容易被误导。我们要指定配置文件语法要在bootstrap做如下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.nacos.config.file-extension=properties</span><br><span class="line">spring.cloud.nacos.config.file-extension=yaml</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.cloud.nacos.config.file-extension</span>=<span class="string">properties</span></span><br><span class="line"><span class="meta">spring.cloud.nacos.config.file-extension</span>=<span class="string">yaml</span></span><br></pre></td></tr></table></figure>
 <p>配置中心配置依靠dataId将配置信息和客户端绑定，我们来看看dataId组成规则：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;prefix&#125;-$&#123;spring.profile.active&#125;.$&#123;file-extension&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p><code>prefix</code> 默认为 <code>spring.application.name</code> 的值，也可以通过配置项 <code>spring.cloud.nacos.config.prefix</code>来配置。</p>
 </li>
@@ -231,36 +227,30 @@
 </ul>
 <p>也就是说我们这个配置中心的dataId和我们平时用springboot命名配置文件只有一个prefix的区别</p>
 <p>现在我们来修改一下配置文件，bootstrap加一项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.nacos.config.prefix=config-test</span><br><span class="line">spring.profiles.active=dev</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.cloud.nacos.config.prefix</span>=<span class="string">config-test</span></span><br><span class="line"><span class="meta">spring.profiles.active</span>=<span class="string">dev</span></span><br></pre></td></tr></table></figure>
 <p>配置中心弄两个配置方便比较，一个dataId是<code>config-test-dev.properties</code>，一个dataId是<code>config-test-prod.properties</code>配置端口号分别为8081和8082测试。启动项目后发现项目端口号为8081，然后修改配置重启：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.profiles.active=prod</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.profiles.active</span>=<span class="string">prod</span></span><br></pre></td></tr></table></figure>
 <p>此时端口变成了8082。用法和springboot的配置文件区别不大。</p>
 <h3 id="命名空间和分组"><a href="#命名空间和分组" class="headerlink" title="命名空间和分组"></a>命名空间和分组</h3><p>命名空间和分组相当于一个配置文件的”年级和班次”，在同一个group下，配置文件名不能重复，所以当需要创建文件名称相同的两个配置文件时，将两个配置文件创建在不同的group下即可。而namespace范围比group大，目的是一样的。</p>
 <p>定义命名空间方式如图</p>
 <p><img src="C:%5CUsers%5Cisock%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1556525537769.png" alt="1556525537769"></p>
 <p>在bootstrap中对应配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.nacos.config.namespace=命名空间ID</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.cloud.nacos.config.namespace</span>=<span class="string">命名空间ID</span></span><br></pre></td></tr></table></figure>
 <p>分组则在配置中心新建配置的时候可指定，在bootstrap中对应配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.nacos.config.group=group</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.cloud.nacos.config.group</span>=<span class="string">group</span></span><br></pre></td></tr></table></figure>
 <h3 id="配置自动更新"><a href="#配置自动更新" class="headerlink" title="配置自动更新"></a>配置自动更新</h3><p>通过 Spring Cloud 原生注解 <code>@RefreshScope</code> 实现配置自动更新，示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;config.test&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String test;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStr</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.print(test)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;config.test&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String test;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStr</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.print(test)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当你在配置中心更新<code>config.test</code>的 客户端的test的值也会刷新，并且你还能在客户端看到值变更的相关日志。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>别的不说，这比spring cloud config好用太多了有木有，和apollo比起来配置太容易了有木有；这么好用的东西，出正式版了，等坑都排完了妥妥的神器有木有。我选nacos，你呢。</p>
 <h2 id="作为注册中心"><a href="#作为注册中心" class="headerlink" title="作为注册中心"></a>作为注册中心</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>服务治理是微服务架构中最为核心和基础的模块。它主要用来实现各个微服务实例的自动化注册与发现。随着服务的越来越多，越来越杂，服务之间的调用会越来越复杂，越来越难以管理。而当某个服务发生了变化，或者由于压力性能问题，多部署了几台服务，怎么让服务的消费者知晓变化，就显得很重要了。不然就会存在调用的服务其实已经下线了，但调用者不知道等异常情况。这个时候有个服务组件去统一治理就相当重要了。注册中心便是做这个事情的，我们的服务上下线和发现服务都要依赖于注册中心。</p>
 <p>nacos注册中心有哪些特性呢？首先nacos从cap的角度来说，它能针对不同模式采用cp还是ap原则。然后它对服务发现的支持种类也有很多，比如：gRpc、Dubbo RpcService、Spring Cloud RESTful Service。并且ncos本身提供了很直观的注册中心管理界面。方便我们查看管理服务，其api也很丰富，我们完全可以在做二次开发去写一个我们自己满意的管理页面。Nacos 提供对服务的实时的健康检查，阻止向不健康的主机或服务实例发送请求。Nacos 支持传输层 (PING 或 TCP)和应用层 (如 HTTP、MySQL、用户自定义）的健康检查。</p>
 <h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p>新建一个springboot项目，添加如下依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>在启动类上加上<code>@EnableDiscoveryClient</code>注解</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MytestApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MytestApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>application添加配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">server.port=8081</span><br><span class="line">spring.application.name=service-mytest</span><br><span class="line">spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848</span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">server.port</span>=<span class="string">8081</span></span><br><span class="line"><span class="meta">spring.application.name</span>=<span class="string">service-mytest</span></span><br><span class="line"><span class="meta">spring.cloud.nacos.discovery.server-addr</span>=<span class="string">127.0.0.1:8848</span></span><br></pre></td></tr></table></figure>
+
 
 <p>启动服务后，我们能看到nacos管理页面注册上了一个服务。点击查看详情：</p>
 <p><img src="C:%5CUsers%5Cisock%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1557666285270.png" alt="1557666285270"></p>
@@ -487,11 +477,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -499,7 +485,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,23 +513,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,19 +525,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,6 +546,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

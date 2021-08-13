@@ -16,7 +16,7 @@
 <meta property="og:description" content="今天介绍两个大家每天都在用但是却很少去了解它的知识点：spi和jar运行机制，废话不多说，开始正题 spi是Java提供的一套用来被第三方实现或者扩展的API，它可以用来启用框架扩展和替换组件。spi机制是这样的：读取META-INF&#x2F;services&#x2F;目录下的元信息，然后ServiceLoader根据信息加载对应的类，你可以在自己的代码中使用这个被加载的类。要使用Java SPI，需要遵循如下约">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-17T03:47:30.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.314Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="javase">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -187,13 +187,13 @@
 </ul>
 <p>现在我们来简单的使用一下吧</p>
 <h2 id="spi使用示例"><a href="#spi使用示例" class="headerlink" title="spi使用示例"></a>spi使用示例</h2><p>建一个maven项目，定义一个接口 (<code>com.test.SpiTest</code>)，并实现该接口（<code>com.test.SpiTestImpl</code>）；然后在 <code>src/main/resources/</code> 下建立 <code>/META-INF/services</code> 目录， 新增一个以接口命名的文件 (<code>com.test.SpiTest</code>)，内容是要应用的实现类（<code>com.test.SpiTestImpl</code>）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SpiTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiTestImpl</span> <span class="keyword">implements</span> <span class="title">SpiTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SpiTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiTestImpl</span> <span class="keyword">implements</span> <span class="title">SpiTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
 <p>然后在我们的应用程序中使用 <code>ServiceLoader</code>来加载配置文件中指定的实现。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ServiceLoader&lt;SpiTest&gt; load = ServiceLoader.load(SpiTest.class);</span><br><span class="line">        SpiTest next = load.iterator().next();</span><br><span class="line">        next.test();</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
 <p>这便是spi的使用方式了，简约而不简单</p>
-<h2 id="spi技术的应用"><a href="#spi技术的应用" class="headerlink" title="spi技术的应用"></a>spi技术的应用</h2><p>那这一项技术有哪些方面的应用呢？最直接的jdbc中我们需要指定数据库驱动的全限定名，这便是spi技术。还有不少框架比如dubbo，都会预留spi扩展点比如：<a href="http://dubbo.apache.org/zh-cn/docs/dev/impls/protocol.html" target="_blank" rel="noopener">dubbo spi</a></p>
+<h2 id="spi技术的应用"><a href="#spi技术的应用" class="headerlink" title="spi技术的应用"></a>spi技术的应用</h2><p>那这一项技术有哪些方面的应用呢？最直接的jdbc中我们需要指定数据库驱动的全限定名，这便是spi技术。还有不少框架比如dubbo，都会预留spi扩展点比如：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/dev/impls/protocol.html">dubbo spi</a></p>
 <p>为什么要这么做呢？在spring框架中我们注入一个bean 很容易，通过注解或者xml配置即可，然后在其他的地方就能使用这个bean。在非spring框架下，我们想要有同样的效果就可以考虑spi技术了。</p>
 <p>写过springboot 的starter的都知道，需要在 <code>src/main/resources/</code> 下建立 <code>/META-INF/spring.factories</code> 文件。这其实也是一种spi技术的变形。</p>
 <h1 id="jar机制"><a href="#jar机制" class="headerlink" title="jar机制"></a>jar机制</h1><p>通常项目中我们打jar包都是通过maven来进行的，导致很多人忽略了这个东西的存在，就像很多人不知道jdb.exe 是啥玩意一样。下面我们不借助任何工具来打一个jar包并对jar文件结构进行解析。</p>
@@ -206,12 +206,11 @@
 </ul>
 <p>定义好元信息之后我们就可以打jar包了，以下是打包的一些常用命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/* 1. 默认打包 */</span><br><span class="line">// 生成的test.jar中就含test目录和jar自动生成的META-INF目录（内含MAINFEST.MF清单文件）</span><br><span class="line">jar -cvf test.jar test</span><br><span class="line"></span><br><span class="line">/* 2. 查看包内容 */</span><br><span class="line">jar -tvf test.jar</span><br><span class="line"></span><br><span class="line">/* 3. 解压jar包 */</span><br><span class="line">jar -xvf test.jar</span><br><span class="line"></span><br><span class="line">/* 4. 提取jar包部分内容 */</span><br><span class="line">jar -xvf test.jar test\test.class</span><br><span class="line"></span><br><span class="line">/* 5. 追加内容到jar包 */</span><br><span class="line">//追加MAINFEST.MF清单文件以外的文件，会追加整个目录结构</span><br><span class="line">jar -uvf test.jar other\ss.class</span><br><span class="line"></span><br><span class="line">//追加清单文件，会追加整个目录结构(test.jar会包含META-INF目录)</span><br><span class="line">jar -uMvf test.jar META-INF\MAINFEST.MF</span><br><span class="line"></span><br><span class="line">/* 6. 创建自定义MAINFEST.MF的jar包 */</span><br><span class="line">jar -cMvf test.jar test META-INF</span><br><span class="line"></span><br><span class="line">// 通过-m选项配置自定义MAINFEST.MF文件时，自定义MAINFEST.MF文件必须在位于工作目录下才可以</span><br><span class="line">jar -cmvf MAINFEST.MF test.jar test</span><br></pre></td></tr></table></figure>
-
 <h2 id="jar运行的过程"><a href="#jar运行的过程" class="headerlink" title="jar运行的过程"></a>jar运行的过程</h2><p>jar运行过程和类加载机制有关，而类加载机制又和我们自定义的类加载器有关，现在我们先来了解一下双亲委派模式。</p>
 <p>java中类加载器分为三个：</p>
 <ul>
-<li>BootstrapClassLoader负责加载<code>${JAVA_HOME}/jre/lib</code>部分jar包</li>
-<li>ExtClassLoader加载<code>${JAVA_HOME}/jre/lib/ext</code>下面的jar包</li>
+<li>BootstrapClassLoader负责加载<code>$&#123;JAVA_HOME&#125;/jre/lib</code>部分jar包</li>
+<li>ExtClassLoader加载<code>$&#123;JAVA_HOME&#125;/jre/lib/ext</code>下面的jar包</li>
 <li>AppClassLoader加载用户自定义-classpath或者Jar包的Class-Path定义的第三方包</li>
 </ul>
 <p>类的生命周期为：加载（Loading）、验证（Verification）、准备(Preparation)、解析(Resolution)、初始化(Initialization)、使用(Using) 和 卸载(Unloading)七个阶段。</p>
@@ -234,15 +233,12 @@
 </ul>
 <p>我们将一堆jar包放到tomcat的项目文件夹下，tomcat 运行的时候能加载到这些jar包的class就是因为这些类加载器对读取到的二进制数据进行处理解析从中拿到了需要的类</p>
 <h2 id="springboot的jar包的特别之处"><a href="#springboot的jar包的特别之处" class="headerlink" title="springboot的jar包的特别之处"></a>springboot的jar包的特别之处</h2><p>当我们将一个springboot项目打好包之后，不妨解压看看里面的结构是什么样子的的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">run.jar</span><br><span class="line">|——org</span><br><span class="line">|  |——springframework</span><br><span class="line">|     |——boot</span><br><span class="line">|        |——loader</span><br><span class="line">|           |——JarLauncher.class</span><br><span class="line">|           |——Launcher.class</span><br><span class="line">|——META-INF</span><br><span class="line">|  |——MANIFEST.MF  </span><br><span class="line">|——BOOT-INF</span><br><span class="line">|  |——<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">Main</span>.<span class="title">class</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">Begin</span>.<span class="title">class</span></span></span><br><span class="line"><span class="class">|  |——<span class="title">lib</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">commons</span>.<span class="title">jar</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">plugin</span>.<span class="title">jar</span></span></span><br><span class="line"><span class="class">|  |——<span class="title">resource</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">a</span>.<span class="title">jpg</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">|     |——<span class="title">b</span>.<span class="title">jpg</span></span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">run.jar</span><br><span class="line">|——org</span><br><span class="line">|  |——springframework</span><br><span class="line">|     |——boot</span><br><span class="line">|        |——loader</span><br><span class="line">|           |——JarLauncher.class</span><br><span class="line">|           |——Launcher.class</span><br><span class="line">|——META-INF</span><br><span class="line">|  |——MANIFEST.MF  </span><br><span class="line">|——BOOT-INF</span><br><span class="line">|  |——<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">Main</span>.<span class="title">class</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">Begin</span>.<span class="title">class</span></span></span><br><span class="line"><span class="class">|  |——<span class="title">lib</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">commons</span>.<span class="title">jar</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">plugin</span>.<span class="title">jar</span></span></span><br><span class="line"><span class="class">|  |——<span class="title">resource</span></span></span><br><span class="line"><span class="class">|     |——<span class="title">a</span>.<span class="title">jpg</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">|     |——<span class="title">b</span>.<span class="title">jpg</span></span></span><br><span class="line"><span class="class"></span></span><br></pre></td></tr></table></figure>
 <p><code>classpath</code>可加载的类只有<code>JarLauncher.class</code>，<code>Launcher.class</code>，<code>Main.class</code>，<code>Begin.class</code>。在<code>BOOT-INF/lib</code>和<code>BOOT-INF/class</code>里面的文件不属于classloader搜素对象直接访问的话会报<code>NoClassDefDoundErr</code>异常。Jar包里面的资源以 <code>Stream</code> 的形式存在（他们本就处于Jar包之中），java程序时可以访问到的。当springboot运行main方法时在main中会运行<code>org.springframework.boot.loader.JarLauncher</code>和<code>Launcher.class</code>这两个个加载器（你是否还及得前文提到过得spi技术），这个加载器去加载受stream中的jar包中的class。这样就实现了加载jar包中的jar这个功能否则正常的类加载器是无法加载jar包中的jar的class的，只会根据<code>MAINFEST.MF</code>来加载jar外部的jar来读取里面的class。</p>
 <h2 id="如何自定义类加载器"><a href="#如何自定义类加载器" class="headerlink" title="如何自定义类加载器"></a>如何自定义类加载器</h2><p>1）继承ClassLoader    重写findClass（）方法  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String classpath;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyClassLoader</span><span class="params">(String classpath)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">this</span>.classpath = classpath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">       <span class="comment">// 该方法是根据一个name加载一个类，我们可以使用一个流来读取path中的文件然后从文件中解析出class来</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>调用defineClass（）方法加载类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException</span>&#123;</span><br><span class="line">        <span class="comment">//自定义类加载器的加载路径</span></span><br><span class="line">        MyClassLoader myClassLoader=<span class="keyword">new</span> MyClassLoader(<span class="string">"D:\\lib"</span>);</span><br><span class="line">        <span class="comment">//包名+类名</span></span><br><span class="line">        Class c=myClassLoader.loadClass(<span class="string">"com.test.Test"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(c!=<span class="keyword">null</span>)&#123;</span><br><span class="line">           <span class="comment">// 做点啥</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException</span>&#123;</span><br><span class="line">        <span class="comment">//自定义类加载器的加载路径</span></span><br><span class="line">        MyClassLoader myClassLoader=<span class="keyword">new</span> MyClassLoader(<span class="string">&quot;D:\\lib&quot;</span>);</span><br><span class="line">        <span class="comment">//包名+类名</span></span><br><span class="line">        Class c=myClassLoader.loadClass(<span class="string">&quot;com.test.Test&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(c!=<span class="keyword">null</span>)&#123;</span><br><span class="line">           <span class="comment">// 做点啥</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文从比较基础的层面解读了我们频繁使用却大部分人不是很了解的两个知识点——spi和jar机制。希望大家看完这篇文章后能对springboot中的一些“黑魔法”有更深入的了解，而不是停留在表面。</p>
 
       
@@ -464,11 +460,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,7 +468,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,23 +496,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,19 +508,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,6 +529,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

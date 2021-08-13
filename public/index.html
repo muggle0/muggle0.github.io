@@ -35,7 +35,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -155,30 +155,84 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-java开发规范" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-sentinel-持久化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/08/java%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">代码该怎么写</a>
+      <a class="article-title" href="/2021/07/26/sentinel-%E6%8C%81%E4%B9%85%E5%8C%96/">sentinel 持久化</a>
     </h1>
   
 
         
-        <a href="/2021/01/08/java%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" class="archive-article-date">
-  	<time datetime="2021-01-08T03:13:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-08</time>
+        <a href="/2021/07/26/sentinel-%E6%8C%81%E4%B9%85%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2021-07-26T04:23:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="代码混乱的常见问题"><a href="#代码混乱的常见问题" class="headerlink" title="代码混乱的常见问题"></a>代码混乱的常见问题</h1><p>很多时候我们项目迭代到后期，项目会变得很混乱，往往只有少数人能知道某段代码是干嘛的和该如何去改，或者是干脆谁都不知道，只能靠通过注释去猜测这段代码可能的作用。原因有可能是因为团队内部的人事变动，导致原先写这段代码的人不再管理这段代码了，并且代码写的实在是屎没人捋的清。往往我们称这类代码为“祖传代码”，就像祖宗传下来的代码一样，没人懂没人敢动。祖传代码一多，这个项目就变成了屎一样，开发人员再这基础上迭代就如同屎海翻腾，恶心别人也恶心自己。这是一个很可怕的恶心循环，我们如何去避免这种事情发生呢？先让我们分析下这类代码的通病</p>
-        
-          <a class="article-more-a" href="/2021/01/08/java%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/#more">more >></a>
-        
+        <p>我们之前配置的流控规则都是存储在应用的内存中的，这种方式明显无法满足我们实际开发的需求，一旦项目被重启，流控规则就被初始化了，需要我们再次去重新配置，因此规则的持久化就显得很有必要了。</p>
+<p>本节会介绍几类主流持久化方式并对自定义持久化做介绍</p>
+<h3 id="文件持久化"><a href="#文件持久化" class="headerlink" title="文件持久化"></a>文件持久化</h3><p>文件持久化是通过 sentinel spi 扩展点来加载本地文件中的持久化数据到内存中，它依赖接口 <code>InitFunc</code>，对于非spring项目这种方式可以很便捷的实现<br>文件持久化。</p>
+<p>实现文件持久化首先要自定义一个类并实现<code>InitFunc</code> 接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyflieInitFunc</span> <span class="keyword">implements</span> <span class="title">InitFunc</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        URL resource = MyflieInitFunc.class.getClassLoader().getResource(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        File file = <span class="keyword">new</span> File(resource.getPath()+<span class="string">&quot;/config/flow.json&quot;</span>);</span><br><span class="line">        File fileParent = file.getParentFile();</span><br><span class="line">        <span class="keyword">if</span>(!fileParent.exists())&#123;</span><br><span class="line">            fileParent.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!file.exists())&#123;</span><br><span class="line">            file.createNewFile();</span><br><span class="line">        &#125;</span><br><span class="line">        ReadableDataSource&lt;String, List&lt;FlowRule&gt;&gt; flowReadDataSource = <span class="keyword">new</span> FileRefreshableDataSource&lt;&gt;(</span><br><span class="line">            resource.getPath()+<span class="string">&quot;/config/flow.json&quot;</span>,</span><br><span class="line">            source -&gt; JSON.parseObject(</span><br><span class="line">                source,</span><br><span class="line">                <span class="keyword">new</span> TypeReference&lt;List&lt;FlowRule&gt;&gt;() &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            ));</span><br><span class="line">        FlowRuleManager.register2Property(flowReadDataSource.getProperty());</span><br><span class="line">        WritableDataSource&lt;List&lt;FlowRule&gt;&gt; flowWriteDataSource = <span class="keyword">new</span> FileWritableDataSource&lt;&gt;(</span><br><span class="line">            resource.getPath()+<span class="string">&quot;/config/flow.json&quot;</span>,</span><br><span class="line">            t-&gt;JSON.toJSONString(t)</span><br><span class="line">        );</span><br><span class="line">        WritableDataSourceRegistry.registerFlowDataSource(flowWriteDataSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在resources 文件夹下新建文件 <code>META-INF\services\com.alibaba.csp.sentinel.init.InitFunc</code><br>内容为<code>MyflieInitFunc</code> 的类路径：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">com.muggle.sentinel.config.MyflieInitFunc</span></span><br></pre></td></tr></table></figure>
+
+<p>完成以上步骤后，文件持久化的方式就配置完成了。</p>
+<p><code>InitFunc</code> 的资源初始化方法 <code>init()</code> 并不是在项目启动的时候调用的，而是在首次产生流控数据的时候调用的，<br>也就是说它是一个懒加载的方法。<br>在文件持久化配置中，<code>FileRefreshableDataSource</code> , <code>FileWritableDataSource</code> , <code>FlowRuleManager</code> 这三个类是有必要去熟识的。</p>
+<ul>
+<li>FlowRuleManager 流控规则管理器，用于对流控规则的加载和管理，每类规则都有对应的管理器，后文会介绍。</li>
+<li>FileRefreshableDataSource 流控规则读取及刷新的类，该类配置到sentinel中后会定时拉取流控文件中的流控规则</li>
+<li>FileWritableDataSource 流控规则写入类，当我们在控制台编辑新的流控规则后，控制台会将规则推送给应用，应用接收到推送的规则后，<br>会通过该类将数据写入流控文件中</li>
+</ul>
+<h3 id="FlowRuleManager-源码分析"><a href="#FlowRuleManager-源码分析" class="headerlink" title="FlowRuleManager 源码分析"></a><code>FlowRuleManager</code> 源码分析</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlowRuleManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AtomicReference&lt;Map&lt;String, List&lt;FlowRule&gt;&gt;&gt; flowRules = <span class="keyword">new</span> AtomicReference();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> FlowRuleManager.FlowPropertyListener LISTENER = <span class="keyword">new</span> FlowRuleManager.FlowPropertyListener();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SentinelProperty&lt;List&lt;FlowRule&gt;&gt; currentProperty = <span class="keyword">new</span> DynamicSentinelProperty();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(<span class="number">1</span>, <span class="keyword">new</span> NamedThreadFactory(<span class="string">&quot;sentinel-metrics-record-task&quot;</span>, <span class="keyword">true</span>));</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;FlowRule&gt; <span class="title">getRules</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       </span><br><span class="line">        List&lt;FlowRule&gt; rules = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        Iterator var1 = ((Map)flowRules.get()).entrySet().iterator();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(var1.hasNext()) &#123;</span><br><span class="line">            Entry&lt;String, List&lt;FlowRule&gt;&gt; entry = (Entry)var1.next();</span><br><span class="line">            rules.addAll((Collection)entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rules;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">loadRules</span><span class="params">(List&lt;FlowRule&gt; rules)</span></span>&#123;</span><br><span class="line">         currentProperty.updateValue(rules);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">hasConfig</span><span class="params">(String resource)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> ((Map)flowRules.get()).containsKey(resource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该类的静态属性包括 流控规则数组 <code>flowRules</code> ，用于监控流控规则更新的监听器<code>LISTENER</code> , 轮询监听流控配置的线程池<code>SCHEDULER</code>,sentinel 配置类<code>currentProperty</code>.<br>而它几个api也很明了，就是对流控规则的增删改查。</p>
+<h3 id="FileRefreshableDataSource-源码分析"><a href="#FileRefreshableDataSource-源码分析" class="headerlink" title="FileRefreshableDataSource 源码分析"></a><code>FileRefreshableDataSource</code> 源码分析</h3><p><code>FileRefreshableDataSource</code> 继承了<code>AutoRefreshDataSource</code>,而<code>AutoRefreshDataSource</code> 中有一个线程池 <code>service</code> 用于拉取 文件中存储的规则<br>以及拉取间隔 <code>recommendRefreshMs</code> .<br>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoRefreshDataSource</span>&lt;<span class="title">S</span>, <span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractDataSource</span>&lt;<span class="title">S</span>, <span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ScheduledExecutorService service;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">long</span> recommendRefreshMs = <span class="number">3000L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutoRefreshDataSource</span><span class="params">(Converter&lt;S, T&gt; configParser)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(configParser);</span><br><span class="line">        <span class="keyword">this</span>.startTimerService();</span><br><span class="line">    &#125;</span><br><span class="line">......</span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startTimerService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.service = Executors.newScheduledThreadPool(<span class="number">1</span>, <span class="keyword">new</span> NamedThreadFactory(<span class="string">&quot;sentinel-datasource-auto-refresh-task&quot;</span>, <span class="keyword">true</span>));</span><br><span class="line">            <span class="keyword">this</span>.service.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span> (!AutoRefreshDataSource.<span class="keyword">this</span>.isModified()) &#123;</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">    </span><br><span class="line">                        T newValue = AutoRefreshDataSource.<span class="keyword">this</span>.loadConfig();</span><br><span class="line">                        AutoRefreshDataSource.<span class="keyword">this</span>.getProperty().updateValue(newValue);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Throwable var2) &#123;</span><br><span class="line">                        RecordLog.info(<span class="string">&quot;loadConfig exception&quot;</span>, var2);</span><br><span class="line">                    &#125;</span><br><span class="line">    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="keyword">this</span>.recommendRefreshMs, <span class="keyword">this</span>.recommendRefreshMs, TimeUnit.MILLISECONDS);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们重点关注 <code>startTimerService</code> 这个方法,这个方法是在构造器里面调用的，也就是说当你new 一个 <code>FileRefreshableDataSource</code> 时就会调用该方法</p>
+<p>该方法就是通过线程池定时调用<code>isModified</code> 方法判断配置是否更新过，如果更新了就同步更新到父类属性 <code>SentinelProperty</code> 中，代码对应:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AutoRefreshDataSource.<span class="keyword">this</span>.getProperty().updateValue(newValue)</span><br></pre></td></tr></table></figure>
+<p>不难判读出，父类抽象类的<code>property</code> 属性才是真正的获取规则提供拦截判断的关键属性。后文也会用到这个知识点，这里记一下。</p>
+<p>我们可以看一下 <code>FileRefreshableDataSource</code> 构造函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">FileRefreshableDataSource</span><span class="params">(File file, Converter&lt;String, T&gt; configParser)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(file, configParser, <span class="number">3000L</span>, <span class="number">1048576</span>, DEFAULT_CHAR_SET);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">FileRefreshableDataSource</span><span class="params">(String fileName, Converter&lt;String, T&gt; configParser)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(<span class="keyword">new</span> File(fileName), configParser, <span class="number">3000L</span>, <span class="number">1048576</span>, DEFAULT_CHAR_SET);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">FileRefreshableDataSource</span><span class="params">(File file, Converter&lt;String, T&gt; configParser, <span class="keyword">int</span> bufSize)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(file, configParser, <span class="number">3000L</span>, bufSize, DEFAULT_CHAR_SET);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">FileRefreshableDataSource</span><span class="params">(File file, Converter&lt;String, T&gt; configParser, Charset charset)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(file, configParser, <span class="number">3000L</span>, <span class="number">1048576</span>, charset);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">FileRefreshableDataSource</span><span class="params">(File file, Converter&lt;String, T&gt; configParser, <span class="keyword">long</span> recommendRefreshMs, <span class="keyword">int</span> bufSize, Charset charset)</span> </span></span><br></pre></td></tr></table></figure>
+
+<p>不难看出，如果在 new <code>FileRefreshableDataSource</code> 时不指定刷新间隔就取默认值 3000 毫秒。</p>
+<h3 id="FileWritableDataSource-源码分析"><a href="#FileWritableDataSource-源码分析" class="headerlink" title="FileWritableDataSource 源码分析"></a><code>FileWritableDataSource</code> 源码分析</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileWritableDataSource</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">WritableDataSource</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset DEFAULT_CHARSET = Charset.forName(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Converter&lt;T, String&gt; configEncoder;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> File file;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Charset charset;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock lock;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(T value)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String convertResult = (String)<span class="keyword">this</span>.configEncoder.convert(value);</span><br><span class="line">            FileOutputStream outputStream = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                outputStream = <span class="keyword">new</span> FileOutputStream(<span class="keyword">this</span>.file);</span><br><span class="line">                <span class="keyword">byte</span>[] bytesArray = convertResult.getBytes(<span class="keyword">this</span>.charset);</span><br><span class="line">                RecordLog.info(<span class="string">&quot;[FileWritableDataSource] Writing to file &#123;&#125;: &#123;&#125;&quot;</span>, <span class="keyword">new</span> Object[]&#123;<span class="keyword">this</span>.file, convertResult&#125;);</span><br><span class="line">                outputStream.write(bytesArray);</span><br><span class="line">                outputStream.flush();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (outputStream != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        outputStream.close();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception var16) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>代码结构也很了然，一个数据转换器，一个 file 一个lock ,当框架调用 <code>write</code> 方法时上锁并往 file中写配置。</p>
+<p>分析得差不多了，让我们看看实战效果吧；</p>
+<p>首先启动项目和控制台，然后在控制台上配置一个流控规则，可以观察到项目规则存储文件中多了点内容：<br><img src="sentinel2.jpg" alt="2"></p>
+<p>文件中新增的数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="attr">&quot;clusterConfig&quot;</span>:&#123;<span class="attr">&quot;acquireRefuseStrategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;clientOfflineTime&quot;</span>:<span class="number">2000</span>,<span class="attr">&quot;fallbackToLocalWhenFail&quot;</span>:<span class="literal">true</span>,<span class="attr">&quot;resourceTimeout&quot;</span>:<span class="number">2000</span>,<span class="attr">&quot;resourceTimeoutStrategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;sampleCount&quot;</span>:<span class="number">10</span>,<span class="attr">&quot;strategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;thresholdType&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;windowIntervalMs&quot;</span>:<span class="number">1000</span>&#125;,<span class="attr">&quot;clusterMode&quot;</span>:<span class="literal">false</span>,<span class="attr">&quot;controlBehavior&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;count&quot;</span>:<span class="number">1.0</span>,<span class="attr">&quot;grade&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;limitApp&quot;</span>:<span class="string">&quot;default&quot;</span>,<span class="attr">&quot;maxQueueingTimeMs&quot;</span>:<span class="number">500</span>,<span class="attr">&quot;resource&quot;</span>:<span class="string">&quot;test&quot;</span>,<span class="attr">&quot;strategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;warmUpPeriodSec&quot;</span>:<span class="number">10</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>我们重启项目和控制台规则也不会丢失，规则持久化生效。</p>
+<p>通过分析我们知道，这种持久化方式是一种拉模式，胜在配置简单，不需要外部数据源就能完成流控数据的持久化。由于规则是用 FileRefreshableDataSource 定时更新的，所以规则更新会有延迟。<br>如果FileRefreshableDataSource定时时间过大，可能长时间延迟；如果FileRefreshableDataSource过小，又会影响性能；<br>因为规则存储在本地文件，如果需要迁移微服务，那么需要把规则文件一起迁移，否则规则会丢失。</p>
+<p>文件持久化能应付我们需求的大部分场景，但对于微服务而言是不那么满足要求的；<br>因为文件持久化就必定要求我们在服务器上提供一个用于存储配置文件的文件夹，而微服务项目大部分情况是容器部署，这就让文件持久化显得不那么好用了。</p>
+<p>为此，官方提供了自定义的持久化maven依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-extension<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以及在这个依赖的基础上开发的以CONSUL NACOS REDIS 作为数据源的maven 依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-consul<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-nacos<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="nacos持久化"><a href="#nacos持久化" class="headerlink" title="nacos持久化"></a>nacos持久化</h3><p>以上三种种持久化不同于文件持久化，它们是推模式的，而且迁移部署起来更为方便，符合微服务的特性。接下来我们就以nacos持久化为例来学习一下这种方式是怎么配置的。</p>
+<p>首先引入 nacos 相关依赖依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-datasource-nacos<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后通过<code>FlowRuleManager</code> 注册数据源就ok了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReadableDataSource&lt;String, List&lt;FlowRule&gt;&gt; flowRuleDataSource = <span class="keyword">new</span> NacosDataSource&lt;&gt;(remoteAddress, groupId, dataId,</span><br><span class="line">    source -&gt; JSON.parseObject(source, <span class="keyword">new</span> TypeReference&lt;List&lt;FlowRule&gt;&gt;() &#123;</span><br><span class="line">    &#125;));</span><br><span class="line">FlowRuleManager.register2Property(flowRuleDataSource.getProperty());</span><br></pre></td></tr></table></figure>
+<p>remoteAddress 是nacos 的地址； groupId和dataId均为nacos配置中心的属性，在创建配置项的时候由使用者自定义，如图为在nacos创建配置项的截图：</p>
+<p><img src="sentinel3.jpg" alt="3"></p>
+<p>启动nacos，启动我们的项目和控制台，然后修改nacos中的配置项，就能再控制台上观测到规则变化，nacos中存储的规则也是json,我们可以把文件持久化教程中产生json<br>复制进去，这里就不在赘述。</p>
+<p>这种模式是推模式，优点是这种方式有更好的实时性和一致性保证。因为我们和文件持久化比起来少注册了一个与<code>FileWritableDataSource</code> 对应的类，<br>也就是说应用中更新的规则不能反写到nacos,只能通过nacos读取到配置；因此我们在控制台上修改的规则也不会持久化到nacos中。这样设计是合理的，因为nacos作为<br>配置中心不应该允许应用去反写自己的配置。</p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>因为文件持久化分析了一部分源码，因此这里不会对源码分析太多，只简单的介绍它是如何去读取到配置的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NacosDataSource</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractDataSource</span>&lt;<span class="title">String</span>, <span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_TIMEOUT = <span class="number">3000</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ExecutorService pool;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Listener configListener;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String groupId;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String dataId;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Properties properties;</span><br><span class="line">    <span class="keyword">private</span> ConfigService configService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NacosDataSource</span><span class="params">(<span class="keyword">final</span> Properties properties, <span class="keyword">final</span> String groupId, <span class="keyword">final</span> String dataId, Converter&lt;String, T&gt; parser)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(parser);</span><br><span class="line">        <span class="keyword">this</span>.pool = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> ArrayBlockingQueue(<span class="number">1</span>), <span class="keyword">new</span> NamedThreadFactory(<span class="string">&quot;sentinel-nacos-ds-update&quot;</span>), <span class="keyword">new</span> DiscardOldestPolicy());</span><br><span class="line">        <span class="keyword">this</span>.configService = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (!StringUtil.isBlank(groupId) &amp;&amp; !StringUtil.isBlank(dataId)) &#123;</span><br><span class="line">            AssertUtil.notNull(properties, <span class="string">&quot;Nacos properties must not be null, you could put some keys from PropertyKeyConst&quot;</span>);</span><br><span class="line">            <span class="keyword">this</span>.groupId = groupId;</span><br><span class="line">            <span class="keyword">this</span>.dataId = dataId;</span><br><span class="line">            <span class="keyword">this</span>.properties = properties;</span><br><span class="line">            <span class="keyword">this</span>.configListener = <span class="keyword">new</span> Listener() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> Executor <span class="title">getExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> NacosDataSource.<span class="keyword">this</span>.pool;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receiveConfigInfo</span><span class="params">(String configInfo)</span> </span>&#123;</span><br><span class="line">                    RecordLog.info(<span class="string">&quot;[NacosDataSource] New property value received for (properties: &#123;&#125;) (dataId: &#123;&#125;, groupId: &#123;&#125;): &#123;&#125;&quot;</span>, <span class="keyword">new</span> Object[]&#123;properties, dataId, groupId, configInfo&#125;);</span><br><span class="line">                    T newValue = NacosDataSource.<span class="keyword">this</span>.parser.convert(configInfo);</span><br><span class="line">                    NacosDataSource.<span class="keyword">this</span>.getProperty().updateValue(newValue);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">this</span>.initNacosListener();</span><br><span class="line">            <span class="keyword">this</span>.loadInitialConfig();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(<span class="string">&quot;Bad argument: groupId=[%s], dataId=[%s]&quot;</span>, groupId, dataId));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们看它的构造方法，创建了一个线程池，然后通过这个线程池 new 了一个nacos的Listener，Listener是一个监听器，initNacosListener() 方法是将监听器<br>注册到 nacos的configService 里面，通过这个监听器去监听nacos的配置变化，当配置发生更新的时候，调用监听器的 <code>receiveConfigInfo</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receiveConfigInfo</span><span class="params">(String configInfo)</span> </span>&#123;</span><br><span class="line">    RecordLog.info(<span class="string">&quot;[NacosDataSource] New property value received for (properties: &#123;&#125;) (dataId: &#123;&#125;, groupId: &#123;&#125;): &#123;&#125;&quot;</span>, <span class="keyword">new</span> Object[]&#123;properties, dataId, groupId, configInfo&#125;);</span><br><span class="line">    T newValue = NacosDataSource.<span class="keyword">this</span>.parser.convert(configInfo);</span><br><span class="line">    NacosDataSource.<span class="keyword">this</span>.getProperty().updateValue(newValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>前面分析文件持久话我们就分析过，配置最终要被更新到父类的<code>property</code> 属性里面，再这里我们也看到了同样的代码。</p>
+
       
 
       
@@ -186,11 +240,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/08/java%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/07/26/sentinel-%E6%8C%81%E4%B9%85%E5%8C%96/">展开全文 >></a>
         </p>
       
 
@@ -220,29 +285,154 @@
 
 
   
-    <article id="post-rabbitmq-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-流控组件-sentinel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/07/rabbitmq-3/">rabbitmq-3</a>
+      <a class="article-title" href="/2021/07/25/%E6%B5%81%E6%8E%A7%E7%BB%84%E4%BB%B6-sentinel/">流控组件-sentinel</a>
     </h1>
   
 
         
-        <a href="/2020/09/07/rabbitmq-3/" class="archive-article-date">
-  	<time datetime="2020-09-07T08:17:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
+        <a href="/2021/07/25/%E6%B5%81%E6%8E%A7%E7%BB%84%E4%BB%B6-sentinel/" class="archive-article-date">
+  	<time datetime="2021-07-25T03:51:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="备胎机"><a href="#备胎机" class="headerlink" title="备胎机"></a>备胎机</h2><p>备胎机顾名思义就是替代现任的备胎，“正主” 没了后可以及时上位。在rabbitMQ中，如果生产者发送消息，由于路由错误等原因不能到达指定队列，就会路由到备胎队列消费。这样做可以保证未被路由的消息不会丢失。</p>
+        <h2 id="sentinel介绍"><a href="#sentinel介绍" class="headerlink" title="sentinel介绍"></a>sentinel介绍</h2><p>sentinel 是阿里开源的流量控制，熔断降级，系统负载保护的一个Java组件；</p>
+<p>Sentinel 分为两个部分:<br>核心库（Java 客户端）不依赖任何框架/库，能够运行于所有 Java 运行时环境，同时对 Dubbo / Spring Cloud 等框架也有较好的支持。<br>控制台（Dashboard）基于 Spring Boot 开发，打包后可以直接运行，不需要额外的 Tomcat 等应用容器。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D">sentinel 官方文档点击这里</a></p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><p>我们这里还是以springboot 项目写一个demo，创建完成springboot 项目之后pom中引入依赖：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;sentinel-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.8.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>然后定义流控规则并加载到内存：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SentileConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initRules</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        FlowRule rule1 = <span class="keyword">new</span> FlowRule();</span><br><span class="line">        rule1.setResource(<span class="string">&quot;test.hello&quot;</span>);</span><br><span class="line">        rule1.setGrade(RuleConstant.FLOW_GRADE_QPS);</span><br><span class="line">        rule1.setCount(<span class="number">1</span>);   <span class="comment">// 每秒调用最大次数为 1 次</span></span><br><span class="line">        List&lt;FlowRule&gt; rules = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        rules.add(rule1);</span><br><span class="line">        <span class="comment">// 将控制规则载入到 Sentinel</span></span><br><span class="line">        com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager.loadRules(rules);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后创建 <code>controller</code> 并定义资源：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test0&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test0</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Entry resourceName = SphU.entry(<span class="string">&quot;test.hello&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> resourceName.toString();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (BlockException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后我们启动项目并访问 <code>http://localhost:8081/test0</code> 然后不断的刷新，就会发现如果刷新频率超过一秒就会返回error 否则会返回一个时间戳。<br>这里这些类的api和源码我们先不介绍，只对其功能先做一个大致的体验。</p>
+<p>接下来我们继续引入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-annotation-aspectj<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>同时注入一个切面到springboot 中去：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SentinelResourceAspect <span class="title">sentinelResourceAspect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SentinelResourceAspect();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们就可以通过注解去做流量控制了，写一个接口测试一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(value = &quot;test.hello&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样通过浏览器访问这个接口并不断刷新，会发现会频率过快的时候会返回 springboot 的错误页面，这是因为当aop切面会抛出 <code>BlockException</code>，当没有对应的<br>异常处理器的时候springboot就会返回默认错误页面。这个时候我们有两种方式处理我们超出访问频率的时候的逻辑。</p>
+<p>第一种，加降级方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line">   <span class="meta">@SentinelResource(value = &quot;test.hello&quot;,fallback = &quot;testFallback&quot;)</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">testFallback</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>第二种，加<code>BlockException</code>异常处理器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionHandlerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(BlockException.class)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResultWrapper <span class="title">sentinelBlockHandler</span><span class="params">(BlockException e)</span> </span>&#123;</span><br><span class="line">        logger.warn(<span class="string">&quot;Blocked by Sentinel: &#123;&#125;&quot;</span>, e.getRule());</span><br><span class="line">        <span class="comment">// Return the customized result.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="对所有controller-层做流控"><a href="#对所有controller-层做流控" class="headerlink" title="对所有controller 层做流控"></a>对所有controller 层做流控</h2><p><code>sentinel</code> 还提供了 spring-mvc 的拦截器，配置该拦截器你可以对你项目的所有所有请求进行流控管理，首先我们需要引入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-spring-webmvc-adapter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后注入一个sentinel 的拦截器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleWebmvcConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 注冊sentinel 拦截器</span></span><br><span class="line">        SentinelWebMvcConfig config = <span class="keyword">new</span> SentinelWebMvcConfig();</span><br><span class="line">        config.setHttpMethodSpecify(<span class="keyword">true</span>);</span><br><span class="line">        config.setWebContextUnify(<span class="keyword">true</span>);</span><br><span class="line">        config.setBlockExceptionHandler(<span class="keyword">new</span> SimpleBlockExceptionHandler());</span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> SentinelWebInterceptor(config)).addPathPatterns(<span class="string">&quot;/**&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码中 <code>SimpleBlockExceptionHandler</code> 是自定义流控异常处理器，作用是处理流控异常 <code>BlockException</code> 源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleBlockExceptionHandler</span> <span class="keyword">implements</span> <span class="title">BlockExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        httpServletResponse.setContentType(<span class="string">&quot;application/json&quot;</span>);</span><br><span class="line">        PrintWriter out = httpServletResponse.getWriter();</span><br><span class="line">        out.print(<span class="string">&quot;&#123;\&quot;code\&quot;:500&#125;&quot;</span>);</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>SentinelWebMvcConfig</code> 是流控配置类，通过其属性命名就不难猜出其作用 <code>isHttpMethodSpecify</code> 是否区分请求方式；<br><code>isWebContextUnify</code>是否使用统一web上下文； <code>UrlCleaner</code> 是url清理器，作用是对url进行整理</p>
+<h2 id="接入控制台"><a href="#接入控制台" class="headerlink" title="接入控制台"></a>接入控制台</h2><p><code>sentinel</code> 为我们提供了一个控制台应用，通过这个控制台我们可以直观的看到流控数据，动态的修改流控规则，下面让我们看看如何接入控制台。</p>
+<p>首先引入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-transport-simple-http<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个依赖sentinel连接 控制端的通讯包。</p>
+<p>然后添加配置：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">csp.sentinel.dashboard.server</span>=<span class="string">localhost:8080</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，因为这个配置项不是属于 springboot的 所以不能添加在application中，要通过 -D 的方式在jvm启动的时候添加这个配置项。</p>
+<p>再去 <a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel/releases">sentinel的github</a> 下载 控制台jar包 ，启动该jar包；访问8080 端口，<br>登录账号密码和密码都是 sentinel。这个控制台实际上是一个springboot应用，启动端口和账号密码都可以通过application 修改。<br>接下来，启动我们自己的应用，并访问一些接口，我们就能再界面上看到监控数据：<br><img src="sentinel-1.jpg" alt="sentinel-dashboard"></p>
+<p>通过控制台我们可以监控流量，管理流控降级等规则，这些规则都是存储在我们程序应用的内存中的，因此我们还需要学会这些规则的配置使用及其持久化。</p>
+<p>sentinel 官方还提供了 springcloud 的包，可以让我们很方便的在 spring cloud 项目中使用sentinel，springcloud 中使用 sentinel和 springboot<br>中使用sentinel方式差不多，只是多了一个链路调用；因此我们要先学会了如何在 springboot中使用它。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/25/%E6%B5%81%E6%8E%A7%E7%BB%84%E4%BB%B6-sentinel/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
         
-          <a class="article-more-a" href="/2020/09/07/rabbitmq-3/#more">more >></a>
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kafka-spring-boot" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/28/kafka-spring-boot/">kafka+spring boot</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/28/kafka-spring-boot/" class="archive-article-date">
+  	<time datetime="2021-03-28T02:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前文介绍了 kafka 的相关特性和原理，这一节我们将学习怎么在springboot中使用kafka；</p>
+<p>首先导入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-kafka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2021/03/28/kafka-spring-boot/#more">more >></a>
         
       
 
@@ -266,7 +456,323 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/07/rabbitmq-3/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/28/kafka-spring-boot/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-开发小计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/">开发小计</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2021-02-06T09:47:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="接手项目的一次采坑"><a href="#接手项目的一次采坑" class="headerlink" title="接手项目的一次采坑"></a>接手项目的一次采坑</h2><h4 id="springboot-有读取外部配置文件的方法，如下优先级："><a href="#springboot-有读取外部配置文件的方法，如下优先级：" class="headerlink" title="springboot 有读取外部配置文件的方法，如下优先级："></a><code>springboot</code> 有读取外部配置文件的方法，如下优先级：</h4><ul>
+<li>第一种是在jar包的同一目录下建一个config文件夹，然后把配置文件放到这个文件夹下。</li>
+<li>第二种是直接把配置文件放到jar包的同级目录。</li>
+<li>第三种在classpath下建一个config文件夹，然后把配置文件放进去。</li>
+<li>第四种是在classpath下直接放配置文件。</li>
+</ul>
+        
+          <a class="article-more-a" href="/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javaee</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kafka事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/31/kafka%E4%BA%8B%E5%8A%A1/">kafka事务</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/31/kafka%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
+  	<time datetime="2021-01-31T03:31:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>kafka 的事务是从0.11 版本开始支持的，kafka 的事务是基于 Exactly Once 语义的，它能保证生产或消费消息在跨分区和会话的情况下要么全部成功要么全部失败</p>
+<h3 id="生产者事务"><a href="#生产者事务" class="headerlink" title="生产者事务"></a>生产者事务</h3><p>当生产者投递一条事务性的消息时，会先获取一个 transactionID ，并将Producer 获得的PID 和 transactionID 绑定，当 Producer 重启，Producer<br>会根据当前事务的 transactionID 获取对应的PID。<br>kafka 管理事务是通过其组件 Transaction Coordinator 来实现的，这个组件管理每个事务的状态，Producer 可以通过transactionID 从这个组件中获得<br>对应事务的状态，该组件还会将事务状态持久化到kafka一个内部的 Topic 中。<br>生产者事务的场景：<br>一批消息写入 a、b、c 三个分区，如果 ab写入成功而c失败，那么kafka就会根据事务的状态对消息进行回滚，将ab写入的消息剔除掉并通知 Producer 投递消息失败。</p>
+<h3 id="消费者事务"><a href="#消费者事务" class="headerlink" title="消费者事务"></a>消费者事务</h3><p>消费者事务的一致性比较弱，只能够保证消费者消费消息是精准一次的（有且只有一次）。消费者有一个参数 islation.level，这个参数指定的是事务的隔离级别。<br>它的默认值是 read_uncommitted（未提交读），意思是消费者可以消费未commit的消息。当参数设置为 read_committed，则消费者不能消费到未commit的消息。</p>
+<h3 id="事务的使用场景"><a href="#事务的使用场景" class="headerlink" title="事务的使用场景"></a>事务的使用场景</h3><p>kafka事务主要是为了保证数据的一致性，现列举如下几个场景供读者参考：</p>
+<ul>
+<li>producer发的多条消息组成一个事务，这些消息需要对consumer同时可见或者同时不可见；</li>
+<li>producer可能会给多个topic发送消息，需要保证消息要么全部发送成功要么全部发送失败（操作的原子性）；</li>
+<li>消费者 消费一个topic，然后做处理再发到另一个topic，这个消费和转发的动作应该在同一事物中；</li>
+<li>如果下游消费者只有等上游消息事务提交以后才能读到，当吞吐量大的时候就会有问题，因此有了 read committed和read uncommitted两种事务隔离级别</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/31/kafka%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-codeStyle" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/11/codeStyle/">聊一聊代码规范</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/11/codeStyle/" class="archive-article-date">
+  	<time datetime="2021-01-11T07:58:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="代码混乱的常见问题"><a href="#代码混乱的常见问题" class="headerlink" title="代码混乱的常见问题"></a>代码混乱的常见问题</h1><p>很多时候我们项目迭代到后期，项目会变得很混乱，往往只有少数人能知道某段代码是干嘛的和该如何去改，或者是干脆谁都不知道，只能靠通过注释去猜测这段代码可能的作用。原因有可能是因为团队内部的人事变动，导致原先写这段代码的人不再管理这段代码了，并且代码写的实在是屎没人捋的清。往往我们称这类代码为“祖传代码”，就像祖宗传下来的代码一样，没人懂没人敢动。祖传代码一多，这个项目就变成了屎一样，开发人员再这基础上迭代就如同屎海翻腾，恶心别人也恶心自己。这是一个很可怕的恶心循环，我们如何去避免这种事情发生呢？先让我们分析下这类代码的通病</p>
+        
+          <a class="article-more-a" href="/2021/01/11/codeStyle/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javaee</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/11/codeStyle/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kafka-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/22/kafka-2/">kafka系列——kafka高级特性解析</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/22/kafka-2/" class="archive-article-date">
+  	<time datetime="2020-12-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="kafka-原理深度解读"><a href="#kafka-原理深度解读" class="headerlink" title="kafka 原理深度解读"></a>kafka 原理深度解读</h1><p>前文介绍了kafka的一些基本原理，接下来我们深入了解下关于kafka的一些机制和优化</p>
+        
+          <a class="article-more-a" href="/2020/12/22/kafka-2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/22/kafka-2/">展开全文 >></a>
         </p>
       
 
@@ -303,22 +809,22 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/07/kafka-1/">kafka-1</a>
+      <a class="article-title" href="/2020/12/21/kafka-1/">kafka 系列——kafka原理浅解</a>
     </h1>
   
 
         
-        <a href="/2020/09/07/kafka-1/" class="archive-article-date">
-  	<time datetime="2020-09-07T08:12:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
+        <a href="/2020/12/21/kafka-1/" class="archive-article-date">
+  	<time datetime="2020-12-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>todo </p>
+        <h1 id="kafka-原理"><a href="#kafka-原理" class="headerlink" title="kafka 原理"></a>kafka 原理</h1><p>消息队列一般包含两种模式，一种是点对点的模式，一种是发布订阅的模式。前文提到过 kafka 是一款基于发布订阅的消息队列。<br>那么kafka是怎么去发布消息，怎么去保存消息，订阅消息的呢？首先我们从kafka的发布订阅模型开始分析。</p>
         
-          <a class="article-more-a" href="/2020/09/07/kafka-1/#more">more >></a>
+          <a class="article-more-a" href="/2020/12/21/kafka-1/#more">more >></a>
         
       
 
@@ -342,7 +848,616 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/07/kafka-1/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/21/kafka-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kafka" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/20/kafka/">kafka系列-安装和使用kafka</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/20/kafka/" class="archive-article-date">
+  	<time datetime="2020-12-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="kafka-介绍"><a href="#kafka-介绍" class="headerlink" title="kafka 介绍"></a>kafka 介绍</h1><p>kafka 是一款基于发布订阅的消息系统，Kafka的最大的特点就是高吞吐量以及可水平扩展，<br>Kafka擅长处理数据量庞大的业务，例如使用Kafka做日志分析、数据计算等。</p>
+        
+          <a class="article-more-a" href="/2020/12/20/kafka/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/20/kafka/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitMQ-yunwei" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/17/rabbitMQ-yunwei/">rabbitMQ 运维相关</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/17/rabbitMQ-yunwei/" class="archive-article-date">
+  	<time datetime="2020-12-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相对前面几个章节来说，这个章节知识点不是着重点。大家对这一章节知识的掌握程度为了解。好了，废话不多说，开始正文</p>
+        
+          <a class="article-more-a" href="/2020/12/17/rabbitMQ-yunwei/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/17/rabbitMQ-yunwei/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitMQ-springboot-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/16/rabbitMQ-springboot-3/">rabbitMQ 结合 springboot 使用 三</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/16/rabbitMQ-springboot-3/" class="archive-article-date">
+  	<time datetime="2020-12-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ListenerContainer-的使用"><a href="#ListenerContainer-的使用" class="headerlink" title="ListenerContainer 的使用"></a><code>ListenerContainer</code> 的使用</h2><p>在消费端，我们的消费监听器是运行在 监听器容器之中的（ <code>ListenerContainer</code> ），springboot 给我们提供了两个监听器容器 <code>SimpleMessageListenerContainer</code> 和 <code>DirectMessageListenerContainer</code> 在配置文件中凡是以 <code>spring.rabbitmq.listener.simple</code> 开头的就是对第一个容器的配置，以 <code>spring.rabbitmq.listener.direct</code> 开头的是对第二个容器的配置。其实这两个容器类让我很费劲；首先官方文档并没有说哪个是默认的容器，似乎两个都能用；其次，它说这个容器默认是单例模式的，但它又提供了工厂方法，而且我们看 <code>@RabbitListener</code> 注解源码：</p>
+        
+          <a class="article-more-a" href="/2020/12/16/rabbitMQ-springboot-3/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/16/rabbitMQ-springboot-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitMQ-springboot-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/15/rabbitMQ-springboot-1/">rabbitMQ 结合 springboot 使用 二</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/15/rabbitMQ-springboot-1/" class="archive-article-date">
+  	<time datetime="2020-12-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这一章节我们会学习rabbitMQ在项目生产中一些重要的特性，如持久化，消息确认机制，消息过期等特性。只要能利用好这些特性，我们就能开发出可用性强的，功能强大的MQ系统。</p>
+        
+          <a class="article-more-a" href="/2020/12/15/rabbitMQ-springboot-1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/15/rabbitMQ-springboot-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitMQ-springboot-0" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/14/rabbitMQ-springboot-0/">rabbitMQ 结合 springboot 使用 一</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/14/rabbitMQ-springboot-0/" class="archive-article-date">
+  	<time datetime="2020-12-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从这一节开始我们进入rabbitMQ的实战环节，项目环境是spring-boot 加maven。首先让我们创建一个spring-boot项目，然后引入web依赖和 rabbitMQ的依赖</p>
+        
+          <a class="article-more-a" href="/2020/12/14/rabbitMQ-springboot-0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/14/rabbitMQ-springboot-0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitMQ简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/13/rabbitMQ%E7%AE%80%E4%BB%8B/">rabbitMQ简介</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/13/rabbitMQ%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+  	<time datetime="2020-12-12T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前文我们学习了 MQ的相关知识，现在我们来学习一下实现了AMQP协议的 <code>rabbitMQ</code> 中间件。rabbitMQ 是使用 erlang 语言编写的中间件（erlang之父 19年4月去世的，很伟大一个程序员）。</p>
+        
+          <a class="article-more-a" href="/2020/12/13/rabbitMQ%E7%AE%80%E4%BB%8B/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/13/rabbitMQ%E7%AE%80%E4%BB%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MQ简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/12/MQ%E7%AE%80%E4%BB%8B/">MQ简介</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/12/MQ%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+  	<time datetime="2020-12-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>mq</code> 就是消息队列（<code>Message Queue</code>）。想必大家对队列的数据结构已经很熟悉了，消息队列可以简单理解为：把要传输的数据放在队列中，mq 就是存放和发送消息的这么一个队列中间件。在消息队列中，把数据放到消息队列的角色叫做 <code>生产者</code>，从消息队列中消费获取数据的叫做 <code>消费者</code>。</p>
+<p>那么消息队列有哪些使用场景呢? 六字真言：异步削峰解耦。</p>
+        
+          <a class="article-more-a" href="/2020/12/12/MQ%E7%AE%80%E4%BB%8B/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/12/MQ%E7%AE%80%E4%BB%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-rabbitMQ安装与简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/12/rabbitMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">rabbitMQ安装与配置</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/12/rabbitMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2020-12-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对 rabbitMQ 我们已经有了初步的了解，现在我们来安装 rabbitMQ 来进行一些操作。因为大部分人的操作系统都是windows 而且作者本人使用的也windows系统。所以这里只介绍在windows上安装rabbitMQ。mac用户自行解决（仇富脸）。</p>
+        
+          <a class="article-more-a" href="/2020/12/12/rabbitMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/12/rabbitMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">展开全文 >></a>
         </p>
       
 
@@ -1146,164 +2261,6 @@
 
 
   
-    <article id="post-rabbitmq-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/30/rabbitmq-1/">rabbitmq+springboot 第二篇</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/30/rabbitmq-1/" class="archive-article-date">
-  	<time datetime="2019-08-30T00:25:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-持久化"><a href="#1-持久化" class="headerlink" title="1. 持久化"></a>1. 持久化</h2><p>RabbitMQ通过消息持久化来保证消息的可靠性——为了保证RabbitMQ在退出或者发生异常情况下数据不会丢失，需要将 queue ，exchange 和 Message 都持久化。下面分别介绍它们持久化配置的方式。</p>
-<p>对于 queue ，exchange 在创建的时候都会提供一个参数用以设置是否持久化，而如果使用它们对应的建造者而不是new，就能很清晰的看到是怎么指定持久化的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  创建 queue 指定为非持久化</span></span><br><span class="line">    QueueBuilder.nonDurable(<span class="string">"xxx"</span>).build();</span><br><span class="line"><span class="comment">//  指定非持久化</span></span><br><span class="line">     <span class="keyword">return</span> QueueBuilder.durable(<span class="string">"second-direct-queue"</span>).build();</span><br><span class="line"><span class="comment">//  durable 为true则是持久化，false非持久化</span></span><br><span class="line">    ExchangeBuilder.topicExchange(<span class="string">"topic"</span>).durable(<span class="keyword">true</span>).build();</span><br></pre></td></tr></table></figure>
-
-<p>这里需要注意一个地方，<strong>直接在原队列的基础上添加属性是会报错的，它会告诉你队列已经存在。需要你手动打开管理界面把那个队列删除掉，然后重启项目</strong>。</p>
-<p>你如果将 queue 的持久化标识 durable 设置为true ,则代表是一个持久的队列，那么在服务重启之后，也会存在，因为服务会把持久化的 queue 存放在硬盘上，当服务重启的时候，会重新什么之前被持久化的queue；但是里面的消息是否为持久化还需要看消息是否做了持久化设置。exchange 的持久化和 Queue 一样将交换机保存在磁盘，重启后这个交换机还会存在。</p>
-        
-          <a class="article-more-a" href="/2019/08/30/rabbitmq-1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/30/rabbitmq-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-rabbitmq" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/30/rabbitmq/">rabbitMQ+springboot实践第一篇</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/30/rabbitmq/" class="archive-article-date">
-  	<time datetime="2019-08-30T00:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-rabbitMQ简介"><a href="#1-rabbitMQ简介" class="headerlink" title="1. rabbitMQ简介"></a>1. rabbitMQ简介</h2><p><code>rabbitMQ</code>是基于<code>AMQP</code>协议的消息中间件，即<code>Advanced Message Queuing Protocol</code>，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。消息中间件主要用于组件之间的解耦，消息的发送者无需知道消息使用者的存在，反之亦然。 AMQP的主要特征是面向消息、队列、路由（包括点对点和发布/订阅）。基于AMQP协议的消息中间件还有<code>kafka</code>，<code>rocketMQ</code>等。还有另外一类基于jms协议的消息中间件（如activeMQ），这类MQ相对AMQP来说扩展性有所不足，因此大部分公司都会选择AMQP产品。而rabbitMQ以其安装部署简单，上手门槛低，功能丰富，集群易扩展，有强大的WEB管理页面，消息可靠投递机制等优点受广大开发人员欢迎。</p>
-<p>介绍了这么多，或许有的小伙伴还是不太明白MQ的使用场景，MQ作用就六个字——异步，削峰，解耦。它在大型电子商务类网站，如京东、淘宝、去哪儿等网站有着深入的应用。比如一个下单流程，在不使用消息队列的情况下，用户的请求数据直接写入数据库，在高并发的情况下，会对数据库造成巨大的压力，同时也使得系统响应延迟加剧。在使用队列后，用户的请求发给队列后立即返回，后续处理交给队列，在业务逻辑上只需要做简单修改即可（如告诉用户系统确认订单中，等MQ处理完再更新订单状态），这只是一个简单的使用场景，MQ的用武之地还很多。</p>
-        
-          <a class="article-more-a" href="/2019/08/30/rabbitmq/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/30/rabbitmq/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-intresting" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1649,7 +2606,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>从官网 <a href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/" target="_blank" rel="noopener">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
+        <p>从官网 <a target="_blank" rel="noopener" href="https://apache.org/dist/zookeeper/zookeeper-3.5.5/">https://apache.org/dist/zookeeper/zookeeper-3.5.5/</a> 上下载zk(注意windows也是下载 tar.gz后解压)，./conf下有个<code>zoo_sample.cfg</code> 复制到同目录下改名为<code>zoo.cfg</code>，在目录下新建data和log文件夹，修改zoo.cfg中的 dataDir 和 <code>dataLogDir</code>为 data和log的路径。现在启动zk，在bin目录下有个<code>zkServer.cmd</code>，运行启动。启动ZK客户端对ZK进行简单的读写操作，在bin目录下打开cmd，运行：</p>
         
           <a class="article-more-a" href="/2019/06/15/zookeeper/#more">more >></a>
         
@@ -1726,7 +2683,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>重要</strong></p>
-<p><a href="http://dubbo.apache.org/zh-cn/docs/dev/design.html" target="_blank" rel="noopener">架构图</a></p>
+<p><a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/dev/design.html">架构图</a></p>
 <h3 id="启动时检查"><a href="#启动时检查" class="headerlink" title="启动时检查"></a>启动时检查</h3><p>Dubbo 缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止 Spring 初始化完成，以便上线时，能及早发现问题，默认 <code>check=&quot;true&quot;</code>。</p>
         
           <a class="article-more-a" href="/2019/05/27/dubbo-2/#more">more >></a>
@@ -1803,7 +2760,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="初始化并提交到远程"><a href="#初始化并提交到远程" class="headerlink" title="初始化并提交到远程"></a>初始化并提交到远程</h4><p>git init <br><br>git config –global user.name”ssss”<br>git add README.md <br><br>git commit -m “first commit” <br><br>git remote add origin <a href="https://github.com/Xanthuim/nodejs_express_sample.git" target="_blank" rel="noopener">https://github.com/Xanthuim/nodejs_express_sample.git</a> <br><br>git push -u origin master <br>（$ git push -u origin master 上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了）</p>
+        <h4 id="初始化并提交到远程"><a href="#初始化并提交到远程" class="headerlink" title="初始化并提交到远程"></a>初始化并提交到远程</h4><p>git init <br><br>git config –global user.name”ssss”<br>git add README.md <br><br>git commit -m “first commit” <br><br>git remote add origin <a target="_blank" rel="noopener" href="https://github.com/Xanthuim/nodejs_express_sample.git">https://github.com/Xanthuim/nodejs_express_sample.git</a> <br><br>git push -u origin master <br>（$ git push -u origin master 上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了）</p>
         
           <a class="article-more-a" href="/2019/05/24/git/#more">more >></a>
         
@@ -2278,7 +3235,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>&emsp; &emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：<a href="https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg" target="_blank" rel="noopener">https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg</a></p>
+        <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>&emsp; &emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg">https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg</a></p>
 <p>&emsp; &emsp;在JDK中提供了实现动态代理模式的机制，cglib也是一个用于实现动态代理的框架，在这里我介绍jdk自带的动态代理机制是如何使用的。先上代码再慢慢解释：</p>
         
           <a class="article-more-a" href="/2019/05/13/gclib/#more">more >></a>
@@ -2595,7 +3552,7 @@
       
         <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>git subtree可将多个git项目合并在一起，可解决protobuf更新的问题；</p>
 <p>打包maven私有仓库也可行，但是maven私有仓库不适合频繁更新，而protobuf更新会很频繁。</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git clone一个新项目</span><br><span class="line"></span><br><span class="line">git remote add &lt;name&gt; &lt;url&gt; 添加一个远程仓库</span><br><span class="line"></span><br><span class="line">git subtree add --prefix=&lt;dir&gt; &lt;name&gt; master --squash</span><br><span class="line"></span><br><span class="line">git push 会把子仓库的文件提交，合情合理</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 更新子仓库的方法</span><br><span class="line"></span><br><span class="line">git subtree push --prefix=&lt;dir&gt; &lt;name&gt; master</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git clone一个新项目</span><br><span class="line"></span><br><span class="line">git remote add &lt;name&gt; &lt;url&gt; 添加一个远程仓库</span><br><span class="line"></span><br><span class="line">git subtree add --prefix=&lt;dir&gt; &lt;name&gt; master --squash</span><br><span class="line"></span><br><span class="line">git push 会把子仓库的文件提交，合情合理</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新子仓库的方法</span></span><br><span class="line"></span><br><span class="line">git subtree push --prefix=&lt;dir&gt; &lt;name&gt; master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/2019/05/05/git-subtree/#more">more >></a>
         
@@ -2809,81 +3766,6 @@
 
 
   
-    <article id="post-kafka" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/28/kafka/">kafka</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/28/kafka/" class="archive-article-date">
-  	<time datetime="2019-04-28T09:54:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/28/kafka/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-home-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2905,8 +3787,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>此文记录了平时觉得写得很好的博客</strong></p>
-<p><a href="https://segmentfault.com/a/1190000013341344#articleHeader16" target="_blank" rel="noopener">事物传播机制的一个实验</a></p>
-<p><a href="https://www.yiibai.com/guava" target="_blank" rel="noopener">guava使用教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013341344#articleHeader16">事物传播机制的一个实验</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yiibai.com/guava">guava使用教程</a></p>
         
           <a class="article-more-a" href="/2019/04/27/home-2/#more">more >></a>
         
@@ -2983,7 +3865,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>这篇博客会记录我的一些刷题心得</p>
-<h2 id="参考：leetcode答案"><a href="#参考：leetcode答案" class="headerlink" title="参考：leetcode答案"></a>参考：<a href="https://www.cnblogs.com/grandyang/p/4606334.html" target="_blank" rel="noopener">leetcode答案</a></h2><p><strong>两数之和</strong></p>
+<h2 id="参考：leetcode答案"><a href="#参考：leetcode答案" class="headerlink" title="参考：leetcode答案"></a>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/grandyang/p/4606334.html">leetcode答案</a></h2><p><strong>两数之和</strong></p>
 <p>给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那 <strong>两个</strong> 整数，并返回他们的数组下标。</p>
 <p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
         
@@ -3061,7 +3943,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="编辑中"><a href="#编辑中" class="headerlink" title="编辑中"></a>编辑中</h3><h1 id="nacos简介"><a href="#nacos简介" class="headerlink" title="nacos简介"></a>nacos简介</h1><p>​    在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，<a href="https://nacos.io/zh-cn/index.html" target="_blank" rel="noopener">nacos官方文档</a></p>
+        <h3 id="编辑中"><a href="#编辑中" class="headerlink" title="编辑中"></a>编辑中</h3><h1 id="nacos简介"><a href="#nacos简介" class="headerlink" title="nacos简介"></a>nacos简介</h1><p>​    在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/index.html">nacos官方文档</a></p>
         
           <a class="article-more-a" href="/2019/04/27/nacos/#more">more >></a>
         
@@ -3138,7 +4020,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="CAP-定理"><a href="#CAP-定理" class="headerlink" title="CAP 定理"></a>CAP 定理</h1><blockquote>
-<p>原文链接 <a href="http://www.ruanyifeng.com/blog/2018/07/cap.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/07/cap.html</a><br><br> 分布式系统的最大难点，就是各个节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。</p>
+<p>原文链接 <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2018/07/cap.html">http://www.ruanyifeng.com/blog/2018/07/cap.html</a><br><br> 分布式系统的最大难点，就是各个节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。</p>
 </blockquote>
 <ul>
 <li><p>Consistency 中文叫做”一致性”。意思是，写操作之后的读操作，必须返回该值。</p>
@@ -3457,7 +4339,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>作者：muggle</p>
-<p>注：参考大佬博客<a href="https://mp.weixin.qq.com/s?__biz=MzI1NDY0MTkzNQ==&mid=2247483878&idx=1&sn=d49f2eb61bada3d34443a0a4017a7b72&scene=21#wechat_redirect" target="_blank" rel="noopener">牧码小子</a> </p>
+<p>注：参考大佬博客<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NDY0MTkzNQ==&mid=2247483878&idx=1&sn=d49f2eb61bada3d34443a0a4017a7b72&scene=21#wechat_redirect">牧码小子</a> </p>
 <h3 id="springcloud的核心功能："><a href="#springcloud的核心功能：" class="headerlink" title="springcloud的核心功能："></a>springcloud的核心功能：</h3><blockquote>
 <p>负载均衡，服务注册与发现，监控，分布式配置管理，api网关 分布式追踪</p>
 </blockquote>
@@ -3929,7 +4811,7 @@
       
         <p>作者：muggle</p>
 <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p> &emsp; &emsp;想要了解jvm，那对其内存分配管理的学习是必不可少的；java虚拟机在执行java程序的时候会把它所管理的内存划分成若干数据区域。这些区域有着不同的功能、用途、创建/销毁时间。java虚拟机所分配管理的内存区域如图1所示</p>
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp; &emsp;程序计数器是一块比较小的内存空间，它可以看做是当前线程所执行的字节码的执行位置的指针。在虚拟机中字节码，解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的指令；虚拟机完成分支、循环、跳转、异常处理、线程恢复等功能都需要依靠它。<br>&emsp; &emsp;我们知道jvm多线程是通过线程的轮流切换并分配处理器执行时间的的方式来实现的，在任何时刻，一个处理器都只会执行一条线程中的指令。为了使线程被切换后能恢复到正确的执行位置，每条线程的程序计数器都应该是独立的，各条线程之间的计数器互不干涉，独立存储————程序计数器的内存区域为线程私有的内存。<br><br>&emsp; &emsp;如果线程正在执行的是java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果执行的是Native方法，这个计数器的值则为空。此内存区域是唯一一个在jvm规范中没有规定任何OutOfMemoryerror情况的区域</p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp; &emsp;程序计数器是一块比较小的内存空间，它可以看做是当前线程所执行的字节码的执行位置的指针。在虚拟机中字节码，解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的指令；虚拟机完成分支、循环、跳转、异常处理、线程恢复等功能都需要依靠它。<br>&emsp; &emsp;我们知道jvm多线程是通过线程的轮流切换并分配处理器执行时间的的方式来实现的，在任何时刻，一个处理器都只会执行一条线程中的指令。为了使线程被切换后能恢复到正确的执行位置，每条线程的程序计数器都应该是独立的，各条线程之间的计数器互不干涉，独立存储————程序计数器的内存区域为线程私有的内存。<br/><br>&emsp; &emsp;如果线程正在执行的是java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果执行的是Native方法，这个计数器的值则为空。此内存区域是唯一一个在jvm规范中没有规定任何OutOfMemoryerror情况的区域</p>
         
           <a class="article-more-a" href="/2019/04/23/jvm-1/#more">more >></a>
         
@@ -4754,7 +5636,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>作者：muggle</p>
-<h2 id="oauth2-相关概念"><a href="#oauth2-相关概念" class="headerlink" title="oauth2 相关概念"></a>oauth2 相关概念</h2><p>文章参考<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">理解OAuth 2.0</a></p>
+<h2 id="oauth2-相关概念"><a href="#oauth2-相关概念" class="headerlink" title="oauth2 相关概念"></a>oauth2 相关概念</h2><p>文章参考<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解OAuth 2.0</a></p>
 <h3 id="oauth2-角色关系"><a href="#oauth2-角色关系" class="headerlink" title="oauth2 角色关系"></a>oauth2 角色关系</h3><p>在oauth2中分为以下几个角色：Resource server、Authorization server、Resource Owner、application。</p>
 <p>Resource server:资源服务器</p>
 <p>Authorization server:认证服务器</p>
@@ -4843,9 +5725,8 @@
 <p>第一步</p>
 <p>新建springboot项目 maven依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>启动项目，控制台上会输出这样一段字符串：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2019</span>-<span class="number">04</span>-<span class="number">11</span> <span class="number">09</span>:<span class="number">47</span>:<span class="number">40.388</span>  INFO <span class="number">16716</span> --- [           main] .s.s.UserDetailsServiceAutoConfiguration :</span><br><span class="line"></span><br><span class="line">Using generated security password: a6d55bc6-<span class="number">49f</span>b-<span class="number">4241</span>-a5ae-<span class="number">527e5</span>e644731</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2019</span>-<span class="number">04</span>-<span class="number">11</span> 09:<span class="number">47</span>:<span class="number">40.388</span>  INFO <span class="number">16716</span> --- [           main] .s.s.UserDetailsServiceAutoConfiguration :</span><br><span class="line"></span><br><span class="line">Using generated security password: a6d55bc6-49fb-<span class="number">4241</span>-a5ae-527e5e644731</span><br><span class="line"></span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/2019/04/11/springSecurity%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/#more">more >></a>
         
@@ -5157,8 +6038,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。</span><br><span class="line"></span><br><span class="line">至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直接使用安全的collection更聪明。</span><br><span class="line"></span><br><span class="line">也就是说，如果不使用Iterator迭代器的话，使用了安全的collection以后，其实我们不需要再用Synchronized代码块修饰了，这样使用上更方便。</span><br><span class="line"></span><br><span class="line">反过来说，使用Iterator迭代器的话，似乎也没必要用Collections.synchronizedList的方法来包装了——反正都是必须要使用Synchronized代码块包起来的。</span><br><span class="line"></span><br><span class="line">所以总的来说，Collections.synchronizedXX这种做法，适合不需要使用Iterator、对性能要求也不高的情况。</span><br><span class="line">    *</span><br><span class="line">    * */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">*</span><br><span class="line">*  这就是所谓的线程安全的类，在多线程中一样会有问题，那这是为什么呢。后来在一篇博文当中看到了说Vector的contains方法和remove方法之前不具备原子性，这点给了提示。</span><br><span class="line">*  我现在认为出错的原因是在get和remove之间并没有在以上环境中做到同步，比方说，一个线程的get（2）操作发生时，正好遇到了remove操作的正在进行，这时get（2）这个操作就会阻塞，</span><br><span class="line">*  等待remove操作释放锁之后去操作。如果这时候remove操作的正好是remov（2）这个操作，等到去get的时候，这个元素已经没有了，get自然就只能是空欢喜一场。</span><br><span class="line">    这里原因找到了，就该说解决办法了，在说解决办法之前，可能还会困惑，说好的线程安全呢，</span><br><span class="line">    我的理解是，线程安全并不代表使用安全，在实际使用时还是需要考虑当前环境中是否会出现问题的。那么问题来了，java提供线程安全的某些类的意义在哪里呢，反正还是会出问题。</span><br><span class="line">    这就显得比较鸡肋了，但是也不能说没有意义，毕竟写程序还是要独立思考的。</span><br><span class="line">    解决办法就比较简单了，在两个线程的run方法里加上synchronized (testVector)，这样就会使得读取、删除线程中只会有一个对testVector进行操作，也就不会有上述情况出现。</span><br><span class="line">    从这个错误来看的话，编程一定要谨慎，使用到的技术一定要深入了解，不能说不出问题，但是在出了问题之后能找出原因并解决，</span><br><span class="line">    如果没有这个把握就不要轻易去使用，尤其在正式项目中，可能会让你欲哭无泪啊！</span><br><span class="line"></span><br><span class="line">* */</span><br></pre></td></tr></table></figure>
-
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">    * 第一个问题：虽然被包装过的list是线程安全的，但返回的list获得的Iterator仍然是线程不安全的，所以仍然要用Synchronized代码块包裹起来。</span><br><span class="line"></span><br><span class="line">至于第二个问题，其实上面的文章链接也有提到, 大意是：与其所有（多线程）要用到该list都加上Synchronized修饰，还不如直接使用安全的collection更聪明。</span><br><span class="line"></span><br><span class="line">也就是说，如果不使用Iterator迭代器的话，使用了安全的collection以后，其实我们不需要再用Synchronized代码块修饰了，这样使用上更方便。</span><br><span class="line"></span><br><span class="line">反过来说，使用Iterator迭代器的话，似乎也没必要用Collections.synchronizedList的方法来包装了——反正都是必须要使用Synchronized代码块包起来的。</span><br><span class="line"></span><br><span class="line">所以总的来说，Collections.synchronizedXX这种做法，适合不需要使用Iterator、对性能要求也不高的情况。</span><br><span class="line">    *</span><br><span class="line">    * *&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">*</span><br><span class="line">*  这就是所谓的线程安全的类，在多线程中一样会有问题，那这是为什么呢。后来在一篇博文当中看到了说Vector的contains方法和remove方法之前不具备原子性，这点给了提示。</span><br><span class="line">*  我现在认为出错的原因是在get和remove之间并没有在以上环境中做到同步，比方说，一个线程的get（2）操作发生时，正好遇到了remove操作的正在进行，这时get（2）这个操作就会阻塞，</span><br><span class="line">*  等待remove操作释放锁之后去操作。如果这时候remove操作的正好是remov（2）这个操作，等到去get的时候，这个元素已经没有了，get自然就只能是空欢喜一场。</span><br><span class="line">    这里原因找到了，就该说解决办法了，在说解决办法之前，可能还会困惑，说好的线程安全呢，</span><br><span class="line">    我的理解是，线程安全并不代表使用安全，在实际使用时还是需要考虑当前环境中是否会出现问题的。那么问题来了，java提供线程安全的某些类的意义在哪里呢，反正还是会出问题。</span><br><span class="line">    这就显得比较鸡肋了，但是也不能说没有意义，毕竟写程序还是要独立思考的。</span><br><span class="line">    解决办法就比较简单了，在两个线程的run方法里加上synchronized (testVector)，这样就会使得读取、删除线程中只会有一个对testVector进行操作，也就不会有上述情况出现。</span><br><span class="line">    从这个错误来看的话，编程一定要谨慎，使用到的技术一定要深入了解，不能说不出问题，但是在出了问题之后能找出原因并解决，</span><br><span class="line">    如果没有这个把握就不要轻易去使用，尤其在正式项目中，可能会让你欲哭无泪啊！</span><br><span class="line"></span><br><span class="line">* *&#x2F;</span><br></pre></td></tr></table></figure>
 <h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><ul>
 <li>deque 双端对列</li>
 <li>queue 阻塞队列 ArrayBlockingQueue ：一个由数组支持的有界队列。LinkedBlockingQueue ：一个由链接节点支持的可选有界队列。DelayQueue ：一个由优先级堆支持的、基于时间的调度队列。</li>
@@ -5314,10 +6194,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="博主信息"><a href="#博主信息" class="headerlink" title="博主信息"></a>博主信息</h2><h4 id="公众号：六个核弹"><a href="#公众号：六个核弹" class="headerlink" title="公众号：六个核弹"></a>公众号：六个核弹</h4><p><img src="https://oscimg.oschina.net/oscnet/c61536f9b3d186f75ef7bdd5f468c2bfb08.jpg" alt="六个核弹"></p>
-<p><strong>邮箱</strong>：1977339740@qq.com  &emsp; <a href="mailto:isocket@outlook.com" target="_blank" rel="noopener">isocket@outlook.com</a>(常用)</p>
+<p><strong>邮箱</strong>：1977339740@qq.com  &emsp; <a href="mailto:isocket@outlook.com">isocket@outlook.com</a>(常用)</p>
 <p><strong>微信</strong>: b3duZXJhbmRzZWxm（base64解码后便是）</p>
 <p><strong>职业</strong>：java程序猿</p>
-<p><strong>项目</strong>：<a href="https://github.com/muggle0/poseidon-cloud" target="_blank" rel="noopener">poseidon-cloud</a></p>
+<p><strong>项目</strong>：<a target="_blank" rel="noopener" href="https://github.com/muggle0/poseidon-cloud">poseidon-cloud</a></p>
 <p><strong>笔名</strong>： muggle</p>
         
           <a class="article-more-a" href="/2019/03/20/home/#more">more >></a>
@@ -5467,11 +6347,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -5479,7 +6355,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -5491,23 +6383,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -5519,19 +6395,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -5544,6 +6416,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

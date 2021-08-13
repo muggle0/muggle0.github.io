@@ -25,7 +25,7 @@ kafka是依赖于zookeeper的，所以我们先要安装zookeeper ，当然kafka
  在 kafka 官网下载 二进制的 tgz 压缩包： http://kafka.apache.org/downloads.html，解压后它的 bin/windows下有 zk的启动脚本和kafka的启动脚本，
  zk的配置文件和kafka的配置文件在 config文件夹下，分别对应 zookeeper.properties和server.properties。
  由于本人对zk使用的频率也比较高，因此我是单独安装的zk。
- 
+
  下面我们对kafka进行配置及启动，配置文件说明：
  ```
  # 对外暴露的服务端口
@@ -36,12 +36,12 @@ broker.id=1
 log.dirs=c:xxx
 # zk的地址
 zookeeper.connect=localhost:2181
-```
- 
+ ```
+
 启动脚本： 
  ```bat
 .\bin\windows\kafka-server-start.bat .\config\server.properties
-```
+ ```
 
 接下来我们做一下简单的测试。
 

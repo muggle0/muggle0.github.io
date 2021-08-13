@@ -16,7 +16,7 @@
 <meta property="og:description" content="门面（Facade）模式的定义：是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体的细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。 门面模式又被称作外观模式，这个模式特点很鲜明，在生活中我们就能找到不少例子。比如110，我们生活中遇到困难或者危险等一系列问题，我们都是直接打110找警察同志">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-02T09:29:30.000Z">
-<meta property="article:modified_time" content="2020-09-07T07:03:03.882Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.296Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -197,11 +197,9 @@
 <li>客户端：通过一个外观角色访问各个子系统的功能。</li>
 </ol>
 <h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>在 <code>servlet</code> 中 <code>httprequest</code> 使用的便是门面模式；我们想要 获得请求信息或者是使用请求的一些功能的时候，我们只需要找<code>HttpServletRequest</code> 这个接口就行，这个接口提供了获取请求头信息，请求方式，Context等信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">public interface HttpServletRequest extends ServletRequest &#123;</span><br><span class="line">    String BASIC_AUTH = &quot;BASIC&quot;;</span><br><span class="line">    String FORM_AUTH = &quot;FORM&quot;;</span><br><span class="line">    String CLIENT_CERT_AUTH = &quot;CLIENT_CERT&quot;;</span><br><span class="line">    String DIGEST_AUTH = &quot;DIGEST&quot;;</span><br><span class="line"></span><br><span class="line">    String getAuthType();</span><br><span class="line"></span><br><span class="line">    Cookie[] getCookies();</span><br><span class="line"></span><br><span class="line">    long getDateHeader(String var1);</span><br><span class="line"></span><br><span class="line">    String getHeader(String var1);</span><br><span class="line"></span><br><span class="line">    Enumeration getHeaders(String var1);</span><br><span class="line"></span><br><span class="line">    Enumeration getHeaderNames();</span><br><span class="line"></span><br><span class="line">    int getIntHeader(String var1);</span><br><span class="line"></span><br><span class="line">    String getMethod();</span><br><span class="line"></span><br><span class="line">    String getPathInfo();</span><br><span class="line"></span><br><span class="line">    String getPathTranslated();</span><br><span class="line"></span><br><span class="line">    String getContextPath();</span><br><span class="line"></span><br><span class="line">    String getQueryString();</span><br><span class="line"></span><br><span class="line">    String getRemoteUser();</span><br><span class="line"></span><br><span class="line">    boolean isUserInRole(String var1);</span><br><span class="line"></span><br><span class="line">    Principal getUserPrincipal();</span><br><span class="line"></span><br><span class="line">    String getRequestedSessionId();</span><br><span class="line"></span><br><span class="line">    String getRequestURI();</span><br><span class="line"></span><br><span class="line">    StringBuffer getRequestURL();</span><br><span class="line"></span><br><span class="line">    String getServletPath();</span><br><span class="line"></span><br><span class="line">    HttpSession getSession(boolean var1);</span><br><span class="line"></span><br><span class="line">    HttpSession getSession();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdValid();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdFromCookie();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdFromURL();</span><br><span class="line"></span><br><span class="line">    /** @deprecated */</span><br><span class="line">    boolean isRequestedSessionIdFromUrl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">public interface HttpServletRequest extends ServletRequest &#123;</span><br><span class="line">    String BASIC_AUTH &#x3D; &quot;BASIC&quot;;</span><br><span class="line">    String FORM_AUTH &#x3D; &quot;FORM&quot;;</span><br><span class="line">    String CLIENT_CERT_AUTH &#x3D; &quot;CLIENT_CERT&quot;;</span><br><span class="line">    String DIGEST_AUTH &#x3D; &quot;DIGEST&quot;;</span><br><span class="line"></span><br><span class="line">    String getAuthType();</span><br><span class="line"></span><br><span class="line">    Cookie[] getCookies();</span><br><span class="line"></span><br><span class="line">    long getDateHeader(String var1);</span><br><span class="line"></span><br><span class="line">    String getHeader(String var1);</span><br><span class="line"></span><br><span class="line">    Enumeration getHeaders(String var1);</span><br><span class="line"></span><br><span class="line">    Enumeration getHeaderNames();</span><br><span class="line"></span><br><span class="line">    int getIntHeader(String var1);</span><br><span class="line"></span><br><span class="line">    String getMethod();</span><br><span class="line"></span><br><span class="line">    String getPathInfo();</span><br><span class="line"></span><br><span class="line">    String getPathTranslated();</span><br><span class="line"></span><br><span class="line">    String getContextPath();</span><br><span class="line"></span><br><span class="line">    String getQueryString();</span><br><span class="line"></span><br><span class="line">    String getRemoteUser();</span><br><span class="line"></span><br><span class="line">    boolean isUserInRole(String var1);</span><br><span class="line"></span><br><span class="line">    Principal getUserPrincipal();</span><br><span class="line"></span><br><span class="line">    String getRequestedSessionId();</span><br><span class="line"></span><br><span class="line">    String getRequestURI();</span><br><span class="line"></span><br><span class="line">    StringBuffer getRequestURL();</span><br><span class="line"></span><br><span class="line">    String getServletPath();</span><br><span class="line"></span><br><span class="line">    HttpSession getSession(boolean var1);</span><br><span class="line"></span><br><span class="line">    HttpSession getSession();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdValid();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdFromCookie();</span><br><span class="line"></span><br><span class="line">    boolean isRequestedSessionIdFromURL();</span><br><span class="line"></span><br><span class="line">    &#x2F;** @deprecated *&#x2F;</span><br><span class="line">    boolean isRequestedSessionIdFromUrl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>而其实现类 <code>RequestFacade</code> 就是web封装的门面实现类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class RequestFacade implements HttpServletRequest &#123;</span><br><span class="line">     protected Request request = null;</span><br><span class="line">    protected static final StringManager sm = StringManager.getManager(RequestFacade.class);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class RequestFacade implements HttpServletRequest &#123;</span><br><span class="line">     protected Request request &#x3D; null;</span><br><span class="line">    protected static final StringManager sm &#x3D; StringManager.getManager(RequestFacade.class);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当我们想要请求信息的时候就不必在取找其他类，第一时间想到的是从 <code>HttpServletRequest</code> 中获取。</p>
 <p>外观模式的使用场景：</p>
 <ul>
@@ -429,11 +427,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -441,7 +435,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,23 +463,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,19 +475,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,6 +496,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>

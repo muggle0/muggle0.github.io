@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-dd9a6a8324f136f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2019-04-24T02:56:54.000Z">
-<meta property="article:modified_time" content="2019-10-04T15:55:39.000Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:23.307Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -195,10 +195,9 @@
 <h3 id="3-验证"><a href="#3-验证" class="headerlink" title="3.验证"></a>3.验证</h3><p>&emsp; &emsp;验证是连接阶段的第一步，这一阶段目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全。从整体上来看，验证阶段包括以下四个动作：文件格式验证、元数据验证、字节码验证、符号引用验证。</p>
 <h3 id="4-准备"><a href="#4-准备" class="headerlink" title="4.准备"></a>4.准备</h3><p>&emsp; &emsp;准备阶段是正式为类变量分配内存并设置类变量初始值得阶段，这些变量所使用的内存都将在方法区中进行分配。这个阶段中有两个容易产生混淆的概念——1.这个时候进行内存分配的仅包括类变量（被static修饰的变量），而不包括实例变量，2.这里初始值是数据类型的零值，假设一个类变量定义为 ：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-
 <p>那变量value在准备阶段的值为0而不是2.</p>
 <h3 id="5-解析"><a href="#5-解析" class="headerlink" title="5.解析"></a>5.解析</h3><p>&emsp; &emsp;解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
-<h3 id="6-初始化"><a href="#6-初始化" class="headerlink" title="6.初始化"></a>6.初始化</h3><p>&emsp; &emsp;类初始化阶段是类加载过程的最后一步，前面的类加载过程中，除了在加载阶段可以通过自定义类加载器参与之外，其余动作都是虚拟机控制的。到了初始化阶段，才真正的执行java代码。初始化阶段是执行类构造器<clinit>()方法的过程。</clinit></p>
+<h3 id="6-初始化"><a href="#6-初始化" class="headerlink" title="6.初始化"></a>6.初始化</h3><p>&emsp; &emsp;类初始化阶段是类加载过程的最后一步，前面的类加载过程中，除了在加载阶段可以通过自定义类加载器参与之外，其余动作都是虚拟机控制的。到了初始化阶段，才真正的执行java代码。初始化阶段是执行类构造器<clinit>()方法的过程。</p>
 <p>&emsp; &emsp;想要使用一个类，必须对其进行初始化，但初始化过程不是必然执行的；jvm规范中规定有且只有以下五种情况必须对类进行初始化：</p>
 <blockquote>
 <ul>
@@ -211,15 +210,13 @@
 <li>当虚拟机启动时，用户需要指定一个要执行的主类，虚拟机会先初始化那个类。</li>
 </ul>
 <p>以上五种情况称为对一个类进行主动引用；其他引用类的方式都不会触发初始化，称为被动引用。下面举一个被动引用的例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClassloading</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"父类被初始化"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> number=<span class="number">111</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">TestClassloading</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"子类被初始化"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(SubClass.number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClassloading</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类被初始化&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> number=<span class="number">111</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">TestClassloading</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类被初始化&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(SubClass.number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">父类被初始化</span><br><span class="line"><span class="number">111</span></span><br></pre></td></tr></table></figure>
-
 <p>显然，子类没有被初始化，这里SubClass.number为被动引用，不会对子类初始化。</p>
 <h3 id="7-类加载器"><a href="#7-类加载器" class="headerlink" title="7.类加载器"></a>7.类加载器</h3><p>&emsp; &emsp;通过一个类的全限定名来获取描述此类的二进制字节流这个动作被放到虚拟机外部区实现，以便让应用程序自己决定如何去获取所需的类，实现这个动作的代码模块称为类加载器。对于任意一个类，都需要由加载它的类加载器和这个类本身一同确立其在java虚拟机中的唯一性，每一个类加载器都拥有一个独立的类名称空间。也就是说比较两个类是否相等必须要类加载器和类都相等。<br>&emsp; &emsp;从java虚拟机的角度来讲，只存在两种不同的类加载器：一种是启动类加载器，这个类加载器是虚拟机的一部分；另一种就是java代码实现的独立于虚拟机外部的类加载器，这种类加载器继承类抽象类java.lang.TestClassloader。</p>
 <p>&emsp; &emsp;类加载器还有一个很重要的概念就是双亲委派模型——在类加载器工作的时候是多个类加载器一起工作的它们包括：扩展类加载器，应用程序类加载器，启动类加载器，自定义类加载器。类加载器的层次图如图：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/13612520-dd9a6a8324f136f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-dd9a6a8324f136f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>类加载器层次结构</p>
 <p>&emsp; &emsp;双亲委派模型的工作流程是如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求交给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都会被交给启动类加载器，当父类反馈无法加载这个类的时候，子类才会进行加载。</p>
 
@@ -442,11 +439,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,7 +447,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -466,23 +475,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,19 +487,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">security</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">security</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,6 +508,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
             
             <div class="clearfix"></div>
