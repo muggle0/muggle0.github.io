@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>设计模式-责任链模式 | muggle</title>
+  <title>tcc推导 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="责任链（Chain of Responsibility）模式的定义：为了避免请求发送者与多个请求处理者耦合在一起，将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。 责任链模式也叫职责链模式。 在责任链模式中，客户只需要将请求发送到责任链上即可，无须关心请求的处理细节和请求的传递过程，所以责任链将请求的发送者和请求的处理">
+  <meta name="description" content="事件的起因最近在做一个项目，这个项目很有特点——它是一个分布式项目但是它却未使用分布式事务。我分析其事务机制和缺陷时，突然灵感一来，于是有了这篇文章。 spring事务传播行为在讨论分布式事务之前，我们先把spring事务传播机制过一遍，文章参考自事务传播行为详解 这位大佬写的很用心，文末评论区还讲到了一个关于spring事务的一个很重要的特性。spring事务传播行为有七种：    事务传播行为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-责任链模式">
-<meta property="og:url" content="http://muggle0.github.io/2020/02/02/design-13/index.html">
+<meta property="og:title" content="tcc推导">
+<meta property="og:url" content="http://muggle0.github.io/2020/08/13/tcc%E6%8E%A8%E5%AF%BC/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="责任链（Chain of Responsibility）模式的定义：为了避免请求发送者与多个请求处理者耦合在一起，将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。 责任链模式也叫职责链模式。 在责任链模式中，客户只需要将请求发送到责任链上即可，无须关心请求的处理细节和请求的传递过程，所以责任链将请求的发送者和请求的处理">
+<meta property="og:description" content="事件的起因最近在做一个项目，这个项目很有特点——它是一个分布式项目但是它却未使用分布式事务。我分析其事务机制和缺陷时，突然灵感一来，于是有了这篇文章。 spring事务传播行为在讨论分布式事务之前，我们先把spring事务传播机制过一遍，文章参考自事务传播行为详解 这位大佬写的很用心，文末评论区还讲到了一个关于spring事务的一个很重要的特性。spring事务传播行为有七种：    事务传播行为">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-02T09:39:12.000Z">
-<meta property="article:modified_time" content="2021-01-11T07:31:23.294Z">
+<meta property="article:published_time" content="2020-08-13T02:09:47.000Z">
+<meta property="article:modified_time" content="2021-08-13T03:02:07.224Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="cloud">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
@@ -155,52 +155,100 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-13" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-tcc推导" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      设计模式-责任链模式
+      tcc推导
     </h1>
   
 
         
-        <a href="/2020/02/02/design-13/" class="archive-article-date">
-  	<time datetime="2020-02-02T09:39:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
+        <a href="/2020/08/13/tcc%E6%8E%A8%E5%AF%BC/" class="archive-article-date">
+  	<time datetime="2020-08-13T02:09:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>责任链（Chain of Responsibility）模式的定义：为了避免请求发送者与多个请求处理者耦合在一起，将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。</p>
-<p>责任链模式也叫职责链模式。</p>
-<p>在责任链模式中，客户只需要将请求发送到责任链上即可，无须关心请求的处理细节和请求的传递过程，所以责任链将请求的发送者和请求的处理者解耦了。</p>
-<a id="more"></a>
+        <h2 id="事件的起因"><a href="#事件的起因" class="headerlink" title="事件的起因"></a>事件的起因</h2><p>最近在做一个项目，这个项目很有特点——它是一个分布式项目但是它却未使用分布式事务。我分析其事务机制和缺陷时，突然灵感一来，于是有了这篇文章。</p>
+<h2 id="spring事务传播行为"><a href="#spring事务传播行为" class="headerlink" title="spring事务传播行为"></a>spring事务传播行为</h2><p>在讨论分布式事务之前，我们先把spring事务传播机制过一遍，文章参考自<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013341344#articleHeader11">事务传播行为详解</a> 这位大佬写的很用心，文末评论区还讲到了一个关于spring事务的一个很重要的特性。spring事务传播行为有七种：</p>
+<table>
+<thead>
+<tr>
+<th>事务传播行为类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择。</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>支持当前事务，如果当前没有事务，就以非事务方式执行。</td>
+</tr>
+<tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>使用当前的事务，如果当前没有事务，就抛出异常。</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>新建事务，如果当前存在事务，把当前事务挂起。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>以非事务方式执行，如果当前存在事务，则抛出异常。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作。</td>
+</tr>
+</tbody></table>
+<p>为了大家便于理解方便阅读我对原文做了总结，在这里我们讲三种事务的场景：</p>
+<ul>
+<li>包含性事务：外部事务包含了内部事务组成一个统一的事务（REQUIRED）</li>
+<li>挂起性事务：外部事务和内部事务只是在一起执行，互不影响（REQUIRES_NEW）</li>
+<li>嵌套性事务：外部事务影响内部事务，内部事务不影响外部事务 （NESTED）</li>
+</ul>
+<p>下面根据参考文章中的例子来一一说明</p>
+<h3 id="包含性事务"><a href="#包含性事务" class="headerlink" title="包含性事务"></a>包含性事务</h3><p>代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRED)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addRequired(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    user2Service.addRequired(user2);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRED)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addRequired(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    user2Service.addRequiredException(user2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addRequired(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        user2Service.addRequiredException(user2);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;方法回滚&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上述代码中<code>user1Service.addRequired(user1)</code> 是一个 “正常” 的 insert 事务，<code>user2Service.addRequiredException(user2)</code> 是一个抛异常的事务。这三个方法都会发生回滚。以<code>test3()</code> 为例， <code>user1Service.addRequired(user1)</code>正常提交后外部的事务（<code>test3()</code> 所在的事务 ）发生了回滚，这个事务也会跟着回滚，这便是包含关系。</p>
+<h2 id="挂起性事务"><a href="#挂起性事务" class="headerlink" title="挂起性事务"></a>挂起性事务</h2><p>挂起性事务，是外部事务和内部事务互不干扰，两者只能通过抛出异常来交互（后面分布式项目分析中就是和这种事务一样）。示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRED)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addRequired(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    user2Service.addRequiresNew(user2);</span><br><span class="line">    </span><br><span class="line">    User2 user3=<span class="keyword">new</span> User2();</span><br><span class="line">    user3.setName(<span class="string">&quot;王五&quot;</span>);</span><br><span class="line">    user2Service.addRequiresNewException(user3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional(propagation = Propagation.REQUIRED)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addRequired(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    user2Service.addRequiresNew(user2);</span><br><span class="line">    User2 user3=<span class="keyword">new</span> User2();</span><br><span class="line">    user3.setName(<span class="string">&quot;王五&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        user2Service.addRequiresNewException(user3);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;回滚&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>责任链模式是一种对象行为型模式，其主要优点如下。<br>降低了对象之间的耦合度。该模式使得一个对象无须知道到底是哪一个对象处理其请求以及链的结构，发送者和接收者也无须拥有对方的明确信息。<br>增强了系统的可扩展性。可以根据需要增加新的请求处理类，满足开闭原则。<br>增强了给对象指派职责的灵活性。当工作流程发生变化，可以动态地改变链内的成员或者调动它们的次序，也可动态地新增或者删除责任。<br>责任链简化了对象之间的连接。每个对象只需保持一个指向其后继者的引用，不需保持其他所有处理者的引用，这避免了使用众多的 if 或者 if···else 语句。<br>责任分担。每个类只需要处理自己该处理的工作，不该处理的传递给下一个对象完成，明确各类的责任范围，符合类的单一职责原则。</p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>职责链模式主要包含以下角色：<br>抽象处理者（Handler）角色：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。<br>具体处理者（Concrete Handler）角色：实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者。<br>客户类（Client）角色：创建处理链，并向链头的具体处理者对象提交请求，它不关心处理细节和请求的传递过程。</p>
-<h1 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h1><p>在<code>spring security</code> 中其核心设计模式就是责任链模式；它通过注册过滤器链来实现责任链模式，每个过滤器链都只做一件事。springSecurity的责任链顺序如下</p>
-<blockquote>
-<p>WebAsyncManagerIntegrationFilter：将Security上下文与Spring Web中用于处理异步请求映射的 WebAsyncManager 进行集成。</p>
-<p>SecurityContextPersistenceFilter：在每次请求处理之前将该请求相关的安全上下文信息加载到SecurityContextHolder中，然后在该次请求处理完成之后，将SecurityContextHolder中关于这次请求的信息存储到一个“仓储”中，然后将SecurityContextHolder中的信息清除<br>例如在Session中维护一个用户的安全信息就是这个过滤器处理的。</p>
-<p>HeaderWriterFilter：用于将头信息加入响应中</p>
-<p>CsrfFilter：用于处理跨站请求伪造</p>
-<p>LogoutFilter：用于处理退出登录</p>
-<p>UsernamePasswordAuthenticationFilter：用于处理基于表单的登录请求，从表单中获取用户名和密码。默认情况下处理来自“/login”的请求。从表单中获取用户名和密码时，默认使用的表单name值为“username”和“password”，这两个值可以通过设置这个过滤器的usernameParameter 和 passwordParameter 两个参数的值进行修改。</p>
-<p>DefaultLoginPageGeneratingFilter：如果没有配置登录页面，那系统初始化时就会配置这个过滤器，并且用于在需要进行登录时生成一个登录表单页面。</p>
-<p>BasicAuthenticationFilter：检测和处理http basic认证</p>
-<p>RequestCacheAwareFilter：用来处理请求的缓存</p>
-<p>SecurityContextHolderAwareRequestFilter：主要是包装请求对象request</p>
-<p>AnonymousAuthenticationFilter：检测SecurityContextHolder中是否存在Authentication对象，如果不存在为其提供一个匿名Authentication</p>
-<p>SessionManagementFilter：管理session的过滤器</p>
-<p>ExceptionTranslationFilter：处理 AccessDeniedException 和 AuthenticationException 异常</p>
-<p>FilterSecurityInterceptor：可以看做过滤器链的出口</p>
-<p>RememberMeAuthenticationFilter：当用户没有登录而直接访问资源时, 从cookie里找出用户的信息, 如果Spring Security能够识别出用户提供的remember me cookie, 用户将不必填写用户名和密码, 而是直接登录进入系统，该过滤器默认不开启。</p>
-</blockquote>
-<p>而责任链的客户类是<code>HttpSecurity</code>,它负责对责任链的创建和管理，它的<code>addFilterAt(Filter filter, Class atFilter)</code> 方法可在责任链中添加一个过滤器。<br>在这个框架中 过滤器作为了<code>抽象处理者（Handler</code>的角色，各个具体的过滤器类是<code>具体处理者（Concrete Handler</code>角色 <code>HttpSecueiry</code>是<code>客户类</code>角色。</p>
+<p>上述代码中 <code>user1Service.addRequired(user1)</code> 和外部事务是包含关系；<code>user2Service.addRequiresNew(user2)</code> 是挂起事务；<code>user2Service.addRequiresNewException(user3)</code> 是挂起并将会执行失败的事务。test1 方法中由于外部事务是包含事务，因此<code>user2Service.addRequiresNewException</code> 异常会导致 <code>user1Service.addRequired</code> 回滚 而由于<code>user2Service.addRequiresNew</code> 是挂起事务它不会回滚。在test2 中由于 test2 捕获了异常所以不会触发外部事务的回滚，<code>user1Service.addRequired</code> 和 <code>user2Service.addRequiresNew</code> 均能执行成功；但是要注意一个情况，假如 <code>user2Service.addRequiresNewException(user3)</code> 这个方法加了包含性事务的注解（既 <code>@Transactional(propagation = Propagation.REQUIRED)</code> ） 的情况下，虽然在外部事务中try catch 了，但其方法本身所在的事务发生了回滚，该子事务回滚之后会将整个事务标记位记为<code>rollbackOnly</code>,当外部事务发现事务被标记为 <code>rollbackOnly</code> 时不会提交，而是回滚。</p>
+<h2 id="嵌套性事务"><a href="#嵌套性事务" class="headerlink" title="嵌套性事务"></a>嵌套性事务</h2><p>该事务如果内部事务回滚，不会触发外部事务的回滚，但外部事务的回滚会导致内部事务回滚。下面看示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addNested(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    user2Service.addNested(user2);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User1 user1=<span class="keyword">new</span> User1();</span><br><span class="line">    user1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    user1Service.addNested(user1);</span><br><span class="line">    </span><br><span class="line">    User2 user2=<span class="keyword">new</span> User2();</span><br><span class="line">    user2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        user2Service.addNestedException(user2);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;方法回滚&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在test1 中外部事务回滚，导致嵌套事务回滚，<code>user1Service.addNested</code> 和 <code>user2Service.addNested(user2);</code> 均回滚了，在test2 中，<code>user2Service.addNestedException(user2)</code> 这个嵌套事务回滚了，但外部事务不会回滚 因此 <code>user1Service.addNested(user1)</code>不会回滚。在挂起性事务中我们提到<code>rollbackOnly</code>标志位，在test2里也是一样，如果<br><code>user2Service.addNestedException(user2)</code> 是一个抛异常的包含性事务，其外部事务也会回滚，既 <code>user1Service.addNested</code> 会回滚。</p>
+<h2 id="spring事务总结"><a href="#spring事务总结" class="headerlink" title="spring事务总结"></a>spring事务总结</h2><p>为了下文能便于理解，我们先做个简单的总结，其实spring事务按顺序排下来就分四种情况：</p>
+<ol>
+<li>无事务，禁止外部使用事务</li>
+<li>内部事务和外部事务互相影响</li>
+<li>外部事务影响内部事务，但是内部事务不影响外部事务</li>
+<li>外部事务和内部事务互不影响</li>
+</ol>
+<h2 id="分布式系统中的事务"><a href="#分布式系统中的事务" class="headerlink" title="分布式系统中的事务"></a>分布式系统中的事务</h2><p>假设我们在分布式系统中使用普通的本地事务会怎么样呢（作者运气比较好，不需要假设，实际场景就是）？ 下面我们来分析一段伪代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    rpcService.update();</span><br><span class="line">    localService.update();</span><br><span class="line">    <span class="keyword">if</span>（“业务逻辑判断”）&#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>rpcService.update()</code> 是一个更新数据库的rpc方法，<code>localService.update()</code> 是一个更新数据库的本地方法。为了简化模型，我们认为两个方法操作的是同一个数据库。这个方法执行会发生什么呢？很明显，这里相当于一个挂起性事务，rpcService都夸虚拟机了，自然不会被本地spring的事务所管控，相当于两个事务放在一起互不相干。该方法将会导致，<code>rpcService.update()</code>写入脏数据，而 <code>localService.update()</code> 会回滚，这是很糟糕的情况。如果<code>rpcService.update()</code> 抛出异常还好，还能让事务回滚，要是正常执行就完犊子了。我们要怎么去避免呢？最笨的办法是 我们调用rpc的service时只执行查询语句。所有更新数据库的操作全部在本地执行。但这种方式不是任何情况都适用，有的时候我们不得不去 rpc update。那么在没有引入分布式中间件的时候怎么去实现一个分布式事务？一种方式是通过 mysql的 <code>XA</code> 分布式事务机制，这种方式缺点也是很明显的，首先 <code>XA</code> 在5.6以上版本才适用，其次它很耗资源。我们考虑一下有没有通过代码或者结构设计的方式来实现数据一致。我们可以要 <code>rpcService.update()</code> 的事务卡在那不commit，等<code>localService.update()</code> commit 了再让它commit，这样又有问题了，如果卡住 <code>rpcService.update()</code> 的事务那么，这个方法就会阻塞，只能开启异步线程来让它在后台挂起，异步又会导致该方法必须是void的，这又是很难做到的事情——必须要所有rpc方法都无返回值。</p>
+<h2 id="tcc的产生"><a href="#tcc的产生" class="headerlink" title="tcc的产生"></a>tcc的产生</h2><p>上面几种思路貌似都不是很理想，虽然能实现但效果必定不会很好，有没有别的办法？我们回过头来分析开始那段伪代码，这段代码存在的问题是如果本地方法回滚了，rpc的方法会产生脏数据。那如果脏数据能在后续步骤清除并且这部分脏数据不会影响正常业务呢？我可以在本地方法rollback的时候清除它，而且正常的业务代码也不会被它影响。我们都知道不少企业在设计数据库的时候，对数据的删除不是使用物理删除，而是使用逻辑删除，被逻辑删除的数据也不会影响正常业务的运行，而被删除的数据实际上还保存在数据库，只是将删除标识标记为1,表示已删除。</p>
+<p>基于上述原理，我们可以整个逻辑提交这个概念——在数据库中专门准备一个字段<code>commited</code> 0 表示虽然写入库，但是未被commit 属于“脏数据”，1 是已经commited 可以被业务代码读写的数据。那上面的代码也要改一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Transactional</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        rpcService.updateNotCommit();</span><br><span class="line">        localService.update();</span><br><span class="line">        if(&quot;业务逻辑正确，可以commit&quot;)&#123;</span><br><span class="line">            rpcService.commit();</span><br><span class="line">        &#125;else()&#123;</span><br><span class="line">            System.out.print(&quot;业务错误，需要回滚&quot;)</span><br><span class="line">            rpcService.rollBack();</span><br><span class="line">            throw new RuntimeException();</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述设计方式，似乎解决了我们的问题，但只是理想状态下不会出错；不理想的状态下，可能发生网络波动，<code>rpcService.rollBack()</code> 请求未抵达抛出异常，那么数据库里面会堆积不少脏数据，虽然对业务没影响，但是很影响性能。而且如果有多个commit，比如这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Transactional</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        rpcService.updateNotCommit0();</span><br><span class="line">        rpcService.updateNotCommit1();</span><br><span class="line">        rpcService.updateNotCommit2();</span><br><span class="line">        localService.update();</span><br><span class="line">        if(&quot;业务逻辑正确，可以commit&quot;)&#123;</span><br><span class="line">            rpcService.commit0();</span><br><span class="line">            rpcService.commit1();</span><br><span class="line">            rpcService.commit2();</span><br><span class="line">        &#125;else()&#123;</span><br><span class="line">            System.out.print(&quot;业务错误，需要回滚&quot;)</span><br><span class="line">            rpcService.rollBack();</span><br><span class="line">            throw new RuntimeException();</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>假设<code>rpcService.commit2()</code> 发生网络波动，未发出请求抛出异常，那么会发生<code>commit0</code> 成功 <code>commit1</code> 成功，本地事务失败，<code>commit2</code>失败。这样就又产生影响业务的脏数据了。这种情况证明办？我们需要一个机制来能在commit或者rollback请求未发送出去的时候去重试，保证能够发送请求出去。因此我们要保证 commit 或者 rollback 不能抛异常，并且能够去请求失败的时候重试。重试很好实现，做一个标志位和计数器当请求成功的时候改变标志位状态，计数器计数重试次数，超过次数就通过某种机制来通知到运维人员需要去检查什么地方出了问题，手动对数据提交或者回滚。</p>
+<p>推导到这一步好像这个思路要做的事情还比较多了，而且这个功能通用性也挺强，要不整成中间件吧，这个中间件有重试机制，错误通知机制；物理commit，逻辑commit ，逻辑rollback的请求接口。对于这三个接口的注册方法我们可以用注解或者实现接口的方式，通过aop来获取其注册到这个中间件的接口。然后我们需要使用分布式事务的时候先从中间件拿到这个事务的三个接口，而事务的执行方提供这三个接口。</p>
+<p>嗯，这个套路研究到这里好像还蛮牛掰的，要不咱们取个响亮点的名字吧——就叫TCC好了</p>
 
       
 
@@ -214,7 +262,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
         		</li>
       		
 		</ul>
@@ -270,7 +318,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/02/02/design-13/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/08/13/tcc%E6%8E%A8%E5%AF%BC/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -284,18 +332,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/08/13/tcc%E6%8E%A8%E5%AF%BC/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/07/java-code/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          tcc推导
+          java-code
         
       </div>
     </a>
   
   
-    <a href="/2020/02/02/design-12/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式-命令模式</div>
+    <a href="/2020/02/02/design-13/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式-责任链模式</div>
       <i class="icon-circle-right"></i>
     </a>
   
