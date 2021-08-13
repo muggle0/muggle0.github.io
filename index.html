@@ -671,9 +671,68 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="代码混乱的常见问题"><a href="#代码混乱的常见问题" class="headerlink" title="代码混乱的常见问题"></a>代码混乱的常见问题</h1><p>很多时候我们项目迭代到后期，项目会变得很混乱，往往只有少数人能知道某段代码是干嘛的和该如何去改，或者是干脆谁都不知道，只能靠通过注释去猜测这段代码可能的作用。原因有可能是因为团队内部的人事变动，导致原先写这段代码的人不再管理这段代码了，并且代码写的实在是屎没人捋的清。往往我们称这类代码为“祖传代码”，就像祖宗传下来的代码一样，没人懂没人敢动。祖传代码一多，这个项目就变成了屎一样，开发人员再这基础上迭代就如同屎海翻腾，恶心别人也恶心自己。这是一个很可怕的恶心循环，我们如何去避免这种事情发生呢？先让我们分析下这类代码的通病</p>
-        
-          <a class="article-more-a" href="/2021/01/11/codeStyle/#more">more >></a>
-        
+<h2 id="代码又臭又长"><a href="#代码又臭又长" class="headerlink" title="代码又臭又长"></a>代码又臭又长</h2><p>我见过最长的方法是5000多行，那段代码没人敢动，只敢往下加 if else，每次需要改这段代码的开发都战战兢兢，生怕出现什么莫名其妙的bug。java 可是一门面向对象的语言，一个方法里面有5000多行可以说是很可恶的事情了。我想一开始代码长度可能没这么夸张，是什么导致这种结果的？一个是当初写这段代码的人本身写的是直来直去的方法，一堆if else ；后面迭代的开发，面对这么长的代码瞬间失去了从头读到尾的耐心，直接继续在后面加 if else 迭代，最后这个方法就变成了一个缝合怪一样的玩意。</p>
+<p>好的 sql 可以很大程度上简化代码的复杂程度，但是太过复杂sql 本身就会给后来的开发人员造成阅读困难，结果又是变成一条无人敢动的祖传代码，我想这应该是不少公司极度抵制存储过程的原因之一。当然不少银行应用开发还是大量使用存储过程，存储过程有用武之地的，但是一个又臭又长的存储过程就等着变成祖传代码吧。当年我见到一个60多个join的sql，看到第一眼就惊为天人从此难以忘怀，当然那段sql也成了没人敢去动的代码了。</p>
+<h2 id="代码逻辑不明所以"><a href="#代码逻辑不明所以" class="headerlink" title="代码逻辑不明所以"></a>代码逻辑不明所以</h2><p>代码逻辑不明所以是我们开发很容易去犯的毛病，是一个不致命却烦人的毛病。在代码上的体现是，逻辑判断写的比较反人类各种双重否定是肯定，不把你绕晕不罢休。或者是写起代码来东一榔头西一棒槌，让人不知道你想干嘛。导致这个的原因有可能是开发人员在需求理解上出现偏差，做到后面发现不对劲，再回去改又不大可能了，只能硬着头皮往下写，结果就是代码弯弯绕绕；还有很重要的锅是在产品经理，任意变更需求，想一出是一出，开发人员无奈只能跟着想一出写一出。还用可能是开发人员方法或者类命名太艺术了，什么四川方言拼音这种没有十年脑血栓想不出的命名咱就不说了。就说那种国产凌凌漆式的无厘头命名——这看上去是个刮胡刀实际上是个吹风机，就这种不知道让人说什么好。</p>
+<h1 id="规划代码的核心思想"><a href="#规划代码的核心思想" class="headerlink" title="规划代码的核心思想"></a>规划代码的核心思想</h1><p>吐槽了一堆代码规范问题，接下来我们说说如何去规范我们的代码以及如何做到就算开发人员更换了，或者项目转手给他人了，仍然可以让后面的开发可以无碍的去阅读代码修改代码。当然各个公司/团队都有自己的一套代码规范，比如项目的结构、代码命名风格、代码格式等等。不同团队有不同的风格，但核心思想是大同小异的。接下来我就我个人的开发经验来分享一下一些代码规范的思想。</p>
+<h2 id="花叶论"><a href="#花叶论" class="headerlink" title="花叶论"></a>花叶论</h2><p>就我个人而言，这个理论是我代码规范中最浅显也是最核心的思想，只要稍微动动脑子就能想出这个思路出来。或许我们做业务开发的时候，大部分都在写crud，感觉似乎这部分代码没什么规范好说的，其实不然。对一段业务代码而言，我们可以将其分为四类：</p>
+<ul>
+<li>数据校验</li>
+<li>业务逻辑</li>
+<li>数据转换</li>
+<li>数据库交互（查询与持久化）</li>
+</ul>
+<p>大部分时候我们最关心的是逻辑判断相关的代码，其次是数据库交互，对于远程调用的方法，我们就视其为一个普通的方法以简化模型，方法调用算业务逻辑部分的代码，对于读代码的人而言基本上不关心数据校验和数据的转换（DTO转VO等）。因此，代码应该分出一个主次，应该尽量把主逻辑给凸显出来，最好一眼看去就能让人明白这个方法或者这个类干了啥，步骤是什么样的。对于那些不重要但必要的代码我称其为叶，对于那些主要的代码我称其为花。叶是为了衬托花的，因此我们应该将那些叶子代码精简或者隐藏起来。</p>
+<p>隐藏叶子代码，突出主干逻辑的一些手法</p>
+<p>1）Converter（转换器）</p>
+<p>大部分时候我们使用 bean 拷贝使用的是 <code>BeanUtils</code> 这个类来完成，然而一些稍微复杂的实体转换，这个类就无法胜任了，这个时候我们只能手动的 get set ,往往就是这些get set 方法掩盖了主干逻辑，让代码结构不清晰。因此我建议在你的业务逻辑代码中引入 <code>1）Converter</code> 这个角色来专门负责数据的传递与转换。</p>
+<p>2）manager 层</p>
+<p>无论我们使用的持久层框架是哪一种，jpa 或者 mybatis 我觉得我们都应该对持久层的部分方法进行简单封装一下，这也是阿里规范里面提倡的。这样做好处是明显的，我们做一个查询时往往要 set 一些查询条件或者对查询结果进行一些简单的判断，往往这类操作在业务代码可能有比较高的重复性。如果把这些代码放到业务逻辑代码里面，少量还好，多了的话就显得很臃肿了。如果把这种代码移到manager层里面去，不仅主业务逻辑代码不会被干扰，还能提高一定的代码复用率。</p>
+<p>3）方法简单封装<br>假设我们一个方法要完成一端逻辑要分成三大步，而每一个步骤又分成几个小步骤，那我们就可以将这个方法拆分成三个方法，然后在这三个方法里面完成各自的步骤。这手法是很简单的，想必大家都能想到，但是我这里要介绍的是简化复杂方法封装的神器——函数式编程，我这里指的函数式编程不仅仅是 stream 流和 lambda 表达式的使用。函数式编程封装适用的场景是：整个流程比较固定，但是某几个步骤变化是不确定的。我们可以去看看 <code>java.util.function</code> 这个包的源码，你会发现这个包下面全是接口，这些接口被称为函数式接口。这些函数式接口总体上分为四类：</p>
+<ul>
+<li>Function 类型：传入一个bean 返回另外一个bean</li>
+<li>Consumer 类型：传入一个bean 无返回值</li>
+<li>Predicate 类型：传入一个bean 返回布尔值</li>
+<li>Supplier 类型：没有入参，有出参</li>
+</ul>
+<p>以 Consumer 的使用为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(Consumer&lt;User&gt; consumer)</span></span>&#123;</span><br><span class="line">    User user=<span class="keyword">new</span> User();</span><br><span class="line">    consumer.accept(user);</span><br><span class="line">    user=userMapper.getUser(user);</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User user=getUser(user-&gt;&#123;user.setId(<span class="number">1L</span>)&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    User user=getUser(user-&gt;&#123;user.setName(<span class="string">&quot;xxx&quot;</span>)&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数式编程的想象空间很大，使用的得当必定会简化你的代码，提高代码复用率。但是在多线程中使用函数式要留意数据的可见性问题。</p>
+<h2 id="日志和注释的一些个人经验"><a href="#日志和注释的一些个人经验" class="headerlink" title="日志和注释的一些个人经验"></a>日志和注释的一些个人经验</h2><p>1）日志</p>
+<p>首先我们要明白日志是给人看的，你加这段日志时要考虑清楚，有没有人会去查这段日志，这段日志有没有用。然后我们查阅日志的时候，一般会通过关键词去搜索；因此我们打的日志一定要有关键词，而且这个关键词不要和其他日志重复，不要过长，便于搜索才是王道。大部分情况我们查看日志都是为了追溯bug，那么一个基本原则就是能通过日志分析出业务逻辑或者流程的走向，对此我建议打日志的地方：</p>
+<ul>
+<li>数据更新：我们有必要知道写库的数据是不是正确的数据；</li>
+<li>条件分支：便于我们分析业务走的哪一条逻辑；</li>
+<li>批量写库：打上数据量大小的日志，便于我们分析性能瓶颈。</li>
+</ul>
+<p>并不是所有的这些地方都应该打上日志，有的时候我们可能只需要通过一两条日志就能分析出整个流程的问题点在哪，这个时候其他的日志就显得多余了。还有我们打完日志之后应该在本地环境追溯一下，看看这些日志自己是否能读懂，是否有必要，是否少了重要参数。</p>
+<p>2）注释</p>
+<p>最基本的两个注释——类注释，方法注释相关规范阿里开发手册上就有，我这里就不复述了，我分享下我写注释的个人习惯。<br>方法注释上除了基本的注释，我还会将产品需求的原文贴重要的部分上去再写上日期，这样做的好处是让别人明白产品需求要求干啥这个方法该干啥，而且产品经理偷偷改需求你还能有追查的根据，有个小本本偷偷记录他的罪行。</p>
+<p>代码注释我分享一个我偷师来的小技巧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pulic <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">/** 1. 从excel 获取 vo*/</span></span><br><span class="line">    Workbook workBook = getWorkBook(wookbookStream);</span><br><span class="line">    <span class="comment">//获取成员信息</span></span><br><span class="line">    Sheet userSheet = workBook.getSheetAt(<span class="number">3</span>);</span><br><span class="line">     Map&lt;String, UserVO&gt; userVOMap = getUserForExcel(file, userSheet);</span><br><span class="line">    <span class="comment">// 获取项目vo</span></span><br><span class="line">    Sheet projectSheet = workBook.getSheetAt(<span class="number">0</span>);</span><br><span class="line">    ProjectVO projectVO = getProjectForExcel(file, isInsert, userVOMap);</span><br><span class="line">    <span class="comment">// 获取任务vo</span></span><br><span class="line">    Sheet taskSheet = workBook.getSheetAt(<span class="number">1</span>);</span><br><span class="line">    Map&lt;String, TaskVO&gt; taskVOMap = getTaskListForExcel(file, taskSheet, userVOMap);</span><br><span class="line">    <span class="comment">/** 2. 插入数据 */</span></span><br><span class="line">    <span class="keyword">if</span> (isInsert.get())&#123;</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="comment">/** 3.写入异常信息 */</span></span><br><span class="line">    <span class="keyword">if</span> (!isInsert.get()) &#123;</span><br><span class="line">        .....</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如你所见，对于主干的步骤 我用 <code>/** 1. */</code>  <code>/** 2. */</code> javadoc的注释来标注了，而普通的注释我用 <code>//</code> 标注，因为idea 在纯黑主题下会给 <code>/**</code> 这样的注释配上绿色，会比较显眼。我通过这种方式来强调我代码那些是花，哪些是叶子。当然这种方式实际上是不大符合代码规范的，小伙伴们理性取舍，这种手法未必好。</p>
+<h2 id="六大基本原则"><a href="#六大基本原则" class="headerlink" title="六大基本原则"></a>六大基本原则</h2><p>对于面向对象的的语言，六大基本是很重要的开发准则，但似乎大部分人在写代码的时候都不大在意这个，这也是导致一个方法变得又臭又长的一个重要原因之一。对于类的复杂度我们应该遵循单一职责原则——一个类或者方法承担的职责越多，它被复用的可能性就越小，重构或者修改起来就会变得困难重重，我们应该尽量让一个方法只去做一件事情。</p>
+<p>对于许多代码我们只要通过一些简单的手法就能很好的提高其扩展性，比如通过接口去实现类与类之间的协作就能提前解决掉许多未知隐患，而且运用得当的情况下还能满足开闭原则与里氏替换原则，其实service层的设计就有那么点味道了，而且spring的特性也支持接口注入List和map，然而许多开发多年的同学都不知道这个特性，这个特性在许多场景下可以提高代码的扩展性，众所周知，map可以减少代码的 if else 分支。</p>
+<h2 id="方法命名-‘潜规则’"><a href="#方法命名-‘潜规则’" class="headerlink" title="方法命名 ‘潜规则’"></a>方法命名 ‘潜规则’</h2><p>很多时候，好的方法命名本身就是对代码的一种注释，我这里好的方法命名是指大家约定俗成的命名规则。如果你多留心各个开源框架的代码都会发现一些特定的命名规则。阿里开发手册里面也列举不少命名前缀与后缀的规范，其实各个团队可以根据自己的实际情况规定一些命名规则，降低团队内部的代码阅读的成本。关于我的文章   <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k6utPTmuDmdLwSM9U-f4tA">设计模式杂谈</a></p>
+<p>介绍过部分命名规则，感兴趣的小伙伴可以去看看。</p>
+<h2 id="代码提交及版本控制"><a href="#代码提交及版本控制" class="headerlink" title="代码提交及版本控制"></a>代码提交及版本控制</h2><p>正确代码提交日志格式可以帮助开发人员及时的缕清代码的修改历史，从而快速的定位问题。以git为例，我们大部分人提交日志就是几个字而已，当然你能够通过日志去定位到自己的修改历史的话，这样做也没什么大问题，但是对于团队而言，你的修改日志要让别人能看懂就得按一定的格式来写了。Git Commit message的 Angular规范中定义的 commit message 格式有3个内容：</p>
+<ul>
+<li>Header Header部分有3个字段： type(必需), scope(可选), subject(必需)</li>
+<li>Body 部分是对本次 commit 的详细描述，可以分成多行。</li>
+<li>Footer不常用，可为空 包括不兼容变动、关闭issue。</li>
+</ul>
+<p>这里由于篇幅问题不细说，感兴趣的小伙伴可以百度查查资料。我们团队不一定要按照这么严格的规则来，但是可以制定一个类似的规范来管理提交日志。</p>
+<p>对于团队而言，gitflow 是一个很不错的开发流程。可以很大程度上管理好我们的分支代码，避免团队的人由于误操作而导致某个重要分支出现问题。下面贴出gitflow 流程图，对于其具体内容同样不会介绍太多，感兴趣小伙伴去百度吧</p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/gitflow.png" alt="xxx"></p>
+<h1 id="帮助代码规范的工具"><a href="#帮助代码规范的工具" class="headerlink" title="帮助代码规范的工具"></a>帮助代码规范的工具</h1><p>本节主要介绍提高代码质量的idea插件和框架，当然大名鼎鼎的 阿里代码规范插件咱就不介绍了，想必大家多少了解。不过本人感觉这个插件并不适合一些团队，一是感觉这个规范太过严格，对开发人员素质要求太高，二是有的团队有自己的规范规则，而且有可能和阿里规范冲突，不适用于这个插件。下面介绍的插件可能不适合一些小伙伴。我列举出来大家自己寻思吧。</p>
+<h2 id="mapstruct"><a href="#mapstruct" class="headerlink" title="mapstruct"></a>mapstruct</h2><p>对于我而言是很喜欢这个东西的，这个框架解决的问题其实就是我上文提到的花叶论中的 “数据转换” 的问题。其实不少公司也有类似的概念——定义一个工具类作用是将 DO转VO 或者 VO转DTO等，一般这类类都是以 <code>converter</code> 结尾。而mapstruct这个框架通过编译期生成字节码来自动的生成bean的转换类。我们想将一个bean的数据赋值给另外一个bean只需要去定义接口即可。这样既减轻了开发人员的工作量还将无意义的get和set方法从逻辑代码块中剔除出去。这个框架的缺点是字节码缓存问题，用过类似自动生成字节码工具的小伙伴应该知道——mapstruct 是根据接口去自动生成类的，当我们更新了接口的时候，这个类有可能没重新生成，当然这只有用idea调试的时候才会有的问题，所以也不必太担心。</p>
+<h2 id="checkStyle"><a href="#checkStyle" class="headerlink" title="checkStyle"></a>checkStyle</h2><p>idea checkStyle 插件可以通过自定义配置文件来统一团队的代码风格和代码规范，降低团队的交流成本，一般配合 save actions Reborn 食用更佳。关于checkStyle的配置文件网上也不少，这里也不贴出来占篇幅了。</p>
+<h2 id="git-flow"><a href="#git-flow" class="headerlink" title="git flow"></a>git flow</h2><p>前文提到过git flow 给团队带来的好处，idea也有对应的插件——git Flow Integration，可以通过这个插件来规范我们的流程：</p>
+<p><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/gitflow2.jpg" alt="gitflow插件"></p>
+<p>开发新功能选择 start Feature 拉取分支，修复bug 选择 Start Bugfix 拉取分支，等等。此外还有 push on finish等功能，小伙伴如果感兴趣可以百度。</p>
+<h2 id="Git-Commit-Template"><a href="#Git-Commit-Template" class="headerlink" title="Git Commit Template"></a>Git Commit Template</h2><p>这个主要是用来规范git commit 的一个idea插件小工具了，github上也有类似的开源插件。团队内部也可以自己开发一个类似插件，比较简单，成本也不高。</p>
+<p>代码规范的一些个人看法就聊到这了，喜欢的小伙伴可以分享一下哦。</p>
+
       
 
       
@@ -2678,9 +2737,43 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><p>简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
-        
-          <a class="article-more-a" href="/2019/07/17/design-2/#more">more >></a>
-        
+<h3 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h3><p>简单工厂模式包含如下角色：</p>
+<ul>
+<li>Factory：工厂角色，工厂角色负责实现创建所有实例的内部逻辑</li>
+<li>Product：抽象产品角色，抽象产品角色是所创建的所有对象的父类，负责描述所有实例所共有的公共接口</li>
+<li>ConcreteProduct：具体产品角色，具体产品角色是创建目标，所有创建的对象都充当这个角色的某个具体类的实例。</li>
+</ul>
+<h3 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 资源加载</span></span><br><span class="line">        ClassPathResource classPathResource = <span class="keyword">new</span> ClassPathResource(<span class="string">&quot;spring-bean.xml&quot;</span>);</span><br><span class="line">        <span class="comment">// XmlBeanFactory 加载资源并解析注册bean</span></span><br><span class="line">        BeanFactory beanFactory = <span class="keyword">new</span> XmlBeanFactory(classPathResource);</span><br><span class="line">        <span class="comment">// BeanFactory.getBean();</span></span><br><span class="line">        UserBean userBean = (UserBean) beanFactory.getBean(<span class="string">&quot;userBean&quot;</span>);</span><br><span class="line">        System.out.println(userBean.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>XmlBeanFactory</code>便可以看做是一个稍微变形的简单工厂，<code>getBean()</code>方法便是获取产品的实例方法，<code>userBean</code>便是我们的产品。如果我们以后遇到与spring中<code>XmlBeanFactory</code>类似场景我们便可依瓢画葫芦写出一个漂亮的简单工厂。</p>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>也叫虚拟构造器(Virtual Constructor)模式或者多态工厂(Polymorphic Factory)模式，它属于类创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。</p>
+<h3 id="模式结构-1"><a href="#模式结构-1" class="headerlink" title="模式结构"></a>模式结构</h3><p>工厂方法模式包含如下角色：</p>
+<ul>
+<li>Product：抽象产品</li>
+<li>ConcreteProduct：具体产品</li>
+<li>Factory：抽象工厂</li>
+<li>ConcreteFactory：具体工厂</li>
+</ul>
+<h3 id="源码导读-1"><a href="#源码导读-1" class="headerlink" title="源码导读"></a>源码导读</h3><p>java.util.Collection接口中定义了一个抽象的iterator()方法，该方法就是一个工厂方法。<br>我们来看看<code>ArrayList</code>中的<code>iterator()</code>实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotNull</span> <span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ArrayList.Itr();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它new了一个<code>ArrayList</code>的内部类<code>Itr</code> 然后将其返回，Itr：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Itr</span> <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cursor;</span><br><span class="line">        <span class="keyword">int</span> lastRet = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> expectedModCount;</span><br><span class="line"></span><br><span class="line">        Itr() &#123;</span><br><span class="line">            <span class="keyword">this</span>.expectedModCount = ArrayList.<span class="keyword">this</span>.modCount;</span><br><span class="line">        &#125;</span><br><span class="line">   ......</span><br><span class="line">   ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>ArrayList</code>对<code>Iterator</code>来说就是一个工厂类，它的<code>iterator()</code>方法便是生产<code>Iterator</code>的工厂方法。</p>
+<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>抽象工厂模式(Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为Kit模式，属于对象创建型模式。</p>
+<h3 id="模式结构-2"><a href="#模式结构-2" class="headerlink" title="模式结构"></a>模式结构</h3><p>抽象工厂模式包含如下角色：</p>
+<ul>
+<li>AbstractFactory：抽象工厂</li>
+<li>ConcreteFactory：具体工厂</li>
+<li>AbstractProduct：抽象产品</li>
+<li>Product：具体产品</li>
+</ul>
+<h3 id="源码导读-2"><a href="#源码导读-2" class="headerlink" title="源码导读"></a>源码导读</h3><p>我们可以看到 抽象工厂和工厂方法的区别是——抽象多了生产相关联产品的其他方法。可以理解为对工厂方法的一个升级，我们来看<code>HashMap</code>这个类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Object, Object&gt; objectHashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">Set&lt;Map.Entry&lt;Object, Object&gt;&gt; entries = 		     objectHashMap.entrySet();</span><br><span class="line">Collection&lt;Object&gt; values = objectHashMap.values();</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>HashMap</code> 就是抽象工厂，它的<code>values()</code>和<code>entrySet()</code>就是两个工厂方法，<code>Collection&lt;Object&gt;</code>和<code>Set&lt;Map.Entry&lt;Object, Object&gt;&gt;</code>是产品。注意：<strong>抽象工厂中抽象的含义是对产品的抽象，不再是某个产品，而是某系列产品</strong>，工厂模式类命名一般以<code>factory</code>结尾。</p>
+
       
 
       
@@ -3155,9 +3248,23 @@
 <li>@Inherited：一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。</li>
 <li>@Repeatable ：可重复注解</li>
 </ol>
-        
-          <a class="article-more-a" href="/2019/05/15/annotation/#more">more >></a>
-        
+<h2 id="注解的属性"><a href="#注解的属性" class="headerlink" title="注解的属性"></a>注解的属性</h2><p>注解的属性也叫做成员变量。注解只有成员变量，没有方法。注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BootStaterTestApplicationTests</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="meta">@muggle(test = &quot;ss&quot;)</span></span><br><span class="line">        String test=<span class="string">&quot;ss&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(ElementType.LOCAL_VARIABLE)</span></span><br><span class="line"><span class="meta">@interface</span> muggle&#123;</span><br><span class="line">    <span class="function">String <span class="title">test</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解中属性可以有默认值，默认值需要用 default 关键值指定。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.LOCAL_VARIABLE)</span></span><br><span class="line"><span class="meta">@interface</span> muggle&#123;</span><br><span class="line">    <span class="function">String <span class="title">test</span><span class="params">()</span><span class="keyword">default</span> &quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一些缺省写法略</p>
+<h2 id="反射获取注解"><a href="#反射获取注解" class="headerlink" title="反射获取注解"></a>反射获取注解</h2><p>类注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">test test = <span class="keyword">new</span> test();</span><br><span class="line">      Class&lt;? extends com.muggle.bootstatertest.test&gt; aClass = test.getClass();</span><br><span class="line">      Class&lt;Muggle&gt; muggleClass = Muggle.class;</span><br><span class="line">      <span class="keyword">boolean</span> annotationPresent = aClass.isAnnotationPresent(muggleClass);</span><br><span class="line">      System.out.println(annotationPresent);</span><br><span class="line">      Annotation[] annotations = aClass.getAnnotations();</span><br><span class="line">      Muggle annotation = aClass.getAnnotation(Muggle.class);</span><br></pre></td></tr></table></figure>
+
+<p>属性注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Field[] fields = aClass.getFields();</span><br><span class="line">Annotation[] annotations1 = fields[<span class="number">0</span>].getAnnotations();</span><br></pre></td></tr></table></figure>
+
+<p>方法注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Method[] methods = aClass.getMethods();</span><br><span class="line">Method[] declaredMethod = aClass.getDeclaredMethods();</span><br><span class="line">Annotation[] declaredAnnotations = methods[<span class="number">0</span>].getDeclaredAnnotations();</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -3384,9 +3491,25 @@
       
         <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>&emsp; &emsp;代理是一种软件设计模式，这种设计模式不直接访问被代理对象，而访问被代理对象的方法，详尽的解释可参考《java设计模式之禅》，里面的解释还是很通俗的。给个《java设计模式之禅》下载地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg">https://pan.baidu.com/s/1GdFmZSx67HjKl_OhkwjqNg</a></p>
 <p>&emsp; &emsp;在JDK中提供了实现动态代理模式的机制，cglib也是一个用于实现动态代理的框架，在这里我介绍jdk自带的动态代理机制是如何使用的。先上代码再慢慢解释：</p>
-        
-          <a class="article-more-a" href="/2019/05/13/gclib/#more">more >></a>
-        
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个接口，接口中只有一个抽象方法，这个方法便是将要被代理的方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">test</span><span class="params">(String string)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 一个类实现这个方法，方法里写上自己的逻辑。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectImpl</span> <span class="keyword">implements</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String string)</span> </span>&#123;</span><br><span class="line">      String test=string+string;</span><br><span class="line">      <span class="keyword">return</span> test;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="comment">// 定义一个代理类，这个代理必须要实现invocaHandler 接口，用以指定这个类为一个代理类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyProxy</span><span class="params">( Object target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target=target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实现 invoke方法，这个方法将是后面代码中实际执行的方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;开始执行动态代理&quot;</span>);</span><br><span class="line">        Object result=method.invoke(target,args);</span><br><span class="line">        <span class="keyword">return</span>  result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Proxy类为反射机制中的一个类，用于获得代理对象</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="comment">/* newProxyInstance方法的参数解释：</span></span><br><span class="line"><span class="comment">      ** 被代理对象的类加载器：target.getClass().getClassLoader()</span></span><br><span class="line"><span class="comment">      ** 被代理的方法：target.getClass().getInterfaces()</span></span><br><span class="line"><span class="comment">      **代理对象：this</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">        <span class="keyword">return</span> (T) Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(),<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个被代理对象</span></span><br><span class="line">       Subject subject=<span class="keyword">new</span> SubjectImpl();</span><br><span class="line">       <span class="comment">// 创建一个代理对象</span></span><br><span class="line">       Subject proxy=<span class="keyword">new</span> MyProxy(subject).getProxy();</span><br><span class="line">       <span class="comment">// 调用代理的方法</span></span><br><span class="line">       System.out.println(proxy.test(<span class="string">&quot;test&quot;</span>));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">开始执行动态代理</span><br><span class="line">testtest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&emsp; &emsp;我们知道spring 的AOP是通过动态代理实现的,现在让我们好好分析一下动态代理，示例中定义了一个接口 Subject，一个继承接口的SubjectImpl类,一个实现了InvocationHandler的MyProxy类，并调用了Proxy.newProxyInstance方法。Subject定义了将要被代理执行的方法，SubjectImpl是被代理的类（雇主），MyProxy类是代理执行的类（跑腿的），它的invoke(Object proxy, Method method, Object[] args)方法便是实际被执行的方法，它的第一个参数proxy作用：</p>
+<blockquote>
+<ul>
+<li>可以使用反射获取代理对象的信息（也就是proxy.getClass().getName()）</li>
+<li>可以将代理对象返回以进行连续调用，这就是proxy存在的目的，因为this并不是代理对象(MyProxy虽然是代理的类，但代理对象是 Proxy.newProxyInstance方法生成的。)。</li>
+</ul>
+</blockquote>
+<p>method 是被代理的方法类型对象，args是方法的参数数组。通过Proxy.newProxyInstance生成代理类后就可以执行其中的代理方法了。</p>
+<p>&emsp; &emsp;如果我们直接执行SubjectImpl.test()方法则只返回一个字符串，但使用动态代理我们可以在方法执行前和执行后加上自己的逻辑，这样大大提高了代码的复用性；想一想，如果你写了一堆方法，方法里很多代码是一样的，这样的代码是不是很丑？好，现在你把重复的代码单独抽出来做一个方法，但这样你的每个方法都被写死了，和那个公共的方法耦合在一起，这样很不灵活。如果我突然想一部分方法的公共方法是a(),一部分方法的公共方法是b(),那改起来很麻烦，扩展性很差。使用动态代理就很好的解决了这个问题，被代理对象可以任意指定，代理的逻辑可以任意实现，二者互相独立互不影响，并且可以由客户端任意进行组合，这就是所谓的动态。</p>
+
       
 
       
@@ -4574,9 +4697,69 @@
 <li>建造者模式</li>
 <li>原型模式</li>
 </ul>
-        
-          <a class="article-more-a" href="/2019/04/25/design-1/#more">more >></a>
-        
+<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><p>共七种：</p>
+<ul>
+<li>适配器模式</li>
+<li>装饰器模式</li>
+<li>代理模式</li>
+<li>外观模式</li>
+<li>桥接模式</li>
+<li>组合模式</li>
+<li>享元模式</li>
+</ul>
+<h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><p>共十一种：</p>
+<ul>
+<li><p>策略模式</p>
+</li>
+<li><p>模板方法模式</p>
+</li>
+<li><p>观察者模式</p>
+</li>
+<li><p>迭代子模式</p>
+</li>
+<li><p>责任链模式</p>
+</li>
+<li><p>命令模式</p>
+</li>
+<li><p>备忘录模式</p>
+</li>
+<li><p>状态模式</p>
+</li>
+<li><p>访问者模式</p>
+</li>
+<li><p>中介者模式</p>
+</li>
+<li><p>解释器模式</p>
+<h1 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h1></li>
+</ul>
+<p>设计模式的最终目的是为了实现代码设计的六大基本原则的，我们在使用设计模式的时候千万要记住这一点，不用为了使用设计模式而去强行套设计模式</p>
+<h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>不要存在多于一个导致类变更的原因，也就是说每个类应该实现单一的职责，如若不然，就应该把类拆分。</p>
+<p>当需求变化时，将通过更改职责相关的类来体现。如果一个类拥有多于一个的职责，则多个职责耦合在一起，会有多于一个原因来导致这个类发生变化。一个职责的变化可能会影响到其他的职责，另外，把多个职责耦合在一起，影响复用性。</p>
+<p>单一职责原则解决的问题：</p>
+<blockquote>
+<ul>
+<li>降低类的复杂度；</li>
+<li>提高类的可读性，提高系统的可维护性；</li>
+<li>降低变更引起的风险（降低对其他功能的影响）。</li>
+</ul>
+</blockquote>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>任何基类可以出现的地方，子类一定可以出现。</p>
+<p>只有当子类可以替换掉父类， 代码功能不受到影响时，父类才能真正被复用， 而子类也能够在父类的基础上增加新的行为；从而达到代码复用与扩展的目的；里氏替换原则中，子类对父类的方法尽量不要重写和重载。因为父类代表了定义好的结构，通过这个规范的接口与外界交互，子类不应该随便破坏它。</p>
+<p>里氏替换原则解决的问题：</p>
+<blockquote>
+<ul>
+<li>增强程序的健壮性， 版本升级时也可以保持非常好的兼容性。</li>
+<li>提高代码复用率</li>
+</ul>
+</blockquote>
+<h2 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h2><p>这个是开闭原则的基础，具体内容：面向接口编程，依赖于抽象而不依赖于具体。写代码时用到具体类时，不与具体类交互，而与具体类的上层接口交互。</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>对于引用的模块尽量去扩展，而不是去修改它，也就是所谓的对扩展开放对修改关闭。开闭原则是面向对象的可复用设计的第一块基石，它是最重要的面向对象设计原则，抽象化是开闭原则的关键。</p>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>接口隔离原则(Interface  Segregation Principle, ISP)：使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。     根据接口隔离原则，当一个接口太大时，我们需要将它分割成一些更细小的接口，使用该接口的客户端仅需知道与之相关的方法即可</p>
+<h2 id="迪米特原则"><a href="#迪米特原则" class="headerlink" title="迪米特原则"></a>迪米特原则</h2><p>一个类应该对自己需要耦合或调用的类知道得最少，类的内部如何实现、如何复杂都与调用者或者依赖者没关系，调用者或者依赖者只需要知道他需要的方法即可，其他的我一概不关心。类与类之间的关系越密切，耦合度越大，当一个类发生改变时，对另一个类的影响也越大。</p>
+<h1 id="设计模式解析"><a href="#设计模式解析" class="headerlink" title="设计模式解析"></a>设计模式解析</h1><p>首先允许我提一点建议，有不少设计模式的教程喜欢拿生活中一些事物举例子，比如什么什么奥迪汽车，宝马，汽车工厂这种。这种方式确实能让人更加直观的的体会到一个设计模式的用法和作用，但是我以前这样学的后果就是——看啥都像设计模式，想往设计模式里面套又套不出个所以然来。实际上有的设计模式结构是由好几个角色组成，该如何去写怎么命名都是确定的有理有据的，你光记住生活中的一个例子然后平时写代码去套这个例子，你会有种无从下手的感觉。我们应该把每个设计模式的使用场景结构都记住，但是这样死记难记不说，还很难做到活学活用。我的的建议是结合源码去记，这样你能根据源码中的例子依瓢画葫芦写出自己想要的设计模式出来，我接下来对设计模式的讲解也是结合源码进行讲解的。</p>
+<p>然后，我个人建议是能不用设计模式的地方就不用设计模式。并不是因为设计模式不好，一个设计得好的设计模式确实可以减少我们工作量和代码维护成本，但是一个设计不好的设计模式使用起来代价巨大。要知道设计模式的最终目的是减少我们的工作量，不要为了设计模式而设计模式。一个垃圾的设计模式的缺点：代码维护成本翻倍，因为会凭空多了好多莫名其妙的类；代码读不懂，你设计模式用的乱七八糟，别人只会感觉你的代码毫无逻辑，绕来绕去。</p>
+<p>一个好的设计模式，首先要用对场景，然后命名要规范，要让别人一看命名就知道你用的什么设计模式，然后根据设计模式去找相关联的类，这样别人脑海里才能形成一个脉络，有点没法按设计模式规范命名的地方也请加上注释，不然让别人猜你的代码写了些啥，用的啥设计模式吗？</p>
+
       
 
       
@@ -4651,9 +4834,45 @@
       
         <p>muggle</p>
 <h3 id="1-类的生命周期"><a href="#1-类的生命周期" class="headerlink" title="1.类的生命周期"></a>1.类的生命周期</h3><p>&emsp; &emsp;类从被加载到虚拟机内存中内存中开始，到卸载出内存为止，它的整个生命周期包括：加载（loading）、验证（verification）、准备（preparation）、解析（resolution）、初始化（initialization）、使用（using）卸载（unloading）七个阶段。其中验证、准备、解析三个阶段统称为连接（linking）。</p>
-        
-          <a class="article-more-a" href="/2019/04/24/jvm-5/#more">more >></a>
-        
+<h3 id="2-加载"><a href="#2-加载" class="headerlink" title="2.加载"></a>2.加载</h3><p>&emsp; &emsp;加载是类加载机制的第一个阶段，在这个阶段，虚拟机做了三件事情：</p>
+<blockquote>
+<ul>
+<li>通过类的全限定名来获取定义此类的二进制字节流；</li>
+</ul>
+</blockquote>
+<ul>
+<li>将这个字节流所代表的静态存储结构转换为方法区的运行时数据结构</li>
+<li>在内存中生成一个代表这个类的Class对象，作为方法区这个类的各种数据的访问入口</li>
+</ul>
+<p>&emsp; &emsp;加载阶段完成后，虚拟机外部的二进制字节流就按照虚拟机所需的格式存储在方法区之中，方法区中的数据存储格式由虚拟机实现自行定义；然后在内存中实例化一个Class类的对象，加载阶段和连接阶段的部分内容是交叉进行的，加载阶段尚未完成，连接阶段可能已经开始了。</p>
+<h3 id="3-验证"><a href="#3-验证" class="headerlink" title="3.验证"></a>3.验证</h3><p>&emsp; &emsp;验证是连接阶段的第一步，这一阶段目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全。从整体上来看，验证阶段包括以下四个动作：文件格式验证、元数据验证、字节码验证、符号引用验证。</p>
+<h3 id="4-准备"><a href="#4-准备" class="headerlink" title="4.准备"></a>4.准备</h3><p>&emsp; &emsp;准备阶段是正式为类变量分配内存并设置类变量初始值得阶段，这些变量所使用的内存都将在方法区中进行分配。这个阶段中有两个容易产生混淆的概念——1.这个时候进行内存分配的仅包括类变量（被static修饰的变量），而不包括实例变量，2.这里初始值是数据类型的零值，假设一个类变量定义为 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>那变量value在准备阶段的值为0而不是2.</p>
+<h3 id="5-解析"><a href="#5-解析" class="headerlink" title="5.解析"></a>5.解析</h3><p>&emsp; &emsp;解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
+<h3 id="6-初始化"><a href="#6-初始化" class="headerlink" title="6.初始化"></a>6.初始化</h3><p>&emsp; &emsp;类初始化阶段是类加载过程的最后一步，前面的类加载过程中，除了在加载阶段可以通过自定义类加载器参与之外，其余动作都是虚拟机控制的。到了初始化阶段，才真正的执行java代码。初始化阶段是执行类构造器<clinit>()方法的过程。</p>
+<p>&emsp; &emsp;想要使用一个类，必须对其进行初始化，但初始化过程不是必然执行的；jvm规范中规定有且只有以下五种情况必须对类进行初始化：</p>
+<blockquote>
+<ul>
+<li>遇到new、getstatic、putstatic、invokestatic这四个字节码指令的时候，如果类没有进行初始化，则需要先触发其初始化。生成这四条指令最常见的java代码场景是：使用new创建对象、读取或者设置一个类的静态字段（不包括值已在常量池中的情况）、调用一个类的静态方法的时候；</li>
+</ul>
+</blockquote>
+<ul>
+<li>使用java反射机制的时候，如果类没初始化需要先初始化；</li>
+<li>当初始化一个类的时候，如果发现其父类还未初始化，则需要先初始化父类。</li>
+<li>当虚拟机启动时，用户需要指定一个要执行的主类，虚拟机会先初始化那个类。</li>
+</ul>
+<p>以上五种情况称为对一个类进行主动引用；其他引用类的方式都不会触发初始化，称为被动引用。下面举一个被动引用的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClassloading</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类被初始化&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> number=<span class="number">111</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">TestClassloading</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类被初始化&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(SubClass.number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">父类被初始化</span><br><span class="line"><span class="number">111</span></span><br></pre></td></tr></table></figure>
+<p>显然，子类没有被初始化，这里SubClass.number为被动引用，不会对子类初始化。</p>
+<h3 id="7-类加载器"><a href="#7-类加载器" class="headerlink" title="7.类加载器"></a>7.类加载器</h3><p>&emsp; &emsp;通过一个类的全限定名来获取描述此类的二进制字节流这个动作被放到虚拟机外部区实现，以便让应用程序自己决定如何去获取所需的类，实现这个动作的代码模块称为类加载器。对于任意一个类，都需要由加载它的类加载器和这个类本身一同确立其在java虚拟机中的唯一性，每一个类加载器都拥有一个独立的类名称空间。也就是说比较两个类是否相等必须要类加载器和类都相等。<br>&emsp; &emsp;从java虚拟机的角度来讲，只存在两种不同的类加载器：一种是启动类加载器，这个类加载器是虚拟机的一部分；另一种就是java代码实现的独立于虚拟机外部的类加载器，这种类加载器继承类抽象类java.lang.TestClassloader。</p>
+<p>&emsp; &emsp;类加载器还有一个很重要的概念就是双亲委派模型——在类加载器工作的时候是多个类加载器一起工作的它们包括：扩展类加载器，应用程序类加载器，启动类加载器，自定义类加载器。类加载器的层次图如图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-dd9a6a8324f136f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>类加载器层次结构</p>
+<p>&emsp; &emsp;双亲委派模型的工作流程是如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求交给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都会被交给启动类加载器，当父类反馈无法加载这个类的时候，子类才会进行加载。</p>
+
       
 
       
@@ -5287,9 +5506,290 @@
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装hexo并创建一个博客项目"><a href="#安装hexo并创建一个博客项目" class="headerlink" title="安装hexo并创建一个博客项目"></a>安装hexo并创建一个博客项目</h3><p>在安装hexo之前请确保安装了git 和node.js</p>
 <p>打开cmd，输入</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/04/22/blog-origin/#more">more >></a>
-        
+
+
+<p>创建一个名为blog的博客项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ cd blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
+<p>新建完成后，指定文件夹的目录如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>可以在 <code>_config.yml</code> 中修改大部分的配置。配置参数说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>title</code></td>
+<td align="left">网站标题</td>
+</tr>
+<tr>
+<td align="left"><code>subtitle</code></td>
+<td align="left">网站副标题</td>
+</tr>
+<tr>
+<td align="left"><code>description</code></td>
+<td align="left">网站描述</td>
+</tr>
+<tr>
+<td align="left"><code>author</code></td>
+<td align="left">您的名字</td>
+</tr>
+<tr>
+<td align="left"><code>language</code></td>
+<td align="left">网站使用的语言</td>
+</tr>
+<tr>
+<td align="left"><code>timezone</code></td>
+<td align="left">网站时区。Hexo 默认使用您电脑的时区。<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">时区列表</a>。比如说：<code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。</td>
+</tr>
+</tbody></table>
+<h2 id="撸博客"><a href="#撸博客" class="headerlink" title="撸博客"></a>撸博客</h2><h3 id="新建文章并查看效果"><a href="#新建文章并查看效果" class="headerlink" title="新建文章并查看效果"></a>新建文章并查看效果</h3><p>在项目文件夹下打开cmd 执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="string">&quot;test&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>test 为你的文件名，在source文件下的_posts 文件夹里有一个test.md；用markdown编辑器打开，就能写博客辣。</p>
+<p>在这个md文件头部有一个<code>title</code>的属性，就是你的博客名，还可以在该头部配置日期等属性，这个文件最上方以 <code>---</code> 分隔的区域叫Front-matter。以下是一些预先定义的参数，您可在模板中使用这些参数值并加以利用。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>layout</code></td>
+<td align="left">布局</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>title</code></td>
+<td align="left">标题</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>date</code></td>
+<td align="left">建立日期</td>
+<td align="left">文件建立日期</td>
+</tr>
+<tr>
+<td align="left"><code>updated</code></td>
+<td align="left">更新日期</td>
+<td align="left">文件更新日期</td>
+</tr>
+<tr>
+<td align="left"><code>comments</code></td>
+<td align="left">开启文章的评论功能</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="left"><code>tags</code></td>
+<td align="left">标签（不适用于分页）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>categories</code></td>
+<td align="left">分类（不适用于分页）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>permalink</code></td>
+<td align="left">覆盖文章网址</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>写完文章保存后，在原来打开的命令窗口 运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>这个指令是构建静态页面，它会在项目下生成一个public文件夹，里面就是我们<code>hexo g</code>得到博客静态页面，运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>将代码部署到本地，访问<a target="_blank" rel="noopener" href="http://localhost:4000/可以查看你的博客效果">http://localhost:4000/可以查看你的博客效果</a></p>
+<h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>博客上传之前需要在github上建立一个仓库，仓库名称要为<code>用户名.github.io</code>，因为我们博客就算基于gitpages来搭建的，所以我们要按照github的要求来命名。</p>
+<p>创建成功之后，修改 hexo 的 <code>_config.yml</code> 文件，配置 GitHub 地址，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:  </span><br><span class="line">	type: git  </span><br><span class="line">	repo: 仓库地址  </span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure>
+
+<p>配置完成运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d </span><br></pre></td></tr></table></figure>
+
+<p>完成部署，这个时候可以访问 <code>用户名.github.io</code>这个网址来查看自己的博客</p>
+<h3 id="hexo命令一览"><a href="#hexo命令一览" class="headerlink" title="hexo命令一览"></a>hexo命令一览</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个网站。如果没有设置 <code>folder</code> ，Hexo 默认在目前的文件夹建立网站。</p>
+<p><strong>new</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<p>新建一篇文章。如果没有设置 <code>layout</code> 的话，默认使用 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">_config.yml</a> 中的 <code>default_layout</code> 参数代替。如果标题包含空格的话，请使用引号括起来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &quot;post title with whitespace&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>generate</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>生成静态文件。</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-d</code>, <code>--deploy</code></td>
+<td align="left">文件生成后立即部署网站</td>
+</tr>
+<tr>
+<td align="left"><code>-w</code>, <code>--watch</code></td>
+<td align="left">监视文件变动</td>
+</tr>
+</tbody></table>
+<p>该命令可以简写为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+
+<p><strong>publish</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发表草稿。</p>
+<p><strong>server</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>启动服务器。默认情况下，访问网址为： <code>http://localhost:4000/</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-p</code>, <code>--port</code></td>
+<td align="left">重设端口</td>
+</tr>
+<tr>
+<td align="left"><code>-s</code>, <code>--static</code></td>
+<td align="left">只使用静态文件</td>
+</tr>
+<tr>
+<td align="left"><code>-l</code>, <code>--log</code></td>
+<td align="left">启动日记记录，使用覆盖记录格式</td>
+</tr>
+</tbody></table>
+<p><strong>deploy</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>部署网站。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-g</code>, <code>--generate</code></td>
+<td align="left">部署之前预先生成静态文件</td>
+</tr>
+</tbody></table>
+<p>该命令可以简写为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+
+<p><strong>render</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
+
+<p>渲染文件。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-o</code>, <code>--output</code></td>
+<td align="left">设置输出路径</td>
+</tr>
+</tbody></table>
+<p><strong>migrate</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo migrate &lt;type&gt;</span><br></pre></td></tr></table></figure>
+
+<p>从其他博客系统 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/migration">迁移内容</a>。</p>
+<p><strong>clean</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+<p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p>
+<p>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</p>
+<p><strong>list</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo list &lt;type&gt;</span><br></pre></td></tr></table></figure>
+
+<p>列出网站资料。</p>
+<p><strong>version</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
+
+<p>显示 Hexo 版本。</p>
+<p><strong>选项</strong></p>
+<p><strong>安全模式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --safe</span><br></pre></td></tr></table></figure>
+
+<p>在安全模式下，不会载入插件和脚本。当您在安装新插件遭遇问题时，可以尝试以安全模式重新执行。</p>
+<p><strong>调试模式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --debug</span><br></pre></td></tr></table></figure>
+
+<p>在终端中显示调试信息并记录到 <code>debug.log</code>。当您碰到问题时，可以尝试用调试模式重新执行一次，并 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/new">提交调试信息到 GitHub</a>。</p>
+<p><strong>简洁模式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --silent</span><br></pre></td></tr></table></figure>
+
+<p>隐藏终端信息。</p>
+<p><strong>自定义配置文件的路径</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --config custom.yml</span><br></pre></td></tr></table></figure>
+
+<p>自定义配置文件的路径，执行后将不再使用 <code>_config.yml</code>。</p>
+<p><strong>显示草稿</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --draft</span><br></pre></td></tr></table></figure>
+
+<p>显示 <code>source/_drafts</code> 文件夹中的草稿文章。</p>
+<p><strong>自定义 CWD</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd /path/to/cwd</span><br></pre></td></tr></table></figure>
+
+<p>自定义当前工作目录（Current working directory）的路径。</p>
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><h3 id="换主题"><a href="#换主题" class="headerlink" title="换主题"></a>换主题</h3><p>下载主题到<code>./themes</code>目录下，修改 hexo 的 _config.yml 文件的theme属性为你的主题名就ok了，下面推荐几个hexo主题</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">hexo-theme-next</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//github.com/litten/hexo-theme-yilia">hexo-theme-yilia</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//github.com/daleanthony/uno">uno</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//github.com/17/hexo-theme-strict">hexo-theme-strict</a></li>
+</ul>
+<h3 id="换域名"><a href="#换域名" class="headerlink" title="换域名"></a>换域名</h3><p>首先申请一个域名，然后在博客所在目录下的 source 目录中，创建一个 CNAME 文件，文件内容就是你的域名，然后执行 <code>hexo d</code> 命令将这个文件上传到 GitHub就可以了；域名换好后需要配置域名解析。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="markdown-语法一览"><a href="#markdown-语法一览" class="headerlink" title="markdown 语法一览"></a>markdown 语法一览</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># 这是一级标题</span><br><span class="line">## 这是二级标题</span><br><span class="line">### 这是三级标题</span><br><span class="line">#### 这是四级标题</span><br><span class="line">##### 这是五级标题</span><br><span class="line">###### 这是六级标题</span><br><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~ 这是加删除线的文字~~</span><br><span class="line">&gt; 这是引用的内容</span><br><span class="line">三个或者三个以上的 - 或者 *为分割线</span><br><span class="line">![图片alt](图片地址 <span class="string">&#x27;&#x27;</span>图片title<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">[超链接名](超链接地址 <span class="string">&quot;超链接title&quot;</span>)</span><br><span class="line">    </span><br><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br><span class="line">注意：- + * 跟内容之间都要有一个空格</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span>列表内容</span><br><span class="line"><span class="number">2.</span>列表内容</span><br><span class="line"><span class="number">3.</span>列表内容</span><br><span class="line"></span><br><span class="line">注意：序号跟内容之间要有空格</span><br><span class="line"></span><br><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line">`代码内容`</span><br><span class="line">​```</span><br><span class="line">代码内容</span><br><span class="line">​```</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="markdown文档编辑器Typora"><a href="#markdown文档编辑器Typora" class="headerlink" title="markdown文档编辑器Typora"></a>markdown文档编辑器Typora</h3><p>百度Typora 下载安装好之后点 文件&gt;偏好设置&gt;勾选自动保存，这样就不怕忘记保存而文档丢失了；</p>
+<p>快捷键：</p>
+<ul>
+<li>标题：ctrl+数字</li>
+<li>表格：ctrl+t</li>
+<li>生成目录：[TOC]按回车</li>
+<li>选中一整行：ctrl+l</li>
+<li>选中单词：ctrl+d</li>
+<li>选中相同格式的文字：ctrl+e</li>
+<li>跳转到文章开头：ctrl+home</li>
+<li>跳转到文章结尾：ctrl+end</li>
+<li>搜索：ctrl+f</li>
+<li>替换：ctrl+h</li>
+<li>引用：输入&gt;之后输入空格</li>
+<li>代码块：ctrl+alt+f</li>
+<li>加粗：ctrl+b</li>
+<li>倾斜：ctrl+i</li>
+<li>下划线：ctrl+u</li>
+<li>删除线：alt+shift+5</li>
+<li>插入图片：直接拖动到指定位置即可或者ctrl+shift+i</li>
+<li>插入链接：ctrl + k</li>
+</ul>
+<p>左下角有一个 O 和 &lt;/&gt;的符号 O表示打开侧边栏 &lt;/&gt;查看文档源代码；</p>
+<p>可去官网下载好主题之后点 文件&gt;偏好设置&gt;打开主题文件夹将解压好的主题相关文件复制粘贴到该目录下（一般是一个  主题名称文件夹 和一个 主题名称.css文件）之后重启编辑器 然后点 主题可看见安装好的主题。</p>
+
       
 
       
