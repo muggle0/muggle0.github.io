@@ -155,6 +155,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-jvm-调优指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/">jvm 调优指南</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/" class="archive-article-date">
+  	<time datetime="2021-08-16T01:59:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-调优参数"><a href="#1-调优参数" class="headerlink" title="1.调优参数"></a>1.调优参数</h1><p>java -Xmx3550m -Xms3550m -Xmn2g -Xss128k</p>
+<p>-Xmx3550m：设置JVM最大可用内存为3550M。</p>
+<p>-Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。</p>
+<p>-Xmn2g：设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。</p>
+<p>-Xss128k：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
+<p>java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0</p>
+<p>-XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br>-XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6</p>
+<p>-XX:MaxPermSize=16m:设置持久代大小为16m。</p>
+<p>-XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。</p>
+<p>JVM提供了大量命令行参数，打印信息，供调试使用。主要有以下一些：<br>-XX:+PrintGC<br>输出形式：[GC 118250K-&gt;113543K(130112K), 0.0094143 secs]<br>                [Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]</p>
+<p>-XX:+PrintGCDetails</p>
+<p>-XX:+PrintGCTimeStamps -XX:+PrintGC：PrintGCTimeStamps可与上面两个混合使用</p>
+<p>-XX:+PrintGCApplicationConcurrentTime:打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用</p>
+<p>-XX:+PrintGCApplicationStoppedTime：打印垃圾回收期间程序暂停的时间。可与上面混合使用</p>
+<p>-XX:PrintHeapAtGC:打印GC前后的详细堆栈信息</p>
+<h1 id="2-调优工具"><a href="#2-调优工具" class="headerlink" title="2 调优工具"></a>2 调优工具</h1><p>一、jps：虚拟机进程状况工具</p>
+<p>二、jstat：虚拟机统计信息监视工具</p>
+<p>三、jmap：Java内存印象工具</p>
+<p>四、jhat：虚拟机堆转储快照分析工具</p>
+<p>五、jstack：Java堆栈跟踪工具</p>
+<p>六、jinfo：Java配置信息工具</p>
+<p>集成式的VisualVM和jConsole</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-sentinel-持久化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
