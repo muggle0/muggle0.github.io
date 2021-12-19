@@ -155,48 +155,135 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-jvm-调优指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-sentinel-规则配置及使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/">jvm 调优指南</a>
+      <a class="article-title" href="/2021/12/19/sentinel-%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/">sentinel 规则配置及使用</a>
     </h1>
   
 
         
-        <a href="/2021/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/" class="archive-article-date">
-  	<time datetime="2021-08-16T01:59:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-16</time>
+        <a href="/2021/12/19/sentinel-%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2021-12-19T08:35:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-调优参数"><a href="#1-调优参数" class="headerlink" title="1.调优参数"></a>1.调优参数</h1><p>java -Xmx3550m -Xms3550m -Xmn2g -Xss128k</p>
-<p>-Xmx3550m：设置JVM最大可用内存为3550M。</p>
-<p>-Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。</p>
-<p>-Xmn2g：设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。</p>
-<p>-Xss128k：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
-<p>java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0</p>
-<p>-XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br>-XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6</p>
-<p>-XX:MaxPermSize=16m:设置持久代大小为16m。</p>
-<p>-XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。</p>
-<p>JVM提供了大量命令行参数，打印信息，供调试使用。主要有以下一些：<br>-XX:+PrintGC<br>输出形式：[GC 118250K-&gt;113543K(130112K), 0.0094143 secs]<br>                [Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]</p>
-<p>-XX:+PrintGCDetails</p>
-<p>-XX:+PrintGCTimeStamps -XX:+PrintGC：PrintGCTimeStamps可与上面两个混合使用</p>
-<p>-XX:+PrintGCApplicationConcurrentTime:打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用</p>
-<p>-XX:+PrintGCApplicationStoppedTime：打印垃圾回收期间程序暂停的时间。可与上面混合使用</p>
-<p>-XX:PrintHeapAtGC:打印GC前后的详细堆栈信息</p>
-<h1 id="2-调优工具"><a href="#2-调优工具" class="headerlink" title="2 调优工具"></a>2 调优工具</h1><p>一、jps：虚拟机进程状况工具</p>
-<p>二、jstat：虚拟机统计信息监视工具</p>
-<p>三、jmap：Java内存印象工具</p>
-<p>四、jhat：虚拟机堆转储快照分析工具</p>
-<p>五、jstack：Java堆栈跟踪工具</p>
-<p>六、jinfo：Java配置信息工具</p>
-<p>集成式的VisualVM和jConsole</p>
+        <p>sentinel 增加规则的方式 包括三种，数据源加载，代码加载，控制台加载；每一类流控规则我都会从这三个方面去说明如何使用。</p>
+<h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><p>流量控制是通过监控应用流量的qps或者并发线程数是否达到阈值来保护应用的一种手段，避免应用被瞬时的流量高峰冲垮，从而保障系统的高可用。</p>
+<p>流量控制的方式：</p>
+<ul>
+<li>并发线程数流控：通过控制并发线程数来保证访问资源的流量不超过某个阈值</li>
+<li>qps流控：通过控制资源的qps来达到流控的目的，qps相比较于并发线程数流控效果更为直观。</li>
+</ul>
+<p>流量控制的相关概念：</p>
+<ul>
+<li>resource：资源名称，资源可以是一个代码块或者方法</li>
+<li>count: 限流阈值</li>
+<li>grade: 限流阈值类型</li>
+<li>limitApp: 流控针对的调用来源，若为default则不区划来源，在分布式系统中该参数有用</li>
+<li>strategy: 限流策略</li>
+<li>controlBehavior: 流控行为，包括直接拒绝，warm up ,排队等待。直接拒接就是超出阈值，直接拒绝后面的请求；warm up 是让系统预热一段时间，<br>它的阈值并不是一开始就是设定值，会随着qps 或线程数的增加而慢慢提高到设定值；排队等待是请求过多时，让请求匀速的进入后台进行处理。采用漏斗算法，<br>控制流量设置超时时间，超时的则将请求抛弃，返回错误信息</li>
+</ul>
+<p>流控规则代码方式配置示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">FlowRule rule1 = <span class="keyword">new</span> FlowRule();</span><br><span class="line">rule1.setResource(<span class="string">&quot;test.hello&quot;</span>);</span><br><span class="line">rule1.setGrade(RuleConstant.FLOW_GRADE_QPS);</span><br><span class="line"><span class="comment">// 每秒调用最大次数为 1 次</span></span><br><span class="line">rule1.setCount(<span class="number">1</span>);</span><br><span class="line">List&lt;FlowRule&gt; rules = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="comment">// 将控制规则载入到 Sentinel</span></span><br><span class="line">FlowRuleManager.loadRules(rules);</span><br></pre></td></tr></table></figure>
+
+<p>流控规则控制台配置示例：</p>
+<p><img src="sentinel2.jpg" alt=""></p>
+<p>流控规则数据源json示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="attr">&quot;clusterConfig&quot;</span>:&#123;<span class="attr">&quot;acquireRefuseStrategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;clientOfflineTime&quot;</span>:<span class="number">2000</span>,<span class="attr">&quot;fallbackToLocalWhenFail&quot;</span>:<span class="literal">true</span>,<span class="attr">&quot;resourceTimeout&quot;</span>:<span class="number">2000</span>,<span class="attr">&quot;resourceTimeoutStrategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;sampleCount&quot;</span>:<span class="number">10</span>,<span class="attr">&quot;strategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;thresholdType&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;windowIntervalMs&quot;</span>:<span class="number">1000</span>&#125;,<span class="attr">&quot;clusterMode&quot;</span>:<span class="literal">false</span>,<span class="attr">&quot;controlBehavior&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;count&quot;</span>:<span class="number">1.0</span>,<span class="attr">&quot;grade&quot;</span>:<span class="number">1</span>,<span class="attr">&quot;limitApp&quot;</span>:<span class="string">&quot;default&quot;</span>,<span class="attr">&quot;maxQueueingTimeMs&quot;</span>:<span class="number">500</span>,<span class="attr">&quot;resource&quot;</span>:<span class="string">&quot;test&quot;</span>,<span class="attr">&quot;strategy&quot;</span>:<span class="number">0</span>,<span class="attr">&quot;warmUpPeriodSec&quot;</span>:<span class="number">10</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="降级规则"><a href="#降级规则" class="headerlink" title="降级规则"></a>降级规则</h2><p>熔断降级会在调用链路中当某个资源指数超出阈值时对这个资源的调用进行熔断，在熔断时间窗口内所有调用都快速失败调用降级方法，直到熔断恢复；<br>降级熔断和流控规则的区别是在超出阈值后的时间窗内所有的调用都会被降级，直到熔断恢复。</p>
+<p>熔断降级相关概念：</p>
+<ul>
+<li>resource：资源名称，资源可以是一个代码块或者方法 </li>
+<li>count: 熔断阈值</li>
+<li>grade: 熔断阈值类型(秒级RT/秒级异常比例/分钟级异常数)</li>
+<li>timeWindow: 降级的时间，单位秒</li>
+<li>rtSlowRequestAmount: RT模式下1秒内连续多少个请求的平均RT超出阈值才能触发熔断</li>
+<li>minRequestAmount: 异常熔断触发的最小请求数，请求数小于该值时即使异常比例超过阈值也不会熔断</li>
+</ul>
+<p>熔断降级策略：</p>
+<ul>
+<li>秒级RT（默认）：在1秒内进入的n个响应中，如果最终的平均响应时间超过了阈值，那么在接下来的timeWindow 时间内会自动熔断降级接下来的响应。</li>
+<li>秒级异常比例：当每秒请求数超过n个，且异常请求的比例超过阈值，那么在接下来的timeWindow 时间内会自动熔断降级接下来的响应。</li>
+<li>分钟级异常数：当一分钟内请求的数量超过阈值后会熔断，因为统计时长是一分钟，当timeWindow降级熔断时间小于一分钟，当降级熔断结束后可能仍超过异常阈值继续进入熔断降级状态</li>
+</ul>
+<p>降级熔断代码配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DegradeRule rule = <span class="keyword">new</span> DegradeRule();</span><br><span class="line">List&lt;DegradeRule&gt; rules1=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="comment">//资源名称</span></span><br><span class="line">rule.setResource(<span class="string">&quot;test.hello&quot;</span>);</span><br><span class="line"><span class="comment">// 熔断平均响应时间阈值</span></span><br><span class="line">rule.setCount(<span class="number">0.01</span>);</span><br><span class="line"><span class="comment">// 秒级RT</span></span><br><span class="line">rule.setGrade(RuleConstant.DEGRADE_GRADE_RT);</span><br><span class="line">rule.setTimeWindow(<span class="number">10</span>);</span><br><span class="line">rules1.add(rule);</span><br><span class="line">DegradeRuleManager.loadRules(rules1);</span><br></pre></td></tr></table></figure>
+
+<p>流控规则控制台配置示例：</p>
+<p><img src="%E9%99%8D%E7%BA%A7%E8%A7%84%E5%88%99.png" alt=""></p>
+<h2 id="热点规则"><a href="#热点规则" class="headerlink" title="热点规则"></a>热点规则</h2><p>热点规则是对热点数据进行限流，支持对特定参数和参数的值限流。热点限流会统计参数中的热点参数，并根据配置的限流阈值与模式对包含热点参数的资源进行限流。<br>Sentinel利用LRU策略统计最近最常访问的热点参数，结合令牌桶算法来进行参数级别的流控。</p>
+<p>热点规则的概念：</p>
+<ul>
+<li>resource：资源名称，资源可以是一个代码块或者方法 </li>
+<li>count: 熔断阈值</li>
+<li>grade: 熔断阈值类型(秒级RT/秒级异常比例/分钟级异常数)</li>
+<li>durationInSec: 统计窗口时间长度（单位为秒，默认1S） 默认1S</li>
+<li>controlBehavior: 流控效果（支持快速失败和匀速排队模式，默认快速失败）</li>
+<li>maxQueueingTimeMs: 最大排队等待时长（仅在匀速排队模式生效）</li>
+<li>paramIdx: 热点参数的索引，必填，对应 SphU.entry(xxx, args) 中的参数索引位置</li>
+<li>paramFlowItemList: 参数例外项，可以针对指定的参数值单独设置限流阈值，不受前面 count 阈值的限制。仅支持基本类型和字符串类型</li>
+</ul>
+<p>热点规则代码配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ParamFlowRule paramFlowRule = <span class="keyword">new</span> ParamFlowRule(<span class="string">&quot;resourceName&quot;</span>)</span><br><span class="line">        .setParamIdx(<span class="number">0</span>)</span><br><span class="line">        .setCount(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 单独设置限流 QPS，设置param 参数限流规则</span></span><br><span class="line">ParamFlowItem item = <span class="keyword">new</span> ParamFlowItem().setObject(<span class="string">&quot;param&quot;</span>)</span><br><span class="line">        .setClassType(<span class="keyword">int</span>.class.getName())</span><br><span class="line">        .setCount(<span class="number">10</span>);</span><br><span class="line">paramFlowRule.setParamFlowItemList(Collections.singletonList(item));</span><br><span class="line">ParamFlowRuleManager.loadRules(Collections.singletonList(paramFlowRule));</span><br></pre></td></tr></table></figure>
+<p>流控规则控制台配置示例：</p>
+<p><img src="%E7%83%AD%E7%82%B9%E8%A7%84%E5%88%99.jpg" alt=""></p>
+<h2 id="系统规则"><a href="#系统规则" class="headerlink" title="系统规则"></a>系统规则</h2><p>系统规则限流是从整体维度上去进行流控，结合应用的load,cpu使用率,总体平均RT,入口QPS和并发线程数等几个维度的监控指标来对总体的流量进行限流，在系统稳定的前提下保证系统的吞吐量</p>
+<p>系统规则模式：</p>
+<ul>
+<li>load 自适应: 当系统负载高于某个阈值，就禁止或者减少流量的进入，当load 开始好转，则恢复流量的进入，通过读取操作系统参数 load1 来判断，仅对类unix系统生效。</li>
+<li>cpu 使用率: 当cpu 使用率超过阈值开始限流</li>
+<li>平均RT: 当系统平均响应时间超过阈值开始限流</li>
+<li>并发线程数: 当并发线程数超过阈值开始限流</li>
+<li>入口qps: 当系统入口qps超过阈值开始限流</li>
+</ul>
+<p>系统规则的概念</p>
+<ul>
+<li>highestSystemLoad: 负载触发值</li>
+<li>avgRt: 平均响应时间</li>
+<li>qps: 应用入口qps</li>
+<li>highestCpuUsage: cpu使用率</li>
+</ul>
+<p>系统规则配置代码示例：</p>
+<p>因为系统规则只对入口规则进行限定,所以需要将资源通过注解配置 <code>@SentinelResource(entryType = EntryType.IN)</code> 来指定为入口资源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定资源为入口资源</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/test3&quot;)</span></span><br><span class="line"><span class="meta">@SentinelResource(entryType = EntryType.IN)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SystemRule systemRule = <span class="keyword">new</span> SystemRule();</span><br><span class="line">systemRule.setHighestCpuUsage(<span class="number">0.8</span>);</span><br><span class="line">systemRule.setAvgRt(<span class="number">10</span>);  </span><br><span class="line">systemRule.setQps(<span class="number">10</span>);   </span><br><span class="line">systemRule.setMaxThread(<span class="number">10</span>);  </span><br><span class="line">systemRule.setHighestSystemLoad(<span class="number">2.5</span>);   </span><br><span class="line">SystemRuleManager.loadRules(Collections.singletonList(systemRule));</span><br></pre></td></tr></table></figure>
+<p><img src="%E7%B3%BB%E7%BB%9F%E8%A7%84%E5%88%99.jpg" alt=""></p>
+<h2 id="授权规则"><a href="#授权规则" class="headerlink" title="授权规则"></a>授权规则</h2><p>授权规则的作用是根据调用来源来拦截调用资源的请求，当不符合放行规则的请求过来就会被拒绝掉。</p>
+<p>授权规则的概念</p>
+<ul>
+<li>resource: 资源名</li>
+<li>limitApp: 请求来源，对应的黑名单或者白名单；</li>
+<li>qps: 应用入口qps</li>
+<li>strategy: 限制模式，分黑名单模式（authority_black），白名单模式（authority_white 默认）</li>
+</ul>
+<p>授权规则代码配置示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AuthorityRule authorityRule = <span class="keyword">new</span> AuthorityRule();</span><br><span class="line">authorityRule.setStrategy(RuleConstant.AUTHORITY_BLACK);</span><br><span class="line">authorityRule.setLimitApp(<span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">authorityRule.setResource(<span class="string">&quot;test.hello&quot;</span>);</span><br><span class="line">AuthorityRuleManager.loadRules(Collections.singletonList(authorityRule));</span><br></pre></td></tr></table></figure>
+<p>这里 limitApp 我设置的是 请求来源的ip 地址，这个ip地址是要我们手动去通过 <code>ContextUtil.enter(resourceName, origin)</code> 来设置的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ContextUtil.enter(<span class="string">&quot;test.hello&quot;</span>,  request.getHeader(<span class="string">&quot;x-forwarded-for&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="%E6%8E%88%E6%9D%83%E8%A7%84%E5%88%99.jpg" alt=""></p>
+<h2 id="spring-web-拦截适配"><a href="#spring-web-拦截适配" class="headerlink" title="spring web 拦截适配"></a>spring web 拦截适配</h2><p>前文提到过 <code>sentinel-spring-webmvc-adapter</code> 依赖会提供一个将拦截器 <code>SentinelWebInterceptor</code>, 源码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> String <span class="title">getResourceName</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">    Object resourceNameObject = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);</span><br><span class="line">    <span class="keyword">if</span> (resourceNameObject != <span class="keyword">null</span> &amp;&amp; resourceNameObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String resourceName = (String)resourceNameObject;</span><br><span class="line">        UrlCleaner urlCleaner = <span class="keyword">this</span>.config.getUrlCleaner();</span><br><span class="line">        <span class="keyword">if</span> (urlCleaner != <span class="keyword">null</span>) &#123;</span><br><span class="line">            resourceName = urlCleaner.clean(resourceName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (StringUtil.isNotEmpty(resourceName) &amp;&amp; <span class="keyword">this</span>.config.isHttpMethodSpecify()) &#123;</span><br><span class="line">            resourceName = request.getMethod().toUpperCase() + <span class="string">&quot;:&quot;</span> + resourceName;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> resourceName;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它会解析一个请求为的请求地址为一个资源名，然后在sentinel控制台上就能看到各个请求的流控数据。但它没有提供请求适配各类流控规则的相关代码，<br>我们想要无缝的通过请求去适配各种流控规则还需要引入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.csp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sentinel-web-servlet<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后注册一个过滤器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">sentinelFilterRegistration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FilterRegistrationBean&lt;Filter&gt; registration = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">    registration.setFilter(<span class="keyword">new</span> CommonFilter());</span><br><span class="line">    registration.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">    registration.setName(<span class="string">&quot;sentinelFilter&quot;</span>);</span><br><span class="line">    registration.setOrder(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> registration;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接入 filter 之后，所有访问的 Web URL 就会被自动统计为 Sentinel 的资源，可以针对单个 URL 维度进行流控。<br>若希望区分不同 HTTP Method，可以调用 <code>CommonFilter.init(FilterConfig filterConfig)</code> 方法将 HTTP_METHOD_SPECIFY 这个 init parameter 设为 true，给每个 URL 资源加上前缀，比如 GET:/foo<br>这个包中一个重要类是 <code>WebCallbackManager</code> 许多限流配置都需要使用到这个类的api。</p>
+<p>设置限流处理器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">WebCallbackManager.setUrlBlockHandler((request, response, e) -&gt; &#123;</span><br><span class="line">    PrintWriter writer = response.getWriter();</span><br><span class="line">    writer.println(<span class="string">&quot;&gt;&gt;&gt;&gt;&quot;</span>);</span><br><span class="line">    writer.close();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>设置url清洗器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">WebCallbackManager.setUrlCleaner(<span class="keyword">new</span> UrlCleaner() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">clean</span><span class="params">(String originUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (originUrl == <span class="keyword">null</span> || originUrl.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> originUrl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 比如将满足 /foo/&#123;id&#125; 的 URL 都归到 /foo/*</span></span><br><span class="line">        <span class="keyword">if</span> (originUrl.startsWith(<span class="string">&quot;/foo/&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;/foo/*&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 不希望统计 *.ico 的资源文件，可以将其转换为 empty string (since 1.6.3)</span></span><br><span class="line">        <span class="keyword">if</span> (originUrl.endsWith(<span class="string">&quot;.ico&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> originUrl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>设置请求来源名称，通过该配置我们在授权规则中就不需要通过<code>ContextUtil.enter(resourceName, origin)</code> 设置，而是通过一个自定义<br>的<code>RequestOriginParser</code> 直接指定请求的来源，也就是授权规则中的 <code>limitApp</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WebCallbackManager.setRequestOriginParser(request -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> request.getHeader(<span class="string">&quot;x-forwarded-for&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
       
 
@@ -210,7 +297,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sentinel</a>
         		</li>
       		
 		</ul>
@@ -220,7 +307,80 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/12/19/sentinel-%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-docker-理论篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/16/docker-%E7%90%86%E8%AE%BA%E7%AF%87/">docker 理论篇</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/16/docker-%E7%90%86%E8%AE%BA%E7%AF%87/" class="archive-article-date">
+  	<time datetime="2021-08-16T02:10:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="docker-三大核心"><a href="#docker-三大核心" class="headerlink" title="docker 三大核心"></a>docker 三大核心</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">devops</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/16/docker-%E7%90%86%E8%AE%BA%E7%AF%87/">展开全文 >></a>
         </p>
       
 
@@ -1689,6 +1849,101 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/09/07/java-code/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-jvm-调优指南" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/">jvm 调优指南</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/" class="archive-article-date">
+  	<time datetime="2020-08-16T01:59:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-调优参数"><a href="#1-调优参数" class="headerlink" title="1.调优参数"></a>1.调优参数</h1><p>java -Xmx3550m -Xms3550m -Xmn2g -Xss128k</p>
+<p>-Xmx3550m：设置JVM最大可用内存为3550M。</p>
+<p>-Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。</p>
+<p>-Xmn2g：设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。</p>
+<p>-Xss128k：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</p>
+<p>java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0</p>
+<p>-XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br>-XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6</p>
+<p>-XX:MaxPermSize=16m:设置持久代大小为16m。</p>
+<p>-XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。</p>
+<p>JVM提供了大量命令行参数，打印信息，供调试使用。主要有以下一些：<br>-XX:+PrintGC<br>输出形式：[GC 118250K-&gt;113543K(130112K), 0.0094143 secs]<br>                [Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]</p>
+<p>-XX:+PrintGCDetails</p>
+<p>-XX:+PrintGCTimeStamps -XX:+PrintGC：PrintGCTimeStamps可与上面两个混合使用</p>
+<p>-XX:+PrintGCApplicationConcurrentTime:打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用</p>
+<p>-XX:+PrintGCApplicationStoppedTime：打印垃圾回收期间程序暂停的时间。可与上面混合使用</p>
+<p>-XX:PrintHeapAtGC:打印GC前后的详细堆栈信息</p>
+<h1 id="2-调优工具"><a href="#2-调优工具" class="headerlink" title="2 调优工具"></a>2 调优工具</h1><p>一、jps：虚拟机进程状况工具</p>
+<p>二、jstat：虚拟机统计信息监视工具</p>
+<p>三、jmap：Java内存印象工具</p>
+<p>四、jhat：虚拟机堆转储快照分析工具</p>
+<p>五、jstack：Java堆栈跟踪工具</p>
+<p>六、jinfo：Java配置信息工具</p>
+<p>集成式的VisualVM和jConsole</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/16/jvm-%E8%B0%83%E4%BC%98%E6%8C%87%E5%8D%97/">展开全文 >></a>
         </p>
       
 
@@ -3756,9 +4011,83 @@
       
         <p>分为20个模块</p>
 <p>core container</p>
-        
-          <a class="article-more-a" href="/2019/05/08/spring-1/#more">more >></a>
-        
+<p>core beans context expression language</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-f726082d79be3e72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-16a1a229cda57201.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>spring</p>
+<ol>
+<li>读取bean的配置信息</li>
+<li>根据配置信息实例化一个bean</li>
+<li>调用实例化后的实例</li>
+</ol>
+<p>beanFactory</p>
+<p>bean被当做一种资源，各个factory完成对bean的增删改查，注入读取，初始化等功能</p>
+<p>inputStreamSource 封装inputstream</p>
+<p>factoryBean :</p>
+<p>spring的标准实例化bean的流程是在xml中提供配置信息然后读取配置信息。factoryBean通过实现接口的方式实例化bean（java代码配置bean信息）</p>
+<p>demo</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-ca7b32793a6d88cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>单例在spring同一个容器中只会被创建一次，后续直接从单例缓存中获取</p>
+<p>循环依赖</p>
+<p>objectFactory</p>
+<p>singletonFactory</p>
+<ol>
+<li>检查缓存是否已经加载过</li>
+<li>若没加载就记录下来</li>
+</ol>
+<p>创建bean</p>
+<ol>
+<li>classname</li>
+<li>检查override</li>
+<li>检查bean是否已经存在</li>
+<li>创建bean</li>
+</ol>
+<p>实例化前置处理器</p>
+<p>实例化后置处理器</p>
+<p>循环依赖</p>
+<p>检查是否循环依赖</p>
+<p>循环依赖会导致内存溢出</p>
+<p>构造器循环依赖</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13612520-3ca9287803145b3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>支持用户扩展</p>
+<h3 id="SpringMVC流程"><a href="#SpringMVC流程" class="headerlink" title="SpringMVC流程"></a>SpringMVC流程</h3><p>1、 用户发送请求至前端控制器DispatcherServlet。</p>
+<p>2、 DispatcherServlet收到请求调用HandlerMapping处理器映射器。</p>
+<p>3、 处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet。</p>
+<p>4、 DispatcherServlet调用HandlerAdapter处理器适配器。</p>
+<p>5、 HandlerAdapter经过适配调用具体的处理器(Controller，也叫后端控制器)。</p>
+<p>6、 Controller执行完成返回ModelAndView。</p>
+<p>7、 HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet。</p>
+<p>8、 DispatcherServlet将ModelAndView传给ViewReslover视图解析器。</p>
+<p>9、 ViewReslover解析后返回具体View。</p>
+<p>10、DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。</p>
+<p>11、 DispatcherServlet响应用户。</p>
+<p><strong>组件：</strong>  <strong>1、前端控制器DispatcherServlet（不需要工程师开发）,由框架提供</strong>  作用：接收请求，响应结果，相当于转发器，中央处理器。有了dispatcherServlet减少了其它组件之间的耦合度。  用户请求到达前端控制器，它就相当于mvc模式中的c，dispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，dispatcherServlet的存在降低了组件之间的耦合性。</p>
+<p><strong>2、处理器映射器HandlerMapping(不需要工程师开发),由框架提供</strong>  作用：根据请求的url查找Handler  HandlerMapping负责根据用户请求找到Handler即处理器，springmvc提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。</p>
+<p><strong>3、处理器适配器HandlerAdapter</strong>  作用：按照特定规则（HandlerAdapter要求的规则）去执行Handler  通过HandlerAdapter对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</p>
+<p><strong>4、处理器Handler(需要工程师开发)</strong>  <strong>注意：编写Handler时按照HandlerAdapter的要求去做，这样适配器才可以去正确执行Handler</strong>  Handler 是继DispatcherServlet前端控制器的后端控制器，在DispatcherServlet的控制下Handler对具体的用户请求进行处理。  由于Handler涉及到具体的用户业务请求，所以一般情况需要工程师根据业务需求开发Handler。</p>
+<p><strong>5、视图解析器View resolver(不需要工程师开发),由框架提供</strong>  作用：进行视图解析，根据逻辑视图名解析成真正的视图（view）  View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。 springmvc框架提供了很多的View视图类型，包括：jstlView、freemarkerView、pdfView等。  一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由工程师根据业务需求开发具体的页面。</p>
+<p><strong>6、视图View(需要工程师开发jsp…)</strong>  View是一个接口，实现类支持不同的View类型（jsp、freemarker、pdf…）</p>
+<p><strong>核心架构的具体流程步骤如下：</strong>  1、首先用户发送请求——&gt;DispatcherServlet，前端控制器收到请求后自己不进行处理，而是委托给其他的解析器进行处理，作为统一访问点，进行全局的流程控制；  2、DispatcherServlet——&gt;HandlerMapping， HandlerMapping 将会把请求映射为HandlerExecutionChain 对象（包含一个Handler 处理器（页面控制器）对象、多个HandlerInterceptor 拦截器）对象，通过这种策略模式，很容易添加新的映射策略；  3、DispatcherServlet——&gt;HandlerAdapter，HandlerAdapter 将会把处理器包装为适配器，从而支持多种类型的处理器，即适配器设计模式的应用，从而很容易支持很多类型的处理器；  4、HandlerAdapter——&gt;处理器功能处理方法的调用，HandlerAdapter 将会根据适配的结果调用真正的处理器的功能处理方法，完成功能处理；并返回一个ModelAndView 对象（包含模型数据、逻辑视图名）；  5、ModelAndView的逻辑视图名——&gt; ViewResolver， ViewResolver 将把逻辑视图名解析为具体的View，通过这种策略模式，很容易更换其他视图技术；  6、View——&gt;渲染，View会根据传进来的Model模型数据进行渲染，此处的Model实际是一个Map数据结构，因此很容易支持其他视图技术；  7、返回控制权给DispatcherServlet，由DispatcherServlet返回响应给用户，到此一个流程结束。</p>
+<p>下边两个组件通常情况下需要开发：</p>
+<p>Handler：处理器，即后端控制器用controller表示。</p>
+<p>View：视图，即展示给用户的界面，视图中通常需要标签语言展示模型数据。</p>
+<p>WebApplicationContext</p>
+<p>ServletContext</p>
+<p>ApplicationContext</p>
+<p>问：</p>
+<p>我们可以通过</p>
+<p>ApplicationContext ap = new ClassPathXmlApplicationContext(“applicationContext.xml”);</p>
+<p>得到一个spring容器，那么在传统ssm项目中是如何。。知道了</p>
+<h2 id="spring-bean的生命周期"><a href="#spring-bean的生命周期" class="headerlink" title="spring bean的生命周期"></a>spring bean的生命周期</h2><p>实例化bean对象(通过构造方法或者工厂方法)</p>
+<p>设置对象属性(setter等)（依赖注入）</p>
+<p>如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）</p>
+<p>如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身</p>
+<p>将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法</p>
+<p>调用Bean的初始化方法</p>
+<p>将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法</p>
+<p>使用Bean</p>
+<p>容器关闭之前，调用Bean的销毁方法</p>
+
       
 
       
@@ -7166,6 +7495,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sentinel</a>
               </li>
             
             <div class="clearfix"></div>
