@@ -155,6 +155,239 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-linux-小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/26/linux-%E5%B0%8F%E7%BB%93/">linux 小结</a>
+    </h1>
+  
+
+        
+        <a href="/2022/01/26/linux-%E5%B0%8F%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-01-26T07:22:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="linux-基本命令"><a href="#linux-基本命令" class="headerlink" title="linux 基本命令"></a>linux 基本命令</h2><ol>
+<li>目录操作</li>
+</ol>
+<ul>
+<li>mkdir 创建文件夹</li>
+<li>mkdir -p 递归创建目录</li>
+<li>创建多个目录 mkdir [-p] a b c</li>
+<li>touch  a b c 创建文件</li>
+<li>rm -r 递归 -f 强制删除</li>
+<li>cp -r 递归 复制 cp -r a/ b/</li>
+<li>mv 移动（重命名）</li>
+<li>ls （ll=ls -l）</li>
+</ul>
+<ol start="2">
+<li>压缩</li>
+</ol>
+<ul>
+<li>gzip a.txt a.txt.gz</li>
+<li>gunzip a.txt.gz</li>
+<li>tar -c 创建 -x 解包 -v 可视化解压过程 -f 文件名 -z 压缩为gz -J xz格式</li>
+</ul>
+<ol start="3">
+<li>输出重定向</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 标准输出重定向 覆盖输出</span><br><span class="line">&gt;&gt; 追加输出重定向</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>查看文件</li>
+</ol>
+<ul>
+<li>cat -n 显示行号</li>
+<li>tac</li>
+<li>head  查看文件前n行 默认10 head -n xxx.txt </li>
+<li>wc -l 行数  -w 单词数 -c char</li>
+<li></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">## 从第3行开始显示，显示接下来10行内容: </span><br><span class="line">cat filename | tail -n +3 | head -n +10</span><br><span class="line"></span><br><span class="line">## 过滤 -A 后n行 -B 前n行</span><br><span class="line">cat test.log |grep &#x27;xxx&#x27; -A10 -B10</span><br><span class="line">## 按日期查日志</span><br><span class="line">sed -n &quot;/2022-01-14 15:05:55/,/2022-01-14 15:15:55/p&quot; test.log</span><br><span class="line">## 统计行数</span><br><span class="line">wc -l file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>磁盘操作</li>
+</ol>
+<ul>
+<li>查询子级目录的大小 <code>du -h --max-depth=1 /</code></li>
+<li>查询磁盘情况 <code>df -h /</code></li>
+<li>find -type ( d 文件夹 f 文件) -name: <code>find / -name root -type d</code> <code>find / -name test.log</code></li>
+</ul>
+<ol start="5">
+<li>日期</li>
+</ol>
+<ul>
+<li>date date “+%F” date “+%F %T”</li>
+<li>timedatectl</li>
+<li>ntpdate</li>
+</ul>
+<ol start="6">
+<li>管道</li>
+</ol>
+<p>管道一般用于过滤， A|b 命令A的正确输出作为命令B的操作对象</p>
+<p>grep 取出含有搜寻内容的行 -v 反选，：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## tail 出有关键字的日志并输出后10行</span><br><span class="line">tail -f -n200 test.log|grep &#x27;出账&#x27; -A10</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>其他</li>
+</ol>
+<ul>
+<li>killall</li>
+<li>ifconfig</li>
+<li>netstat -tnlp  net状态</li>
+<li>top 后  M 内存排序 P cpu 排序</li>
+</ul>
+<ol start="8">
+<li>linux 运行级别</li>
+</ol>
+<ul>
+<li>systemctl poweroff 关机</li>
+<li>systemctl rescue 单用户模式</li>
+<li>systemctl isolate multi-user.target 命令模式</li>
+<li>systemctl get-default</li>
+</ul>
+<ol start="9">
+<li>nohup<br>nohup命令用于不挂断地运行命令（关闭当前session不会中断改程序，只能通过kill等命令删除）.</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 将错误输出 标准输出丢弃</span><br><span class="line">nohup test.jar &gt;/dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"># 将错误输出输出到屏幕，标准输出丢弃</span><br><span class="line">nohup test.jar &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+
+<ol start="10">
+<li>计划任务</li>
+</ol>
+<ul>
+<li><p>at 一次性计划任务</p>
+</li>
+<li><p>systemctl status atd</p>
+</li>
+<li><p>at now +1minutes</p>
+</li>
+<li><p>cron 周期性计划任务</p>
+</li>
+<li><p>crond   </p>
+</li>
+<li><p>crontable</p>
+</li>
+</ul>
+<p>使用crontable 创建任务后任务会记录到/var/sponl/cron里面去<br>执行日志保存到/var/log/cron中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##  这里，我们在每天早上 8 点整执行 find 命令；该命令会在 /home/s/coredump 目录下寻找 search 用户创建的普通 7 天前的文件，然后删除</span><br><span class="line"> 0 8 * * * find /home/s/coredump -user search -type f -mtime +7 -delete</span><br></pre></td></tr></table></figure>
+
+
+<ol start="11">
+<li>文件传输</li>
+</ol>
+<p>scp [-P22 端口号] local_file remote_username@remote_ip:remote_file </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo scp -o xxx xxx.jar root@192.168.1.1:/home/test</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>日志</li>
+</ol>
+<ul>
+<li>rsyslog -linux 日志系统  /etc/rsyslog.conf</li>
+<li>日志切割 cronolog </li>
+</ul>
+<ol start="13">
+<li>网络设定</li>
+</ol>
+<ul>
+<li>nmcli</li>
+<li>网络配置文件 :/etc/sysconfig/network-scripts/</li>
+<li>nmcli device status  查看网络连接</li>
+<li>nmcli device show 查看网络设备</li>
+</ul>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><ol>
+<li><p>#!/bin/sh是指此脚本使用/bin/sh来解释执行，#!是特殊的表示符，其后面根的是此解释此脚本的shell的路径。</p>
+</li>
+<li><p>变量</p>
+</li>
+</ol>
+<ul>
+<li>var1=”xxx”</li>
+<li>$0 表示获取当前执行的shell脚本文件名，$n 表示获取当前执行的shell脚本的第n个参数值 $# 获取当前shell命令行中参数的总个数，$? 表示获取执行上一个指令的返回值（0为成功，非0为失败）</li>
+<li>变量截取 ${变量名:起始位置:截取长度}</li>
+</ul>
+<ol start="3">
+<li>表达式</li>
+</ol>
+<ul>
+<li>test 条件表达式</li>
+<li>[ 条件表达式 ]</li>
+<li>命令1  &amp;&amp;  命令2 短路判断（如果命令1执行成功，那么我才执行命令2）</li>
+<li>-f 表示是否是文件， -d 表示是否是目录，-x表示是否可执行</li>
+</ul>
+<ol start="4">
+<li>循环和条件分支</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">if [ 条件 ]</span><br><span class="line">then</span><br><span class="line">  	指令</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ 条件 ]</span><br><span class="line">then</span><br><span class="line">  	指令1</span><br><span class="line">else</span><br><span class="line"> 	指令2</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ 条件 ]</span><br><span class="line">then</span><br><span class="line">  	指令1</span><br><span class="line">elif [ 条件2 ]</span><br><span class="line">then</span><br><span class="line"> 	指令2</span><br><span class="line">else</span><br><span class="line"> 	指令3</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">case 变量名 in</span><br><span class="line">   值1)</span><br><span class="line">      指令1</span><br><span class="line">         ;;</span><br><span class="line">   ...</span><br><span class="line">   值n)</span><br><span class="line"> 	   指令n</span><br><span class="line">         ;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">for 值 in 列表</span><br><span class="line">do</span><br><span class="line">   执行语句</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">while 条件</span><br><span class="line">do</span><br><span class="line">   执行语句</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">continue	跳出当前循环</span><br><span class="line">exit		退出程序</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>函数</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># 函数使用场景一：执行频繁的命令</span><br><span class="line">dayin()&#123;</span><br><span class="line">  echo &quot;wo de mingzi shi  111&quot;</span><br><span class="line">&#125;</span><br><span class="line">dayin</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line"># 函数的使用场景二</span><br><span class="line">dayin()&#123;</span><br><span class="line">  echo &quot;wo de mingzi shi $1&quot;</span><br><span class="line">&#125;</span><br><span class="line">dayin 111</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line"># 函数传参演示</span><br><span class="line"># 定义传参数函数</span><br><span class="line">dayin()&#123;</span><br><span class="line">  echo &quot;wode mignzi shi $1&quot;</span><br><span class="line">&#125;</span><br><span class="line"># 函数传参</span><br><span class="line">dayin $1</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line"># 函数的使用场景二</span><br><span class="line">canshu = &quot;$1&quot;</span><br><span class="line">dayin()&#123;</span><br><span class="line">  echo &quot;wo de mingzi shi $1&quot;</span><br><span class="line">&#125;</span><br><span class="line">dayin &quot;$&#123;canshu&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="systemctl"><a href="#systemctl" class="headerlink" title="systemctl"></a>systemctl</h2><p>用于配置开机自启动或者挂掉重启</p>
+<p>配置示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=mongodb</span><br><span class="line">After=network.target remote-fs.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/xx</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">ExecStop=/xxx</span><br><span class="line">PrivateTmp=true</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=5</span><br></pre></td></tr></table></figure>
+<p>其中配置 <code>Restart=always</code> 和 <code>RestartSec=5</code> 可在进程挂了之后重启,<code>systemctl daemon-reload</code> 重新加载配置。</p>
+<p>Type：定义启动时的进程行为。它有以下几种值。</p>
+<ul>
+<li>Type=simple：默认值，执行ExecStart指定的命令，启动主进程</li>
+<li>Type=forking：以 fork 方式从父进程创建子进程，创建后父进程会立即退出</li>
+<li>Type=oneshot：一次性进程，Systemd 会等当前服务退出，再继续往下执行</li>
+<li>Type=dbus：当前服务通过D-Bus启动</li>
+<li>Type=notify：当前服务启动完毕，会通知Systemd，再继续往下执行</li>
+<li>Type=idle：若有其他任务执行完毕，当前服务才会运行</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/26/linux-%E5%B0%8F%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-sentinel-规则配置及使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -297,7 +530,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sentinel</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
         		</li>
       		
 		</ul>
@@ -767,9 +1000,41 @@
 <li>第三种在classpath下建一个config文件夹，然后把配置文件放进去。</li>
 <li>第四种是在classpath下直接放配置文件。</li>
 </ul>
-        
-          <a class="article-more-a" href="/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/#more">more >></a>
-        
+<p>myisam 将整数型索引设置可为null的索引时会被变成可变索引</p>
+<p>1、方式一<br>java -jar x.jar a b c  通过main(String[] args ) ,传入到args</p>
+<p>2、方式二<br>java -jar x.jar -Da=111 -Db=222 -Dc=3333 通过  System.getProperty(“a”); 方式获取。作为环境变量</p>
+<p>3、方式三<br>java -jar x.jar –a=111 –b=2222 是springboot支持的写法，可以通过@Value(“${a}”） 获取</p>
+<p>maven dockerfile 打包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package org.springframework.boot:spring-boot-maven-plugin:2.3.5.RELEASE:build-info dockerfile:build</span><br></pre></td></tr></table></figure>
+
+<p>指定settings</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mvn install --settings /xxx/settings.xml</span><br></pre></td></tr></table></figure>
+
+<p>安装本地jar </p>
+<p>mvn install:install-file -DgroupId=com.baidu -DartifactId=ueditor -Dversion=1.0.0 -Dpackaging=jar -Dfile=ueditor-1.1.2.jar</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-Dfile=/Users/lcc/IdeaProjects/dubhe-node/dubhe-node-provider/lib/ring/release/tdh-5.2/hadoop-annotations-2.7.2-transwarp-5.2.0.jar   </span><br><span class="line">-DgroupId=org.apache.hadoop  </span><br><span class="line">-DartifactId=hadoop-annotations </span><br><span class="line">-Dversion=hadoop-2.7.2-transwarp-5.2.0-SNAPSHOT </span><br><span class="line">-Durl=http://xxxx/repository/maven-snapshots/ </span><br><span class="line">-Dpackaging=jar </span><br><span class="line">-DrepositoryId=snapshots</span><br></pre></td></tr></table></figure>
+
+<p>maven 推包到远程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -s &quot;D:\data\maven\settings.xml&quot; deploy:deploy-file -Dfile=libs/xxx.jar -DgroupId=com.qcloud -DartifactId=xxx -Dversion=1.1.1.Alpha -Dpackaging=jar -Durl=https://mirrors.cloud.xxx/maven-public/ -DrepositoryId=aaa</span><br></pre></td></tr></table></figure>
+
+<p>docker</p>
+<p>当 dockerfile-maven-plugin 插件版本冲突的时候 会报一个莫名其妙的异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">no String-argument constructor/factory method to deserialize from String value (&#x27;xxx&#x27;)</span><br><span class="line">[ERROR]  at [Source: N/A; line: -1, column: -1] (through reference chain: java.util.LinkedHashMap[&quot;xxx&quot;])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>DOCKER_HOST:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp://127.0.0.1:2375</span><br></pre></td></tr></table></figure>
+
+<p>设置之后报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No connection could be made because the target machine actively refused it.</span><br></pre></td></tr></table></figure>
+
+<p>原因：需要给2375端口加上守护进程</p>
+<p>勾选 expose daemon on tcp://…….tls</p>
+<p> nohup java -jar xxxx.jar &gt;/dev/null 2&gt;&amp;1&amp;</p>
+<p>kafka +zk 的一个坑</p>
+<p>配置文件中 listeners=PLAINTEXT:host  配置的地址是注册地址，也就是和客户端同一网络环境的地址，否则客户端无法找到kafka<br>zk中新特性(zookeeper 3.5 AdminServer) 占用8080端口，改log位置需要修改脚本</p>
+<p>openjdk的两种包</p>
+<p>一种是带devel 命名的，有tools,否则只有jre</p>
+
       
 
       
@@ -7335,7 +7600,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 muggle
+    		&copy; 2022 muggle
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -7499,10 +7764,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">devops</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sentinel</a>
               </li>
             
             <div class="clearfix"></div>
