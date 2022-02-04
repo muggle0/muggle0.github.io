@@ -1,7 +1,8 @@
 ---
-title: zookeeper 续
+title: zookeeper——续
 date: 2021-12-19 16:41:21
-tags:中间件
+tags: 中间件
 ---
 
 之前写过一篇zk 浅解的博客，介绍了zk 的安装及其指令与原理。这一篇主要介绍zk 在项目中的使用。
+
