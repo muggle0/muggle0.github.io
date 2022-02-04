@@ -16,7 +16,7 @@
 <meta property="og:description" content="mq 就是消息队列（Message Queue）。想必大家对队列的数据结构已经很熟悉了，消息队列可以简单理解为：把要传输的数据放在队列中，mq 就是存放和发送消息的这么一个队列中间件。在消息队列中，把数据放到消息队列的角色叫做 生产者，从消息队列中消费获取数据的叫做 消费者。 那么消息队列有哪些使用场景呢? 六字真言：异步削峰解耦。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:57:30.334Z">
+<meta property="article:modified_time" content="2021-01-12T03:57:32.000Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,7 @@
       
         <p><code>mq</code> 就是消息队列（<code>Message Queue</code>）。想必大家对队列的数据结构已经很熟悉了，消息队列可以简单理解为：把要传输的数据放在队列中，mq 就是存放和发送消息的这么一个队列中间件。在消息队列中，把数据放到消息队列的角色叫做 <code>生产者</code>，从消息队列中消费获取数据的叫做 <code>消费者</code>。</p>
 <p>那么消息队列有哪些使用场景呢? 六字真言：异步削峰解耦。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="MQ的异步"><a href="#MQ的异步" class="headerlink" title="MQ的异步"></a>MQ的异步</h2><p>异步概念想必大家都熟悉了，就是 a应用（或程序） 将数据传递给b应用（或程序）后，不等待b的响应结果直接做下一步动作，而b并行执行，提高效率。使用mq，就能完美支持异步：a将数据发送到mq，然后自己该干嘛干嘛，b监听mq的消息，来了消息就消费它。这样就做到程序或者应用间的异步。</p>
 <h2 id="mq的削峰"><a href="#mq的削峰" class="headerlink" title="mq的削峰"></a>mq的削峰</h2><p>首先我们要知道什么是削峰：削峰的全称应该叫削峰填谷。削峰就是当应用或者程序的请求量过大的时候，将一部分请求延时处理，放到请求量不大时间段去处理它。mq削峰填谷的原理也很简单，mq在应用程序中相当于一个 “蓄水池” 的作用——当 “水流量（请求）” 过大的时候，“蓄水池（mq）” 将 “水” 先存起来。当有能力去消费这些水的时候再去从 “蓄水池” 放水。实际的过程是——请求数据先发到 mq ，应用程序监听mq 并消费消息。当请求量大于消费量的时候，请求积压在mq中存储；当消费量大于请求量的时候，请求就会慢慢被处理完。这听上去就像小学做的游泳池放水排水的数学题。</p>
 <h2 id="mq的解耦"><a href="#mq的解耦" class="headerlink" title="mq的解耦"></a>mq的解耦</h2><p>mq解耦性是显而易见的，应用程序直接不直接互相耦合，甚至可以不用知道对方的存在。它想要发出什么样的请求，或者拿什么数据，都是去找mq。mq就像个搬运工一样在这些应用之间搬运数据。</p>
@@ -448,6 +448,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
@@ -505,10 +509,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
             
             <div class="clearfix"></div>

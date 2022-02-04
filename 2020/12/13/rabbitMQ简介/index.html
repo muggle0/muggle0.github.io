@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/rabbitmq%E6%9E%B6%E6%9E%84.jpg">
 <meta property="article:published_time" content="2020-12-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-12T03:46:23.208Z">
+<meta property="article:modified_time" content="2021-01-12T03:46:24.000Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -178,7 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>前文我们学习了 MQ的相关知识，现在我们来学习一下实现了AMQP协议的 <code>rabbitMQ</code> 中间件。rabbitMQ 是使用 erlang 语言编写的中间件（erlang之父 19年4月去世的，很伟大一个程序员）。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="rabbitMQ-的结构和的角色"><a href="#rabbitMQ-的结构和的角色" class="headerlink" title="rabbitMQ 的结构和的角色"></a>rabbitMQ 的结构和的角色</h2><p>学习rabbtMQ我们先要弄清楚这几个概念：<code>exchange</code>,<code>queue</code>,<code>routing-key</code>,<code>binding-key</code>,<code>message</code>,<code>publisher</code>,<code>exchange</code>,<code>binding-key</code>,<code>Connection</code>,<code>Channel</code>,<code>consumer</code>,<code>broker</code>；下面对这些角色概念进行介绍。</p>
 <p>消息的发送方被称作<code>publisher</code>（生产者），而消息的接收方被称作<code>consumer</code>(消费者)，而消息队列服务器实体就是<code>broker</code>（指<code>rabbitMQ</code>）；消费者或者生产者对rabbitMQ的一个连接被称作<code>Connection</code>（连接）,在rabbit的连接模型中，为了提高连接传输效率，采用了<code>Channel</code>（管道）这种方式实现多路复用，类似于Nio中的模型；我们知道建立一个TCP连接代价很大，因此TCP连接建立后最好不要断开<code>Connection</code>-<code>Channel</code>连接模型就是为了达到这种目的；一个消费者（生产者）使用一个<code>channel</code>消费（发送）消息，而多个<code>Channel</code>共用一个<code>Connection</code>。</p>
 <p>一个生产者向rabbit投递消息，然后消费者消费这个消息的过程是这样的——生产者将消息投递给rabbit，在rabbit中<code>exchange</code>（交换机）首先会接收到这个消息，交换机相当于一个“分拣员”的角色，负责分拣消息，将这些消息存储到和自己绑定的<code>queue</code>（队列）中去，然后和队列绑定的消费者会消费这些消息。队列和交换机绑定通过一个<code>binding-key</code>（绑定键）来标记，而生产者投递消息给交换机的时候会指定一个<code>routing-key</code>（路由键），而交换机会根据路由和绑定键来判断将消息放到那些队列中去（扩展：kafka的数据是存储在 exchange 中，它的 queue 只是逻辑队列）。<br>图一是rabbitMQ的一个概念简图：<br><img src="https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/rabbitmq%E6%9E%B6%E6%9E%84.jpg" alt="rabbitMQ概念简图"><br>                                                                    图一：rabbitMQ 概念简图</p>
@@ -435,6 +435,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
@@ -492,10 +496,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
             
             <div class="clearfix"></div>

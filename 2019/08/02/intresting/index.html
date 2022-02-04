@@ -16,7 +16,7 @@
 <meta property="og:description" content="作者: muggle 1 mysql 架构mysql分为server层和存储引擎 1.1  server层 连接器：管理连接权限验证 查询缓存：命中缓存直接换回查询结果 分析器：分析语法 优化器：生成执行计划，选择索引 执行器：操作索引返回结果">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-08-02T12:36:40.000Z">
-<meta property="article:modified_time" content="2021-01-11T07:31:23.303Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:24.000Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -184,7 +184,7 @@
 <li>优化器：生成执行计划，选择索引</li>
 <li>执行器：操作索引返回结果</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 
 <h3 id="1-2-存储引擎"><a href="#1-2-存储引擎" class="headerlink" title="1.2  存储引擎"></a>1.2  存储引擎</h3><p>存储引擎负责数据的存储和提取；其架构是插件式的。innodb在mysql5.5.5版本开始成为mysql默认存储引擎。</p>
 <p>各存储引擎比对：</p>
@@ -196,6 +196,7 @@
 <h3 id="1-3-sql的执行过程"><a href="#1-3-sql的执行过程" class="headerlink" title="1.3 sql的执行过程"></a>1.3 sql的执行过程</h3><p>第一步客户端连接上mysql数据库的连接器，连接器获取权限，维持管理连接；连接完成后如果你没有后续的指令这个连接就会处于空闲状态，如果太长时间不使用这个连接这个连接就会断开，这个空闲时长默认是8小时，由wait_timeout参数控制。</p>
 <p>第二步你往mysql数据库发送了一条sql，这个时候查询缓存开始工作，看看之前有没有执行过这个sql，如果有则直接返回缓存数据到客户端，只要对表执行过更新操作缓存都会失效，因此一些很少更新的数据表可考虑使用数据库缓存，对频繁更新的表使用缓存反而弊大于利。使用缓存的方法如以下sql，通过SQL_CACHE来指定：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  SQL_CACHE <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> xxx<span class="operator">=</span>xxx</span><br></pre></td></tr></table></figure>
+
 <p>第三步当未命中缓存的时候，分析器开始工作；分析器判断你是select还是update还是insert，分析你的语法是否正确。</p>
 <p>第四步优化器根据你的表的索引和sql语句决定用哪个索引，决定join的顺序。</p>
 <p>第五步执行器执行sql，调用存储引擎的接口，扫描遍历表或者插入更新数据。</p>
@@ -206,9 +207,11 @@
 <h2 id="3-mysql的mvcc"><a href="#3-mysql的mvcc" class="headerlink" title="3 mysql的mvcc"></a>3 mysql的mvcc</h2><p>事务隔离级别在此略过，相信大部分小伙伴都知道相关的知识了，在这里单单只介绍mysql实现事务隔离的原理——mvcc(多版本并发控制)。在学习mvcc之前我需要先介绍快照读和当前读。</p>
 <h3 id="3-1-快照读和当前读"><a href="#3-1-快照读和当前读" class="headerlink" title="3.1 快照读和当前读"></a>3.1 快照读和当前读</h3><p>快照读就是一个<code>select</code>语句，形如：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span></span><br></pre></td></tr></table></figure>
+
 <p>在<code>Repeatable read</code>事务隔离级别下，快照读的特点是获取当前数据库的快照数据，对于所有未commit的数据都不可见，快照读不会对数据上锁。</p>
 <p>当前读是对所读数据上悲观锁使其他当前读无法操作数据。当前读sql包括:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select ... lock in share mode</span><br><span class="line"></span><br><span class="line">select ... <span class="keyword">for</span> update</span><br><span class="line"></span><br><span class="line">insert</span><br><span class="line"></span><br><span class="line">update</span><br><span class="line"></span><br><span class="line">delete</span><br></pre></td></tr></table></figure>
+
 <p>其中后面三个sql都是给数据库上排他锁（X锁），而第一个sql是给数据库上共享锁（S锁）。X锁是一旦某个当前读到这个锁，其他当前读则没有对这个事务读写的权利，其他当前读会被阻塞住。而S锁是当一个当前读对某条数据上S锁，其他当前读可以对该数据也上S锁但不能上X锁，拿到S锁的当前读可以读数据不能改数据。（关于数据库悲观锁乐观锁并发章节会介绍）。</p>
 <h3 id="3-2-mvcc原理"><a href="#3-2-mvcc原理" class="headerlink" title="3.2 mvcc原理"></a>3.2 mvcc原理</h3><p>innodb实现快照读和当 前读悲观锁的技术就是mvcc。innodb在插入一条数据的时候会在后面跟上两个隐藏的列，这两个列，一个保存了这个行的创建时系统版本号，一个保存的是行的删除的系统版本号。每开始一个新的事务，系统版本号就会自动递增，事务开始时刻的系统版本号会作为事务的ID。innodb更新一条数据是设置旧数据删除版本号，然后插入一条新的数据并设置创建版本号，然后删除旧的数据。那么怎么保证快照读是读取到未commit的数据呢，两个条件：</p>
 <ul>
@@ -228,11 +231,13 @@
 <p>innodb使用了B+树索引模型，而且是多叉树。虽然二叉树是索引效率最高的，但是索引需要写入磁盘，如果使用二叉树磁盘io会变得很频繁。在innodb索引中分为主键索引（聚簇索引）和非主键索引（二级索引）。主键索引保存了该行数据的全部信息，二级索引保存了该行数据的主键；所以使用二级索引的时候会先查出主键值，然后回表查询出数据，而使用主键索引则不需要回表。</p>
 <p>对二级索引而言可使用覆盖索引来优化sql，看下面两条sql</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> key<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> key<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>key是一个二级索引，第一条sql是先查询出id，然后根据id回表查询出真正的数据。而第二条查询索引后直接返回数据不需要回表。第二条sql索引key覆盖了我们的查询需求，称作覆盖索引</p>
 <h3 id="4-2-普通索引和唯一索引"><a href="#4-2-普通索引和唯一索引" class="headerlink" title="4.2 普通索引和唯一索引"></a>4.2 普通索引和唯一索引</h3><p>innoDB是按数据页来读写数据的，当要读取一条数据的时候是先将本页数据全部读入内存，然后找到对应数据，而不是直接读取，每页数据的默认大小为16KB。</p>
 <p>当一个数据页需要更新的时候，如果内存中有该数据页就直接更新，如果没有该数据页则在不影响数据一致性的前提下将；更新操作先缓存到<code>change buffer</code>中，在下次查询需要访问这个数据页的时候再写入更新操作除了查询会将<code>change buffer</code> 写入磁盘，后台线程线程也会定期将<code>change buffer</code>写入到磁盘中。对于唯一索引来说所有的更新操作都要先判断这个操作是否会违反唯一性约束，因此唯一索引的更新无法使用<code>change buffer</code> 而普通索引可以，唯一索引更新比普通索引更新多一个唯一性校验的过程。</p>
 <h3 id="4-3-联合索引"><a href="#4-3-联合索引" class="headerlink" title="4.3 联合索引"></a>4.3 联合索引</h3><p>两个或更多个列上的索引被称作联合索引（复合索引）。联合索引可减少索引开销，以联合索引(a,b,c)为例，建立这样的索引相当于建立了索引a、ab、abc三个索引——Mysql从左到右的使用索引中的字段，一个查询可以只使用索引中的一部份，但只能是最左侧部分，而且当最左侧字段是常量引用时，索引就十分有效，这就是<strong>最左前缀原则</strong>。由最左前缀原则可知，组合索引是有顺序的，那么哪个索引放在前面就比较有讲究了。对于组合索引还有一个知识点——<strong>索引下推</strong>，假设有组合索引（a，b，c）有如下sql:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selet <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> a<span class="operator">=</span>xxx <span class="keyword">and</span> b<span class="operator">=</span>xxx</span><br></pre></td></tr></table></figure>
+
 <p>这个sql会进行两次筛选第一次查出<code>a=xxx</code>数据 再从<code>a=xxx</code>中查出 <code>b=xxx</code> 的数据。使用索引下推和不使用索引下推的区别在于不使用索引下推会先查出<code>a=xxx</code>数据的主键然后根据查询出的主键回表查询出全行数据，再在全行数据上查出 <code>b=xxx</code> 的数据；而索引下推的执行过程是先查出<code>a=xxx</code>数据的主键，然后在这些主键上二次查询 <code>b=xxx</code> 的主键，然后回表。</p>
 <p>索引下推的特点：</p>
 <ul>
@@ -358,6 +363,7 @@
 <p>使用sql修改慢查询日志设置只对当前数据库生效，如果MySQL重启后则会失效。如果要永久生效，就必须修改配置文件my.cnf。</p>
 <p>通过以下sql查看修改慢查询的阈值：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;long_query_time%&#x27;</span>;</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> long_query_time<span class="operator">=</span><span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
 <h2 id="7主从备份"><a href="#7主从备份" class="headerlink" title="7主从备份"></a>7主从备份</h2><h3 id="7-1主从备份原理"><a href="#7-1主从备份原理" class="headerlink" title="7.1主从备份原理"></a>7.1主从备份原理</h3><p>主从复制是指一台服务器充当主数据库服务器，另一台或多台服务器充当从数据库服务器，主服务器中的数据自动复制到从服务器之中。通过这种手段我们可以做到读写分离，主库写数据，从库读数据，从而提高数据库的可用。<br>MySQL主从复制涉及到三个线程，一个运行在主节点（log dump thread），其余两个(I/O thread, SQL thread)运行在从节点。</p>
 <p>主节点 binary log dump 线程：<br>当从节点连接主节点时，主节点会创建一个<code>log dump</code> 线程，用于发送<code>binlog</code>的内容。在读取<code>binlog</code>中的操作时，此线程会对主节点上的<code>binlog</code>加锁，当读取完成，甚至在发动给从节点之前，锁会被释放。</p>
 <p> 从节点I/O线程:<br> 用于从库将主库的<code>binlog</code>复制到本地的<code>relay log</code>中，首先，从库库会先启动一个工作线程，称为IO工作线程，负责和主库建立一个普通的客户端连接。如果该进程追赶上了主库，它将进入睡眠状态，直到主库有新的事件产生通知它，他才会被唤醒，将接收到的事件记录到<code>relay log</code>(中继日志)中。</p>
@@ -373,13 +379,16 @@
 <li>通过binlog输出到外部系统，比如Hadoop这类系统，让外部系统提供统计类查询的能力</li>
 </ul>
 <h3 id="7-3-主从备份配置"><a href="#7-3-主从备份配置" class="headerlink" title="7.3 主从备份配置"></a>7.3 主从备份配置</h3><p>主机：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">vi /etc/my.cnf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">主数据库端ID号</span></span><br><span class="line">server_id = 1           </span><br><span class="line"><span class="meta"> #</span><span class="bash">开启二进制日志</span>                  </span><br><span class="line">log-bin = mysql-bin    </span><br><span class="line"><span class="meta">#</span><span class="bash">需要复制的数据库名，如果复制多个数据库，重复设置这个选项即可</span>                  </span><br><span class="line">binlog-do-db = db        </span><br><span class="line"><span class="meta">#</span><span class="bash">将从服务器从主服务器收到的更新记入到从服务器自己的二进制日志文件中</span>                 </span><br><span class="line">log-slave-updates                        </span><br><span class="line"><span class="meta">#</span><span class="bash">控制binlog的写入频率。每执行多少次事务写入一次(这个参数性能消耗很大，但可减小MySQL崩溃造成的损失)</span> </span><br><span class="line">sync_binlog = 1                    </span><br><span class="line"><span class="meta">#</span><span class="bash">这个参数一般用在主主同步中，用来错开自增值, 防止键值冲突</span></span><br><span class="line">auto_increment_offset = 1           </span><br><span class="line"><span class="meta">#</span><span class="bash">这个参数一般用在主主同步中，用来错开自增值, 防止键值冲突</span></span><br><span class="line">auto_increment_increment = 1            </span><br><span class="line"><span class="meta">#</span><span class="bash">二进制日志自动删除的天数，默认值为0,表示“没有自动删除”，启动时和二进制日志循环时可能删除</span>  </span><br><span class="line">expire_logs_days = 7                    </span><br><span class="line"><span class="meta">#</span><span class="bash">将函数复制到slave</span>  </span><br><span class="line">log_bin_trust_function_creators = 1       </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">vi /etc/my.cnf</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">主数据库端ID号</span></span><br><span class="line">server_id = 1           </span><br><span class="line"><span class="meta"> #</span><span class="bash">开启二进制日志</span>                  </span><br><span class="line">log-bin = mysql-bin    </span><br><span class="line"><span class="meta">#</span><span class="bash">需要复制的数据库名，如果复制多个数据库，重复设置这个选项即可</span>                  </span><br><span class="line">binlog-do-db = db        </span><br><span class="line"><span class="meta">#</span><span class="bash">将从服务器从主服务器收到的更新记入到从服务器自己的二进制日志文件中</span>                 </span><br><span class="line">log-slave-updates                        </span><br><span class="line"><span class="meta">#</span><span class="bash">控制binlog的写入频率。每执行多少次事务写入一次(这个参数性能消耗很大，但可减小MySQL崩溃造成的损失)</span> </span><br><span class="line">sync_binlog = 1                    </span><br><span class="line"><span class="meta">#</span><span class="bash">这个参数一般用在主主同步中，用来错开自增值, 防止键值冲突</span></span><br><span class="line">auto_increment_offset = 1           </span><br><span class="line"><span class="meta">#</span><span class="bash">这个参数一般用在主主同步中，用来错开自增值, 防止键值冲突</span></span><br><span class="line">auto_increment_increment = 1            </span><br><span class="line"><span class="meta">#</span><span class="bash">二进制日志自动删除的天数，默认值为0,表示“没有自动删除”，启动时和二进制日志循环时可能删除</span>  </span><br><span class="line">expire_logs_days = 7                    </span><br><span class="line"><span class="meta">#</span><span class="bash">将函数复制到slave</span>  </span><br><span class="line">log_bin_trust_function_creators = 1       </span><br></pre></td></tr></table></figure>
+
 <p>登录mysql</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#创建slave账号account，密码<span class="number">123456</span></span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">grant</span> replication slave <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;account&#x27;</span>@<span class="string">&#x27;10.10.20.116&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">#更新数据库权限</span><br><span class="line">mysql<span class="operator">&gt;</span>flush privileges;</span><br><span class="line"></span><br><span class="line"># 检查log<span class="operator">-</span>bin</span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> ‘log_bin’</span><br><span class="line"></span><br><span class="line">#查看主服务器状态</span><br><span class="line"><span class="keyword">show</span> master status\G;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>从机：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server_id = 2</span><br><span class="line">log-bin = mysql-bin</span><br><span class="line">log-slave-updates</span><br><span class="line">sync_binlog = 0</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">log</span> buffer将每秒一次地写入<span class="built_in">log</span> file中，并且<span class="built_in">log</span> file的flush(刷到磁盘)操作同时进行。该模式下在事务提交的时候，不会主动触发写入磁盘的操作</span></span><br><span class="line">innodb_flush_log_at_trx_commit = 0        </span><br><span class="line"><span class="meta">#</span><span class="bash">指定slave要复制哪个库</span></span><br><span class="line">replicate-do-db = db         </span><br><span class="line"><span class="meta">#</span><span class="bash">MySQL主从复制的时候，当Master和Slave之间的网络中断，但是Master和Slave无法察觉的情况下（比如防火墙或者路由问题）。Slave会等待slave_net_timeout设置的秒数后，才能认为网络出现故障，然后才会重连并且追赶这段时间主库的数据</span></span><br><span class="line">slave-net-timeout = 60                    </span><br><span class="line">log_bin_trust_function_creators = 1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>登录mysql</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#执行同步命令，设置主服务器ip，同步账号密码，同步位置</span><br><span class="line">mysql<span class="operator">&gt;</span>change master <span class="keyword">to</span> master_host<span class="operator">=</span><span class="string">&#x27;10.10.20.111&#x27;</span>,master_user<span class="operator">=</span><span class="string">&#x27;account&#x27;</span>,master_password<span class="operator">=</span><span class="string">&#x27;123456&#x27;</span>,master_log_file<span class="operator">=</span><span class="string">&#x27;mysql-bin.000033&#x27;</span>,master_log_pos<span class="operator">=</span><span class="number">337523</span>;</span><br><span class="line">#开启同步功能</span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">start</span> slave;</span><br><span class="line">#查看从服务器状态</span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">show</span> slave status\G;</span><br></pre></td></tr></table></figure>
+
 
 <h2 id="8-分布式事务"><a href="#8-分布式事务" class="headerlink" title="8 分布式事务"></a>8 分布式事务</h2><p>由于篇幅问题，这里不再对分布式事物的概念做普及，直接介绍两种分布式事务: XA 分布式事务和 TCC分布式事务。</p>
 <h3 id="8-1-XA分布式事务"><a href="#8-1-XA分布式事务" class="headerlink" title="8.1 XA分布式事务"></a>8.1 XA分布式事务</h3><p>XA是两阶段提交的强一致性事物。在MySQL 5.7.7版本中，Oracle 官方将MySQL XA 一直存在的一个“bug” 进行了修复，使得MySQL XA 的实现符合了分布式事务的标准。</p>
@@ -404,7 +413,7 @@
 <h3 id="8-2-TCC分布式事务"><a href="#8-2-TCC分布式事务" class="headerlink" title="8.2 TCC分布式事务"></a>8.2 TCC分布式事务</h3><p>TCC又被称作柔性事务，通过事务补偿机制来达到事务的最终一致性，它不是强一致性的事务。TCC将事务分为两个阶段，或者说是由两个事务组成的。相对于XA事务来说TCC的并发性更好，XA是全局性的事务，而TCC是由两个本地事务组成。</p>
 <p>假设我们购买一件商品，后台需要操作两张表——积分表加积分而库存表扣库存，这两张表存在于两个数据库中，使用TCC事务执行这一事务：</p>
 <p>1）TCC实现阶段一：Try<br>在try阶段并不是直接减库存加积分，而是将相关数据改变为预备的状态。库存表先锁定一个库存，锁定的方式可以预留一个锁定字段，当这个字段为一的时候表示这个商品被锁定。积分表加一个数据，这个数据也是被锁定状态，锁定方式和库存表一样。其sql形如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> stock <span class="keyword">set</span> lock<span class="operator">=</span><span class="number">1</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> credits (lock,...) <span class="keyword">values</span> (<span class="number">1</span>,...)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update stock <span class="keyword">set</span> lock<span class="operator">=</span><span class="number">1</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> credits (lock,...) <span class="keyword">values</span> (<span class="number">1</span>,...)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>这两条sql如果都执行成功则进入 Confirm阶段，如果执行不成功则进入Cancel阶段</p>
 <p>2）TCC实现阶段二：Confirm</p>
 <p>这一阶段正式减库存加积分订单状态改为已支付。执行sql将锁定的库存扣除，为累加积分累加，以及一些其他的逻辑。</p>
@@ -651,6 +660,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
@@ -708,10 +721,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
             
             <div class="clearfix"></div>

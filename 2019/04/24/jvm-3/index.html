@@ -16,7 +16,7 @@
 <meta property="og:description" content="垃圾收集器介绍&amp;emsp; &amp;emsp;java内存在运行时被分为多个区域，其中程序计数器、虚拟机栈、本地方法栈三个区域随线程生成和销毁；每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的，在这几个区域内就不需要过多考虑回收问题，因为方法结束或者线程结束时，内存自然就跟着回收了。而堆区就不一样了，我们只有在程序运行的时候才能知道哪些对象会被创建，这部分内存是动态分配的，垃圾收集器主要关注的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-24T02:49:15.000Z">
-<meta property="article:modified_time" content="2021-01-11T07:31:23.306Z">
+<meta property="article:modified_time" content="2021-01-11T07:31:24.000Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
@@ -176,7 +176,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="垃圾收集器介绍"><a href="#垃圾收集器介绍" class="headerlink" title="垃圾收集器介绍"></a>垃圾收集器介绍</h2><p>&emsp; &emsp;java内存在运行时被分为多个区域，其中程序计数器、虚拟机栈、本地方法栈三个区域随线程生成和销毁；每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的，在这几个区域内就不需要过多考虑回收问题，因为方法结束或者线程结束时，内存自然就跟着回收了。而堆区就不一样了，我们只有在程序运行的时候才能知道哪些对象会被创建，这部分内存是动态分配的，垃圾收集器主要关注的也就是这部分内存。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="垃圾收集器算法"><a href="#垃圾收集器算法" class="headerlink" title="垃圾收集器算法"></a>垃圾收集器算法</h2><p>&emsp; &emsp;jdk11刚发布不久，这个版本发布了一款新的垃圾收集器——G1垃圾收集器,这款垃圾收集器有很多优异的特性，我会在后文做介绍，这里先从简单的慢慢说起。</p>
 <p>&emsp; &emsp;引用计数算法是最初垃圾收集器采用的算法，也是相对简单的一种算法，其原理是：给对象中添加一个引用计数器，每当有一个地方引用它的时候这个计数器就加一；当引用失效，计数器就减一；任何时刻计数器为0则该对象就会被垃圾收集器回收。这种算法的缺点是当对象之间相互循环引用的时候，对象将永远不会被回收。举个例子——有类TestOne,类TestTwo;它们互相是对方的成员，如下：</p>
@@ -433,6 +433,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
               </li>
              
@@ -490,10 +494,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
             
             <div class="clearfix"></div>
