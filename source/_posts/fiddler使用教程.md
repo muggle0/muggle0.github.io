@@ -14,7 +14,7 @@ fiddler 是一款专门用于抓取http请求的抓包工具，当启动该工�
 
 官方下载地址：https://www.telerik.com/download/fiddler/fiddler4，安装完成后我们进行一些配置:
 点击 winConfig,勾选要代理的应用
-![1](test1.jpg)
+![test](../test1.jpg)
 
 点击 rules:
 
@@ -103,4 +103,30 @@ static function OnBeforeRequest(oSession: Session)
 - 因为fiddler 需要修改pc端的代理，所以如果当代理被其他应用修改，可能会导致fiddler无法代理http请求，可以检查电脑的 "代理服务器设置" 是否指向 fiddler的端口（默认8888）；
 - 如果工具一直弹出 "The system proxy was changed" 提示，则是有程序在后台修改代理设置，一般一些vpn或者浏览器代理插件会干这种事情，可暂时把vpn或者插件关闭，也可以通过进程检查工具进行检查（windows 可使用 processmonitor 搜索 ProxyEnable 定位是什么程序修改了代理）；
 - 修改代理脚本前，最好对脚本进行备份。
+- 清除电脑上的根证书，WIN+R快捷键，输入：certmgr.msc， 然后回车，查找所有fiddler证书，然后删除。（https://www.cnblogs.com/ql70me/p/10345976.html）
+- "The system proxy was changed" 的另外一种解决方案，进入到Fiddler-->Rules-->Customize Rules ：
+  
+```
+  ## 在main()方法上方添加
+
+static function DoReattach(o: Object, ea: EventArgs)
+ {
+    ScheduledTasks.ScheduleWork("reattach", 1000, innerReattach);
+ }
+ 
+ static function innerReattach()
+ {
+    FiddlerApplication.UI.actAttachProxy();
+ }
+ 
+ static function OnRetire()
+ {
+    FiddlerApplication.oProxy.remove_DetachedUnexpectedly(DoReattach);
+ }
+
+### 在main()方法中添加
+FiddlerApplication.oProxy.add_DetachedUnexpectedly(DoReattach);
+
+ ```
+ 
 
