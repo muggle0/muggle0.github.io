@@ -1,7 +1,7 @@
 ---
 title: jenkins-1 安装与配置
 date: 2022-03-04 09:36:01
-tags:
+tags: devops
 ---
 
 ## Jenkins 介绍
