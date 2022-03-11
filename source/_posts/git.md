@@ -61,3 +61,28 @@ git 保存工作区修改 不提交
 git stash save "xxx" （入栈，工作区代码放入到stash中）
 
 git stash pop (出栈，从stash中拿保存的代码)
+
+## 指令一览
+
+- 强推
+对受保护分支无法使用强推，强推解决多仓库不同源问题
+git push 远程仓库名 本地分支:远程仓库名 --force
+
+- commit 错误回滚
+
+git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit 。
+git reset --hard --mixed(default) --soft 分别覆盖3个、2个、1个位置的代码，--mixed（默认的参数）只会保留working copy里的代码
+
+git cherry-pick <commit_id> 选择合并
+
+git subtree 子仓库 特殊场合使用
+
+git merge dev 合并
+
+git remote rm origin 删除远程仓库
+
+git push origin --delete dev 删除远程分支
+
+- 对于提交错误但未push的commit 可以使用idea 的undo commit 进行回滚
+
+- 多仓库远程推送 git push origin local:remote
