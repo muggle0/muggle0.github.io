@@ -16,7 +16,7 @@
 <meta property="og:description" content="初始化并提交到远程git init git config –global user.name”ssss”git add README.md git commit -m “first commit” git remote add origin https:&#x2F;&#x2F;github.com&#x2F;Xanthuim&#x2F;nodejs_express_sample.git git push -u origin master">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-24T06:24:56.000Z">
-<meta property="article:modified_time" content="2021-01-11T07:31:24.000Z">
+<meta property="article:modified_time" content="2022-03-11T02:54:51.738Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
@@ -192,6 +192,24 @@
 <p>git 保存工作区修改 不提交</p>
 <p>git stash save “xxx” （入栈，工作区代码放入到stash中）</p>
 <p>git stash pop (出栈，从stash中拿保存的代码)</p>
+<h2 id="指令一览"><a href="#指令一览" class="headerlink" title="指令一览"></a>指令一览</h2><ul>
+<li><p>强推<br>对受保护分支无法使用强推，强推解决多仓库不同源问题<br>git push 远程仓库名 本地分支:远程仓库名 –force</p>
+</li>
+<li><p>commit 错误回滚</p>
+</li>
+</ul>
+<p>git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit 。<br>git reset –hard –mixed(default) –soft 分别覆盖3个、2个、1个位置的代码，–mixed（默认的参数）只会保留working copy里的代码</p>
+<p>git cherry-pick <commit_id> 选择合并</p>
+<p>git subtree 子仓库 特殊场合使用</p>
+<p>git merge dev 合并</p>
+<p>git remote rm origin 删除远程仓库</p>
+<p>git push origin –delete dev 删除远程分支</p>
+<ul>
+<li><p>对于提交错误但未push的commit 可以使用idea 的undo commit 进行回滚</p>
+</li>
+<li><p>多仓库远程推送 git push origin local:remote</p>
+</li>
+</ul>
 
       
 
