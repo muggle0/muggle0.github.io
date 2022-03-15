@@ -86,3 +86,7 @@ git push origin --delete dev 删除远程分支
 - 对于提交错误但未push的commit 可以使用idea 的undo commit 进行回滚
 
 - 多仓库远程推送 git push origin local:remote
+
+git branch -vv 查看本地分支关联的远程分支
+
+git checkout -b dev origin/dev   切换远程分支

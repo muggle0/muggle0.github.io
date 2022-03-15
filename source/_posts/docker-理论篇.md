@@ -61,3 +61,5 @@ Annotation : 相对于label来说可以容纳更大的键值对，它对我们�
 kubectl apply -f app.yaml
 
 https://k8s.easydoc.net/docs/dRiQjyTY/28366845/6GiNOzyZ/puf7fjYr
+
+https://blog.csdn.net/simongame/article/details/106727108
