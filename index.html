@@ -162,7 +162,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/08/jenkins-3-%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D/">jenkins-3 插件介绍</a>
+      <a class="article-title" href="/2022/03/08/jenkins-3-%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D/">jenkins-3 Ansible和Jenkins</a>
     </h1>
   
 
@@ -175,7 +175,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="SonarQube"><a href="#SonarQube" class="headerlink" title="SonarQube"></a>SonarQube</h2><h2 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h2><h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2>
+        <h2 id="什么是Ansible"><a href="#什么是Ansible" class="headerlink" title="什么是Ansible"></a>什么是Ansible</h2><p>ansible是一个基于python的自动化运维工具，实现了批量系统配置、批量程序部署、批量运行命令等功能。ansible包括部署和使用简单、默认使用ssh协议、轻量级等特点。</p>
+<p>ansible 架构：</p>
+
       
 
       
@@ -1171,6 +1173,7 @@
 <p>Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。<br>Node : 一个node就是一个运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。.<br>Pod : 一个pod对应一个由相关容器和卷组成的容器组 （了解Pod详情）<br>Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源（了解Label详情）<br>selector是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.（了解selector详情）<br>Replication Controller : replication controller 是为了保证一定数量被指定的Pod的复制品在任何时间都能正常工作.它不仅允许复制的系统易于扩展，还会处理当pod在机器在重启或发生故障的时候再次创建一个（了解Replication Controller详情）<br>Service : 一个service定义了访问pod的方式，就像单个固定的IP地址和与其相对应的DNS名之间的关系。（了解Service详情）<br>Volume: 一个volume是一个目录，可能会被容器作为未见系统的一部分来访问。（了解Volume详情）<br>Kubernetes volume 构建在Docker Volumes之上,并且支持添加和配置volume目录或者其他存储设备。<br>Secret : Secret 存储了敏感数据，例如能允许容器接收请求的权限令牌。<br>Name : 用户为Kubernetes中资源定义的名字<br>Namespace : Namespace 好比一个资源名字的前缀。它帮助不同的项目、团队或是客户可以共享cluster,例如防止相互独立的团队间出现命名冲突<br>Annotation : 相对于label来说可以容纳更大的键值对，它对我们来说可能是不可读的数据，只是为了存储不可识别的辅助数据，尤其是一些被工具或系统扩展用来操作的数据</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>kubectl apply -f app.yaml</p>
 <p><a target="_blank" rel="noopener" href="https://k8s.easydoc.net/docs/dRiQjyTY/28366845/6GiNOzyZ/puf7fjYr">https://k8s.easydoc.net/docs/dRiQjyTY/28366845/6GiNOzyZ/puf7fjYr</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/simongame/article/details/106727108">https://blog.csdn.net/simongame/article/details/106727108</a></p>
 
       
 
