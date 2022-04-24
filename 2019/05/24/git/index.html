@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>git | muggle</title>
+  <title>git 指令速查 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="初始化并提交到远程git init git config –global user.name”ssss”git add README.md git commit -m “first commit” git remote add origin https:&#x2F;&#x2F;github.com&#x2F;Xanthuim&#x2F;nodejs_express_sample.git git push -u origin master">
+  <meta name="description" content="基本配置123456789101112131415161718### 初始化git 仓库git init### 设置git 全局变量git config --global user.name&quot;ssss&quot;### 将文件纳入 git 管理git add README.md### 提交git commit -m &quot;first commit&quot;### git 添加远程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git">
+<meta property="og:title" content="git 指令速查">
 <meta property="og:url" content="http://muggle0.github.io/2019/05/24/git/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="初始化并提交到远程git init git config –global user.name”ssss”git add README.md git commit -m “first commit” git remote add origin https:&#x2F;&#x2F;github.com&#x2F;Xanthuim&#x2F;nodejs_express_sample.git git push -u origin master">
+<meta property="og:description" content="基本配置123456789101112131415161718### 初始化git 仓库git init### 设置git 全局变量git config --global user.name&quot;ssss&quot;### 将文件纳入 git 管理git add README.md### 提交git commit -m &quot;first commit&quot;### git 添加远程">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-24T06:24:56.000Z">
-<meta property="article:modified_time" content="2022-03-15T07:26:44.321Z">
+<meta property="article:modified_time" content="2022-04-24T11:59:45.574Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      git
+      git 指令速查
     </h1>
   
 
@@ -175,43 +175,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="初始化并提交到远程"><a href="#初始化并提交到远程" class="headerlink" title="初始化并提交到远程"></a>初始化并提交到远程</h4><p>git init <br><br>git config –global user.name”ssss”<br>git add README.md <br><br>git commit -m “first commit” <br><br>git remote add origin <a target="_blank" rel="noopener" href="https://github.com/Xanthuim/nodejs_express_sample.git">https://github.com/Xanthuim/nodejs_express_sample.git</a> <br><br>git push -u origin master <br>（$ git push -u origin master 上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了）</p>
-<span id="more"></span>
+        <h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">### 初始化git 仓库</span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line">### 设置git 全局变量</span><br><span class="line">git config --global user.name&quot;ssss&quot;</span><br><span class="line"></span><br><span class="line">### 将文件纳入 git 管理</span><br><span class="line">git add README.md</span><br><span class="line"></span><br><span class="line">### 提交</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line"></span><br><span class="line">### git 添加远程仓库</span><br><span class="line">git remote add origin https://github.com/xxx</span><br><span class="line"></span><br><span class="line">###  将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了</span><br><span class="line">git push -u origin master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>git branch –set-upstream-to master origin/master或者git fetch关联远程分支，然后git pull origin master –allow-unrelated-histories强制合并</p>
-<h4 id="远程仓库初始化并关联本地"><a href="#远程仓库初始化并关联本地" class="headerlink" title="远程仓库初始化并关联本地"></a>远程仓库初始化并关联本地</h4><p>git clone url<br><br>git config –global user.name”ss”<br><br>git push<br></p>
-<h4 id="HEAD的含义"><a href="#HEAD的含义" class="headerlink" title="HEAD的含义"></a>HEAD的含义</h4><p>代表当前仓库版本号<br><br>HEAD^ 和HEAD<del><br><br>HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。<br>HEAD</del>(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br><br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD<del>。HEAD^和HEAD</del>或HEAD^^和HEAD<del>并没有区别，只有HEAD^+数字才和HEAD</del>有区别。</p>
-<h4 id="git-reset-撤销方式"><a href="#git-reset-撤销方式" class="headerlink" title="$ git reset 撤销方式"></a>$ git reset 撤销方式</h4><p>git reset –soft 版本号<br><br>只撤销本地仓库数据到版本号 <br><br>git reset –mixed 版本号<br><br>撤销本地和暂存区仓库到版本号<br><br>git reset –hard 版本号<br><br>撤销 工作区 暂存区 本地仓库到版本号<br><br>git reset –hard origin/master<br><br>####</p>
-<p>HEAD的含义：代表当前仓库最新版本。HEAD^ 和HEAD<del>的意义和区别HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，EAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。HEAD</del>(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用HEAD<del>。HEAD^和HEAD</del>或HEAD^^和HEAD<del>并没有区别，只有HEAD^+数字才和HEAD</del>有区别。 git reset 撤销方式git reset –soft 版本号只撤销本地仓库数据到版本号git reset –mixed 版本号该方式为默认方式（即git reset 版本号）撤销本地和暂存区仓库到版本号git reset –hard 版本号撤销 工作区 暂存区 本地仓库到版本号git reset –hard origin/master远程仓库代码覆盖工作区 暂存区 本地仓库以上指令都不会对未归入git控制的文件进行管理也就是从未add过的文件git是不会去删除撤销它的撤销单个文件的修改git reset HEAD xxx.txt本地覆盖暂存区的代码git checkout xxx.txtgit checkout .将暂存区的代码覆盖工作区 “.”是通配所有文件</p>
-<p>git 强制pull </p>
-<p>git pull origin master –allow-unrelated-histories </p>
-<p>git 强制push git push -f </p>
-<p>合并</p>
-<p>git merge origin master </p>
-<p>git status</p>
-<p>git 保存工作区修改 不提交</p>
-<p>git stash save “xxx” （入栈，工作区代码放入到stash中）</p>
-<p>git stash pop (出栈，从stash中拿保存的代码)</p>
-<h2 id="指令一览"><a href="#指令一览" class="headerlink" title="指令一览"></a>指令一览</h2><ul>
-<li><p>强推<br>对受保护分支无法使用强推，强推解决多仓库不同源问题<br>git push 远程仓库名 本地分支:远程仓库名 –force</p>
-</li>
-<li><p>commit 错误回滚</p>
-</li>
-</ul>
-<p>git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit 。<br>git reset –hard –mixed(default) –soft 分别覆盖3个、2个、1个位置的代码，–mixed（默认的参数）只会保留working copy里的代码</p>
-<p>git cherry-pick <commit_id> 选择合并</p>
-<p>git subtree 子仓库 特殊场合使用</p>
-<p>git merge dev 合并</p>
-<p>git remote rm origin 删除远程仓库</p>
-<p>git push origin –delete dev 删除远程分支</p>
-<ul>
-<li><p>对于提交错误但未push的commit 可以使用idea 的undo commit 进行回滚</p>
-</li>
-<li><p>多仓库远程推送 git push origin local:remote</p>
-</li>
-</ul>
-<p>git branch -vv 查看本地分支关联的远程分支</p>
-<p>git checkout -b dev origin/dev   切换远程分支</p>
+<h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">### 查看分支</span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">### 查看commit</span><br><span class="line">git checkout commitid</span><br><span class="line"></span><br><span class="line">### 切换远程分支</span><br><span class="line">git checkout -b dev origin/dev   </span><br><span class="line"></span><br><span class="line">### 查看本地分支关联的远程分支</span><br><span class="line">git branch -vv </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="覆盖-撤回"><a href="#覆盖-撤回" class="headerlink" title="覆盖/撤回"></a>覆盖/撤回</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">### 对受保护分支无法使用强推，强推解决多仓库不同源问题</span><br><span class="line">git push 远程仓库名 本地分支:远程仓库名 --force</span><br><span class="line"></span><br><span class="line">### git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit 。</span><br><span class="line">### git reset --hard --mixed(default) --soft 分别覆盖3个、2个、1个位置的代码，--mixed（默认的参数）只会保留working copy里的代码</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^</span><br><span class="line"></span><br><span class="line">### 强制push ,会覆盖其他提交记录 慎用</span><br><span class="line">git push -f </span><br><span class="line"></span><br><span class="line">### 强制pull</span><br><span class="line"></span><br><span class="line">git pull origin master --allow-unrelated-histories </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">### 多仓库远程推送</span><br><span class="line">git push origin local:remote</span><br><span class="line"></span><br><span class="line">### 对于提交错误但未push的commit 可以使用idea 的undo commit 进行回滚</span><br><span class="line"></span><br><span class="line">### 合并</span><br><span class="line">git merge dev </span><br><span class="line"></span><br><span class="line">### 删除本地的远程仓库地址</span><br><span class="line">git remote rm origin </span><br><span class="line"></span><br><span class="line">### 删除远程分支</span><br><span class="line">git push origin --delete dev </span><br><span class="line"></span><br><span class="line">### 选择合并（摘樱桃）</span><br><span class="line">git cherry-pick &lt;commit_id&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-subtree"><a href="#git-subtree" class="headerlink" title="git subtree"></a>git subtree</h3><p>git subtree 是在当前仓库下创建子目录，适用于多仓库间公共代码的维护</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">### 添加子仓库</span><br><span class="line">git subtree add --prefix LibraryC libraryc master </span><br><span class="line"></span><br><span class="line">### 拉取子仓库代码</span><br><span class="line"></span><br><span class="line">git subtree pull --prefix LibraryC libraryc master</span><br><span class="line"></span><br><span class="line">### 提交子仓库代码</span><br><span class="line">git subtree push --prefix LibraryC libraryc master </span><br></pre></td></tr></table></figure>
+
+<p>HEAD的含义：代表当前仓库最新版本。<code>HEAD^</code> 和<code>HEAD~</code>的意义和区别HEAD^+数字表示当前提交的父提交。具体是第几个父提交共同过^+数字指定，HEAD^1第一个父提交，该语法只能用于合并(merge)的提交记录，因为一个通过合并产生的commit对象才有多个父提交。<code>HEAD~</code>(等同于HEAD^,注意没有加数字)表当前提交的上一个提交。<br>如果想获取一个提交的第几个父提交使用HEAD^+数字,想获取一个提交的上几个提交使用<code>HEAD~</code>。<code>HEAD^</code>和<code>HEAD~</code>或<code>HEAD^^</code>和<code>HEAD~~</code>并没有区别，只有HEAD^+数字才和HEAD~有区别。</p>
 
       
 
@@ -436,11 +411,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javase</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color2">javase</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,10 +428,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,6 +484,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">devops</a>
               </li>
             
             <div class="clearfix"></div>
