@@ -155,6 +155,244 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-k8s之vagrant" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/27/k8s%E4%B9%8Bvagrant/">k8s之vagrant</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/27/k8s%E4%B9%8Bvagrant/" class="archive-article-date">
+  	<time datetime="2022-04-27T13:21:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="本地开发集群新方案-Virtualbox-Vagrant"><a href="#本地开发集群新方案-Virtualbox-Vagrant" class="headerlink" title="本地开发集群新方案 Virtualbox+Vagrant"></a>本地开发集群新方案 Virtualbox+Vagrant</h1><p>vagrant 相对于 vmware 而言更轻量级，操作更简便移植性更强，如果我们需要学习k8s或者搭建一些集群的话建议使用 Virtualbox+Vagrant。<br>Vagrant 是创建虚拟机的工具，Virtualbox 是vagrant 管理工具，而且这两个软件是开源的，不需要我去付费或者破解。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>vagrant 下载地址：<a target="_blank" rel="noopener" href="https://www.vagrantup.com">https://www.vagrantup.com</a><br>virtualbox 下载地址：<a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></p>
+<p>下载安装完成后，我们还需要下载vagrant镜像<br>镜像下载地址：<a target="_blank" rel="noopener" href="https://app.vagrantup.com/boxes/search">https://app.vagrantup.com/boxes/search</a></p>
+<p>打开cmd 窗口，添加本地镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vagrant box add --name 镜像名称 E:data/centos7.box</span><br><span class="line"></span><br><span class="line">## 查看所有镜像</span><br><span class="line">vagrant box list </span><br><span class="line"></span><br><span class="line">## 初始化Vagrantfile</span><br><span class="line">vagarnt init 镜像名称</span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>vagarnt init</code> 指令会根据镜像在当前文件夹生成一个<code>Vagrantfile</code>文件，这个文件是创建虚拟机的配置文件。</p>
+<p>打开 virtualbox，管理-&gt;常规-&gt;默认虚拟电脑位置，设置虚拟机存储文件夹。</p>
+<p>打开cmd 输入 <code>ipconfig</code> 查看VirtualBox 的虚拟网卡ip:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">以太网适配器 VirtualBox Host-Only Network:</span><br><span class="line"></span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . :</span><br><span class="line">   本地链接 IPv6 地址. . . . . . . . : fe80::85e5:a582:5c5a:bb5b%15</span><br><span class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.56.1</span><br></pre></td></tr></table></figure>
+
+<p>修改 <code>Vagrantfile</code>文件，指定其虚拟机的内网ip，需要和虚拟网卡一个网段:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 配置位置可文件中搜索该配置项，有相应的提示</span><br><span class="line">  config.vm.network &quot;private_network&quot;, ip: &quot;192.168.56.10&quot;</span><br></pre></td></tr></table></figure>
+<p>在 <code>Vagrantfile</code>所在文件夹打开powershell或者cmd 执行指令<code>vagrant up</code> 启动一个虚拟机。</p>
+<p>待虚拟机启动完成后执行 <code>vagrant ssh</code> 进入虚拟机，该虚拟机的root默认密码为<code>vagrant</code>，进入时的账号也是<code>vagrant</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">PS E:\vagrant\cent1&gt; vagrant up</span><br><span class="line">Bringing machine &#x27;default&#x27; up with &#x27;virtualbox&#x27; provider...</span><br><span class="line">==&gt; default: Clearing any previously set forwarded ports...</span><br><span class="line">==&gt; default: Clearing any previously set network interfaces...</span><br><span class="line">==&gt; default: Preparing network interfaces based on configuration...</span><br><span class="line">    default: Adapter 1: nat</span><br><span class="line">    default: Adapter 2: hostonly</span><br><span class="line">==&gt; default: Forwarding ports...</span><br><span class="line">    default: 22 (guest) =&gt; 2222 (host) (adapter 1)</span><br><span class="line">==&gt; default: Booting VM...</span><br><span class="line">==&gt; default: Waiting for machine to boot. This may take a few minutes...</span><br><span class="line">    default: SSH address: 127.0.0.1:2222</span><br><span class="line">    default: SSH username: vagrant</span><br><span class="line">    default: SSH auth method: private key</span><br><span class="line">==&gt; default: Machine booted and ready!</span><br><span class="line">==&gt; default: Checking for guest additions in VM...</span><br><span class="line">    default: No guest additions were detected on the base box for this VM! Guest</span><br><span class="line">    default: additions are required for forwarded ports, shared folders, host only</span><br><span class="line">    default: networking, and more. If SSH fails on this machine, please install</span><br><span class="line">    default: the guest additions and repackage the box to continue.</span><br><span class="line">    default:</span><br><span class="line">    default: This is not an error message; everything may continue to work properly,</span><br><span class="line">    default: in which case you may ignore this message.</span><br><span class="line">==&gt; default: Configuring and enabling network interfaces...</span><br><span class="line">==&gt; default: Rsyncing folder: /cygdrive/e/vagrant/cent1/ =&gt; /vagrant</span><br><span class="line">==&gt; default: Machine already provisioned. Run `vagrant provision` or use the `--provision`</span><br><span class="line">==&gt; default: flag to force provisioning. Provisioners marked to run always will still run.</span><br><span class="line">PS E:\vagrant\cent1&gt; vagrant ssh</span><br><span class="line">[vagrant@localhost ~]$ whoami</span><br><span class="line">vagrant</span><br><span class="line">[vagrant@localhost ~]$ ls /</span><br><span class="line">bin   dev  home  lib64  mnt  proc  run   srv       sys  usr      var</span><br><span class="line">boot  etc  lib   media  opt  root  sbin  swapfile  tmp  vagrant</span><br><span class="line">[vagrant@localhost ~]$</span><br></pre></td></tr></table></figure>
+
+<h2 id="多机启动"><a href="#多机启动" class="headerlink" title="多机启动"></a>多机启动</h2><p>我们在搭建一些环境时往往需要启动多台虚拟机，接下来我们将介绍如何创建多台虚拟机并进行相关的配置。</p>
+<p>我们修改<code>Vagrantfile</code> 内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Vagrant.configure(&quot;2&quot;) do |config| </span><br><span class="line">   (1..3).each do |i| </span><br><span class="line">       </span><br><span class="line">      #定义节点变量 </span><br><span class="line">      config.vm.define &quot;node#&#123;i&#125;&quot; do |node| </span><br><span class="line">      </span><br><span class="line">      # box配置 </span><br><span class="line">      node.vm.box = &quot;centos7&quot; </span><br><span class="line"> </span><br><span class="line">      # 设置虚拟机的主机名 </span><br><span class="line">      node.vm.hostname = &quot;node#&#123;i&#125;&quot; </span><br><span class="line"> </span><br><span class="line">      # 设置虚拟机的IP </span><br><span class="line">      node.vm.network &quot;private_network&quot;, ip: &quot;192.168.56.#&#123;10+i&#125;&quot; </span><br><span class="line"> </span><br><span class="line">      # 设置主机与虚拟机的共享目录 </span><br><span class="line">      #node.vm.synced_folder &quot;/Users/meetmax&quot;, &quot;/home/vagrant/code&quot; </span><br><span class="line">      node.vm.synced_folder &quot;E:/volum/data&quot;, &quot;/share&quot;, create:true, owner: &quot;root&quot;, group: &quot;root&quot;</span><br><span class="line">      # VirtaulBox相关配置 </span><br><span class="line">      node.vm.provider &quot;virtualbox&quot; do |v| </span><br><span class="line"> </span><br><span class="line">          # 设置虚拟机的名称 </span><br><span class="line">          v.name = &quot;node#&#123;i&#125;&quot; </span><br><span class="line"> </span><br><span class="line">          # 设置虚拟机的内存大小 </span><br><span class="line">          v.memory = 2048 </span><br><span class="line"> </span><br><span class="line">          # 设置虚拟机的CPU个数 </span><br><span class="line">          v.cpus = 2 </span><br><span class="line">      end </span><br><span class="line">  end </span><br><span class="line">end </span><br><span class="line">end </span><br></pre></td></tr></table></figure>
+<p>执行 <code>vagrant up</code> 启动node1,node2,node3 三台虚拟机，在启动过程中可能会报挂载失败的错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">node1: /share =&gt; E:/vagrant/data</span><br><span class="line">Vagrant was unable to mount VirtualBox shared folders. This is usually</span><br><span class="line">because the filesystem &quot;vboxsf&quot; is not available. This filesystem is</span><br><span class="line">made available via the VirtualBox Guest Additions and kernel module.</span><br><span class="line">Please verify that these guest additions are properly installed in the</span><br><span class="line">guest. This is not a bug in Vagrant and is usually caused by a faulty</span><br><span class="line">Vagrant box. For context, the command attempted was:</span><br><span class="line"></span><br><span class="line">mount -t vboxsf -o uid=0,gid=0,_netdev share /share</span><br></pre></td></tr></table></figure>
+
+<p>安装插件可以解决（如果还报错则卸载插件，换一个更低版本的）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## 安装插件</span><br><span class="line">vagrant plugin install vagrant-vbguest</span><br><span class="line"></span><br><span class="line">## 卸载插件</span><br><span class="line">vagrant plugin uninstall vagrant-vbguest</span><br><span class="line"></span><br><span class="line">## 安装指定版本插件</span><br><span class="line">vagrant plugin install vagrant-vbguest --plugin-version 0.21</span><br><span class="line"></span><br><span class="line">## 插件安装过程中可能出现联网失败的情况，可以修改下载国内镜像安装</span><br><span class="line">vagrant plugin install vagrant-vbguest --plugin-clean-sources --plugin-source https://gems.ruby-china.com/</span><br></pre></td></tr></table></figure>
+
+
+<p>执行 <code>vagrant status</code> 查看虚拟机运行状态，也可以直接在virtualbox 界面上查看，在下次启动虚拟机的时候就不需要再cmd窗口执行<code>vagrant up指令</code>，直接在virtualbox界面上选择启动方式。<br>进入虚拟机的指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant ssh &#x27;虚拟机名称&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="虚拟机初始化配置"><a href="#虚拟机初始化配置" class="headerlink" title="虚拟机初始化配置"></a>虚拟机初始化配置</h2><p>在我们虚拟机启动后，其中dns 服务器地址是有问题的，我们希望在创建虚拟机的时候，进行一些基础的配置，我们可以在Vagrantfile 中添加脚本实现这些配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">Vagrant.configure(&quot;2&quot;) do |config| </span><br><span class="line">    (1..3).each do |i| </span><br><span class="line">       </span><br><span class="line">        #定义节点变量 </span><br><span class="line">        config.vm.define &quot;node#&#123;i&#125;&quot; do |node| </span><br><span class="line">      </span><br><span class="line">        # box配置 </span><br><span class="line">        node.vm.box = &quot;centos7&quot; </span><br><span class="line"> </span><br><span class="line">        # 设置虚拟机的主机名 </span><br><span class="line">        node.vm.hostname = &quot;node#&#123;i&#125;&quot; </span><br><span class="line"> </span><br><span class="line">        # 设置虚拟机的IP </span><br><span class="line">        node.vm.network &quot;private_network&quot;, ip: &quot;192.168.56.#&#123;10+i&#125;&quot; </span><br><span class="line"> </span><br><span class="line">        # 设置主机与虚拟机的共享目录 </span><br><span class="line">        #node.vm.synced_folder &quot;E:\volum\data&quot;, &quot;/share&quot;, create:true, owner: &quot;root&quot;, group: &quot;root&quot;</span><br><span class="line">        # VirtaulBox相关配置 </span><br><span class="line">        node.vm.provider &quot;virtualbox&quot; do |v| </span><br><span class="line"> </span><br><span class="line">          # 设置虚拟机的名称 </span><br><span class="line">          v.name = &quot;node#&#123;i&#125;&quot; </span><br><span class="line"> </span><br><span class="line">          # 设置虚拟机的内存大小 </span><br><span class="line">          v.memory = 2048 </span><br><span class="line"> </span><br><span class="line">          # 设置虚拟机的CPU个数 </span><br><span class="line">          v.cpus = 2 </span><br><span class="line">        end</span><br><span class="line">        node.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL</span><br><span class="line">            eh=$(nmcli connection show|awk -F &quot;  &quot; &#x27;&#123;print $1&#125;&#x27;|grep -v NAME|head -1)</span><br><span class="line">            nmcli con mod &quot;$eh&quot; ipv4.dns &quot;223.5.5.5&quot;</span><br><span class="line">            nmcli con up &quot;$eh&quot;</span><br><span class="line">        SHELL</span><br><span class="line">        end </span><br><span class="line">    end </span><br><span class="line">end </span><br></pre></td></tr></table></figure>
+<p>在示例中，我通过配置项<code>node.vm.provision &quot;shell&quot;</code> 编写脚本设置了dns 服务器ip。通过这个方式我们可以实现预装docker等操作。<br>我们还可以指定外部脚本，配置示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.vm.provision &quot;shell&quot;, path: &quot;script.sh&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当然我们还可以制作自己的box 实现一键创建虚拟机。<br>首先我们在原来的虚拟机中安装好软件并修改相关配置配置文件，然后清除掉private_network的网络规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -f /etc/udev/rule.d/70-persistent-net.rules</span><br></pre></td></tr></table></figure>
+<p>检查 /etc/ssh/sshd_config文件PasswordAuthentication no 是否被注释掉，没有注释掉的话无法通过 <code>vagrant ssh</code> 登录。</p>
+<p>然后执行指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vagrant package node1 </span><br></pre></td></tr></table></figure>
+<p>在当前文件夹下得到一个 package.box 。</p>
+<p>vagrant package 极大的增强了虚拟机的可移植性，在一定程度上降低了我们的学习成本。</p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>vagrant 常用指令速查表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># 查看box </span><br><span class="line">vagrant box list</span><br><span class="line"></span><br><span class="line"># 添加box</span><br><span class="line">vagrant box add --name path</span><br><span class="line"></span><br><span class="line"># 移除box</span><br><span class="line">vagrant box remove xxx</span><br><span class="line"></span><br><span class="line"># 初始化 Vagrantfile</span><br><span class="line">vagrant init xxx</span><br><span class="line"></span><br><span class="line"># 启动虚拟机</span><br><span class="line">vagrant up [name]</span><br><span class="line"></span><br><span class="line"># ssh 连接虚拟机</span><br><span class="line">vagrant ssh</span><br><span class="line"></span><br><span class="line"># 重新加载虚拟机</span><br><span class="line">vagrant reload</span><br><span class="line"></span><br><span class="line"># 删除虚拟机</span><br><span class="line">vagrant destroy</span><br><span class="line"></span><br><span class="line"># 打包虚拟机为镜像</span><br><span class="line">vagrant package </span><br><span class="line"></span><br><span class="line"># 查看虚拟机状态</span><br><span class="line">vagrant status</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  nmcli connection show</span><br><span class="line">  </span><br><span class="line">  nmcli con mod &quot;System eth0&quot; ipv4.dns &quot;223.5.5.5 223.6.6.6&quot;</span><br><span class="line">  </span><br><span class="line">  sudo nmcli con up &quot;System eth0&quot;</span><br><span class="line"></span><br><span class="line">  sudo yum install wget</span><br><span class="line">  sudo yum update -y</span><br><span class="line">  sudo yum install docker -y</span><br><span class="line">   sudo mv /etc/yum.repos.d/CentOS-Base.repo CentOS-Base.repo.back</span><br><span class="line">   sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line">   yum clean all</span><br><span class="line"></span><br><span class="line">yum makecache</span><br><span class="line"></span><br><span class="line">sudo rm -f /etc/udev/rule.d/70-persistent-net.rules</span><br><span class="line">sudo systemctl enable docker</span><br><span class="line">sudo vi /etc/docker/daemon.json</span><br><span class="line"> &quot;registry-mirrors&quot;: [&quot;https://b9pmyelo.mirror.aliyuncs.com&quot;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/27/k8s%E4%B9%8Bvagrant/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-k8s基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/27/k8s%E5%9F%BA%E7%A1%80/">k8s基础</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/27/k8s%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2022-04-27T13:17:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Kubernetes中概念的简要概述"><a href="#Kubernetes中概念的简要概述" class="headerlink" title="Kubernetes中概念的简要概述"></a>Kubernetes中概念的简要概述</h2><p>Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。<br>Node : 一个node就是一个运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。.<br>Pod : 一个pod对应一个由相关容器和卷组成的容器组 （了解Pod详情）<br>Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源（了解Label详情）<br>selector是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.（了解selector详情）<br>Replication Controller : replication controller 是为了保证一定数量被指定的Pod的复制品在任何时间都能正常工作.它不仅允许复制的系统易于扩展，还会处理当pod在机器在重启或发生故障的时候再次创建一个（了解Replication Controller详情）<br>Service : 一个service定义了访问pod的方式，就像单个固定的IP地址和与其相对应的DNS名之间的关系。（了解Service详情）<br>Volume: 一个volume是一个目录，可能会被容器作为未见系统的一部分来访问。（了解Volume详情）<br>Kubernetes volume 构建在Docker Volumes之上,并且支持添加和配置volume目录或者其他存储设备。<br>Secret : Secret 存储了敏感数据，例如能允许容器接收请求的权限令牌。<br>Name : 用户为Kubernetes中资源定义的名字<br>Namespace : Namespace 好比一个资源名字的前缀。它帮助不同的项目、团队或是客户可以共享cluster,例如防止相互独立的团队间出现命名冲突<br>Annotation : 相对于label来说可以容纳更大的键值对，它对我们来说可能是不可读的数据，只是为了存储不可识别的辅助数据，尤其是一些被工具或系统扩展用来操作的数据</p>
+<h2 id="window下搭建k8s环境"><a href="#window下搭建k8s环境" class="headerlink" title="window下搭建k8s环境"></a>window下搭建k8s环境</h2><h2 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h2><p>命名空间在k8s中的主要作用是资源隔离，可以将多个 pod 放入同一namespace中，实现对一组pod资源的管理。<br>k8s 在集群启动后，会默认创建几个namespace ,可以通过指令<code>kubectl get ns</code> 查看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;kubectl get ns</span><br><span class="line">NAME                   STATUS   AGE</span><br><span class="line">default                Active   34d</span><br><span class="line">kube-node-lease        Active   34d</span><br><span class="line">kube-public            Active   34d</span><br><span class="line">kube-system            Active   34d</span><br><span class="line">kubernetes-dashboard   Active   34d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果我们创建pod的时候未指定namespace,则会默认划分到 default 命名空间中，<code>kube-node-lease</code> 用于维护节点之间的心跳，<code>kube-public</code> 公共资源的命名空间，可以被所有人访问，<code>kube-system</code> k8s的系统资源命名空间。<br>查看命名空间指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -n kube-system </span><br><span class="line"></span><br><span class="line">### 控制台返回</span><br><span class="line"></span><br><span class="line">NAME                                     READY   STATUS    RESTARTS         AGE</span><br><span class="line">coredns-78fcd69978-7df2r                 1/1     Running   41 (18m ago)     34d</span><br><span class="line">coredns-78fcd69978-cwwmp                 1/1     Running   41 (18m ago)     34d</span><br><span class="line">etcd-docker-desktop                      1/1     Running   41 (18m ago)     34d</span><br><span class="line">kube-apiserver-docker-desktop            1/1     Running   41 (18m ago)     34d</span><br><span class="line">kube-controller-manager-docker-desktop   1/1     Running   41 (18m ago)     34d</span><br><span class="line">kube-proxy-5hfwt                         1/1     Running   41 (18m ago)     34d</span><br><span class="line">kube-scheduler-docker-desktop            1/1     Running   41 (18m ago)     34d</span><br><span class="line">storage-provisioner                      1/1     Running   81 (17m ago)     34d</span><br><span class="line">vpnkit-controller                        1/1     Running   1728 (17m ago)   34d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>namespace 相关指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">### 查看 </span><br><span class="line">kubectl get ns</span><br><span class="line"></span><br><span class="line">### 查看某一个</span><br><span class="line">kubectl get ns default</span><br><span class="line"></span><br><span class="line">### 查看详情 </span><br><span class="line">kubectl describe ns default</span><br><span class="line"></span><br><span class="line">### 创建</span><br><span class="line">kubectl create ns dev</span><br><span class="line"></span><br><span class="line">### 删除 </span><br><span class="line">kubectl delete ns dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在namespace 属性中 status 的状态包括 active Terminating（正在删除），resource quota 属性限制了 ns的资源，limitRange resource 限制了 ns 下 pod的资源</p>
+<p>我们还可以以配置文件的形式创建namespace，创建ns-dev.yaml:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Namespace</span><br><span class="line">metadata:</span><br><span class="line">  name: dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>执行对应的创建或删除命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f ns-dev.yaml</span><br><span class="line">kubectl delete -f ns-dev.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h2><p>pod 是k8s集群进行部署管理的最小单元，一个pod中可以有一个或者多个容器，pod是对容器的封装。k8s 在集群启动后，集群中的各个组件都是以pod的方式运行的。可以通过以下命令查看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n kube-system [-o wide]</span><br><span class="line"></span><br><span class="line">### 控制台返回</span><br><span class="line">C:\Users\Administrator&gt;kubectl get pod -n kube-system</span><br><span class="line">NAME                                     READY   STATUS    RESTARTS           AGE</span><br><span class="line">coredns-78fcd69978-7df2r                 1/1     Running   43 (70m ago)       35d</span><br><span class="line">coredns-78fcd69978-cwwmp                 1/1     Running   43 (70m ago)       35d</span><br><span class="line">etcd-docker-desktop                      1/1     Running   43 (70m ago)       35d</span><br><span class="line">kube-apiserver-docker-desktop            1/1     Running   43 (70m ago)       35d</span><br><span class="line">kube-controller-manager-docker-desktop   1/1     Running   43 (70m ago)       35d</span><br><span class="line">kube-proxy-5hfwt                         1/1     Running   43 (70m ago)       35d</span><br><span class="line">kube-scheduler-docker-desktop            1/1     Running   43 (70m ago)       35d</span><br><span class="line">storage-provisioner                      1/1     Running   85 (69m ago)       35d</span><br><span class="line">vpnkit-controller                        1/1     Running   1770 (9m43s ago)   35d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>pod相关指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">### 运行一个pod </span><br><span class="line">kubectl run nginx --image=nginx:1.17.1 --port=80 --namespace dev</span><br><span class="line"></span><br><span class="line">### 查看</span><br><span class="line">kubectl get pod -n kube-system -o wide</span><br><span class="line">kubectl describe pod nginx-xxxx -n dev</span><br><span class="line"></span><br><span class="line">## 删除</span><br><span class="line">kubectl delete pod nginx-xxxx -n dev</span><br><span class="line"></span><br><span class="line">## 删除pod 控制器 当pod 绑定pod 控制器的时候，直接删除pod后，pod控制器会重建pod 因此需要删除对应的pod控制器</span><br><span class="line">kubectl get deployment -n dev</span><br><span class="line"></span><br><span class="line">### 删除pod 控制器</span><br><span class="line">kubectl delete deployment nginx -n dev</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过配置文件创建pod:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx</span><br><span class="line">  namespace: dev</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - image: nginx:latest</span><br><span class="line">    name: pod</span><br><span class="line">    ports:</span><br><span class="line">    - name: nginx-port</span><br><span class="line">      containerPort: 80</span><br><span class="line">      protocol: TCP</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以执行对应的创建和删除命令了：</p>
+<p>创建：kubectl create -f pod-nginx.yaml</p>
+<p>删除：kubectl delete -f pod-nginx.yaml</p>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><p>Label是kubernetes系统中的一个重要概念。它的作用就是在资源上添加标识，用来对它们进行区分和选择。</p>
+<p>Label的特点：</p>
+<ul>
+<li>一个Label会以key/value键值对的形式附加到各种对象上，如Node、Pod、Service等等</li>
+<li>一个资源对象可以定义任意数量的Label ，同一个Label也可以被添加到任意数量的资源对象上去</li>
+<li>Label通常在资源对象定义时确定，当然也可以在对象创建后动态添加或者删除</li>
+</ul>
+<p>可以通过Label实现资源的多维度分组，以便灵活、方便地进行资源分配、调度、配置、部署等管理工作。</p>
+<blockquote>
+<p>一些常用的Label 示例如下：</p>
+<ul>
+<li>版本标签：”version”:”release”, “version”:”stable”……</li>
+<li>环境标签：”environment”:”dev”，”environment”:”test”，”environment”:”pro”</li>
+<li>架构标签：”tier”:”frontend”，”tier”:”backend”</li>
+</ul>
+</blockquote>
+<p>打标签命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n dev --show-labels</span><br><span class="line">kubectl label pod nginx -n dev version=1.0 </span><br><span class="line">kubectl label pod nginx -n dev version=2.0 --overwrite</span><br><span class="line">kubectl label pod -l &quot;version=2.0&quot; -n dev</span><br><span class="line"></span><br><span class="line">## 删除标签 </span><br><span class="line">kubectl label pod nginx -n dev version-</span><br><span class="line"></span><br><span class="line"># pod 更新</span><br><span class="line">kubectl apply -f nginx.yaml</span><br></pre></td></tr></table></figure>
+
+<p>配置文件打标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx</span><br><span class="line">  namespace: dev</span><br><span class="line">  labels:</span><br><span class="line">    version: &quot;3.0&quot; </span><br><span class="line">    env: &quot;test&quot;</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - image: nginx:latest</span><br><span class="line">    name: pod</span><br><span class="line">    ports:</span><br><span class="line">    - name: nginx-port</span><br><span class="line">      containerPort: 80</span><br><span class="line">      protocol: TCP</span><br></pre></td></tr></table></figure>
+
+<p>在pod的yaml 中指定标签然后通过指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx.yaml</span><br></pre></td></tr></table></figure>
+<p>完成更新</p>
+<h2 id="deployment"><a href="#deployment" class="headerlink" title="deployment"></a>deployment</h2><p>在kubernetes中，Pod是最小的控制单元，但是kubernetes很少直接控制Pod，一般都是通过Pod控制器来完成的。Pod控制器用于pod的管理，确保pod资源符合预期的状态，当pod的资源出现故障时，会尝试进行重启或重建pod。</p>
+<p>在kubernetes中Pod控制器的种类有很多，本章节只介绍一种：Deployment。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">## 查看deployment pod</span><br><span class="line">kubectl get deployment,pods -n dev</span><br><span class="line"># 命令格式: kubectl create deployment 名称  [参数] </span><br><span class="line"># --image  指定pod的镜像</span><br><span class="line"># --port   指定端口</span><br><span class="line"># --replicas  指定创建pod数量</span><br><span class="line"># --namespace  指定namespace</span><br><span class="line">[root@master ~]# kubectl run nginx --image=nginx:latest --port=80 --replicas=3 -n dev</span><br><span class="line">deployment.apps/nginx created</span><br><span class="line"></span><br><span class="line"># 查看创建的Pod</span><br><span class="line">[root@master ~]# kubectl get pods -n dev</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-5ff7956ff6-6k8cb   1/1     Running   0          19s</span><br><span class="line">nginx-5ff7956ff6-jxfjt   1/1     Running   0          19s</span><br><span class="line">nginx-5ff7956ff6-v6jqw   1/1     Running   0          19s</span><br><span class="line"></span><br><span class="line"># 查看deployment的信息</span><br><span class="line">[root@master ~]# kubectl get deploy -n dev</span><br><span class="line">NAME    READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">nginx   3/3     3            3           2m42s</span><br><span class="line"></span><br><span class="line"># UP-TO-DATE：成功升级的副本数量</span><br><span class="line"># AVAILABLE：可用副本的数量</span><br><span class="line">[root@master ~]# kubectl get deploy -n dev -o wide</span><br><span class="line">NAME    READY UP-TO-DATE  AVAILABLE   AGE     CONTAINERS   IMAGES              SELECTOR</span><br><span class="line">nginx   3/3     3         3           2m51s   nginx        nginx:latest        run=nginx</span><br><span class="line"></span><br><span class="line"># 查看deployment的详细信息</span><br><span class="line">[root@master ~]# kubectl describe deploy nginx -n dev</span><br><span class="line">Name:                   nginx</span><br><span class="line">Namespace:              dev</span><br><span class="line">CreationTimestamp:      Wed, 08 May 2021 11:14:14 +0800</span><br><span class="line">Labels:                 run=nginx</span><br><span class="line">Annotations:            deployment.kubernetes.io/revision: 1</span><br><span class="line">Selector:               run=nginx</span><br><span class="line">Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable</span><br><span class="line">StrategyType:           RollingUpdate</span><br><span class="line">MinReadySeconds:        0</span><br><span class="line">RollingUpdateStrategy:  25% max unavailable, 25% max surge</span><br><span class="line">Pod Template:</span><br><span class="line">  Labels:  run=nginx</span><br><span class="line">  Containers:</span><br><span class="line">   nginx:</span><br><span class="line">    Image:        nginx:latest</span><br><span class="line">    Port:         80/TCP</span><br><span class="line">    Host Port:    0/TCP</span><br><span class="line">    Environment:  &lt;none&gt;</span><br><span class="line">    Mounts:       &lt;none&gt;</span><br><span class="line">  Volumes:        &lt;none&gt;</span><br><span class="line">Conditions:</span><br><span class="line">  Type           Status  Reason</span><br><span class="line">  ----           ------  ------</span><br><span class="line">  Available      True    MinimumReplicasAvailable</span><br><span class="line">  Progressing    True    NewReplicaSetAvailable</span><br><span class="line">OldReplicaSets:  &lt;none&gt;</span><br><span class="line">NewReplicaSet:   nginx-5ff7956ff6 (3/3 replicas created)</span><br><span class="line">Events:</span><br><span class="line">  Type    Reason             Age    From                   Message</span><br><span class="line">  ----    ------             ----   ----                   -------</span><br><span class="line">  Normal  ScalingReplicaSet  5m43s  deployment-controller  Scaled up replicaset nginx-5ff7956ff6 to 3</span><br><span class="line">  </span><br><span class="line"># 删除 </span><br><span class="line">[root@master ~]# kubectl delete deploy nginx -n dev</span><br><span class="line">deployment.apps &quot;nginx&quot; deleted</span><br></pre></td></tr></table></figure>
+
+<p>配置文件创建：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx</span><br><span class="line">  namespace: dev</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      run: nginx</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        run: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - image: nginx:latest</span><br><span class="line">        name: nginx</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line">          protocol: TCP</span><br></pre></td></tr></table></figure>
+
+<h2 id="service"><a href="#service" class="headerlink" title="service"></a>service</h2><p>通过上节课的学习，已经能够利用Deployment来创建一组Pod来提供具有高可用性的服务。</p>
+<p>虽然每个Pod都会分配一个单独的Pod IP，然而却存在如下两问题：</p>
+<ul>
+<li>Pod IP 会随着Pod的重建产生变化</li>
+<li>Pod IP 仅仅是集群内可见的虚拟IP，外部无法访问</li>
+</ul>
+<p>这样对于访问这个服务带来了难度。因此，kubernetes设计了Service来解决这个问题。</p>
+<p>Service可以看作是一组同类Pod<strong>对外的访问接口</strong>。借助Service，应用可以方便地实现服务发现和负载均衡。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 暴露Service</span><br><span class="line">[root@master ~]# kubectl expose deploy nginx --name=svc-nginx1 --type=ClusterIP --port=80 --target-port=80 -n dev</span><br><span class="line">service/svc-nginx1 exposed</span><br><span class="line"></span><br><span class="line"># 查看service</span><br><span class="line">[root@master ~]# kubectl get svc svc-nginx1 -n dev -o wide</span><br><span class="line">NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE     SELECTOR</span><br><span class="line">svc-nginx1   ClusterIP   10.109.179.231   &lt;none&gt;        80/TCP    3m51s   run=nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/27/k8s%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-jenkins-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1228,7 +1466,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/16/docker-%E7%90%86%E8%AE%BA%E7%AF%87/">docker 理论篇</a>
+      <a class="article-title" href="/2021/08/16/docker-%E7%90%86%E8%AE%BA%E7%AF%87/">k8s 系列-docker</a>
     </h1>
   
 
@@ -1241,24 +1479,55 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="认识docker"><a href="#认识docker" class="headerlink" title="认识docker"></a>认识docker</h1><p> docker是Docker.inc 公司开源的一个基于LXC技术之上构建Container容器引擎技术，Docker基于容器技术的轻量级虚拟化解决方案，实现一次交付到处运行。docker实现程序集装箱的概念，把我们需要交付的内容集装聚合成一个文件（镜像文件）直接交付。</p>
-<h1 id="docker-基本原理"><a href="#docker-基本原理" class="headerlink" title="docker 基本原理"></a>docker 基本原理</h1><h2 id="docker-三大核心"><a href="#docker-三大核心" class="headerlink" title="docker 三大核心"></a>docker 三大核心</h2><p>docker 三大核心包括容器，仓库，镜像。</p>
+        <h1 id="认识docker"><a href="#认识docker" class="headerlink" title="认识docker"></a>认识docker</h1><p> docker是Docker.inc 公司开源的一个基于LXC技术之上构建Container容器引擎技术，Docker基于容器技术的轻量级虚拟化解决方案，实现一次交付到处运行。<br> docker实现程序集装箱的概念，把我们需要交付的内容集装聚合成一个文件（镜像文件）直接交付。</p>
+<h1 id="docker-基本原理"><a href="#docker-基本原理" class="headerlink" title="docker 基本原理"></a>docker 基本原理</h1><p>docker 架构图：<br><img src="2022-04-24-21-43-50.png" alt=""></p>
+<p>从架构图中我们可以看出，docker有三大核心，包括容器，仓库，镜像</p>
 <ul>
-<li>镜像：文件的层次结构，以及包含如何运行容器的元数据</li>
-<li>容器：容器是镜像创建的运行实例，它可以被启动、开始、停止、删除。每个容器都是相互隔离的、保证安全的平台。可以把容器看作是一个简易版的linux环境，Docker利用容器来运行应用</li>
-<li>仓库：仓库是集中存放镜像文件的场所，仓库注册服务器上往往存放着多个仓库，每个仓库中又保存了很多镜像文件，每个镜像文件有着不同的标签。</li>
+<li><p>镜像（image）：文件的层次结构，以及包含如何运行容器的元数据</p>
+</li>
+<li><p>容器（container）：容器是镜像创建的运行实例，它可以被启动、开始、停止、删除。每个容器都是相互隔离的、保证安全的平台。可以把容器看作是一个简易版的linux环境，Docker利用容器来运行应用</p>
+</li>
+<li><p>仓库（repository）：仓库是集中存放镜像文件的场所，仓库注册服务器上往往存放着多个仓库，每个仓库中又保存了很多镜像文件，每个镜像文件有着不同的标签。</p>
+<p>docker 具有如下特性：</p>
+</li>
+<li><p>文件系统隔离：每个进程容器运行在完全独立的根文件系统中</p>
+</li>
+<li><p>资源限制：每个进程容器运行在自己的网络命名空间中，拥有自己的虚拟接口和ip地址等</p>
+</li>
+<li><p>写时复制：由于镜像采用层式文件系统，所以采用写时复制方式创建镜像的根文件系统，这让部署变得极其快捷，并且节省内存和硬盘空间</p>
+</li>
+<li><p>日志记录：docker会收集和记录每个进程容器的标准流，用于实时检索或批量检索。不消耗本地io</p>
+</li>
+<li><p>变更管理：容器文件系统的变更可以提交到新的镜像中，并可以重复使用以创建更多容器。</p>
+</li>
+<li><p>交互式shell：docker可以分配一个虚拟终端并关联到任何容器的标准输入上。</p>
+</li>
+<li><p>namespace隔离：每个进程容器运行在自己的网络命名空间里，拥有自己的虚拟接口和ip地址等</p>
+</li>
 </ul>
-<h2 id="docker-特性"><a href="#docker-特性" class="headerlink" title="docker 特性"></a>docker 特性</h2><ul>
-<li>文件系统隔离：每个进程容器运行在完全独立的根文件系统中</li>
-<li>资源限制：每个进程容器运行在自己的网络命名空间中，拥有自己的虚拟接口和ip地址等</li>
-<li>写时复制：由于镜像采用层式文件系统，所以采用写时复制方式创建镜像的根文件系统，这让部署变得极其快捷，并且节省内存和硬盘空间</li>
-<li>日志记录：docker会收集和记录每个进程容器的标准流，用于实时检索或批量检索。不消耗本地io</li>
-<li>变更管理：容器文件系统的变更可以提交到新的镜像中，并可以重复使用以创建更多容器。</li>
-<li>交互式shell：docker可以分配一个虚拟终端并关联到任何容器的标准输入上。</li>
-<li>namespace隔离：每个进程容器运行在自己的网络命名空间里，拥有自己的虚拟接口和ip地址等</li>
+<p>docker 工作流程图：<br><img src="2022-04-25-10-35-10.png" alt=""></p>
+<p>docker 工作流程大体分为三步：</p>
+<ul>
+<li>build：制作镜像，镜像如同一个集装箱，封装了包括文件，运行环境等资源</li>
+<li>Ship: 运输镜像，将制作好的镜像上传到仓库中，以便拉取</li>
+<li>Run: 运行镜像，通过镜像创建一个容器</li>
 </ul>
-<h2 id="docker-工作流程"><a href="#docker-工作流程" class="headerlink" title="docker 工作流程"></a>docker 工作流程</h2><p><img src="2022-03-09-16-14-44.png" alt=""><br><img src="2022-03-09-16-15-25.png" alt=""></p>
-<h1 id="dockers实战"><a href="#dockers实战" class="headerlink" title="dockers实战"></a>dockers实战</h1><h1 id="k8s-指南"><a href="#k8s-指南" class="headerlink" title="k8s 指南"></a>k8s 指南</h1><p>kubectl get pods -A -o wide</p>
+<p>docker容器及镜像结构：<br><img src="2022-04-25-10-42-06.png" alt=""><br>Docker 支持通过扩展现有镜像，创建新的镜像，新镜像是从 base 镜像一层一层叠加生成的，每新增一个应用，就会叠加一层镜像。<br>镜像分层的好处就是共享资源，比如说有多个镜像都从相同的 base 镜像构建而来，那么 Docker 只需在磁盘上保存一份 base 镜像，<br>同时内存中也只需加载一份 base 镜像，就可以为所有容器服务了。</p>
+<p>当容器启动时，一个新的可写层被加载到镜像的顶部，这一层通常被称作“容器层”，“容器层”之下的都叫“镜像层”。<br>所有对容器的添加、删除、还是修改文件都只会发生在容器层中。<br>只有容器层是可写的，容器层下面的所有镜像层都是只读的。</p>
+<h1 id="dockers基础操作"><a href="#dockers基础操作" class="headerlink" title="dockers基础操作"></a>dockers基础操作</h1><p>docker 原理我们基本普及了，接下来我们进入实战环节。<br>接下来我们将在windows操作系统上安装docker desktop，需要注意的地方就是windows系统不能是家庭版的，需要开启虚拟化，需要安装WSL2。<br>具体的流程我就不介绍了，网上能找到比较多的例子</p>
+<p>docker 安装完成之后，我们可以运行一个hello world 镜像测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>命令行窗口输出拉取镜像运行的日志，接下来对镜像和容器进行查看删除等操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">## 查看正在运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line">## 查看所有容器</span><br><span class="line">docker ps -a </span><br><span class="line"></span><br><span class="line">## 查看镜像</span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line">## 删除镜像</span><br><span class="line"></span><br><span class="line">docker rm 容器id</span><br><span class="line"></span><br><span class="line">## 删除镜像</span><br><span class="line">docker rmi 镜像id</span><br><span class="line"></span><br><span class="line">## 拉取远程仓库镜像</span><br><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line">## 进入容器</span><br><span class="line">docker exec -it 镜像id /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h1 id="docker-实战"><a href="#docker-实战" class="headerlink" title="docker 实战"></a>docker 实战</h1><p>接下来我们创建一个springboot应用并制作成镜像，maven依赖：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">      </span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">      </span><br><span class="line">  &lt;/dependencies&gt;</span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;com.spotify&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;dockerfile-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;1.3.6&lt;/version&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;repository&gt;$&#123;project.artifactId&#125;&lt;/repository&gt;</span><br><span class="line">                    &lt;buildArgs&gt;</span><br><span class="line">                        &lt;JAR_FILE&gt;target/$&#123;project.build.finalName&#125;.jar&lt;/JAR_FILE&gt;</span><br><span class="line">                    &lt;/buildArgs&gt;</span><br><span class="line">                    &lt;tag&gt;$&#123;project.version&#125;&lt;/tag&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p>然后在pom文件的同级目录下创建 Dockerfile:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line">ARG JAR_FILE</span><br><span class="line">COPY $&#123;JAR_FILE&#125; app.jar</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app.jar&quot;]</span><br></pre></td></tr></table></figure>
+<p><code>dockerfile-maven-plugin</code> 是制作镜像的maven插件，插件和build默认绑定，执行build阶段运行该插件，push绑定到deploy阶段。</p>
+<p>而dockerfile是制作镜像的描述文件。<br>Dockerfile是一个文本文件，其内包含了一条条的指令(Instruction)，用于构建镜像。每一条指令构建一层镜像，因此每一条指令的内容，就是描述该层镜像应当如何构建。<br>Dockerfile参数说明：<br><img src="2022-04-25-20-58-17.png" alt=""></p>
+<p>在我们执行 <code>mvn package</code>指令时会在命令行输出整个docker镜像的制作过程，并在后续能在docker中通过docker images 查看该镜像。<br>制作好的镜像只是存在我们的本地中，我们可以推到远程仓库到其他机器上运行，而几大云平台都提供了免费的远程私有仓库，比如阿里云效和腾讯云coding。<br>后续如果有时间会出Jenkins+docker+springboot的详细教程介绍如何一键远程部署我们的应用。 </p>
+<h1 id="k8s-指南"><a href="#k8s-指南" class="headerlink" title="k8s 指南"></a>k8s 指南</h1><p>kubectl get pods -A -o wide</p>
 <h2 id="概论"><a href="#概论" class="headerlink" title="概论"></a>概论</h2><p>: Kubernetes中概念的简要概述</p>
 <p>Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。<br>Node : 一个node就是一个运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。.<br>Pod : 一个pod对应一个由相关容器和卷组成的容器组 （了解Pod详情）<br>Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源（了解Label详情）<br>selector是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.（了解selector详情）<br>Replication Controller : replication controller 是为了保证一定数量被指定的Pod的复制品在任何时间都能正常工作.它不仅允许复制的系统易于扩展，还会处理当pod在机器在重启或发生故障的时候再次创建一个（了解Replication Controller详情）<br>Service : 一个service定义了访问pod的方式，就像单个固定的IP地址和与其相对应的DNS名之间的关系。（了解Service详情）<br>Volume: 一个volume是一个目录，可能会被容器作为未见系统的一部分来访问。（了解Volume详情）<br>Kubernetes volume 构建在Docker Volumes之上,并且支持添加和配置volume目录或者其他存储设备。<br>Secret : Secret 存储了敏感数据，例如能允许容器接收请求的权限令牌。<br>Name : 用户为Kubernetes中资源定义的名字<br>Namespace : Namespace 好比一个资源名字的前缀。它帮助不同的项目、团队或是客户可以共享cluster,例如防止相互独立的团队间出现命名冲突<br>Annotation : 相对于label来说可以容纳更大的键值对，它对我们来说可能是不可读的数据，只是为了存储不可识别的辅助数据，尤其是一些被工具或系统扩展用来操作的数据</p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>kubectl apply -f app.yaml</p>
