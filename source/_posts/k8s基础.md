@@ -7,26 +7,128 @@ tags:
 
 ## Kubernetes中概念的简要概述
 
-Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。
-Node : 一个node就是一个运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。.
-Pod : 一个pod对应一个由相关容器和卷组成的容器组 （了解Pod详情）
-Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源（了解Label详情）
-selector是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.（了解selector详情）
-Replication Controller : replication controller 是为了保证一定数量被指定的Pod的复制品在任何时间都能正常工作.它不仅允许复制的系统易于扩展，还会处理当pod在机器在重启或发生故障的时候再次创建一个（了解Replication Controller详情）
-Service : 一个service定义了访问pod的方式，就像单个固定的IP地址和与其相对应的DNS名之间的关系。（了解Service详情）
-Volume: 一个volume是一个目录，可能会被容器作为未见系统的一部分来访问。（了解Volume详情）
-Kubernetes volume 构建在Docker Volumes之上,并且支持添加和配置volume目录或者其他存储设备。
-Secret : Secret 存储了敏感数据，例如能允许容器接收请求的权限令牌。
-Name : 用户为Kubernetes中资源定义的名字
-Namespace : Namespace 好比一个资源名字的前缀。它帮助不同的项目、团队或是客户可以共享cluster,例如防止相互独立的团队间出现命名冲突
-Annotation : 相对于label来说可以容纳更大的键值对，它对我们来说可能是不可读的数据，只是为了存储不可识别的辅助数据，尤其是一些被工具或系统扩展用来操作的数据
+- Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。
+- Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。
+- Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod
+- Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源
+- selector:是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.
+- Deployment: 控制pod生命周期的pod控制器
+- Service : 一个service定义了访问pod的方式，比如固定的IP地址和与其相对应的DNS名之间的关系。
+- Volume: 目录或者文件夹
+- Namespace : 命名空间，起到资源分组he隔离的作用
 
+kubernetes集群由master、node构成。其中master包含组件：
+
+- API Server：暴露k8s api 的服务
+- Scheduler：调度器，按照预定的调度策略将 Pod 调度到相应的 node 节点上。
+- ControllerManager：负责维护集群的状态，比如程序部署安排、故障检测、自动扩展和滚动更新等。
+- Etcd：数据库，负责存储集群中各种资源对象的信息。
+
+node 节点包含组件：
+
+- Kubelet：维护容器的生命周期，即通过控制 Docker ，来创建、更新、销毁容器。
+- KubeProxy：提供集群内部的服务发现和负载均衡。
+- Docker：容器。
 
 ## window下搭建k8s环境
 
+搭建k8s开发环境有三种，一种是通过docker desktop + Minikube 来直接在你的电脑上搭建，这种搭建方式存在的问题比较多，很多功能不支持，不建议使用。
+另外一种方式是通过Docker Desktop安装k8s，这种k8s是单机版的，master 和node 是同一个节点也就是本机，这种方式安装的k8s基本上能满足我们的学习需求，初期学习阶段可以使用这种安装方式。
+还有就是通过前文介绍 vagrant 制作box 然后创建集群安装，这种安装方式是最完整也是最麻烦的。
+现在先介绍第二种安装方式，第二种方式是把k8s 镜像拉取下来并运行容器，但因为国内网络的问题，镜像依赖拉不下来，我们可以上github 拉阿里云的k8s-for-docker-desktop 到本地安装。
 
+```
+	git clone https://github.com/AliyunContainerService/k8s-for-docker-desktop.git
+	cd k8s-for-docker-desktop
 
+	// 执行脚本安装K8S相关镜像（确认k8s-for-docker-desktop文件夹下的images中的k8s和本地安装的docker中需要的k8s版本保持一致）
+	./load_images.sh
+```
+需要注意git tag 是不是和你的  docker中的k8s版本保持一致
 
+然后打开你的docker desktop，勾选k8s:
+![](2022-04-27-23-07-07.png)
+
+等docker 重启后就安装完成了，打开命令行窗口执行指令，验证是否安装成功：
+```
+ kubectl cluster-info
+```
+第三种安装方式需要kubeadm 来进行集群安装，k8s集群可以一主多从或者多主多从，这里我搭建的是一主多从集群。
+
+安装步骤：
+
+1. 制作自己的box并配置好Vagrantfile，box中需要安装docker，更新yum源等，最好安装一些基本工具与telnet，然后启动虚拟机
+
+2. 禁用selinux，禁用swap分区 ，selinux是linux系统下的一个安全服务，如果不关闭它，在安装集群中会产生各种各样的奇葩问题，swap分区指的是虚拟内存分区，
+它的作用是物理内存使用完，之后将磁盘空间虚拟成内存来使用，启用swap设备会对系统的性能产生非常负面的影响
+
+3. 修改linux的内核参数
+
+```shell
+# 修改linux的内核采纳数，添加网桥过滤和地址转发功能
+# 编辑/etc/sysctl.d/kubernetes.conf文件，添加如下配置：
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+
+# 重新加载配置
+[root@master ~]# sysctl -p
+# 加载网桥过滤模块
+[root@master ~]# modprobe br_netfilter
+# 查看网桥过滤模块是否加载成功
+[root@master ~]# lsmod | grep br_netfilter
+```
+4. 安装Kubernetes组件
+
+```
+# 1、由于kubernetes的镜像在国外，速度比较慢，这里切换成国内的镜像源
+# 2、编辑/etc/yum.repos.d/kubernetes.repo,添加下面的配置
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgchech=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+			http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+
+# 3、安装kubeadm、kubelet和kubectl
+[root@master ~]# yum install --setopt=obsoletes=0 kubeadm-1.17.4-0 kubelet-1.17.4-0 kubectl-1.17.4-0 -y
+
+# 4、配置kubelet的cgroup
+#编辑/etc/sysconfig/kubelet, 添加下面的配置
+KUBELET_CGROUP_ARGS="--cgroup-driver=systemd"
+KUBE_PROXY_MODE="ipvs"
+
+# 5、设置kubelet开机自启
+[root@master ~]# systemctl enable kubelet
+```
+
+5. 准备集群镜像,利用kubeadm部署k8s的Master节点：
+```
+# 在安装kubernetes集群之前，必须要提前准备好集群需要的镜像，所需镜像可以通过下面命令查看
+[root@master ~]# kubeadm config images list
+
+# 由于默认拉取镜像地址k8s.gcr.io国内无法访问，这里需要指定阿里云镜像仓库地址
+kubeadm init \
+  --apiserver-advertise-address=局域网ip \
+  --image-repository registry.aliyuncs.com/google_containers \
+  --kubernetes-version v1.18.0 \
+  --service-cidr=-service 的CIDR\
+  --pod-network-cidr=Pod 网络的 CIDR
+
+```
+6. 配置node，当第五步执行完成，kubeadm 会输出一个指令，将这句指令复制到node节点上执行：
+
+```
+kubeadm join 192.168.18.1:8080 --token xxx \
+    --discovery-token-ca-cert-hash xxx
+```
+7. 在master 节点上执行指令，验证安装：
+
+```
+ kubectl get nodes
+```
 
 ## namespace
 命名空间在k8s中的主要作用是资源隔离，可以将多个 pod 放入同一namespace中，实现对一组pod资源的管理。
