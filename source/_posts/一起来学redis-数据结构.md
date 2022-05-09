@@ -1,7 +1,7 @@
 ---
 title: 一起来学redis-数据结构
 date: 2022-05-06 14:17:58
-tags:
+tags: redis
 ---
 ## SDS
 
