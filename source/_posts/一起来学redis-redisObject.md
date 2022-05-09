@@ -16,6 +16,7 @@ typedef struct redisObject {
     void *ptr;
 } robj;
 ```
+下面我们来了解`redisObject`相关机制
 
 ## TYPE与命令多态
 
