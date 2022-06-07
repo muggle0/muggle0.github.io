@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>Archives | muggle</title>
+  <title>一起来学redis redission | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的爪哇和日常记录博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="muggle">
-<meta property="og:url" content="http://muggle0.github.io/archives/page/9/index.html">
+  <meta name="description" content="redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。Redisson采用了基于NIO的Netty框架，Redis命令能以同步发送、异步形式发送、异步流形式发送或管道形式发送。装为Java里大家最熟悉的映射（Map），列表（List），集（Set），通用对象桶（Object Bucket），地理空间对象桶（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一起来学redis redission">
+<meta property="og:url" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我的爪哇和日常记录博客">
+<meta property="og:description" content="redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。Redisson采用了基于NIO的Netty框架，Redis命令能以同步发送、异步形式发送、异步流形式发送或管道形式发送。装为Java里大家最熟悉的映射（Map），列表（List），集（Set），通用对象桶（Object Bucket），地理空间对象桶（">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/2022-06-07-15-55-36.png">
+<meta property="article:published_time" content="2022-06-07T03:22:11.000Z">
+<meta property="article:modified_time" content="2022-06-07T10:22:06.585Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/2022-06-07-15-55-36.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -153,405 +157,236 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-一起来学redis-redission" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一起来学redis redission
+    </h1>
+  
+
+        
+        <a href="/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/" class="archive-article-date">
+  	<time datetime="2022-06-07T03:22:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。<br>Redisson采用了基于NIO的Netty框架，Redis命令能以同步发送、异步形式发送、异步流形式发送或管道形式发送。装为Java里大家最熟悉的映射（Map），列表（List），集（Set），通用对象桶（Object Bucket），地理空间对象桶（Geospatial Bucket），基数估计算法（HyperLogLog）等结构，在这基础上还提供了分布式的多值映射（Multimap），本地缓存映射（LocalCachedMap），有序集（SortedSet），计分排序集（ScoredSortedSet），字典排序集（LexSortedSet），列队（Queue），阻塞队列（Blocking Queue），有界阻塞列队（Bounded Blocking Queue），双端队列（Deque），阻塞双端列队（Blocking Deque），阻塞公平列队（Blocking Fair Queue），延迟列队（Delayed Queue），布隆过滤器（Bloom Filter），原子整长形（AtomicLong），原子双精度浮点数（AtomicDouble），BitSet等Redis原本没有的分布式数据结构。不仅如此，Redisson还实现了Redis文档中提到像分布式锁Lock这样的更高阶应用场景。事实上Redisson并没有不止步于此，在分布式锁的基础上还提供了联锁（MultiLock），读写锁（ReadWriteLock），公平锁（Fair Lock），红锁（RedLock），信号量（Semaphore），可过期性信号量（PermitExpirableSemaphore）和闭锁（CountDownLatch）这些实际当中对多线程高并发应用至关重要的基本部件。正是通过实现基于Redis的高阶应用方案，使Redisson成为构建分布式系统的重要工具。</p>
+<p>本章节主要介绍redission 中重要的两个点：数据结构和锁</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>基于Redis的Redisson的分布式映射结构的RMap Java对象实现了java.util.concurrent.ConcurrentMap接口和java.util.Map接口。与HashMap不同的是，RMap保持了元素的插入顺序。<br>在特定的场景下，映射缓存（Map）上的高度频繁的读取操作，使网络通信都被视为瓶颈时，可以使用Redisson提供的带有本地缓存功能的映射。</p>
+<p>代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RMap&lt;String, SomeObject&gt; map = redisson.getMap(&quot;anyMap&quot;);</span><br><span class="line">SomeObject prevObject = map.put(&quot;123&quot;, new SomeObject());</span><br><span class="line">SomeObject currentObject = map.putIfAbsent(&quot;323&quot;, new SomeObject());</span><br><span class="line">SomeObject obj = map.remove(&quot;123&quot;);</span><br><span class="line"></span><br><span class="line">map.fastPut(&quot;321&quot;, new SomeObject());</span><br><span class="line">map.fastRemove(&quot;321&quot;);</span><br><span class="line"></span><br><span class="line">RFuture&lt;SomeObject&gt; putAsyncFuture = map.putAsync(&quot;321&quot;);</span><br><span class="line">RFuture&lt;Void&gt; fastPutAsyncFuture = map.fastPutAsync(&quot;321&quot;);</span><br><span class="line"></span><br><span class="line">map.fastPutAsync(&quot;321&quot;, new SomeObject());</span><br><span class="line">map.fastRemoveAsync(&quot;321&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>map本身也是可以上锁的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">RMap&lt;MyKey, MyValue&gt; map = redisson.getMap(&quot;anyMap&quot;);</span><br><span class="line">MyKey k = new MyKey();</span><br><span class="line">RLock keyLock = map.getLock(k);</span><br><span class="line">keyLock.lock();</span><br><span class="line">try &#123;</span><br><span class="line">   MyValue v = map.get(k);</span><br><span class="line">   // 其他业务逻辑</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">   keyLock.unlock();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RReadWriteLock rwLock = map.getReadWriteLock(k);</span><br><span class="line">rwLock.readLock().lock();</span><br><span class="line">try &#123;</span><br><span class="line">   MyValue v = map.get(k);</span><br><span class="line">   // 其他业务逻辑</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">   keyLock.readLock().unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>map中还有元素淘汰，本地缓存和数据分片等机制相关类：</p>
+<ul>
+<li><p>元素淘汰（Eviction） 类 – 带有元素淘汰（Eviction）机制的映射类允许针对一个映射中每个元素单独设定 有效时间 和 最长闲置时间 。</p>
+</li>
+<li><p>本地缓存（LocalCache） 类 – 本地缓存（Local Cache）也叫就近缓存（Near Cache）。这类映射的使用主要用于在特定的场景下，映射缓存（MapCache）上的高度频繁的读取操作，使网络通信都被视为瓶颈的情况。Redisson与Redis通信的同时，还将部分数据保存在本地内存里。这样的设计的好处是它能将读取速度提高最多 45倍 。 所有同名的本地缓存共用一个订阅发布话题，所有更新和过期消息都将通过该话题共享。</p>
+</li>
+<li><p>数据分片（Sharding） 类 – 数据分片（Sharding）类仅适用于Redis集群环境下，因此带有数据分片（Sharding）功能的映射也叫集群分布式映射。它利用分库的原理，将单一一个映射结构切分为若干个小的映射，并均匀的分布在集群中的各个槽里。这样的设计能使一个单一映射结构突破Redis自身的容量限制，让其容量随集群的扩大而增长。在扩容的同时，还能够使读写性能和元素淘汰处理能力随之成线性增长。</p>
+</li>
+</ul>
+<p>map 类：<br><img src="2022-06-07-15-55-36.png" alt=""></p>
+<p>Redisson的分布式的RMapCache Java对象在基于RMap的前提下实现了针对单个元素的淘汰机制，这种功能是其他两个redis客户端所不能具备的。<br>Redis自身并不支持散列（Hash）当中的元素淘汰，因此所有过期元素都是通过org.redisson.EvictionScheduler实例来实现定期清理的。为了保证资源的有效利用，每次运行最多清理300个过期元素。任务的启动时间将根据上次实际清理数量自动调整，间隔时间趋于1秒到1小时之间。比如该次清理时删除了300条元素，那么下次执行清理的时间将在1秒以后（最小间隔时间）。一旦该次清理数量少于上次清理数量，时间间隔将增加1.5倍。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RMapCache&lt;String, SomeObject&gt; map = redisson.getMapCache(&quot;anyMap&quot;);</span><br><span class="line">// 有效时间 ttl = 10分钟</span><br><span class="line">map.put(&quot;key1&quot;, new SomeObject(), 10, TimeUnit.MINUTES);</span><br><span class="line">// 有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟</span><br><span class="line">map.put(&quot;key1&quot;, new SomeObject(), 10, TimeUnit.MINUTES, 10, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">// 有效时间 = 3 秒钟</span><br><span class="line">map.putIfAbsent(&quot;key2&quot;, new SomeObject(), 3, TimeUnit.SECONDS);</span><br><span class="line">// 有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟</span><br><span class="line">map.putIfAbsent(&quot;key2&quot;, new SomeObject(), 40, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+
+<p>本地缓存功能充分的利用了JVM的自身内存空间，对部分常用的元素实行就地缓存，这样的设计让读取操作的性能较分布式映射相比提高最多 45倍 。以下配置参数可以用来创建这个实例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">LocalCachedMapOptions options = LocalCachedMapOptions.defaults()</span><br><span class="line">      // 用于淘汰清除本地缓存内的元素</span><br><span class="line">      // 共有以下几种选择:</span><br><span class="line">      // LFU - 统计元素的使用频率，淘汰用得最少（最不常用）的。</span><br><span class="line">      // LRU - 按元素使用时间排序比较，淘汰最早（最久远）的。</span><br><span class="line">      // SOFT - 元素用Java的WeakReference来保存，缓存元素通过GC过程清除。</span><br><span class="line">      // WEAK - 元素用Java的SoftReference来保存, 缓存元素通过GC过程清除。</span><br><span class="line">      // NONE - 永不淘汰清除缓存元素。</span><br><span class="line">     .evictionPolicy(EvictionPolicy.NONE)</span><br><span class="line">     // 如果缓存容量值为0表示不限制本地缓存容量大小</span><br><span class="line">     .cacheSize(1000)</span><br><span class="line">      // 以下选项适用于断线原因造成了未收到本地缓存更新消息的情况。</span><br><span class="line">      // 断线重连的策略有以下几种：</span><br><span class="line">      // CLEAR - 如果断线一段时间以后则在重新建立连接以后清空本地缓存</span><br><span class="line">      // LOAD - 在服务端保存一份10分钟的作废日志</span><br><span class="line">      //        如果10分钟内重新建立连接，则按照作废日志内的记录清空本地缓存的元素</span><br><span class="line">      //        如果断线时间超过了这个时间，则将清空本地缓存中所有的内容</span><br><span class="line">      // NONE - 默认值。断线重连时不做处理。</span><br><span class="line">     .reconnectionStrategy(ReconnectionStrategy.NONE)</span><br><span class="line">      // 以下选项适用于不同本地缓存之间相互保持同步的情况</span><br><span class="line">      // 缓存同步策略有以下几种：</span><br><span class="line">      // INVALIDATE - 默认值。当本地缓存映射的某条元素发生变动时，同时驱逐所有相同本地缓存映射内的该元素</span><br><span class="line">      // UPDATE - 当本地缓存映射的某条元素发生变动时，同时更新所有相同本地缓存映射内的该元素</span><br><span class="line">      // NONE - 不做任何同步处理</span><br><span class="line">     .syncStrategy(SyncStrategy.INVALIDATE)</span><br><span class="line">      // 每个Map本地缓存里元素的有效时间，默认毫秒为单位</span><br><span class="line">     .timeToLive(10000)</span><br><span class="line">      // 或者</span><br><span class="line">     .timeToLive(10, TimeUnit.SECONDS)</span><br><span class="line">      // 每个Map本地缓存里元素的最长闲置时间，默认毫秒为单位</span><br><span class="line">     .maxIdle(10000)</span><br><span class="line">      // 或者</span><br><span class="line">     .maxIdle(10, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">     RLocalCachedMap&lt;String, Integer&gt; map = redisson.getLocalCachedMap(&quot;test&quot;, options);</span><br><span class="line"></span><br><span class="line">String prevObject = map.put(&quot;123&quot;, 1);</span><br><span class="line">String currentObject = map.putIfAbsent(&quot;323&quot;, 2);</span><br><span class="line">String obj = map.remove(&quot;123&quot;);</span><br><span class="line"></span><br><span class="line">// 在不需要旧值的情况下可以使用fast为前缀的类似方法</span><br><span class="line">map.fastPut(&quot;a&quot;, 1);</span><br><span class="line">map.fastPutIfAbsent(&quot;d&quot;, 32);</span><br><span class="line">map.fastRemove(&quot;b&quot;);</span><br><span class="line"></span><br><span class="line">RFuture&lt;String&gt; putAsyncFuture = map.putAsync(&quot;321&quot;);</span><br><span class="line">RFuture&lt;Void&gt; fastPutAsyncFuture = map.fastPutAsync(&quot;321&quot;);</span><br><span class="line"></span><br><span class="line">map.fastPutAsync(&quot;321&quot;, new SomeObject());</span><br><span class="line">map.fastRemoveAsync(&quot;321&quot;);</span><br><span class="line">// 当不再使用Map本地缓存对象的时候应该手动销毁，如果Redisson对象被关闭（shutdown）了，则不用手动销毁。</span><br><span class="line">map.destroy();</span><br></pre></td></tr></table></figure>
+
+<p>RClusteredMap 分片map使用示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RClusteredMap&lt;String, SomeObject&gt; map = redisson.getClusteredMap(&quot;anyMap&quot;);</span><br><span class="line"></span><br><span class="line">SomeObject prevObject = map.put(&quot;123&quot;, new SomeObject());</span><br><span class="line">SomeObject currentObject = map.putIfAbsent(&quot;323&quot;, new SomeObject());</span><br><span class="line">SomeObject obj = map.remove(&quot;123&quot;);</span><br><span class="line"></span><br><span class="line">map.fastPut(&quot;321&quot;, new SomeObject());</span><br><span class="line">map.fastRemove(&quot;321&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>映射监听器（Map Listener）可以监听map的活动，代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">RMapCache&lt;String, Integer&gt; map = redisson.getMapCache(&quot;myMap&quot;);</span><br><span class="line">// 或</span><br><span class="line">RLocalCachedMapCache&lt;String, Integer&gt; map = redisson.getLocalCachedMapCache(&quot;myMap&quot;, options);</span><br><span class="line"></span><br><span class="line">int updateListener = map.addListener(new EntryUpdatedListener&lt;Integer, Integer&gt;() &#123;</span><br><span class="line">     @Override</span><br><span class="line">     public void onUpdated(EntryEvent&lt;Integer, Integer&gt; event) &#123;</span><br><span class="line">          event.getKey(); // 字段名</span><br><span class="line">          event.getValue() // 新值</span><br><span class="line">          event.getOldValue() // 旧值</span><br><span class="line">          // ...</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">int createListener = map.addListener(new EntryCreatedListener&lt;Integer, Integer&gt;() &#123;</span><br><span class="line">     @Override</span><br><span class="line">     public void onCreated(EntryEvent&lt;Integer, Integer&gt; event) &#123;</span><br><span class="line">          event.getKey(); // 字段名</span><br><span class="line">          event.getValue() // 值</span><br><span class="line">          // ...</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">int expireListener = map.addListener(new EntryExpiredListener&lt;Integer, Integer&gt;() &#123;</span><br><span class="line">     @Override</span><br><span class="line">     public void onExpired(EntryEvent&lt;Integer, Integer&gt; event) &#123;</span><br><span class="line">          event.getKey(); // 字段名</span><br><span class="line">          event.getValue() // 值</span><br><span class="line">          // ...</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">int removeListener = map.addListener(new EntryRemovedListener&lt;Integer, Integer&gt;() &#123;</span><br><span class="line">     @Override</span><br><span class="line">     public void onRemoved(EntryEvent&lt;Integer, Integer&gt; event) &#123;</span><br><span class="line">          event.getKey(); // 字段名</span><br><span class="line">          event.getValue() // 值</span><br><span class="line">          // ...</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">map.removeListener(updateListener);</span><br><span class="line">map.removeListener(createListener);</span><br><span class="line">map.removeListener(expireListener);</span><br><span class="line">map.removeListener(removeListener);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSet&lt;SomeObject&gt; set = redisson.getSet(&quot;anySet&quot;);</span><br><span class="line">set.add(new SomeObject());</span><br><span class="line">set.remove(new SomeObject());</span><br></pre></td></tr></table></figure>
+
+<p>基于Redis的Redisson的分布式RSetCache Java对象在基于RSet的前提下实现了针对单个元素的淘汰机制。和map 一样，所有过期元素都是通过org.redisson.EvictionScheduler实例来实现定期清理的。代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSetCache&lt;SomeObject&gt; set = redisson.getSetCache(&quot;anySet&quot;);</span><br><span class="line">// ttl = 10 seconds</span><br><span class="line">set.add(new SomeObject(), 10, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+
+<p>分布式RClusteredSet:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RClusteredSet&lt;SomeObject&gt; set = redisson.getClusteredSet(&quot;anySet&quot;);</span><br><span class="line">set.add(new SomeObject());</span><br><span class="line">set.remove(new SomeObject());</span><br></pre></td></tr></table></figure>
+
+<p>有序集（SortedSet):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RSortedSet&lt;Integer&gt; set = redisson.getSortedSet(&quot;anySet&quot;);</span><br><span class="line">set.trySetComparator(new MyComparator()); // 配置元素比较器</span><br><span class="line">set.add(3);</span><br><span class="line">set.add(1);</span><br><span class="line">set.add(2);</span><br><span class="line"></span><br><span class="line">set.removeAsync(0);</span><br><span class="line">set.addAsync(5);</span><br></pre></td></tr></table></figure>
+
+<p>计分排序集（ScoredSortedSet)是一个可以按插入时指定的元素评分排序的集合:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RScoredSortedSet&lt;SomeObject&gt; set = redisson.getScoredSortedSet(&quot;simple&quot;);</span><br><span class="line"></span><br><span class="line">set.add(0.13, new SomeObject(a, b));</span><br><span class="line">set.addAsync(0.251, new SomeObject(c, d));</span><br><span class="line">set.add(0.302, new SomeObject(g, d));</span><br><span class="line"></span><br><span class="line">set.pollFirst();</span><br><span class="line">set.pollLast();</span><br><span class="line"></span><br><span class="line">int index = set.rank(new SomeObject(g, d)); // 获取元素在集合中的位置</span><br><span class="line">Double score = set.getScore(new SomeObject(g, d)); // 获取元素的评分</span><br></pre></td></tr></table></figure>
+
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>RList 示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RList&lt;SomeObject&gt; list = redisson.getList(&quot;anyList&quot;);</span><br><span class="line">list.add(new SomeObject());</span><br><span class="line">list.get(0);</span><br><span class="line">list.remove(new SomeObject());</span><br></pre></td></tr></table></figure>
+
+<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><p>无界队列Queue：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RQueue&lt;SomeObject&gt; queue = redisson.getQueue(&quot;anyQueue&quot;);</span><br><span class="line">queue.add(new SomeObject());</span><br><span class="line">SomeObject obj = queue.peek();</span><br><span class="line">SomeObject someObj = queue.poll();</span><br></pre></td></tr></table></figure>
+
+<p>双端队列（Deque）:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RDeque&lt;SomeObject&gt; queue = redisson.getDeque(&quot;anyDeque&quot;);</span><br><span class="line">queue.addFirst(new SomeObject());</span><br><span class="line">queue.addLast(new SomeObject());</span><br><span class="line">SomeObject obj = queue.removeFirst();</span><br><span class="line">SomeObject someObj = queue.removeLast();</span><br></pre></td></tr></table></figure>
+
+<p>阻塞队列（Blocking Queue）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RBlockingQueue&lt;SomeObject&gt; queue = redisson.getBlockingQueue(&quot;anyQueue&quot;);</span><br><span class="line">queue.offer(new SomeObject());</span><br><span class="line"></span><br><span class="line">SomeObject obj = queue.peek();</span><br><span class="line">SomeObject someObj = queue.poll();</span><br><span class="line">SomeObject ob = queue.poll(10, TimeUnit.MINUTES);</span><br></pre></td></tr></table></figure>
+<p>有界阻塞队列（Bounded Blocking Queue）:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RBoundedBlockingQueue&lt;SomeObject&gt; queue = redisson.getBoundedBlockingQueue(&quot;anyQueue&quot;);</span><br><span class="line">// 如果初始容量（边界）设定成功则返回`真（true）`，</span><br><span class="line">// 如果初始容量（边界）已近存在则返回`假（false）`。</span><br><span class="line">queue.trySetCapacity(2);</span><br><span class="line"></span><br><span class="line">queue.offer(new SomeObject(1));</span><br><span class="line">queue.offer(new SomeObject(2));</span><br><span class="line">// 此时容量已满，下面代码将会被阻塞，直到有空闲为止。</span><br><span class="line">queue.put(new SomeObject());</span><br><span class="line"></span><br><span class="line">SomeObject obj = queue.peek();</span><br><span class="line">SomeObject someObj = queue.poll();</span><br><span class="line">SomeObject ob = queue.poll(10, TimeUnit.MINUTES);</span><br></pre></td></tr></table></figure>
+
+<p>阻塞双端队列（Blocking Deque）:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RBlockingDeque&lt;Integer&gt; deque = redisson.getBlockingDeque(&quot;anyDeque&quot;);</span><br><span class="line">deque.putFirst(1);</span><br><span class="line">deque.putLast(2);</span><br><span class="line">Integer firstValue = queue.takeFirst();</span><br><span class="line">Integer lastValue = queue.takeLast();</span><br><span class="line">Integer firstValue = queue.pollFirst(10, TimeUnit.MINUTES);</span><br><span class="line">Integer lastValue = queue.pollLast(3, TimeUnit.MINUTES);</span><br></pre></td></tr></table></figure>
+
+<p>阻塞公平队列（Blocking Fair Queue）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RBlockingFairQueue queue = redisson.getBlockingFairQueue(&quot;myQueue&quot;);</span><br><span class="line">queue.offer(new SomeObject());</span><br><span class="line"></span><br><span class="line">SomeObject obj = queue.peek();</span><br><span class="line">SomeObject someObj = queue.poll();</span><br><span class="line">SomeObject ob = queue.poll(10, TimeUnit.MINUTES);</span><br></pre></td></tr></table></figure>
+
+<p>阻塞公平双端队列（Blocking Fair Deque）:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">RBlockingFairDeque deque = redisson.getBlockingFairDeque(&quot;myDeque&quot;);</span><br><span class="line">deque.offer(new SomeObject());</span><br><span class="line"></span><br><span class="line">SomeObject firstElement = queue.peekFirst();</span><br><span class="line">SomeObject firstElement = queue.pollFirst();</span><br><span class="line">SomeObject firstElement = queue.pollFirst(10, TimeUnit.MINUTES);</span><br><span class="line">SomeObject firstElement = queue.takeFirst();</span><br><span class="line"></span><br><span class="line">SomeObject lastElement = queue.peekLast();</span><br><span class="line">SomeObject lastElement = queue.pollLast();</span><br><span class="line">SomeObject lastElement = queue.pollLast(10, TimeUnit.MINUTES);</span><br><span class="line">SomeObject lastElement = queue.takeLast();</span><br></pre></td></tr></table></figure>
+
+<p> 延迟队列（Delayed Queue）:<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> RQueue&lt;String&gt; distinationQueue = ...</span><br><span class="line">RDelayedQueue&lt;String&gt; delayedQueue = getDelayedQueue(distinationQueue);</span><br><span class="line">// 10秒钟以后将消息发送到指定队列</span><br><span class="line">delayedQueue.offer(&quot;msg1&quot;, 10, TimeUnit.SECONDS);</span><br><span class="line">// 一分钟以后将消息发送到指定队列</span><br><span class="line">delayedQueue.offer(&quot;msg2&quot;, 1, TimeUnit.MINUTES);</span><br><span class="line"></span><br><span class="line">// 在该对象不再需要的情况下，应该主动销毁。仅在相关的Redisson对象也需要关闭的时候可以不用主动销毁。</span><br><span class="line">delayedQueue.destroy();</span><br></pre></td></tr></table></figure><br> 优先队列（Priority Queue）,可以通过比较器（Comparator）接口来对元素排序:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> RPriorityQueue&lt;Integer&gt; queue = redisson.getPriorityQueue(&quot;anyQueue&quot;);</span><br><span class="line">queue.trySetComparator(new MyComparator()); // 指定对象比较器</span><br><span class="line">queue.add(3);</span><br><span class="line">queue.add(1);</span><br><span class="line">queue.add(2);</span><br><span class="line"></span><br><span class="line">queue.removeAsync(0);</span><br><span class="line">queue.addAsync(5);</span><br><span class="line"></span><br><span class="line">queue.poll();</span><br></pre></td></tr></table></figure>
+
+<h2 id="看门狗"><a href="#看门狗" class="headerlink" title="看门狗"></a>看门狗</h2><p>如果负责储存分布式锁的Redisson节点宕机以后，而且这个锁正好处于锁住的状态时，这个锁会出现锁死的状态。为了避免这种情况的发生，Redisson内部提供了一个监控锁的看门狗，它的作用是在Redisson实例被关闭前，不断的延长锁的有效期，默认情况下，看门狗的检查锁的超时时间是30秒钟，也可以通过修改Config.lockWatchdogTimeout来另行指定。</p>
+<h2 id="可重入锁（Reentrant-Lock）"><a href="#可重入锁（Reentrant-Lock）" class="headerlink" title="可重入锁（Reentrant Lock）"></a>可重入锁（Reentrant Lock）</h2> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> RLock lock = redisson.getLock(&quot;anyLock&quot;);</span><br><span class="line">// 最常见的使用方法</span><br><span class="line">lock.lock();</span><br></pre></td></tr></table></figure>
+<p> Redisson还通过加锁的方法提供了leaseTime的参数来指定加锁的时间。超过这个时间后锁便自动解开:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> // 加锁以后10秒钟自动解锁</span><br><span class="line">// 无需调用unlock方法手动解锁</span><br><span class="line">lock.lock(10, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span><br><span class="line">boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);</span><br><span class="line">if (res) &#123;</span><br><span class="line">   try &#123;</span><br><span class="line">     ...</span><br><span class="line">   &#125; finally &#123;</span><br><span class="line">       lock.unlock();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 异步执行：<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> RLock lock = redisson.getLock(&quot;anyLock&quot;);</span><br><span class="line">lock.lockAsync();</span><br><span class="line">lock.lockAsync(10, TimeUnit.SECONDS);</span><br><span class="line">Future&lt;Boolean&gt; res = lock.tryLockAsync(100, 10, TimeUnit.SECONDS);</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="公平锁（Fair-Lock）"><a href="#公平锁（Fair-Lock）" class="headerlink" title="公平锁（Fair Lock）"></a>公平锁（Fair Lock）</h2><p> 当多个Redisson客户端线程同时请求加锁时，优先分配给先发出请求的线程,所有请求线程会在一个队列中排队。当某个线程出现宕机，Redisson会等待5秒后继续下一个线程：<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> RLock fairLock = redisson.getFairLock(&quot;anyLock&quot;);</span><br><span class="line">// 最常见的使用方法</span><br><span class="line">fairLock.lock();</span><br></pre></td></tr></table></figure></p>
+<h2 id="联锁（MultiLock）"><a href="#联锁（MultiLock）" class="headerlink" title="联锁（MultiLock）"></a>联锁（MultiLock）</h2><p> 基于Redis的Redisson分布式联锁RedissonMultiLock对象可以将多个RLock对象关联为一个联锁，每个RLock对象实例可以来自于不同的Redisson实例:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> RLock lock1 = redissonInstance1.getLock(&quot;lock1&quot;);</span><br><span class="line">RLock lock2 = redissonInstance2.getLock(&quot;lock2&quot;);</span><br><span class="line">RLock lock3 = redissonInstance3.getLock(&quot;lock3&quot;);</span><br><span class="line"></span><br><span class="line">RedissonMultiLock lock = new RedissonMultiLock(lock1, lock2, lock3);</span><br><span class="line">// 同时加锁：lock1 lock2 lock3</span><br><span class="line">// 所有的锁都上锁成功才算成功。</span><br><span class="line">lock.lock();</span><br><span class="line">...</span><br><span class="line">lock.unlock();</span><br></pre></td></tr></table></figure>
+
+<h2 id="红锁（RedLock）"><a href="#红锁（RedLock）" class="headerlink" title="红锁（RedLock）"></a>红锁（RedLock）</h2><p> 红锁RedissonRedLock对象可以用来将多个RLock对象关联为一个红锁，每个RLock对象实例可以来自于不同的Redisson实例：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> RLock lock1 = redissonInstance1.getLock(&quot;lock1&quot;);</span><br><span class="line">RLock lock2 = redissonInstance2.getLock(&quot;lock2&quot;);</span><br><span class="line">RLock lock3 = redissonInstance3.getLock(&quot;lock3&quot;);</span><br><span class="line"></span><br><span class="line">RedissonRedLock lock = new RedissonRedLock(lock1, lock2, lock3);</span><br><span class="line">// 同时加锁：lock1 lock2 lock3</span><br><span class="line">// 红锁在大部分节点上加锁成功就算成功。</span><br><span class="line">lock.lock();</span><br><span class="line">...</span><br><span class="line">lock.unlock();</span><br></pre></td></tr></table></figure>
+
+<h2 id="信号量（Semaphore）"><a href="#信号量（Semaphore）" class="headerlink" title="信号量（Semaphore）"></a>信号量（Semaphore）</h2><p>同JDK中的信号量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">RSemaphore semaphore = redisson.getSemaphore(&quot;semaphore&quot;);</span><br><span class="line">semaphore.acquire();</span><br><span class="line">//或</span><br><span class="line">semaphore.acquireAsync();</span><br><span class="line">semaphore.acquire(23);</span><br><span class="line">semaphore.tryAcquire();</span><br><span class="line">//或</span><br><span class="line">semaphore.tryAcquireAsync();</span><br><span class="line">semaphore.tryAcquire(23, TimeUnit.SECONDS);</span><br><span class="line">//或</span><br><span class="line">semaphore.tryAcquireAsync(23, TimeUnit.SECONDS);</span><br><span class="line">semaphore.release(10);</span><br><span class="line">semaphore.release();</span><br><span class="line">//或</span><br><span class="line">semaphore.releaseAsync();</span><br></pre></td></tr></table></figure>
+<p>可过期信号量，是在RSemaphore对象的基础上，为每个信号增加了一个过期时间：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RPermitExpirableSemaphore semaphore = redisson.getPermitExpirableSemaphore(&quot;mySemaphore&quot;);</span><br><span class="line">String permitId = semaphore.acquire();</span><br><span class="line">// 获取一个信号，有效期只有2秒钟。</span><br><span class="line">String permitId = semaphore.acquire(2, TimeUnit.SECONDS);</span><br><span class="line">// ...</span><br><span class="line">semaphore.release(permitId);</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭锁（CountDownLatch）"><a href="#闭锁（CountDownLatch）" class="headerlink" title="闭锁（CountDownLatch）"></a>闭锁（CountDownLatch）</h2><p>同jdk中的闭锁：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RCountDownLatch latch = redisson.getCountDownLatch(&quot;anyCountDownLatch&quot;);</span><br><span class="line">latch.trySetCount(1);</span><br><span class="line">latch.await();</span><br><span class="line"></span><br><span class="line">// 在其他线程或其他JVM里</span><br><span class="line">RCountDownLatch latch = redisson.getCountDownLatch(&quot;anyCountDownLatch&quot;);</span><br><span class="line">latch.countDown();</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/22/thread-1/" class="archive-article-date">
-  	<time datetime="2019-04-22T08:20:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/22/thread-1/">多线程编程基础第一篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">thread</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/22/blog-origin/" class="archive-article-date">
-  	<time datetime="2019-04-22T07:17:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis-持久化原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/22/blog-origin/">博客搭建新司机指南</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/22/logback-2/" class="archive-article-date">
-  	<time datetime="2019-04-22T03:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/22/logback-2/">logback自定义Appender</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">log</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/20/springSecurity2/" class="archive-article-date">
-  	<time datetime="2019-04-20T04:44:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/20/springSecurity2/">springSecurity深度解析第二版</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">security</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/20/photo/" class="archive-article-date">
-  	<time datetime="2019-04-20T04:01:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/20/photo/">相册</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">photo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/16/sppringboot/" class="archive-article-date">
-  	<time datetime="2019-04-16T02:35:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/16/sppringboot/">springboot全面解读系列第一篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/12/%E5%9C%A8vscode%E4%B8%AD%E7%BC%96%E5%86%99markdown/" class="archive-article-date">
-  	<time datetime="2019-04-12T03:50:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/12/%E5%9C%A8vscode%E4%B8%AD%E7%BC%96%E5%86%99markdown/">在vscode中编写markdown </a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/12/security-oauth2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2019-04-12T02:49:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/12/security-oauth2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">security-oauth2学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">security</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/11/springSecurity%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2019-04-11T13:27:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/11/springSecurity%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/"> springSecurity深度解析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">security</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2019-04-01T10:02:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/01/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"> netty学习笔记第一篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">netty</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/8/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/archives/page/10/">10</a><a class="extend next" rel="next" href="/archives/page/10/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -575,8 +410,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
