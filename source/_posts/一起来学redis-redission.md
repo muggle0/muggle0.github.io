@@ -4,8 +4,8 @@ date: 2022-06-07 11:22:11
 tags: redis
 ---
 
-redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。
-Redisson采用了基于NIO的Netty框架，Redis命令能以同步发送、异步形式发送、异步流形式发送或管道形式发送。装为Java里大家最熟悉的映射（Map），列表（List），集（Set），通用对象桶（Object Bucket），地理空间对象桶（Geospatial Bucket），基数估计算法（HyperLogLog）等结构，在这基础上还提供了分布式的多值映射（Multimap），本地缓存映射（LocalCachedMap），有序集（SortedSet），计分排序集（ScoredSortedSet），字典排序集（LexSortedSet），列队（Queue），阻塞队列（Blocking Queue），有界阻塞列队（Bounded Blocking Queue），双端队列（Deque），阻塞双端列队（Blocking Deque），阻塞公平列队（Blocking Fair Queue），延迟列队（Delayed Queue），布隆过滤器（Bloom Filter），原子整长形（AtomicLong），原子双精度浮点数（AtomicDouble），BitSet等Redis原本没有的分布式数据结构。不仅如此，Redisson还实现了Redis文档中提到像分布式锁Lock这样的更高阶应用场景。事实上Redisson并没有不止步于此，在分布式锁的基础上还提供了联锁（MultiLock），读写锁（ReadWriteLock），公平锁（Fair Lock），红锁（RedLock），信号量（Semaphore），可过期性信号量（PermitExpirableSemaphore）和闭锁（CountDownLatch）这些实际当中对多线程高并发应用至关重要的基本部件。正是通过实现基于Redis的高阶应用方案，使Redisson成为构建分布式系统的重要工具。
+redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。 Redisson采用了基于NIO的Netty框架，封装了大家常用的集合类以及原子类、锁等工具。
+本章节主要介绍redission 中重要的两个点：数据结构和锁
 
 本章节主要介绍redission 中重要的两个点：数据结构和锁
 
