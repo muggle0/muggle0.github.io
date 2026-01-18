@@ -15,18 +15,18 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="之前我做过一款 chrome代理插件——poseidon-chrome-proxy，这个插件的功能是通过一些配置将浏览器中的请求代理到你配置的服务器上去。这款插件的局限性是只能使用在谷歌浏览器中，而且无法代理https请求，这是因为谷歌浏览器限制了pac脚本对https请求的代理；不仅如此，该插件还存在dns污染的问题，虽然可以通过清除浏览器缓存来解决，但是也是比较糟心。最近项目中恰好遇到了需要对">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/2022/01/30/test1.jpg">
+<meta property="og:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/test1.jpg">
 <meta property="og:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/2022-02-03-20-57-34.png">
 <meta property="og:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/2022-02-03-21-00-31.png">
 <meta property="og:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/2022-02-03-21-04-38.png">
 <meta property="og:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/2022-02-03-21-19-50.png">
 <meta property="og:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/2022-02-03-21-30-17.png">
 <meta property="article:published_time" content="2022-01-30T11:34:14.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.797Z">
+<meta property="article:modified_time" content="2026-01-18T07:02:53.939Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="tool">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/2022/01/30/test1.jpg">
+<meta name="twitter:image" content="http://muggle0.github.io/2022/01/30/fiddler%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/test1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -184,7 +184,7 @@
       
         <p>之前我做过一款 chrome代理插件——poseidon-chrome-proxy，这个插件的功能是通过一些配置将浏览器中的请求代理到你配置的服务器上去。这款插件的局限性是只能使用在谷歌浏览器中，而且无法代理https请求，这是因为谷歌浏览器限制了pac脚本对https请求的代理；不仅如此，该插件还存在dns污染的问题，虽然可以通过清除浏览器缓存来解决，但是也是比较糟心。最近项目中恰好遇到了需要对https进行代理的需求，经过我的研究，最终找到了一个比较满意的解决方案，它就是fiddler。</p>
 <h2 id="fiddler-介绍"><a href="#fiddler-介绍" class="headerlink" title="fiddler 介绍"></a>fiddler 介绍</h2><p>fiddler 是一款专门用于抓取http请求的抓包工具，当启动该工具时，pc端的请求会先被代理到该工具再转发到服务器，因此我们就可以在请求转发前对请求的协议，请求头，路径，请求内容等信息进行修改。而且通过该工具你还能记录某个请求的数据并进行回放或打断点，相比较代理插件，不仅适用范围更广，调试bug也更方便。</p>
-<h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><p>官方下载地址：<a target="_blank" rel="noopener" href="https://www.telerik.com/download/fiddler/fiddler4，安装完成后我们进行一些配置">https://www.telerik.com/download/fiddler/fiddler4，安装完成后我们进行一些配置</a>:<br>点击 winConfig,勾选要代理的应用<br><img src="../test1.jpg" alt="test"></p>
+<h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><p>官方下载地址：<a target="_blank" rel="noopener" href="https://www.telerik.com/download/fiddler/fiddler4，安装完成后我们进行一些配置">https://www.telerik.com/download/fiddler/fiddler4，安装完成后我们进行一些配置</a>:<br>点击 winConfig,勾选要代理的应用<br><img src="test1.jpg" alt="test"></p>
 <p>点击 rules:</p>
 <p><img src="2022-02-03-20-57-34.png" alt="2"></p>
 <p>勾选 hide connects，隐藏连接信息，这些信息对我们来说是不需要去关注的。</p>
@@ -234,6 +234,11 @@
                   <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://github.com/muggle0/muggle0.github.io/blob/master/ewm.jpg?raw=true">
+                      <span class="reward-type">微信</span>
+                    </div>
                     
                   </div>
                 </span>
