@@ -105,3 +105,8 @@ deploy:
   type: git
   repository: git@github.com:muggle0/muggle0.github.io.git
   branch: master
+index_img: true
+# 自动摘要
+auto_excerpt:
+  enable: true
+  length: 150  # 首页展示的字符长度，可根据需求调整，比如 200、300
