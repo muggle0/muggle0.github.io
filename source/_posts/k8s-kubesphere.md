@@ -13,9 +13,9 @@ kubeSphere 帮我们把诸多云原生功能集中在一起并提供了web界面
 ## kubeSphere 安装
 
 为了简化安装，我们这里使用的是KubeKey，KubeKey安装k8s的最低配置要求是2核4G，低于这个配置使用KubeKey会安装失败。由于KubeKey会访问github。所以需要保证你的主机能联网。我们本地实验的方式可以使用前文提到过的vagrant搭建虚拟机集群。然后在vagrant中安装。也可以在云上上实验，云上实验采用按量计费的方式，阿里云收费如下，网络带宽另计费
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663203487548-4fa51e0a-4ea0-4102-b918-1fec62c59853.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=528&id=uec1b2d45&margin=%5Bobject%20Object%5D&name=image.png&originHeight=528&originWidth=1572&originalType=binary&ratio=1&rotation=0&showTitle=false&size=79256&status=done&style=none&taskId=u55eeb3c2-ad3f-4606-a27f-2681072b7e9&title=&width=1572)
+![image.png](kube-1.png)
 腾讯云的：
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663203744450-912449f6-7db1-4a86-8cef-283e9345d76d.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=502&id=udd927e02&margin=%5Bobject%20Object%5D&name=image.png&originHeight=502&originWidth=1581&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69874&status=done&style=none&taskId=u4ba259fd-9d9b-44b6-bb40-f0e9b8e8299&title=&width=1581)
+![image.png](kube-2.png)
 腾讯云的服务器要便宜很多，而且阿里云要使用按量计费需要余额大于100 元，腾讯云没有这个限制，不过两家都支持余额提现。做云实验的话我建议使用腾讯云的按量计费服务器，100块钱能玩很久（它的对象存储也只要几毛钱一个月）。
 阿里云和腾讯云都推出了轻量级云服务器，比普通云服务器便宜很多，这种服务器是你用多少给你分配多少，比如我买了2核4g的服务器，如果我只用了1核1g，那剩余的资源就会被系统分配出去。这种服务器做实验体验不是很好，所以没考虑，感兴趣的小伙伴可以试试这种服务器。
 为了偷个懒，这次我们实验就是在腾讯云上进行（主要是本地机器网络不太好）。
@@ -27,7 +27,7 @@ export KKZONE=cn
 curl -sfL https://get-kk.kubesphere.io | VERSION=v2.2.2 sh -
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663205758064-487bc607-9408-4986-a7f5-36f35cc5389d.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=131&id=ud3073870&margin=%5Bobject%20Object%5D&name=image.png&originHeight=131&originWidth=1234&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7610&status=done&style=none&taskId=u58f07386-6b74-47b5-a8bf-d889a61d308&title=&width=1234)
+![image.png](kube-3.png)
 为 kk 添加可执行权限，并初始化本地主机：
 
 ```
