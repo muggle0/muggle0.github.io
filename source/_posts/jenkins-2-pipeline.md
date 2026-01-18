@@ -13,21 +13,21 @@ Jenkins 1.x只能通过界面手动配置来配置描述过程，想要配置一
 
 pipeline的功能由pipeline插件提供，我们可以创建一个jenkinsfile来申明一个任务。接下来我们创建一个最简单的pipeline。登录jenkins,点击创建item:
 
-![](2022-03-06-16-44-41.png)
+![](images/2022-03-06-16-44-41.png)
 在流水线中选择hello world 生成代码：
-![](2022-03-06-16-53-20.png)
+![](images/2022-03-06-16-53-20.png)
 以上便是一个最简单的流水线。点击build now，jenkins任务开始执行，运行完成后点击查看执行记录：
-![](2022-03-06-16-55-53.png)
+![](images/2022-03-06-16-55-53.png)
 在console output 中可以看到运行记录：
-![](2022-03-06-16-56-36.png)
+![](images/2022-03-06-16-56-36.png)
 为了提高流水线的复用性以及便于流水线代码的管理，更多的是将pipeline的脚本在远程仓库，当我们修改了远程仓库的流水线脚本，jenkins就会加载到最新的脚本执行。
 在流水线配置中选择pipeline script from SCM:
-![](2022-03-07-09-30-06.png)
+![](images/2022-03-07-09-30-06.png)
 按照提示配置好脚本仓库地址，访问仓库的凭证，流水线脚本文件的名称（默认是Jenkinsfile），分支（默认是master）等。配置完成后在仓库中添加文件`Jenkinsfile`把脚本粘贴过去并push，
 最后执行任务，发现执行成功。通过这个特性，我们可以把我们的流水线脚本和项目代码本身放到一个仓库中管理，达到多版本控制并和代码版本统一的效果。
 如果我们编写jenkinsfile需要语法提示相关的编辑器，可以使用jenkins官方提供的vscode插件`Jenkins Pipeline Linter Connector `。使用idea  Groovy 也能提示部分语法。
 idea 设置jenkinsfile 语法提示方法 settings > editor > File Types > Groovy 新增一列Jenkinsfile:
-![](2022-03-07-09-49-00.png)
+![](images/2022-03-07-09-49-00.png)
 
 ## pipeline 语法介绍
 
@@ -104,10 +104,10 @@ pipeline {
 }
 ```
 我配置的workspace 路径是'E:\Temp\jenkins\workspace'，任务名称是 test，看Jenkins 执行指令就能看到相关信息：
-![](2022-03-08-10-02-17.png)
+![](images/2022-03-08-10-02-17.png)
 
 打开这个文件夹看看是什么情况：
-![](2022-03-08-11-37-48.png)
+![](images/2022-03-08-11-37-48.png)
 
 步骤`check out`把我github上的项目拉到这个工作目录下了，而`Build`则是对项目进行了编译，然后我们可以在target目录找到编译好的jar包，在实际项目中我们可以通过指令将这个jar推到远程服务器上去，或者可以做成docker镜像，推到docker仓库，在远程执行docker指令把这个镜像跑起来，maven插件`dockerfile-maven-plugin` 是可以直接通过一个dockerfile 文件将项目打成一个镜像的。而jenkins 插件`SSH Pipeline Steps`可以远程执行shell 脚本，这样整个流程就串通起来了。这个插件的github地址： https://github.com/jenkinsci/ssh-steps-plugin#pipeline-steps。
 

@@ -42,7 +42,7 @@ sentinel 增加规则的方式 包括三种，数据源加载，代码加载，�
 
 流控规则控制台配置示例：
 
-![](sentinel2.jpg)
+![](images/sentinel2.jpg)
 
 流控规则数据源json示例：
 
@@ -90,7 +90,7 @@ sentinel 增加规则的方式 包括三种，数据源加载，代码加载，�
 
 流控规则控制台配置示例：
 
-![](降级规则.png)
+![](images/降级规则.png)
 ## 热点规则
 
 热点规则是对热点数据进行限流，支持对特定参数和参数的值限流。热点限流会统计参数中的热点参数，并根据配置的限流阈值与模式对包含热点参数的资源进行限流。
@@ -122,7 +122,7 @@ Sentinel利用LRU策略统计最近最常访问的热点参数，结合令牌桶
 ```
 流控规则控制台配置示例：
 
-![](热点规则.jpg)
+![](images/热点规则.jpg)
 
 ## 系统规则
 
@@ -163,7 +163,7 @@ Sentinel利用LRU策略统计最近最常访问的热点参数，结合令牌桶
     systemRule.setHighestSystemLoad(2.5);   
     SystemRuleManager.loadRules(Collections.singletonList(systemRule));
 ```
-![](系统规则.jpg)
+![](images/系统规则.jpg)
 
 ## 授权规则
 
@@ -196,7 +196,7 @@ public class MyInterceptor implements HandlerInterceptor {
     }
 }
 ```
-![](授权规则.jpg)
+![](images/授权规则.jpg)
 
 ## spring web 拦截适配
 

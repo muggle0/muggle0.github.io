@@ -20,7 +20,7 @@ typedef struct redisDb {
 } redisDb;
 ```
 源码中redisDb拥有字典属性`dict`，字典中存储了数据库中的键，为字符串类型的redisObject。这个redisObject中的ptr属性指向值的redisObject，结构示意图：
-![](2022-05-09-15-10-52.png)
+![](images/2022-05-09-15-10-52.png)
 
 ## 键空间的维护
 

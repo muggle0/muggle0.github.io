@@ -206,7 +206,7 @@ csp.sentinel.dashboard.server=localhost:8080
 再去 [sentinel的github](https://github.com/alibaba/Sentinel/releases) 下载 控制台jar包 ，启动该jar包；访问8080 端口，
 登录账号密码和密码都是 sentinel。这个控制台实际上是一个springboot应用，启动端口和账号密码都可以通过application 修改。
 接下来，启动我们自己的应用，并访问一些接口，我们就能再界面上看到监控数据：
-![sentinel-dashboard](sentinel-1.jpg)
+![sentinel-dashboard](images/sentinel-1.jpg)
 
 通过控制台我们可以监控流量，管理流控降级等规则，这些规则都是存储在我们程序应用的内存中的，因此我们还需要学会这些规则的配置使用及其持久化。
 
