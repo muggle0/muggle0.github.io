@@ -16,7 +16,7 @@
 <meta property="og:description" content="注解相关知识元注解 @Retention：生命周期，RetentionPolicy.SOURCE 注解只在源码阶段保留，RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM中，RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候 @Documented：作用是能够将注解中的元素包含到 Javadoc 中去。 @Target：指定">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-15T08:53:32.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.794Z">
+<meta property="article:modified_time" content="2026-01-18T09:20:35.658Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="javase">
 <meta name="twitter:card" content="summary">
@@ -182,6 +182,8 @@
 <li>@Inherited：一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。</li>
 <li>@Repeatable ：可重复注解</li>
 </ol>
+<span id="more"></span>
+
 <h2 id="注解的属性"><a href="#注解的属性" class="headerlink" title="注解的属性"></a>注解的属性</h2><p>注解的属性也叫做成员变量。注解只有成员变量，没有方法。注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BootStaterTestApplicationTests</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="meta">@muggle(test = &quot;ss&quot;)</span></span><br><span class="line">        String test=<span class="string">&quot;ss&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(ElementType.LOCAL_VARIABLE)</span></span><br><span class="line"><span class="meta">@interface</span> muggle&#123;</span><br><span class="line">    String <span class="title function_">test</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -472,15 +474,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

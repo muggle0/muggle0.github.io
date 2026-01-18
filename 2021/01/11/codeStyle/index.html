@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://muggle0.github.io/images/gitflow.png">
 <meta property="og:image" content="http://muggle0.github.io/images/gitflow2.jpg">
 <meta property="article:published_time" content="2021-01-11T07:58:52.000Z">
-<meta property="article:modified_time" content="2026-01-18T08:47:29.231Z">
+<meta property="article:modified_time" content="2026-01-18T09:20:35.645Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="javaee">
 <meta name="twitter:card" content="summary">
@@ -179,6 +179,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="代码混乱的常见问题"><a href="#代码混乱的常见问题" class="headerlink" title="代码混乱的常见问题"></a>代码混乱的常见问题</h1><p>很多时候我们项目迭代到后期，项目会变得很混乱，往往只有少数人能知道某段代码是干嘛的和该如何去改，或者是干脆谁都不知道，只能靠通过注释去猜测这段代码可能的作用。原因有可能是因为团队内部的人事变动，导致原先写这段代码的人不再管理这段代码了，并且代码写的实在是屎没人捋的清。往往我们称这类代码为“祖传代码”，就像祖宗传下来的代码一样，没人懂没人敢动。祖传代码一多，这个项目就变成了屎一样，开发人员再这基础上迭代就如同屎海翻腾，恶心别人也恶心自己。这是一个很可怕的恶心循环，我们如何去避免这种事情发生呢？先让我们分析下这类代码的通病</p>
+<span id="more"></span>
+
 <h2 id="代码又臭又长"><a href="#代码又臭又长" class="headerlink" title="代码又臭又长"></a>代码又臭又长</h2><p>我见过最长的方法是5000多行，那段代码没人敢动，只敢往下加 if else，每次需要改这段代码的开发都战战兢兢，生怕出现什么莫名其妙的bug。java 可是一门面向对象的语言，一个方法里面有5000多行可以说是很可恶的事情了。我想一开始代码长度可能没这么夸张，是什么导致这种结果的？一个是当初写这段代码的人本身写的是直来直去的方法，一堆if else ；后面迭代的开发，面对这么长的代码瞬间失去了从头读到尾的耐心，直接继续在后面加 if else 迭代，最后这个方法就变成了一个缝合怪一样的玩意。</p>
 <p>好的 sql 可以很大程度上简化代码的复杂程度，但是太过复杂sql 本身就会给后来的开发人员造成阅读困难，结果又是变成一条无人敢动的祖传代码，我想这应该是不少公司极度抵制存储过程的原因之一。当然不少银行应用开发还是大量使用存储过程，存储过程有用武之地的，但是一个又臭又长的存储过程就等着变成祖传代码吧。当年我见到一个60多个join的sql，看到第一眼就惊为天人从此难以忘怀，当然那段sql也成了没人敢去动的代码了。</p>
 <h2 id="代码逻辑不明所以"><a href="#代码逻辑不明所以" class="headerlink" title="代码逻辑不明所以"></a>代码逻辑不明所以</h2><p>代码逻辑不明所以是我们开发很容易去犯的毛病，是一个不致命却烦人的毛病。在代码上的体现是，逻辑判断写的比较反人类各种双重否定是肯定，不把你绕晕不罢休。或者是写起代码来东一榔头西一棒槌，让人不知道你想干嘛。导致这个的原因有可能是开发人员在需求理解上出现偏差，做到后面发现不对劲，再回去改又不大可能了，只能硬着头皮往下写，结果就是代码弯弯绕绕；还有很重要的锅是在产品经理，任意变更需求，想一出是一出，开发人员无奈只能跟着想一出写一出。还用可能是开发人员方法或者类命名太艺术了，什么四川方言拼音这种没有十年脑血栓想不出的命名咱就不说了。就说那种国产凌凌漆式的无厘头命名——这看上去是个刮胡刀实际上是个吹风机，就这种不知道让人说什么好。</p>
@@ -514,15 +516,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

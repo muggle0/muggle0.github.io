@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>redis 数据库结构 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="redis数据库结构介绍在redis源码中数据库的结构由server.h&#x2F;redisDb表示，redisDb结构的dict字典保存了数据库中的所有键值对，我们将这个字典称为键空间（key space），redisDb源码： 123456789typedef struct redisDb &amp;#123;    dict *dict;                 &#x2F;* The keyspace fo">
+  <meta name="description" content="redis数据库结构介绍在redis源码中数据库的结构由server.h&#x2F;redisDb表示，redisDb结构的dict字典保存了数据库中的所有键值对，我们将这个字典称为键空间（key space），redisDb源码：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis 数据库结构">
 <meta property="og:url" content="http://muggle0.github.io/2022/05/09/redis-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="redis数据库结构介绍在redis源码中数据库的结构由server.h&#x2F;redisDb表示，redisDb结构的dict字典保存了数据库中的所有键值对，我们将这个字典称为键空间（key space），redisDb源码： 123456789typedef struct redisDb &amp;#123;    dict *dict;                 &#x2F;* The keyspace fo">
+<meta property="og:description" content="redis数据库结构介绍在redis源码中数据库的结构由server.h&#x2F;redisDb表示，redisDb结构的dict字典保存了数据库中的所有键值对，我们将这个字典称为键空间（key space），redisDb源码：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://muggle0.github.io/images/2022-05-09-15-10-52.png">
 <meta property="article:published_time" content="2022-05-09T06:15:13.000Z">
-<meta property="article:modified_time" content="2026-01-18T08:38:31.567Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.927Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -178,6 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="redis数据库结构介绍"><a href="#redis数据库结构介绍" class="headerlink" title="redis数据库结构介绍"></a>redis数据库结构介绍</h2><p>在redis源码中数据库的结构由server.h/redisDb表示，<br>redisDb结构的dict字典保存了数据库中的所有键值对，我们将这个字典称为键空间（key space），redisDb源码：</p>
+<span id="more"></span>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct redisDb &#123;</span><br><span class="line">    dict *dict;                 /* The keyspace for this DB */</span><br><span class="line">    dict *expires;              /* Timeout of keys with a timeout set */</span><br><span class="line">    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP)*/</span><br><span class="line">    dict *ready_keys;           /* Blocked keys that received a PUSH */</span><br><span class="line">    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */</span><br><span class="line">    int id;                     /* Database ID */</span><br><span class="line">    long long avg_ttl;          /* Average TTL, just for stats */</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
 <p>源码中redisDb拥有字典属性<code>dict</code>，字典中存储了数据库中的键，为字符串类型的redisObject。这个redisObject中的ptr属性指向值的redisObject，结构示意图：<br><img src="/images/2022-05-09-15-10-52.png" alt=""></p>
 <h2 id="键空间的维护"><a href="#键空间的维护" class="headerlink" title="键空间的维护"></a>键空间的维护</h2><p>当使用Redis命令对数据库进行读写时，服务器不仅会对键空间执行指定的读写操作，还会执行一些额外的维护操作：</p>
@@ -471,15 +472,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

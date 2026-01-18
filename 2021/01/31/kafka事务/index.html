@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>kafka事务 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="kafka 的事务是从0.11 版本开始支持的，kafka 的事务是基于 Exactly Once 语义的，它能保证生产或消费消息在跨分区和会话的情况下要么全部成功要么全部失败 生产者事务当生产者投递一条事务性的消息时，会先获取一个 transactionID ，并将Producer 获得的PID 和 transactionID 绑定，当 Producer 重启，Producer会根据当前事务的">
+  <meta name="description" content="kafka 的事务是从0.11 版本开始支持的，kafka 的事务是基于 Exactly Once 语义的，它能保证生产或消费消息在跨分区和会话的情况下要么全部成功要么全部失败">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kafka事务">
 <meta property="og:url" content="http://muggle0.github.io/2021/01/31/kafka%E4%BA%8B%E5%8A%A1/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="kafka 的事务是从0.11 版本开始支持的，kafka 的事务是基于 Exactly Once 语义的，它能保证生产或消费消息在跨分区和会话的情况下要么全部成功要么全部失败 生产者事务当生产者投递一条事务性的消息时，会先获取一个 transactionID ，并将Producer 获得的PID 和 transactionID 绑定，当 Producer 重启，Producer会根据当前事务的">
+<meta property="og:description" content="kafka 的事务是从0.11 版本开始支持的，kafka 的事务是基于 Exactly Once 语义的，它能保证生产或消费消息在跨分区和会话的情况下要么全部成功要么全部失败">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-31T03:31:50.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.799Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.947Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -176,6 +176,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>kafka 的事务是从0.11 版本开始支持的，kafka 的事务是基于 Exactly Once 语义的，它能保证生产或消费消息在跨分区和会话的情况下要么全部成功要么全部失败</p>
+<span id="more"></span>
 <h3 id="生产者事务"><a href="#生产者事务" class="headerlink" title="生产者事务"></a>生产者事务</h3><p>当生产者投递一条事务性的消息时，会先获取一个 transactionID ，并将Producer 获得的PID 和 transactionID 绑定，当 Producer 重启，Producer<br>会根据当前事务的 transactionID 获取对应的PID。<br>kafka 管理事务是通过其组件 Transaction Coordinator 来实现的，这个组件管理每个事务的状态，Producer 可以通过transactionID 从这个组件中获得<br>对应事务的状态，该组件还会将事务状态持久化到kafka一个内部的 Topic 中。<br>生产者事务的场景：<br>一批消息写入 a、b、c 三个分区，如果 ab写入成功而c失败，那么kafka就会根据事务的状态对消息进行回滚，将ab写入的消息剔除掉并通知 Producer 投递消息失败。</p>
 <h3 id="消费者事务"><a href="#消费者事务" class="headerlink" title="消费者事务"></a>消费者事务</h3><p>消费者事务的一致性比较弱，只能够保证消费者消费消息是精准一次的（有且只有一次）。消费者有一个参数 islation.level，这个参数指定的是事务的隔离级别。<br>它的默认值是 read_uncommitted（未提交读），意思是消费者可以消费未commit的消息。当参数设置为 read_committed，则消费者不能消费到未commit的消息。</p>
 <h3 id="事务的使用场景"><a href="#事务的使用场景" class="headerlink" title="事务的使用场景"></a>事务的使用场景</h3><p>kafka事务主要是为了保证数据的一致性，现列举如下几个场景供读者参考：</p>
@@ -459,15 +460,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

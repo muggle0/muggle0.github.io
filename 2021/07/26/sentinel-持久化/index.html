@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>sentinel 持久化 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们之前配置的流控规则都是存储在应用的内存中的，这种方式明显无法满足我们实际开发的需求，一旦项目被重启，流控规则就被初始化了，需要我们再次去重新配置，因此规则的持久化就显得很有必要了。 本节会介绍几类主流持久化方式并对自定义持久化做介绍 文件持久化文件持久化是通过 sentinel spi 扩展点来加载本地文件中的持久化数据到内存中，它依赖接口 InitFunc，对于非spring项目这种方式可以">
+  <meta name="description" content="我们之前配置的流控规则都是存储在应用的内存中的，这种方式明显无法满足我们实际开发的需求，一旦项目被重启，流控规则就被初始化了，需要我们再次去重新配置，因此规则的持久化就显得很有必要了。 本节会介绍几类主流持久化方式并对自定义持久化做介绍">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sentinel 持久化">
 <meta property="og:url" content="http://muggle0.github.io/2021/07/26/sentinel-%E6%8C%81%E4%B9%85%E5%8C%96/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我们之前配置的流控规则都是存储在应用的内存中的，这种方式明显无法满足我们实际开发的需求，一旦项目被重启，流控规则就被初始化了，需要我们再次去重新配置，因此规则的持久化就显得很有必要了。 本节会介绍几类主流持久化方式并对自定义持久化做介绍 文件持久化文件持久化是通过 sentinel spi 扩展点来加载本地文件中的持久化数据到内存中，它依赖接口 InitFunc，对于非spring项目这种方式可以">
+<meta property="og:description" content="我们之前配置的流控规则都是存储在应用的内存中的，这种方式明显无法满足我们实际开发的需求，一旦项目被重启，流控规则就被初始化了，需要我们再次去重新配置，因此规则的持久化就显得很有必要了。 本节会介绍几类主流持久化方式并对自定义持久化做介绍">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://muggle0.github.io/images/sentinel2.jpg">
 <meta property="og:image" content="http://muggle0.github.io/images/sentinel3.jpg">
 <meta property="article:published_time" content="2021-07-26T04:23:21.000Z">
-<meta property="article:modified_time" content="2026-01-18T08:38:31.550Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.937Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
@@ -180,6 +180,7 @@
       
         <p>我们之前配置的流控规则都是存储在应用的内存中的，这种方式明显无法满足我们实际开发的需求，一旦项目被重启，流控规则就被初始化了，需要我们再次去重新配置，因此规则的持久化就显得很有必要了。</p>
 <p>本节会介绍几类主流持久化方式并对自定义持久化做介绍</p>
+<span id="more"></span>
 <h3 id="文件持久化"><a href="#文件持久化" class="headerlink" title="文件持久化"></a>文件持久化</h3><p>文件持久化是通过 sentinel spi 扩展点来加载本地文件中的持久化数据到内存中，它依赖接口 <code>InitFunc</code>，对于非spring项目这种方式可以很便捷的实现<br>文件持久化。</p>
 <p>实现文件持久化首先要自定义一个类并实现<code>InitFunc</code> 接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyflieInitFunc</span> <span class="keyword">implements</span> <span class="title class_">InitFunc</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">URL</span> <span class="variable">resource</span> <span class="operator">=</span> MyflieInitFunc.class.getClassLoader().getResource(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(resource.getPath()+<span class="string">&quot;/config/flow.json&quot;</span>);</span><br><span class="line">        <span class="type">File</span> <span class="variable">fileParent</span> <span class="operator">=</span> file.getParentFile();</span><br><span class="line">        <span class="keyword">if</span>(!fileParent.exists())&#123;</span><br><span class="line">            fileParent.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!file.exists())&#123;</span><br><span class="line">            file.createNewFile();</span><br><span class="line">        &#125;</span><br><span class="line">        ReadableDataSource&lt;String, List&lt;FlowRule&gt;&gt; flowReadDataSource = <span class="keyword">new</span> <span class="title class_">FileRefreshableDataSource</span>&lt;&gt;(</span><br><span class="line">            resource.getPath()+<span class="string">&quot;/config/flow.json&quot;</span>,</span><br><span class="line">            source -&gt; JSON.parseObject(</span><br><span class="line">                source,</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">TypeReference</span>&lt;List&lt;FlowRule&gt;&gt;() &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            ));</span><br><span class="line">        FlowRuleManager.register2Property(flowReadDataSource.getProperty());</span><br><span class="line">        WritableDataSource&lt;List&lt;FlowRule&gt;&gt; flowWriteDataSource = <span class="keyword">new</span> <span class="title class_">FileWritableDataSource</span>&lt;&gt;(</span><br><span class="line">            resource.getPath()+<span class="string">&quot;/config/flow.json&quot;</span>,</span><br><span class="line">            t-&gt;JSON.toJSONString(t)</span><br><span class="line">        );</span><br><span class="line">        WritableDataSourceRegistry.registerFlowDataSource(flowWriteDataSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -509,15 +510,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

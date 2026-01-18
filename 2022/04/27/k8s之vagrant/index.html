@@ -16,7 +16,7 @@
 <meta property="og:description" content="本地开发集群新方案 Virtualbox+Vagrantvagrant 相对于 vmware 而言更轻量级，操作更简便移植性更强，如果我们需要学习k8s或者搭建一些集群的话建议使用 Virtualbox+Vagrant。Vagrant 是创建虚拟机的工具，Virtualbox 是vagrant 管理工具，而且这两个软件是开源的，不需要我去付费或者破解。 环境准备vagrant 下载地址：https">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-27T13:21:03.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.799Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.943Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
 <meta name="twitter:card" content="summary">
@@ -178,6 +178,7 @@
         <h1 id="本地开发集群新方案-Virtualbox-Vagrant"><a href="#本地开发集群新方案-Virtualbox-Vagrant" class="headerlink" title="本地开发集群新方案 Virtualbox+Vagrant"></a>本地开发集群新方案 Virtualbox+Vagrant</h1><p>vagrant 相对于 vmware 而言更轻量级，操作更简便移植性更强，如果我们需要学习k8s或者搭建一些集群的话建议使用 Virtualbox+Vagrant。<br>Vagrant 是创建虚拟机的工具，Virtualbox 是vagrant 管理工具，而且这两个软件是开源的，不需要我去付费或者破解。</p>
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>vagrant 下载地址：<a target="_blank" rel="noopener" href="https://www.vagrantup.com">https://www.vagrantup.com</a><br>virtualbox 下载地址：<a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></p>
 <p>下载安装完成后，我们还需要下载vagrant镜像<br>镜像下载地址：<a target="_blank" rel="noopener" href="https://app.vagrantup.com/boxes/search">https://app.vagrantup.com/boxes/search</a></p>
+<span id="more"></span>
 <p>打开cmd 窗口，添加本地镜像：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vagrant box add --name 镜像名称 E:data/centos7.box</span><br><span class="line"></span><br><span class="line">## 查看所有镜像</span><br><span class="line">vagrant box list </span><br><span class="line"></span><br><span class="line">## 初始化Vagrantfile</span><br><span class="line">vagarnt init 镜像名称</span><br></pre></td></tr></table></figure>
 
@@ -484,15 +485,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

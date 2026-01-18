@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>k8s基础 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Kubernetes中概念的简要概述 Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。 Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。 Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod Label : 一个label是一个被附加到资源上的键&#x2F;">
+  <meta name="description" content="Kubernetes中概念的简要概述 Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。  Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。  Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod  Label : 一个label是一个被附加到资源上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k8s基础">
 <meta property="og:url" content="http://muggle0.github.io/2022/04/27/k8s%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="Kubernetes中概念的简要概述 Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。 Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。 Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod Label : 一个label是一个被附加到资源上的键&#x2F;">
+<meta property="og:description" content="Kubernetes中概念的简要概述 Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。  Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。  Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod  Label : 一个label是一个被附加到资源上">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://muggle0.github.io/images/2022-04-27-23-07-07.png">
 <meta property="article:published_time" content="2022-04-27T13:17:10.000Z">
-<meta property="article:modified_time" content="2026-01-18T08:38:31.553Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.931Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
 <meta name="twitter:card" content="summary">
@@ -178,22 +178,34 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Kubernetes中概念的简要概述"><a href="#Kubernetes中概念的简要概述" class="headerlink" title="Kubernetes中概念的简要概述"></a>Kubernetes中概念的简要概述</h2><ul>
-<li>Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。</li>
-<li>Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。</li>
-<li>Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod</li>
-<li>Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源</li>
-<li>selector:是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.</li>
-<li>Deployment: 控制pod生命周期的pod控制器</li>
-<li>Service : 一个service定义了访问pod的方式，比如固定的IP地址和与其相对应的DNS名之间的关系。</li>
-<li>Volume: 目录或者文件夹</li>
-<li>Namespace : 命名空间，起到资源分组he隔离的作用</li>
-</ul>
+<li><p>Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。</p>
+</li>
+<li><p>Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。</p>
+</li>
+<li><p>Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod</p>
+</li>
+<li><p>Label : 一个label是一个被附加到资源上的键/值对，譬如附加到一个Pod上，为它传递一个用户自定的并且可识别的属性.Label还可以被应用来组织和选择子网中的资源</p>
+</li>
+<li><p>selector:是一个通过匹配labels来定义资源之间关系得表达式，例如为一个负载均衡的service指定所目标Pod.</p>
+</li>
+<li><p>Deployment: 控制pod生命周期的pod控制器</p>
+</li>
+<li><p>Service : 一个service定义了访问pod的方式，比如固定的IP地址和与其相对应的DNS名之间的关系。</p>
+</li>
+<li><p>Volume: 目录或者文件夹</p>
+</li>
+<li><p>Namespace : 命名空间，起到资源分组he隔离的作用</p>
+<span id="more"></span>
 <p>kubernetes集群由master、node构成。其中master包含组件：</p>
-<ul>
-<li>API Server：暴露k8s api 的服务</li>
-<li>Scheduler：调度器，按照预定的调度策略将 Pod 调度到相应的 node 节点上。</li>
-<li>ControllerManager：负责维护集群的状态，比如程序部署安排、故障检测、自动扩展和滚动更新等。</li>
-<li>Etcd：数据库，负责存储集群中各种资源对象的信息。</li>
+</li>
+<li><p>API Server：暴露k8s api 的服务</p>
+</li>
+<li><p>Scheduler：调度器，按照预定的调度策略将 Pod 调度到相应的 node 节点上。</p>
+</li>
+<li><p>ControllerManager：负责维护集群的状态，比如程序部署安排、故障检测、自动扩展和滚动更新等。</p>
+</li>
+<li><p>Etcd：数据库，负责存储集群中各种资源对象的信息。</p>
+</li>
 </ul>
 <p>node 节点包含组件：</p>
 <ul>
@@ -563,15 +575,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

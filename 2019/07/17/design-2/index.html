@@ -16,7 +16,7 @@
 <meta property="og:description" content="简单工厂模式简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 模式结构简单工厂模式包含如下角色：  Factory：工厂角色，工厂角色负责实现创建所有实例的内">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-07-17T14:55:21.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.795Z">
+<meta property="article:modified_time" content="2026-01-18T09:20:35.653Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -182,6 +182,9 @@
 <li>Product：抽象产品角色，抽象产品角色是所创建的所有对象的父类，负责描述所有实例所共有的公共接口</li>
 <li>ConcreteProduct：具体产品角色，具体产品角色是创建目标，所有创建的对象都充当这个角色的某个具体类的实例。</li>
 </ul>
+<span id="more"></span>
+
+
 <h3 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 资源加载</span></span><br><span class="line">        <span class="type">ClassPathResource</span> <span class="variable">classPathResource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;spring-bean.xml&quot;</span>);</span><br><span class="line">        <span class="comment">// XmlBeanFactory 加载资源并解析注册bean</span></span><br><span class="line">        <span class="type">BeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XmlBeanFactory</span>(classPathResource);</span><br><span class="line">        <span class="comment">// BeanFactory.getBean();</span></span><br><span class="line">        <span class="type">UserBean</span> <span class="variable">userBean</span> <span class="operator">=</span> (UserBean) beanFactory.getBean(<span class="string">&quot;userBean&quot;</span>);</span><br><span class="line">        System.out.println(userBean.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个<code>XmlBeanFactory</code>便可以看做是一个稍微变形的简单工厂，<code>getBean()</code>方法便是获取产品的实例方法，<code>userBean</code>便是我们的产品。如果我们以后遇到与spring中<code>XmlBeanFactory</code>类似场景我们便可依瓢画葫芦写出一个漂亮的简单工厂。</p>
@@ -486,15 +489,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

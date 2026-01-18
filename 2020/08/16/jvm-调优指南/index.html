@@ -16,7 +16,7 @@
 <meta property="og:description" content="1.调优参数java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -Xmx3550m：设置JVM最大可用内存为3550M。 -Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。 -Xmn2g：设置年轻代大小为2G。整个JVM内存大小&#x3D;年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为6">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-16T01:59:34.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.799Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.946Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
@@ -190,6 +190,8 @@
 <p>-XX:+PrintGCApplicationConcurrentTime:打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用</p>
 <p>-XX:+PrintGCApplicationStoppedTime：打印垃圾回收期间程序暂停的时间。可与上面混合使用</p>
 <p>-XX:PrintHeapAtGC:打印GC前后的详细堆栈信息</p>
+<span id="more"></span>
+
 <h1 id="2-调优工具"><a href="#2-调优工具" class="headerlink" title="2 调优工具"></a>2 调优工具</h1><p>一、jps：虚拟机进程状况工具</p>
 <p>二、jstat：虚拟机统计信息监视工具</p>
 <p>三、jmap：Java内存印象工具</p>
@@ -471,15 +473,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">

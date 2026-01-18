@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>springSecurity深度解析第二版 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作者：muggle 前言由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。 security原理分析springSecurity过滤器链springSecurity 采用的是责任链的设计模式，它有一条很长的过滤器链。现在对这条过滤器链的各个进行说明   WebAsyncManagerIntegrationFilter：将Sec">
+  <meta name="description" content="作者：muggle 前言由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="springSecurity深度解析第二版">
 <meta property="og:url" content="http://muggle0.github.io/2019/04/20/springSecurity2/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="作者：muggle 前言由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。 security原理分析springSecurity过滤器链springSecurity 采用的是责任链的设计模式，它有一条很长的过滤器链。现在对这条过滤器链的各个进行说明   WebAsyncManagerIntegrationFilter：将Sec">
+<meta property="og:description" content="作者：muggle 前言由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
 <meta property="article:published_time" content="2019-04-20T04:44:15.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.802Z">
+<meta property="article:modified_time" content="2026-01-18T09:26:38.919Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="security">
 <meta name="twitter:card" content="summary">
@@ -179,6 +179,7 @@
       
         <p>作者：muggle</p>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由于第一版排版实在太过糟糕，而且很多细节没交代清楚，所以决定写第二版；这一版争取将排版设计得清晰明了一点，以方便读者阅读。</p>
+<span id="more"></span>
 <h1 id="security原理分析"><a href="#security原理分析" class="headerlink" title="security原理分析"></a>security原理分析</h1><h2 id="springSecurity过滤器链"><a href="#springSecurity过滤器链" class="headerlink" title="springSecurity过滤器链"></a>springSecurity过滤器链</h2><p>springSecurity 采用的是责任链的设计模式，它有一条很长的过滤器链。现在对这条过滤器链的各个进行说明</p>
 <blockquote>
 <ol>
@@ -215,7 +216,7 @@
 </ol>
 </blockquote>
 <h2 id="springSecurity-流程图"><a href="#springSecurity-流程图" class="headerlink" title="springSecurity 流程图"></a>springSecurity 流程图</h2><p>上一版是通过debug的方法告诉读者springSecurity的一个执行过程，发现反而把问题搞复杂了，这一版我决定画一个流程图来说明其执行过程，只要把springSecurity的执行过程弄明白了，这个框架就会变得很简单</p>
-<span id="more"></span>
+<!--more-->
 
 <p><img src="https://upload-images.jianshu.io/upload_images/13612520-e6bfb247ef6edf01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="security.png"></p>
 <h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><ol>
@@ -611,15 +612,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">苟？</a>
+                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">home</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">developing</a>
               </li>
              
               <li class="article-tag-list-item">
