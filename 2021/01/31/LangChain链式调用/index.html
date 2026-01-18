@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>Tag: cloud | muggle</title>
+  <title>langChain 链式调用 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的爪哇和日常记录博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="muggle">
-<meta property="og:url" content="http://muggle0.github.io/tags/cloud/index.html">
+  <meta name="description" content="链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。   以下代码是一个示例，其中&lt;font style&#x3D;&quot;color:rgb(25, 27, 31);&quot;&gt;model&lt;&#x2F;font&gt;和&lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="langChain 链式调用">
+<meta property="og:url" content="http://muggle0.github.io/2021/01/31/LangChain%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="我的爪哇和日常记录博客">
+<meta property="og:description" content="链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。   以下代码是一个示例，其中&lt;font style&#x3D;&quot;color:rgb(25, 27, 31);&quot;&gt;model&lt;&#x2F;font&gt;和&lt;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://muggle0.github.io/images/langchain1.png">
+<meta property="article:published_time" content="2021-01-31T03:31:50.000Z">
+<meta property="article:modified_time" content="2026-01-18T09:57:12.549Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
+<meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://muggle0.github.io/images/langchain1.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -153,298 +157,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-LangChain链式调用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      langChain 链式调用
+    </h1>
+  
+
+        
+        <a href="/muggle0.github.io/2021/01/31/LangChain%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2021-01-31T03:31:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-31</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><font style="color:rgb(25, 27, 31);">链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。</font></p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/langchain1.png" alt=""></p>
+<p><font style="color:rgb(25, 27, 31);">以下代码是一个示例，其中</font><code>&lt;font style=&quot;color:rgb(25, 27, 31);&quot;&gt;model&lt;/font&gt;</code><font style="color:rgb(25, 27, 31);">和</font><code>&lt;font style=&quot;color:rgb(25, 27, 31);&quot;&gt;StrOutputParser&lt;/font&gt;</code><font style="color:rgb(25, 27, 31);">组成了一个链，</font><code>&lt;font style=&quot;color:rgb(25, 27, 31);&quot;&gt;StrOutputParser&lt;/font&gt;</code><font style="color:rgb(25, 27, 31);">负责将大模型的输出转化为字符串。</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from langchain_core.output_parsers import StrOutputParser</span><br><span class="line">from langchain_openai import ChatOpenAI</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    model = ChatOpenAI(api_key=&quot;xx&quot;, base_url=&quot;https://api.deepseek.com/v1&quot;, model=&quot;deepseek-chat&quot;)</span><br><span class="line"></span><br><span class="line">    # 搭建链条，把model和字符串输出解析器组件连接在一起</span><br><span class="line">    basic_qa_chain = model | StrOutputParser()</span><br><span class="line"></span><br><span class="line">    # 查看输出结果</span><br><span class="line">    question = &quot;周杰伦的青花瓷第一句歌词是什么&quot;</span><br><span class="line">    result = basic_qa_chain.invoke(question)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+
+<p>加入提示词模板创建链</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">from langchain_core.output_parsers import StrOutputParser</span><br><span class="line">from langchain_core.prompts import ChatPromptTemplate</span><br><span class="line">from langchain_openai import ChatOpenAI</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    model = ChatOpenAI(api_key=&quot;xx&quot;, base_url=&quot;https://api.deepseek.com/v1&quot;, model=&quot;deepseek-chat&quot;)</span><br><span class="line"></span><br><span class="line">    # 搭建链条，把model和字符串输出解析器组件连接在一起</span><br><span class="line">    basic_qa_chain = model | StrOutputParser()</span><br><span class="line"></span><br><span class="line">    # 查看输出结果</span><br><span class="line">    question = &quot;周杰伦的青花瓷第一句歌词是什么&quot;</span><br><span class="line">    result = basic_qa_chain.invoke(question)</span><br><span class="line">    print(result)</span><br><span class="line"></span><br><span class="line">    prompt_template = ChatPromptTemplate([</span><br><span class="line">        (&quot;system&quot;, &quot;你是一位人工智能助手，你的名字是&#123;name&#125;&quot;),</span><br><span class="line">        (&quot;user&quot;, &quot;这是用户的问题： &#123;question&#125;&quot;)</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    # 直接使用模型 + 输出解析器</span><br><span class="line">    bool_qa_chain = prompt_template | model | StrOutputParser()</span><br><span class="line">    # 测试</span><br><span class="line">    question = &quot;你叫什么名字&quot;</span><br><span class="line">    result = bool_qa_chain.invoke(&#123;&#x27;question&#x27;:question,&quot;name&quot;:&quot;机器人&quot;&#125;)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(25, 27, 31);">复合链</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from langchain.chat_models import init_chat_model</span><br><span class="line">from langchain_core.prompts import PromptTemplate</span><br><span class="line">from langchain.output_parsers import ResponseSchema, StructuredOutputParser</span><br><span class="line">from langchain_core.runnables import RunnableLambda</span><br><span class="line">from langchain_openai import ChatOpenAI</span><br><span class="line">def debug_print(x):</span><br><span class="line">    print(&#x27;中间结果：&#x27;, x)</span><br><span class="line">    return x</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    # 第一步：根据标题生成新闻正文</span><br><span class="line">    cook_prompt = PromptTemplate.from_template(</span><br><span class="line">        &quot;请根据菜品名给出做菜的步骤：\n\n菜品名：&#123;title&#125;&quot;</span><br><span class="line">    )</span><br><span class="line">    model = ChatOpenAI(api_key=&quot;sk-e3cb8a78bd54403eb488390565ece237&quot;, base_url=&quot;https://api.deepseek.com/v1&quot;,</span><br><span class="line">                       model=&quot;deepseek-chat&quot;)</span><br><span class="line">    # 第一个子链：做菜步骤</span><br><span class="line">    cook_chain = cook_prompt | model</span><br><span class="line"></span><br><span class="line">    # 第二步：从正文中提取结构化字段</span><br><span class="line">    schemas = [</span><br><span class="line">        ResponseSchema(name=&quot;material&quot;, description=&quot;食材&quot;),</span><br><span class="line">        ResponseSchema(name=&quot;flavoring&quot;, description=&quot;调味料&quot;),</span><br><span class="line">    ]</span><br><span class="line">    parser = StructuredOutputParser.from_response_schemas(schemas)</span><br><span class="line"></span><br><span class="line">    summary_prompt = PromptTemplate.from_template(</span><br><span class="line">        &quot;请从下面这段内容中提取关键信息，并返回结构化JSON格式：\n\n&#123;msg&#125;\n\n&#123;format_instructions&#125;&quot;</span><br><span class="line">    )</span><br><span class="line">    print(parser.get_format_instructions())</span><br><span class="line">    # 输出中间结果</span><br><span class="line">    debug_node = RunnableLambda(debug_print)</span><br><span class="line">    # 第二个子链：生成新闻摘要</span><br><span class="line">    summary_chain = (</span><br><span class="line">            summary_prompt.partial(format_instructions=parser.get_format_instructions())</span><br><span class="line">            | model</span><br><span class="line">            | parser</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    # 组合成一个复合 Chain</span><br><span class="line">    full_chain = cook_chain | debug_node | summary_chain</span><br><span class="line"></span><br><span class="line">    # 调用复合链</span><br><span class="line">    result = full_chain.invoke(&#123;&quot;title&quot;: &quot;蛋炒饭&quot;&#125;)</span><br><span class="line">    print(result)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>好活，当赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://muggle.javaboy.org/images/ewm.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/muggle0.github.io/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2020/08/13/tcc%E6%8E%A8%E5%AF%BC/" class="archive-article-date">
-  	<time datetime="2020-08-13T02:09:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2020/08/13/tcc%E6%8E%A8%E5%AF%BC/">tcc推导</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AI</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/muggle0.github.io/archives/2019" class="archive-year">2019</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2019/05/27/dubbo-2/" class="archive-article-date">
-  	<time datetime="2019-05-27T09:36:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2019/05/27/dubbo-2/">dubbo运维相关知识</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2021/01/31/LangChain%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2019/04/27/nacos/" class="archive-article-date">
-  	<time datetime="2019-04-27T02:17:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-27</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/muggle0.github.io/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          开发小计
+        
+      </div>
+    </a>
+  
+  
+    <a href="/muggle0.github.io/2021/01/31/kafka%E4%BA%8B%E5%8A%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">kafka事务</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2019/04/27/nacos/">服务注册发现与配置中心新选择——nacos</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2019/04/27/springcloud-3/" class="archive-article-date">
-  	<time datetime="2019-04-27T02:02:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2019/04/27/springcloud-3/">springCloud学习笔记——配置高可用Eureka</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2019/04/26/dubbo-1/" class="archive-article-date">
-  	<time datetime="2019-04-26T09:29:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2019/04/26/dubbo-1/">dubbo学习笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2019/04/26/springcloud-2/" class="archive-article-date">
-  	<time datetime="2019-04-26T03:34:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2019/04/26/springcloud-2/">springcloud-Eureka</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/muggle0.github.io/2019/04/26/springcloud-1/" class="archive-article-date">
-  	<time datetime="2019-04-26T03:30:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/muggle0.github.io/2019/04/26/springcloud-1/">springcloud核心组件介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -467,9 +365,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
