@@ -25,7 +25,7 @@ tags:
 
 1. 配置模板注释示例(settings 搜 template 找到 file and code templates )：
    
-![](images/2022-03-11-11-34-33.png)
+![](/images/2022-03-11-11-34-33.png)
 
 ```
 #if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
@@ -42,7 +42,7 @@ public class ${NAME} {
 ```
 
 2. 后缀代码提示（settings 搜 post 找到postfix completion 在java栏下加后缀）：
-![](images/2022-03-11-11-38-23.png)
+![](/images/2022-03-11-11-38-23.png)
 
 .link:
 ```
@@ -76,7 +76,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger($classname$.class);
 ```
 \b(tag)\b.*
 ```
-![](images/2022-03-11-11-45-36.png)
+![](/images/2022-03-11-11-45-36.png)
 
 
 
@@ -91,7 +91,7 @@ maven->runner:
 Thread count: 
 
 带C指定核数，不带C指定线程数
-![](images/2022-03-11-11-49-39.png)
+![](/images/2022-03-11-11-49-39.png)
 
 2. checkStyle 版本选定8.1:
 
@@ -297,9 +297,9 @@ Thread count:
 
 3. 字体等优化：
 
-![](images/2022-03-11-11-51-44.png)
-![](images/2022-03-11-11-52-09.png)
-![](images/2022-03-11-11-52-33.png)
-![](images/2022-03-11-11-54-12.png)
-![](images/2022-03-11-11-59-04.png)
-![](images/2022-03-11-12-02-52.png)
+![](/images/2022-03-11-11-51-44.png)
+![](/images/2022-03-11-11-52-09.png)
+![](/images/2022-03-11-11-52-33.png)
+![](/images/2022-03-11-11-54-12.png)
+![](/images/2022-03-11-11-59-04.png)
+![](/images/2022-03-11-12-02-52.png)

@@ -45,7 +45,7 @@ struct __attribute__ ((__packed__)) sdshdr32 {
 - buf 存储的字符
 
 因此sds示意图就是这样的：
-![](images/2022-05-06-17-27-37.png)
+![](/images/2022-05-06-17-27-37.png)
 
 那么redis为什么要这么设计呢，出于以下几点考虑：
 

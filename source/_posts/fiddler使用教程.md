@@ -18,17 +18,17 @@ fiddler 是一款专门用于抓取http请求的抓包工具，当启动该工�
 
 点击 rules:
 
-![2](images/2022-02-03-20-57-34.png)
+![2](/images/2022-02-03-20-57-34.png)
 
 勾选 hide connects，隐藏连接信息，这些信息对我们来说是不需要去关注的。
 
 点击 filters, 勾选 use filters ,配置我们需要调试的域名，我这里配置的是 www.baidu.com；该配置会过滤掉无关的域名，使其不会在左侧列表中显示。
-![](images/2022-02-03-21-00-31.png)
+![](/images/2022-02-03-21-00-31.png)
 
 ### fiddlerScript
 
 fiddlerScript 是这个工具的重头戏，如图所示，该脚本中包含多个方法：
-![3](images/2022-02-03-21-04-38.png)
+![3](/images/2022-02-03-21-04-38.png)
 
 我们可以通过编辑这个脚本实现对请求和响应数据的修改，其语法使用的是javascript。编辑完脚本后需要点击编辑器左上角的 save script 按钮脚本才能生效。
 FiddlerScript 中的主要方法包括：
@@ -92,9 +92,9 @@ static function OnBeforeRequest(oSession: Session)
 
 ### debug
 点击rules-> automatic breakpoint  ->before requests 设置全局断点：
-![4](images/2022-02-03-21-19-50.png)
+![4](/images/2022-02-03-21-19-50.png)
 然后我们用浏览器发起一个请求，再观察fiddler:
-![5](images/2022-02-03-21-30-17.png)
+![5](/images/2022-02-03-21-30-17.png)
 
 此时该请求上会有一个 “T” 字形的标记，这个就是进入了断点，我们点击这个请求。在右侧界面可以观察并修改这个请求的数据，包括请求头，请求url，请求体等。修改完成后按上方的 "GO" 按钮执行。然后在右下方就会展示响应信息，如果我们打了 "after Responses" 则会进入断点。
 

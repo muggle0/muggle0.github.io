@@ -13,9 +13,9 @@ kubeSphere 帮我们把诸多云原生功能集中在一起并提供了web界面
 ## kubeSphere 安装
 
 为了简化安装，我们这里使用的是KubeKey，KubeKey安装k8s的最低配置要求是2核4G，低于这个配置使用KubeKey会安装失败。由于KubeKey会访问github。所以需要保证你的主机能联网。我们本地实验的方式可以使用前文提到过的vagrant搭建虚拟机集群。然后在vagrant中安装。也可以在云上上实验，云上实验采用按量计费的方式，阿里云收费如下，网络带宽另计费
-![image.png](images/kube-1.png)
+![image.png](/images/kube-1.png)
 腾讯云的：
-![image.png](images/kube-2.png)
+![image.png](/images/kube-2.png)
 腾讯云的服务器要便宜很多，而且阿里云要使用按量计费需要余额大于100 元，腾讯云没有这个限制，不过两家都支持余额提现。做云实验的话我建议使用腾讯云的按量计费服务器，100块钱能玩很久（它的对象存储也只要几毛钱一个月）。
 阿里云和腾讯云都推出了轻量级云服务器，比普通云服务器便宜很多，这种服务器是你用多少给你分配多少，比如我买了2核4g的服务器，如果我只用了1核1g，那剩余的资源就会被系统分配出去。这种服务器做实验体验不是很好，所以没考虑，感兴趣的小伙伴可以试试这种服务器。
 为了偷个懒，这次我们实验就是在腾讯云上进行（主要是本地机器网络不太好）。
@@ -27,7 +27,7 @@ export KKZONE=cn
 curl -sfL https://get-kk.kubesphere.io | VERSION=v2.2.2 sh -
 ```
 
-![image.png](images/kube-3.png)
+![image.png](/images/kube-3.png)
 为 kk 添加可执行权限，并初始化本地主机：
 
 ```
@@ -35,7 +35,7 @@ chmod +x kk
 ./kk init os
 ```
 
-![image.png](images/kube-4.png)
+![image.png](/images/kube-4.png)
 接下来我们生成一个配置文件来安装k8s和kubeSphere
 
 ```
@@ -52,9 +52,9 @@ chmod +x kk
 ./kk create config --with-kubernetes v1.22.10 --with-kubesphere v3.3.0
 ```
 
-![image.png](images/kub-5.png)
+![image.png](/images/kub-5.png)
 这里建议指定版本号，因为有的机器会不支持安装高版本kubeSphere，指定版本生成配置文件会有对应提示。
-![image.png](images/kube-6.png)
+![image.png](/images/kube-6.png)
 config-sample.yaml示例：
 
 ```
@@ -194,7 +194,7 @@ ntpdate time.windows.com
 ./kk create cluster --with-kubesphere v3.0.0
 ```
 
-![image.png](images/kube-7.png)
+![image.png](/images/kube-7.png)
 安装过程比较耗时，中途可能出现安装失败的情况，可以使用该命令卸载再进行重装：
 
 ```
@@ -208,7 +208,7 @@ ntpdate time.windows.com
  kubectl get pod -A
 ```
 
-![image.png](images/kube-8.png)
+![image.png](/images/kube-8.png)
 根据日志访问网页：
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559378158-10e6b3fd-4855-49d0-8dab-7934b66578e0.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7f025167&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=496&originalType=url&ratio=1&rotation=0&showTitle=false&size=324028&status=done&style=none&taskId=u6426e325-5d05-4fa8-9dc2-4242a67afc2&title=)
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559409610-621c903d-3059-4cd7-b8a2-a7ddf16ce4b1.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=220&id=uc844787e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=220&originWidth=1899&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54723&status=done&style=none&taskId=u869ea835-03dc-43be-b91d-a7e171904ef&title=&width=1899)

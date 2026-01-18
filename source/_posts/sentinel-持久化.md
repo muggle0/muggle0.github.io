@@ -214,7 +214,7 @@ public class FileWritableDataSource<T> implements WritableDataSource<T> {
 分析得差不多了，让我们看看实战效果吧；
 
 首先启动项目和控制台，然后在控制台上配置一个流控规则，可以观察到项目规则存储文件中多了点内容：
-![2](images/sentinel2.jpg)
+![2](/images/sentinel2.jpg)
 
 文件中新增的数据：
 
@@ -277,7 +277,7 @@ public class FileWritableDataSource<T> implements WritableDataSource<T> {
 ```
 remoteAddress 是nacos 的地址； groupId和dataId均为nacos配置中心的属性，在创建配置项的时候由使用者自定义，如图为在nacos创建配置项的截图：
 
-![3](images/sentinel3.jpg)
+![3](/images/sentinel3.jpg)
 
 
 启动nacos，启动我们的项目和控制台，然后修改nacos中的配置项，就能再控制台上观测到规则变化，nacos中存储的规则也是json,我们可以把文件持久化教程中产生json
