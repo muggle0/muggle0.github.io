@@ -35,7 +35,7 @@ chmod +x kk
 ./kk init os
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663205816318-d423f602-f49e-4127-97cc-1c03c9e61b42.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=58&id=u8c094f61&margin=%5Bobject%20Object%5D&name=image.png&originHeight=58&originWidth=497&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6308&status=done&style=none&taskId=ub5f09e45-f428-4ab4-8191-5534990410c&title=&width=497)
+![image.png](images/kube-4.png)
 接下来我们生成一个配置文件来安装k8s和kubeSphere
 
 ```
@@ -52,9 +52,9 @@ chmod +x kk
 ./kk create config --with-kubernetes v1.22.10 --with-kubesphere v3.3.0
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663221894511-ddd043ca-8038-4967-81c7-2ba813fd409b.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=70&id=u839d9e1b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=70&originWidth=676&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6163&status=done&style=none&taskId=ua58d0df5-61fc-4eb8-b6ac-5b7e04b21a8&title=&width=676)
+![image.png](images/kub-5.png)
 这里建议指定版本号，因为有的机器会不支持安装高版本kubeSphere，指定版本生成配置文件会有对应提示。
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663224867706-e5a29273-1b42-4263-86fe-125b7f25b322.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=44&id=ude675e6a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=44&originWidth=901&originalType=binary&ratio=1&rotation=0&showTitle=false&size=4424&status=done&style=none&taskId=udfc5e54c-5507-4615-98ac-92cec648aba&title=&width=901)
+![image.png](images/kube-6.png)
 config-sample.yaml示例：
 
 ```
@@ -194,7 +194,7 @@ ntpdate time.windows.com
 ./kk create cluster --with-kubesphere v3.0.0
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663222331249-a6d8f947-c0c8-4a13-b1b9-3add4fd8282f.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=586&id=u908ed8f4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=586&originWidth=1146&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25637&status=done&style=none&taskId=u66c2ce3d-c239-405f-815b-1e345dd4ef2&title=&width=1146)
+![image.png](images/kube-7.png)
 安装过程比较耗时，中途可能出现安装失败的情况，可以使用该命令卸载再进行重装：
 
 ```
@@ -208,7 +208,7 @@ ntpdate time.windows.com
  kubectl get pod -A
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663222971174-02a1bd8e-cbb6-4e1b-b49b-a2bbaa552da4.png#clientId=u1e478135-eafe-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=365&id=uc0cf7a59&margin=%5Bobject%20Object%5D&name=image.png&originHeight=365&originWidth=843&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30435&status=done&style=none&taskId=ue37e84f4-93e0-4151-b8fd-52939cdb2a0&title=&width=843)
+![image.png](images/kube-8.png)
 根据日志访问网页：
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559378158-10e6b3fd-4855-49d0-8dab-7934b66578e0.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7f025167&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=496&originalType=url&ratio=1&rotation=0&showTitle=false&size=324028&status=done&style=none&taskId=u6426e325-5d05-4fa8-9dc2-4242a67afc2&title=)
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559409610-621c903d-3059-4cd7-b8a2-a7ddf16ce4b1.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=220&id=uc844787e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=220&originWidth=1899&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54723&status=done&style=none&taskId=u869ea835-03dc-43be-b91d-a7e171904ef&title=&width=1899)
