@@ -210,8 +210,8 @@ ntpdate time.windows.com
 
 ![image.png](/images/kube-8.png)
 根据日志访问网页：
-![image.png](/images/kube-9.png)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559409610-621c903d-3059-4cd7-b8a2-a7ddf16ce4b1.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=220&id=uc844787e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=220&originWidth=1899&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54723&status=done&style=none&taskId=u869ea835-03dc-43be-b91d-a7e171904ef&title=&width=1899)
-
+![image.png](/images/kube-9.png)
+![image.png](/images/kubes-1.png)
 ## kubekey 指令
 
 - 添加节点
