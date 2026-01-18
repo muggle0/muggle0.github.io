@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="redis持久化方式有两种，一种是RDB，一种是aof。RDB持久化是指在指定的时间间隔内将内存中的数据集快照写入磁盘。AOF持久化以日志的形式记录服务器所处理的每一个写操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录。 RDB有两个Redis命令可以用于生成RDB文件–SAVE和BGSAVE。SAVE命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/2022-05-10-14-36-14.png">
-<meta property="og:image" content="http://muggle0.github.io/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/2022-05-10-15-23-28.png">
+<meta property="og:image" content="http://muggle0.github.io/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/images/2022-05-10-14-36-14.png">
+<meta property="og:image" content="http://muggle0.github.io/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/images/2022-05-10-15-23-28.png">
 <meta property="article:published_time" content="2022-05-10T01:34:54.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.800Z">
+<meta property="article:modified_time" content="2026-01-18T07:41:01.184Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/2022-05-10-14-36-14.png">
+<meta name="twitter:image" content="http://muggle0.github.io/2022/05/10/redis-%E6%8C%81%E4%B9%85%E5%8C%96%E5%8E%9F%E7%90%86/images/2022-05-10-14-36-14.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -192,7 +192,7 @@
 <li>使用 rename 将临时文件改名为 正式的 RDB 文件，</li>
 <li>最后记录 dirty 和 lastsave等状态信息。</li>
 </ol>
-<p>RDB文件保存的是二进制数据，文件结构如图所示：<br><img src="2022-05-10-14-36-14.png" alt=""></p>
+<p>RDB文件保存的是二进制数据，文件结构如图所示：<br><img src="images/2022-05-10-14-36-14.png" alt=""></p>
 <p>RDB文件的最开头是REDIS部分，保存着“REDIS”五个字符，程序在载入RDB文件时会校验这个头数据以判断是不是RDB文件。<br>db_version长度为4字节，它的值是一个字符串表示的整数，这个整数记录了RDB文件的版本号。<br>databases部分包含着零个或任意多个数据库，以及各个数据库中的键值对数据。<br>EOF常量的长度为1字节，这个常量标志着RDB文件正文内容的结束，当程序读取到这个值的时候就表示所有数据已经读取完毕了。<br>check_sum是一个8字节长的无符号整数，保存着一个校验和，这个校验和是程序通过对REDIS、db_version、databases、EOF四个部分的内容进行计算得出的。<br>服务器在载入RDB文件时，会将载入数据所计算出的校验和与check_sum所记录的校验和进行对比，以此来检查RDB文件是否有出错或者损坏的情况出现。</p>
 <h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>AOF持久化是通过保存Redis服务器所执行的写命令来记录数据库状态的，类似于mysql 的binlog。<br>AOF持久化保存数据库状态的方法是将服务器执行的SET、SADD、RPUSH等命令保存到AOF文件中，其过程大致如下：</p>
 <ol>
@@ -205,7 +205,7 @@
 <li>everysec：在每一秒中进行同步，速度有所提升。但是如果在一秒内宕机的话可能失去这一秒内的数据；</li>
 <li>no：默认配置，即不使用 AOF 持久化方案。</li>
 </ul>
-<p>我们看一下flushAppendOnlyFile的注释：<br><img src="2022-05-10-15-23-28.png" alt=""></p>
+<p>我们看一下flushAppendOnlyFile的注释：<br><img src="images/2022-05-10-15-23-28.png" alt=""></p>
 <p>大致意思是解释了刷盘时机以及force参数的含义及作用。</p>
 <p>AOF日志文件会随着redis运行变得越来越大，如果服务器宕机重启，那么载入AOF文件就会很耗时。在AOF文件中有很多记录是可以被优化掉的，比如我现在将一个数据 incr 一千次，那么就不需要去记录这1000次修改，只需要记录最后的值即可，所以就需要进行 AOF 重写。Redis 提供了bgrewriteaof指令用于对AOF日志进行重写，该指令会拉起一个子进程对内存进行进行遍历并转换为一系列redis指令，最后保存到一个日志文件中并替换掉原有AOF文件。</p>
 <p>随着Redis的运行，AOF的日志会越来越长，如果实例宕机重启，那么重放整个AOF将会变得十分耗时，而在日志记录中，又有很多无意义的记录，比如我现在将一个数据 incr 一千次，那么就不需要去记录这1000次修改，只需要记录最后的值即可。所以就需要进行 AOF 重写。同样的也可以在redis.config中对重写机制的触发进行配置：</p>
@@ -535,11 +535,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">

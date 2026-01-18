@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="SDSredis中没有直接使用C语言的字符串，而是自定义了一种名为简单动态字符串的抽象类型——SDS。我们下载redis源码，可以在src目录下找到一个sds.h的文件，打开这个文件查看它的部分代码： 123456789101112131415161718192021222324252627typedef char *sds;&#x2F;* Note: sdshdr5 is never used, we j">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/2022/05/06/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2022-05-06-17-27-37.png">
+<meta property="og:image" content="http://muggle0.github.io/2022/05/06/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/images/2022-05-06-17-27-37.png">
 <meta property="article:published_time" content="2022-05-06T06:17:58.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.803Z">
+<meta property="article:modified_time" content="2026-01-18T07:41:01.178Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/2022/05/06/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2022-05-06-17-27-37.png">
+<meta name="twitter:image" content="http://muggle0.github.io/2022/05/06/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/images/2022-05-06-17-27-37.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -187,7 +187,7 @@
 <li>flags 低三位表示类型，高五位未使用</li>
 <li>buf 存储的字符</li>
 </ul>
-<p>因此sds示意图就是这样的：<br><img src="2022-05-06-17-27-37.png" alt=""></p>
+<p>因此sds示意图就是这样的：<br><img src="images/2022-05-06-17-27-37.png" alt=""></p>
 <p>那么redis为什么要这么设计呢，出于以下几点考虑：</p>
 <ul>
 <li>降低获取字符串长度的复杂度，通过获取sds的len属性就能直接获取字符串长度。</li>
@@ -567,11 +567,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">

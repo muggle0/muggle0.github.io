@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。 Redisson采用了基于NIO的Netty框架，封装了大家常用的集合类以及原子类、锁等工具。本章节主要介绍redission 中重要的两个点：数据结构和锁 本章节主要介绍redission 中重要的两个点：数据结构和锁 map基于Redis的Redi">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/2022-06-07-15-55-36.png">
+<meta property="og:image" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/images/2022-06-07-15-55-36.png">
 <meta property="article:published_time" content="2022-06-07T03:22:11.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.803Z">
+<meta property="article:modified_time" content="2026-01-18T07:41:01.179Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/2022-06-07-15-55-36.png">
+<meta name="twitter:image" content="http://muggle0.github.io/2022/06/07/%E4%B8%80%E8%B5%B7%E6%9D%A5%E5%AD%A6redis-redission/images/2022-06-07-15-55-36.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -194,7 +194,7 @@
 <li><p>数据分片（Sharding） 类 – 数据分片（Sharding）类仅适用于Redis集群环境下，因此带有数据分片（Sharding）功能的映射也叫集群分布式映射。它利用分库的原理，将单一一个映射结构切分为若干个小的映射，并均匀的分布在集群中的各个槽里。这样的设计能使一个单一映射结构突破Redis自身的容量限制，让其容量随集群的扩大而增长。在扩容的同时，还能够使读写性能和元素淘汰处理能力随之成线性增长。</p>
 </li>
 </ul>
-<p>map 类：<br><img src="2022-06-07-15-55-36.png" alt=""></p>
+<p>map 类：<br><img src="images/2022-06-07-15-55-36.png" alt=""></p>
 <p>Redisson的分布式的RMapCache Java对象在基于RMap的前提下实现了针对单个元素的淘汰机制，这种功能是其他两个redis客户端所不能具备的。<br>Redis自身并不支持散列（Hash）当中的元素淘汰，因此所有过期元素都是通过org.redisson.EvictionScheduler实例来实现定期清理的。为了保证资源的有效利用，每次运行最多清理300个过期元素。任务的启动时间将根据上次实际清理数量自动调整，间隔时间趋于1秒到1小时之间。比如该次清理时删除了300条元素，那么下次执行清理的时间将在1秒以后（最小间隔时间）。一旦该次清理数量少于上次清理数量，时间间隔将增加1.5倍。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RMapCache&lt;String, SomeObject&gt; map = redisson.getMapCache(&quot;anyMap&quot;);</span><br><span class="line">// 有效时间 ttl = 10分钟</span><br><span class="line">map.put(&quot;key1&quot;, new SomeObject(), 10, TimeUnit.MINUTES);</span><br><span class="line">// 有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟</span><br><span class="line">map.put(&quot;key1&quot;, new SomeObject(), 10, TimeUnit.MINUTES, 10, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">// 有效时间 = 3 秒钟</span><br><span class="line">map.putIfAbsent(&quot;key2&quot;, new SomeObject(), 3, TimeUnit.SECONDS);</span><br><span class="line">// 有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟</span><br><span class="line">map.putIfAbsent(&quot;key2&quot;, new SomeObject(), 40, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
 
@@ -571,11 +571,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">

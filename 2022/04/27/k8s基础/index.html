@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="muggle">
 <meta property="og:description" content="Kubernetes中概念的简要概述 Cluster : 集群是指由Kubernetes使用一系列的物理机、虚拟机和其他基础资源来运行你的应用程序。 Node : 运行着Kubernetes的物理机或虚拟机，并且pod可以在其上面被调度。 Pod : k8s的最小调度单元，一个pod 可以包含多个容器，k8s无法直接操作容器，只能操作pod Label : 一个label是一个被附加到资源上的键&#x2F;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/2022/04/27/k8s%E5%9F%BA%E7%A1%80/2022-04-27-23-07-07.png">
+<meta property="og:image" content="http://muggle0.github.io/2022/04/27/k8s%E5%9F%BA%E7%A1%80/images/2022-04-27-23-07-07.png">
 <meta property="article:published_time" content="2022-04-27T13:17:10.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.799Z">
+<meta property="article:modified_time" content="2026-01-18T07:41:01.183Z">
 <meta property="article:author" content="muggle">
 <meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/2022/04/27/k8s%E5%9F%BA%E7%A1%80/2022-04-27-23-07-07.png">
+<meta name="twitter:image" content="http://muggle0.github.io/2022/04/27/k8s%E5%9F%BA%E7%A1%80/images/2022-04-27-23-07-07.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -204,7 +204,7 @@
 <h2 id="window下搭建k8s环境"><a href="#window下搭建k8s环境" class="headerlink" title="window下搭建k8s环境"></a>window下搭建k8s环境</h2><p>搭建k8s开发环境有三种，一种是通过docker desktop + Minikube 来直接在你的电脑上搭建，这种搭建方式存在的问题比较多，很多功能不支持，不建议使用。<br>另外一种方式是通过Docker Desktop安装k8s，这种k8s是单机版的，master 和node 是同一个节点也就是本机，这种方式安装的k8s基本上能满足我们的学习需求，初期学习阶段可以使用这种安装方式。<br>还有就是通过前文介绍 vagrant 制作box 然后创建集群安装，这种安装方式是最完整也是最麻烦的。<br>现在先介绍第二种安装方式，第二种方式是把k8s 镜像拉取下来并运行容器，但因为国内网络的问题，镜像依赖拉不下来，我们可以上github 拉阿里云的k8s-for-docker-desktop 到本地安装。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/AliyunContainerService/k8s-for-docker-desktop.git</span><br><span class="line">cd k8s-for-docker-desktop</span><br><span class="line"></span><br><span class="line">// 执行脚本安装K8S相关镜像（确认k8s-for-docker-desktop文件夹下的images中的k8s和本地安装的docker中需要的k8s版本保持一致）</span><br><span class="line">./load_images.sh</span><br></pre></td></tr></table></figure>
 <p>需要注意git tag 是不是和你的  docker中的k8s版本保持一致</p>
-<p>然后打开你的docker desktop，勾选k8s:<br><img src="2022-04-27-23-07-07.png" alt=""></p>
+<p>然后打开你的docker desktop，勾选k8s:<br><img src="images/2022-04-27-23-07-07.png" alt=""></p>
 <p>等docker 重启后就安装完成了，打开命令行窗口执行指令，验证是否安装成功：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl cluster-info</span><br></pre></td></tr></table></figure>
 <p>第三种安装方式需要kubeadm 来进行集群安装，k8s集群可以一主多从或者多主多从，这里我搭建的是一主多从集群。</p>
@@ -591,11 +591,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">netty</a>
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
