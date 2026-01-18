@@ -7,7 +7,7 @@ tags:
 ## KubeSphere 介绍
 
 KubeSphere是k8s控制台，ubeSphere 目前提供了工作负载管理、微服务治理、DevOps 工程、Source to Image、多租户管理、多维度监控、日志查询与收集、告警通知、服务与网络、应用管理、基础设施管理、镜像管理、应用配置密钥管理等功能模块。
-
+<!-- more -->
 kubeSphere 帮我们把诸多云原生功能集中在一起并提供了web界面。利用KubeSphere我们可以根据我们之前学习的 Jenkins docker k8s 搭建一套完整的私有云系统，极大的减少运维以及开发的工作量。具体的搭建思路我在下一节中给出，这一节我们先安装并使用KubeSphere。
 
 ## kubeSphere 安装
@@ -213,7 +213,6 @@ ntpdate time.windows.com
 ![image.png](/images/kube-9.png)
 ![image.png](/images/kubes-1.png)
 
-<!-- more -->
 
 ## kubekey 指令
 
