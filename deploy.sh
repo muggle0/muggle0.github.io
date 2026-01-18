@@ -3,5 +3,5 @@ git commit -m 'message'
 git push
 hexo clean
 hexo g
-cp -r  source/_posts/images/ public/images
+cp -r  ./images/ public/images
 hexo deploy
