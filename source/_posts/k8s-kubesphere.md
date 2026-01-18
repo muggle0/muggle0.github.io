@@ -210,8 +210,7 @@ ntpdate time.windows.com
 
 ![image.png](/images/kube-8.png)
 根据日志访问网页：
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559378158-10e6b3fd-4855-49d0-8dab-7934b66578e0.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7f025167&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=496&originalType=url&ratio=1&rotation=0&showTitle=false&size=324028&status=done&style=none&taskId=u6426e325-5d05-4fa8-9dc2-4242a67afc2&title=)
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559409610-621c903d-3059-4cd7-b8a2-a7ddf16ce4b1.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=220&id=uc844787e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=220&originWidth=1899&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54723&status=done&style=none&taskId=u869ea835-03dc-43be-b91d-a7e171904ef&title=&width=1899)
+![image.png](/images/kube-9.png)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559409610-621c903d-3059-4cd7-b8a2-a7ddf16ce4b1.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=220&id=uc844787e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=220&originWidth=1899&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54723&status=done&style=none&taskId=u869ea835-03dc-43be-b91d-a7e171904ef&title=&width=1899)
 
 ## kubekey 指令
 
@@ -237,21 +236,20 @@ kk upgrade [--with-kubernetes version] [--with-kubesphere version] [(-f | --file
 
 1）Kubernetes 资源管理
 支持工作负载管理、镜像管理、服务与应用路由管理 (服务发现)、密钥配置管理等
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559863676-11a27819-f37f-4df1-b8d0-c681c3cb3553.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=545&id=uea4d4dab&margin=%5Bobject%20Object%5D&name=image.png&originHeight=545&originWidth=1402&originalType=binary&ratio=1&rotation=0&showTitle=false&size=74909&status=done&style=none&taskId=u2485654e-133b-47bf-8fc5-f825a9afae9&title=&width=1402)
+![image.png](/images/kube-10.png)
 2）微服务治理
 
 - 支持熔断、灰度发布、流量管控、限流、链路追踪、智能路由等完善的微服务治理功能，同时，支持代码无侵入的微服务治理
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663559941567-5be18801-dd62-49b5-b067-50df1c9b0abf.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=810&id=u0991e854&margin=%5Bobject%20Object%5D&name=image.png&originHeight=810&originWidth=1377&originalType=binary&ratio=1&rotation=0&showTitle=false&size=149783&status=done&style=none&taskId=uda39f509-d935-4064-afce-786c74d319f&title=&width=1377)
+![image.png](/images/kube-11.png)
 3）DevOps
 基于 Jenkins 的可视化 CI / CD 流水线，支持从仓库 (GitHub / SVN / Git)、代码编译、镜像制作、镜像安全、推送仓库、版本发布、到定时构建的端到端流水线设置
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663565422814-637ba193-be9f-48ea-9439-0c6eaf7bdb70.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=493&id=ua1c2b7e2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=493&originWidth=1461&originalType=binary&ratio=1&rotation=0&showTitle=false&size=176602&status=done&style=none&taskId=uca53a9a1-1002-450d-997b-9b4eca71dce&title=&width=1461)
+![image.png](/images/kube-12.png)
 4）监控
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663565534605-f8012570-d85a-40b8-83af-1fb848470936.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=508&id=u1d379133&margin=%5Bobject%20Object%5D&name=image.png&originHeight=508&originWidth=1000&originalType=binary&ratio=1&rotation=0&showTitle=false&size=107283&status=done&style=none&taskId=u5645c0ad-cd8e-4f2f-9768-e227d7ff46e&title=&width=1000)
+![image.png](/images/kube-13.png)
 5）应用管理与编排
 使用开源的OpenPitrix提供应用商店和应用仓库服务，提供应用全生命周期管理功能
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22548376/1663565755876-d0038659-1123-47c8-900f-c2e2ef283179.png#clientId=u4bc37523-6d99-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=840&id=u59522995&margin=%5Bobject%20Object%5D&name=image.png&originHeight=840&originWidth=1229&originalType=binary&ratio=1&rotation=0&showTitle=false&size=174048&status=done&style=none&taskId=u04297f58-8fdf-45ac-974e-daaac9258bb&title=&width=1229)
-
+![image.png](/images/kube-14.png)
 ## 结语
 
 k8s系列在这一篇算是终结了，下一篇会写普罗米修斯相关的文章，然后之后按照计划就是写我的 poseidon 项目了，目前对自己的要求就是一周一更新。

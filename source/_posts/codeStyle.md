@@ -140,7 +140,7 @@ pulic void test(){
 
 对于团队而言，gitflow 是一个很不错的开发流程。可以很大程度上管理好我们的分支代码，避免团队的人由于误操作而导致某个重要分支出现问题。下面贴出gitflow 流程图，对于其具体内容同样不会介绍太多，感兴趣小伙伴去百度吧
 
-![xxx](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/gitflow.png)
+![xxx](/images/gitflow.png)
 
 # 帮助代码规范的工具
 
@@ -158,7 +158,7 @@ idea checkStyle 插件可以通过自定义配置文件来统一团队的代码�
 
 前文提到过git flow 给团队带来的好处，idea也有对应的插件——git Flow Integration，可以通过这个插件来规范我们的流程：
 
-![gitflow插件](https://raw.githubusercontent.com/muggle0/muggle0.github.io/master/gitflow2.jpg)
+![gitflow插件](/images/gitflow2.jpg)
 
 开发新功能选择 start Feature 拉取分支，修复bug 选择 Start Bugfix 拉取分支，等等。此外还有 push on finish等功能，小伙伴如果感兴趣可以百度。
 
