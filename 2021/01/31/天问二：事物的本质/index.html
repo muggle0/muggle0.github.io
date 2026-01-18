@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>langChain 链式调用 | muggle</title>
+  <title>天问2 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。">
+  <meta name="description" content="M理论在围棋游戏中，只有围与不围这样很少的几条规则，加上黑白两色棋子，却可以弈出千变万化的对局。与此相似，现代认为，自然界由很少的几条规则支配，而存在着无限多种这些支配规律容许的状态和结构。任何物理现象或者定律都只是这些规则的进一步推到与演化。那么对于其他事物而言，有没有可能也存在这种M理论呢？ 社会契约论我认为社会契约论算得上是社科的律法方面的一种M理论。初读社会契约论给我的感觉就是四个字：惊为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="langChain 链式调用">
-<meta property="og:url" content="http://muggle0.github.io/2021/01/31/LangChain%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/index.html">
+<meta property="og:title" content="天问2">
+<meta property="og:url" content="http://muggle0.github.io/2021/01/31/%E5%A4%A9%E9%97%AE%E4%BA%8C%EF%BC%9A%E4%BA%8B%E7%89%A9%E7%9A%84%E6%9C%AC%E8%B4%A8/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。">
+<meta property="og:description" content="M理论在围棋游戏中，只有围与不围这样很少的几条规则，加上黑白两色棋子，却可以弈出千变万化的对局。与此相似，现代认为，自然界由很少的几条规则支配，而存在着无限多种这些支配规律容许的状态和结构。任何物理现象或者定律都只是这些规则的进一步推到与演化。那么对于其他事物而言，有没有可能也存在这种M理论呢？ 社会契约论我认为社会契约论算得上是社科的律法方面的一种M理论。初读社会契约论给我的感觉就是四个字：惊为">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://muggle0.github.io/images/langchain1.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/22548376/1697277855989-6ae8c5bf-a52f-4676-a17a-09f681e31625.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/gif/22548376/1697282735455-41ad5dd9-f88a-40a6-ad66-86246fafbc37.gif">
 <meta property="article:published_time" content="2021-01-31T03:31:50.000Z">
-<meta property="article:modified_time" content="2026-01-18T09:57:50.548Z">
+<meta property="article:modified_time" content="2026-01-18T10:37:05.857Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="AI">
+<meta property="article:tag" content="读书笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://muggle0.github.io/images/langchain1.png">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/22548376/1697277855989-6ae8c5bf-a52f-4676-a17a-09f681e31625.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -157,19 +158,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-LangChain链式调用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-天问二：事物的本质" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      langChain 链式调用
+      天问2
     </h1>
   
 
         
-        <a href="/muggle0.github.io/2021/01/31/LangChain%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/" class="archive-article-date">
+        <a href="/muggle0.github.io/2021/01/31/%E5%A4%A9%E9%97%AE%E4%BA%8C%EF%BC%9A%E4%BA%8B%E7%89%A9%E7%9A%84%E6%9C%AC%E8%B4%A8/" class="archive-article-date">
   	<time datetime="2021-01-31T03:31:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-31</time>
 </a>
         
@@ -177,19 +178,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><font style="color:rgb(25, 27, 31);">链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。</font></p>
-<span id="more"></span>
+        <h2 id="M理论"><a href="#M理论" class="headerlink" title="M理论"></a>M理论</h2><p><font style="color:rgb(51, 51, 51);">在围棋游戏中，只有围与不围这样很少的几条规则，加上黑白两色棋子，却可以弈出千变万化的对局。与此相似，现代认为，自然界由很少的几条规则支配，而存在着无限多种这些支配规律容许的状态和结构。任何物理现象或者定律都只是这些规则的进一步推到与演化。那么对于其他事物而言，有没有可能也存在这种M理论呢？</font></p>
+<h2 id="社会契约论"><a href="#社会契约论" class="headerlink" title="社会契约论"></a>社会契约论</h2><p>我认为社会契约论算得上是社科的律法方面的一种M理论。初读社会契约论给我的感觉就是四个字：惊为天人。</p>
+<p>社会契约论一共有四个章节，作者从原始部落到现代社会的形成逐步推演，向我们阐述社会的形成的过程与原理。论述了社会秩序和社会契约最原始的法律是从何而来，主权与权利的本质。<font style="color:rgb(51, 51, 51);">在《社会契约论》中，卢梭主要阐述的命题就是：人人生而自由，却无处不在枷锁之中。这个枷锁就是国家。卢梭提出国家创建的理性逻辑：人类想要生存，个体的力量是微薄的，个人的权利、快乐和财产在一个有正规政府的社会比在一个无政府的、人人只顾自己的社会能够得到更好的保护，可行的办法就是集合起来，形成一个联合体，即国家。国家的目的就在于保护每个成员的人身与财产。国家只能是自由的人民自由协议的产物。人生而自由与平等，人们通过订立契约来建立国家，国家就是人民契约的结合体。有了这种公约和权利的保证，每个人对所有的人承担了义务，所有的人也对每一个人承担了义务，这就使得人与人之间虽然可能有体力与智力的不平等，但是他们却拥有了权利的平等。社科尚可通过严谨的逻辑推理而发现其本质特性，找到其中的M理论，那自然科学更应该可以通过逻辑推理获得其中的“M理论”了。</font></p>
+<h2 id="三次数学危机"><a href="#三次数学危机" class="headerlink" title="三次数学危机"></a>三次数学危机</h2><p>数学无疑是一门高深的学科，但最初的数学也是很朴素的存在，正是经历了三次数学危机才让现在数学的“M理论”更加完善。第一次危机得到了无穷和无理数。最初人们对数学的认知还处在从自然数概念而形成有理数概念的早期阶段。当时的人们认为一切量都可以用有理数来表示，尤其是信仰“一切皆数”的毕达哥拉斯学派，深信数的和谐与数是万物的本源，宇宙间的一切现象都能归结为整数或整数比。在这样的背景条件下，毕达哥拉斯学派的希帕索斯发现了等腰直角三角形的直角边与斜边不可通约，这直接挑战了毕达哥拉斯学派的信条，冲击了古希腊人数学认知，引起了人们的恐慌，造成了数学上的第一次危机。最终由德国数学家戴德金才以有理数分割的理论结束了第一次数学危机，无理数正式纳入了数学体系当中。</p>
+<p>第二次数学危机产生了微积分，本次数学危机是由一个叫做“芝诺的乌龟”数学悖论引出的，中国古书《庄子·天下篇》也有直白的描述：一尺之棰，日取其半，万世不竭。即把一根一尺长的木棍，每次截去一半，接着截取一半的一半，如此反复，虽然木棍在变短，但永远截不完。这个问题困扰了很多年，直到微积分的出现才被解决，这是一个关于无穷小求和的问题。但是事情并没有到此终结，上过高中的我们都学过微积分，牛顿和莱布尼茨两个人虽然都独自发明了微积分，但是他们对于无穷小的概念定义却相当的模糊。</p>
+<p>当时的英国大主教贝克莱，他提出了贝克莱悖论：</p>
+<!-- 这是一张图片，ocr 内容为：贝克莱悖论 2.XAX+4X 2 (X2)(X+AX)-X2 2X+AX AX AX AX三0 AX夫0 -->
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/22548376/1697277855989-6ae8c5bf-a52f-4676-a17a-09f681e31625.png" alt=""></p>
+<p>这是一个求导的过程，我们知道分母不能为零，但是在最后的结果中△x又变为了0，简直是前后矛盾，最后由数学家柯西利用极限的方法精确定义了无穷小量的存在，才解决了这个危机。</p>
+<p>第三次数学危机完善了数学“M理论”的基石——集合论。康托尔创立了著名的集合论。数学家们发现，从自然数与康托尔集合论出发可建立起整个数学大厦。因而集合论成为现代数学的基石，“一切数学成果可建立在集合论基础上”。然而这个时候天才数学家罗素又搞出来一个悖论：假如有这样一位理发师，他给自己定下了一个规矩：他只给不给自己刮胡子的人刮胡子，那么他应不应该给自己刮胡子呢。这个悖论是满足集合论的原理的，而且集合论现在已经深入到了数学的各个方面，如果这个悖论不解决，集合论就是有漏洞的。遗憾的是，至今为止，第三次数学危机也没有得到完美的解决，数学家哥德尔提出了不完备定律，证明了数学本身在理论上就是不完备的。</p>
+<p>数学这种复杂的学科也是由简到难一步步构筑出宏大的“M理论”的，过程不可谓不漫长且艰辛。</p>
+<h2 id="康威生命游戏"><a href="#康威生命游戏" class="headerlink" title="康威生命游戏"></a>康威生命游戏</h2><p>康威生命游戏是一种用数字来模拟生命的游戏，我们有无限大的棋盘，棋盘中有很多方格，<font style="color:rgb(51, 51, 51);">每个方格中都可放置一个生命细胞，每个生命细胞只有两种状态：“生”或“死”。用黑色方格表示该细胞为“生”，空格(白色)表示该细胞为“死”。或者说方格网中黑色部分表示某个时候某种“生命”的分布图。游戏开始时，每个细胞随机地设定为“生”或“死”之一的某个状态。然后，根据某种规则，计算出下一代每个细胞的状态，画出下一代细胞的生死分布图。计算规律：</font></p>
+<ul>
+<li><font style="color:rgb(51, 51, 51);">当前细胞为死亡状态时，当周围有3个存活细胞时，则迭代后该细胞变成存活状态(模拟繁殖)；若原先为生，则保持不变。</font></li>
+<li><font style="color:rgb(51, 51, 51);">当前细胞为存活状态时，当周围的邻居细胞低于两个(不包含两个)存活时，该细胞变成死亡状态(模拟生命数量稀少)。</font></li>
+<li><font style="color:rgb(51, 51, 51);">当前细胞为存活状态时，当周围有两个或3个存活细胞时，该细胞保持原样。</font></li>
+<li><font style="color:rgb(51, 51, 51);">当前细胞为存活状态时，当周围有3个以上的存活细胞时，该细胞变成死亡状态(模拟生命数量过多)。</font></li>
+</ul>
+<p><font style="color:rgb(51, 51, 51);">展示一个经典的动图：</font></p>
 <!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/langchain1.png" alt=""></p>
-<p><font style="color:rgb(25, 27, 31);">以下代码是一个示例，其中</font><code>&lt;font style=&quot;color:rgb(25, 27, 31);&quot;&gt;model&lt;/font&gt;</code><font style="color:rgb(25, 27, 31);">和</font><code>&lt;font style=&quot;color:rgb(25, 27, 31);&quot;&gt;StrOutputParser&lt;/font&gt;</code><font style="color:rgb(25, 27, 31);">组成了一个链，</font><code>&lt;font style=&quot;color:rgb(25, 27, 31);&quot;&gt;StrOutputParser&lt;/font&gt;</code><font style="color:rgb(25, 27, 31);">负责将大模型的输出转化为字符串。</font></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from langchain_core.output_parsers import StrOutputParser</span><br><span class="line">from langchain_openai import ChatOpenAI</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    model = ChatOpenAI(api_key=&quot;xx&quot;, base_url=&quot;https://api.deepseek.com/v1&quot;, model=&quot;deepseek-chat&quot;)</span><br><span class="line"></span><br><span class="line">    # 搭建链条，把model和字符串输出解析器组件连接在一起</span><br><span class="line">    basic_qa_chain = model | StrOutputParser()</span><br><span class="line"></span><br><span class="line">    # 查看输出结果</span><br><span class="line">    question = &quot;周杰伦的青花瓷第一句歌词是什么&quot;</span><br><span class="line">    result = basic_qa_chain.invoke(question)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
-
-<p>加入提示词模板创建链</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">from langchain_core.output_parsers import StrOutputParser</span><br><span class="line">from langchain_core.prompts import ChatPromptTemplate</span><br><span class="line">from langchain_openai import ChatOpenAI</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    model = ChatOpenAI(api_key=&quot;xx&quot;, base_url=&quot;https://api.deepseek.com/v1&quot;, model=&quot;deepseek-chat&quot;)</span><br><span class="line"></span><br><span class="line">    # 搭建链条，把model和字符串输出解析器组件连接在一起</span><br><span class="line">    basic_qa_chain = model | StrOutputParser()</span><br><span class="line"></span><br><span class="line">    # 查看输出结果</span><br><span class="line">    question = &quot;周杰伦的青花瓷第一句歌词是什么&quot;</span><br><span class="line">    result = basic_qa_chain.invoke(question)</span><br><span class="line">    print(result)</span><br><span class="line"></span><br><span class="line">    prompt_template = ChatPromptTemplate([</span><br><span class="line">        (&quot;system&quot;, &quot;你是一位人工智能助手，你的名字是&#123;name&#125;&quot;),</span><br><span class="line">        (&quot;user&quot;, &quot;这是用户的问题： &#123;question&#125;&quot;)</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    # 直接使用模型 + 输出解析器</span><br><span class="line">    bool_qa_chain = prompt_template | model | StrOutputParser()</span><br><span class="line">    # 测试</span><br><span class="line">    question = &quot;你叫什么名字&quot;</span><br><span class="line">    result = bool_qa_chain.invoke(&#123;&#x27;question&#x27;:question,&quot;name&quot;:&quot;机器人&quot;&#125;)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
-
-<p><font style="color:rgb(25, 27, 31);">复合链</font></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">from langchain.chat_models import init_chat_model</span><br><span class="line">from langchain_core.prompts import PromptTemplate</span><br><span class="line">from langchain.output_parsers import ResponseSchema, StructuredOutputParser</span><br><span class="line">from langchain_core.runnables import RunnableLambda</span><br><span class="line">from langchain_openai import ChatOpenAI</span><br><span class="line">def debug_print(x):</span><br><span class="line">    print(&#x27;中间结果：&#x27;, x)</span><br><span class="line">    return x</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    # 第一步：根据标题生成新闻正文</span><br><span class="line">    cook_prompt = PromptTemplate.from_template(</span><br><span class="line">        &quot;请根据菜品名给出做菜的步骤：\n\n菜品名：&#123;title&#125;&quot;</span><br><span class="line">    )</span><br><span class="line">    model = ChatOpenAI(api_key=&quot;sk-e3cb8a78bd54403eb488390565ece237&quot;, base_url=&quot;https://api.deepseek.com/v1&quot;,</span><br><span class="line">                       model=&quot;deepseek-chat&quot;)</span><br><span class="line">    # 第一个子链：做菜步骤</span><br><span class="line">    cook_chain = cook_prompt | model</span><br><span class="line"></span><br><span class="line">    # 第二步：从正文中提取结构化字段</span><br><span class="line">    schemas = [</span><br><span class="line">        ResponseSchema(name=&quot;material&quot;, description=&quot;食材&quot;),</span><br><span class="line">        ResponseSchema(name=&quot;flavoring&quot;, description=&quot;调味料&quot;),</span><br><span class="line">    ]</span><br><span class="line">    parser = StructuredOutputParser.from_response_schemas(schemas)</span><br><span class="line"></span><br><span class="line">    summary_prompt = PromptTemplate.from_template(</span><br><span class="line">        &quot;请从下面这段内容中提取关键信息，并返回结构化JSON格式：\n\n&#123;msg&#125;\n\n&#123;format_instructions&#125;&quot;</span><br><span class="line">    )</span><br><span class="line">    print(parser.get_format_instructions())</span><br><span class="line">    # 输出中间结果</span><br><span class="line">    debug_node = RunnableLambda(debug_print)</span><br><span class="line">    # 第二个子链：生成新闻摘要</span><br><span class="line">    summary_chain = (</span><br><span class="line">            summary_prompt.partial(format_instructions=parser.get_format_instructions())</span><br><span class="line">            | model</span><br><span class="line">            | parser</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    # 组合成一个复合 Chain</span><br><span class="line">    full_chain = cook_chain | debug_node | summary_chain</span><br><span class="line"></span><br><span class="line">    # 调用复合链</span><br><span class="line">    result = full_chain.invoke(&#123;&quot;title&quot;: &quot;蛋炒饭&quot;&#125;)</span><br><span class="line">    print(result)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<p><img src="https://cdn.nlark.com/yuque/0/2023/gif/22548376/1697282735455-41ad5dd9-f88a-40a6-ad66-86246fafbc37.gif" alt=""></p>
+<p>生命游戏中有一种结构叫做滑翔器发射器，它能够不停地复制某一个结构并将它发射出去，如同生命孕育之初的那一个单细胞生物。或许这就是生命中的”M理论”。</p>
 
       
 
@@ -229,7 +239,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AI</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
         		</li>
       		
 		</ul>
@@ -285,7 +295,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2021/01/31/LangChain%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2021/01/31/%E5%A4%A9%E9%97%AE%E4%BA%8C%EF%BC%9A%E4%BA%8B%E7%89%A9%E7%9A%84%E6%9C%AC%E8%B4%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -299,18 +309,18 @@
   
 <nav id="article-nav">
   
-    <a href="/muggle0.github.io/2021/02/06/%E5%BC%80%E5%8F%91%E5%B0%8F%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/muggle0.github.io/2021/01/31/%E5%AE%B9%E7%81%BE/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          开发小计
+          容灾
         
       </div>
     </a>
   
   
-    <a href="/muggle0.github.io/2021/01/31/kafka%E4%BA%8B%E5%8A%A1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kafka事务</div>
+    <a href="/muggle0.github.io/2021/01/31/%E6%8E%A7%E5%88%B6%E8%AE%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">控制论读书笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -448,11 +458,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,19 +494,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">log</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">photo</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">photo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,6 +531,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
