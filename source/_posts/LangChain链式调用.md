@@ -1,7 +1,14 @@
+---
+title: langChain 链式调用
+date: 2021-01-31 11:31:50
+tags: AI
+---
+
+
 <font style="color:rgb(25, 27, 31);">链式调用位于LangChain三层核心架构中的中间层——工作流API抽象层。链就是负责将这些组件按照某一种逻辑，顺序组合成一个流水线的方式。比如我们要构建一个简单的问答链，就需要把大模型组件和标准输出组件用链串联起来。</font>
 
 <!-- 这是一张图片，ocr 内容为： -->
-![](https://cdn.nlark.com/yuque/0/2025/png/22548376/1754057044231-df85a107-2b2f-4c37-8734-fab67d8b78a1.png)
+![](/images/langchain1.png)
 
 <font style="color:rgb(25, 27, 31);">以下代码是一个示例，其中</font>`<font style="color:rgb(25, 27, 31);">model</font>`<font style="color:rgb(25, 27, 31);">和</font>`<font style="color:rgb(25, 27, 31);">StrOutputParser</font>`<font style="color:rgb(25, 27, 31);">组成了一个链，</font>`<font style="color:rgb(25, 27, 31);">StrOutputParser</font>`<font style="color:rgb(25, 27, 31);">负责将大模型的输出转化为字符串。</font>
 
