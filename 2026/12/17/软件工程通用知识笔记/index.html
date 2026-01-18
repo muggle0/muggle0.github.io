@@ -6,20 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://muggle0.github.io">
-  <title>设计模式-代理模式（proxy） | muggle</title>
+  <title>软件开发基础知识 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。 代理模式的主要优点有：代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；代理对象可以扩展目标对象的功能；代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度； 其主要缺点是：在客户端和目标对象之间增加一个代">
+  <meta name="description" content="软件开发的生命周期传统的软件开发生命周期是指软件产品从构思开始，经过定义、开发、使用和维护直到最后废弃的全过程。按照传统的软件生命周期方法，可以把软件生命周期划分为软件定义、软件开发、软件运行与维护三个阶段。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式-代理模式（proxy）">
-<meta property="og:url" content="http://muggle0.github.io/2020/02/02/design-10/index.html">
+<meta property="og:title" content="软件开发基础知识">
+<meta property="og:url" content="http://muggle0.github.io/2026/12/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E9%80%9A%E7%94%A8%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。 代理模式的主要优点有：代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；代理对象可以扩展目标对象的功能；代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度； 其主要缺点是：在客户端和目标对象之间增加一个代">
+<meta property="og:description" content="软件开发的生命周期传统的软件开发生命周期是指软件产品从构思开始，经过定义、开发、使用和维护直到最后废弃的全过程。按照传统的软件生命周期方法，可以把软件生命周期划分为软件定义、软件开发、软件运行与维护三个阶段。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-02T09:35:26.000Z">
-<meta property="article:modified_time" content="2026-01-18T04:37:31.794Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754118313210-aac8b20e-19dc-45cb-990e-5e616b0b6611.png">
+<meta property="og:image" content="http://muggle0.github.io/images/ruanjian1.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754126977043-ae31c1cc-9647-48e9-887d-ab72be8a6fbb.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754127957129-e1b3271a-aea0-4d52-bbd9-97f51e6b6a5e.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754129075306-4884193f-660b-4754-8a70-7400fd8d8009.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754129949869-6ae3d1bb-191d-4d23-a18c-7550a175244d.png">
+<meta property="article:published_time" content="2026-12-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-18T09:44:03.923Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="中间件">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754118313210-aac8b20e-19dc-45cb-990e-5e616b0b6611.png">
   
     <link rel="alternative" href="/atom.xml" title="muggle" type="application/atom+xml">
   
@@ -155,58 +162,86 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-10" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-软件工程通用知识笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      设计模式-代理模式（proxy）
+      软件开发基础知识
     </h1>
   
 
         
-        <a href="/muggle0.github.io/2020/02/02/design-10/" class="archive-article-date">
-  	<time datetime="2020-02-02T09:35:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-02</time>
+        <a href="/muggle0.github.io/2026/12/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E9%80%9A%E7%94%A8%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2026-12-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-12-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。</p>
-<p>代理模式的主要优点有：<br>代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；<br>代理对象可以扩展目标对象的功能；<br>代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；</p>
-<p>其主要缺点是：<br>在客户端和目标对象之间增加一个代理对象，会造成请求处理速度变慢；<br>增加了系统的复杂度；</p>
+        <h2 id="软件开发的生命周期"><a href="#软件开发的生命周期" class="headerlink" title="软件开发的生命周期"></a>软件开发的生命周期</h2><p>传统的软件开发生命周期是指软件产品从构思开始，经过定义、开发、使用和维护直到最后废弃的全过程。按照传统的软件生命周期方法，可以把软件生命周期划分为软件定义、软件开发、软件运行与维护三个阶段。</p>
 <span id="more"></span>
 
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>代理模式的主要角色如下。<br>抽象主题（Subject）类：通过接口或抽象类声明真实主题和代理对象实现的业务方法。<br>真实主题（Real Subject）类：实现了抽象主题中的具体业务，是代理对象所代表的真实对象，是最终要引用的对象。<br>代理（Proxy）类：提供了与真实主题相同的接口，其内部含有对真实主题的引用，它可以访问、控制或扩展真实主题的功能。</p>
-<h2 id="源码导读"><a href="#源码导读" class="headerlink" title="源码导读"></a>源码导读</h2><p>在代理模式中动态代理是在各个框架中使用最广泛的一种设计模式，dubbo中 feign中 mybaits中，都有使用到动态代理。在dubbo中，在接口上添加@refrence ，dubbo就会根据这个接口生成一个代理实例来供消费者用生产者。在feign中也是一样；mybatis中你只要指定包扫描的路径，就会在spring中注入一个mapper，实际上这个mapper就是根据接口和xml生成的代理对象。实际上，这种“申明式的”功能实现方式，都是通过代理模式来实现的。</p>
-<p>下面我们通过cglib来写一个“残疾缩水”版的mybatis：</p>
-<p>首先要整一个xml，我这里用properties代替</p>
-<p>test.properties:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testA=select * from user where id=</span><br><span class="line">testB=select * from user where username=</span><br></pre></td></tr></table></figure>
-
-<p>再整一个接口：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  interface Test &#123;</span><br><span class="line"></span><br><span class="line">    String testA(int id);</span><br><span class="line">    String testB(String username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>再是代码增强处理器，这里面完成对接口的代理逻辑</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class MyInvokationHandler implements MethodInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    private static Map&lt;String,String&gt; sqlMap;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        HashMap&lt;String, String&gt; map = new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Properties prop = new Properties();</span><br><span class="line">        InputStream in = SystemMenuController.class.getClassLoader().getResourceAsStream(&quot;test.properties&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            prop.load(in);</span><br><span class="line">            Iterator&lt;String&gt; it = prop.stringPropertyNames().iterator();</span><br><span class="line">            while (it.hasNext()) &#123;</span><br><span class="line">                String key = it.next();</span><br><span class="line">                map.put(key,prop.getProperty(key));</span><br><span class="line">            &#125;</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; catch (java.io.IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        sqlMap=map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable &#123;</span><br><span class="line">        String name = method.getName();</span><br><span class="line">        String s = sqlMap.get(name);</span><br><span class="line">        return s+objects[0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包扫描和启动时注入容器略，数据源也略,用个main方法模拟一下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">      Enhancer enhancer = new Enhancer();</span><br><span class="line">      enhancer.setSuperclass(Test.class);</span><br><span class="line">      enhancer.setCallback(new MyInvokationHandler());</span><br><span class="line">      Test test = (Test) enhancer.create();</span><br><span class="line">      System.out.println(test.testA(1));</span><br><span class="line">       System.out.println(test.testB(&quot;hhh&quot;));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>最终在控制台中打印：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from user where id=1</span><br><span class="line">select * from user where id=hhh</span><br></pre></td></tr></table></figure>
-
-<p>代理模式是一个很强大实用性很强的模式，动态代理大大减少了我们的开发任务，同时减少了对业务接口的依赖，降低了耦合度。代理模式的使用场景可以总结为：</p>
+<p>软件定义包括问题定义、可行性研究、需求分析。</p>
 <ul>
-<li>远程代理，这种方式通常是为了隐藏目标对象存在于不同地址空间的事实，方便客户端访问。例如，用户申请某些网盘空间时，会在用户的文件系统中建立一个虚拟的硬盘，用户访问虚拟硬盘时实际访问的是网盘空间。</li>
-<li>虚拟代理，这种方式通常用于要创建的目标对象开销很大时。例如，下载一幅很大的图像需要很长时间，因某种计算比较复杂而短时间无法完成，这时可以先用小比例的虚拟代理替换真实的对象，消除用户对服务器慢的感觉。</li>
-<li>安全代理，这种方式通常用于控制不同种类客户对真实对象的访问权限。</li>
-<li>智能指引，主要用于调用目标对象时，代理附加一些额外的处理功能。例如，增加计算真实对象的引用次数的功能，这样当该对象没有被引用时，就可以自动释放它。</li>
-<li>延迟加载，指为了提高系统的性能，延迟对目标的加载。例如，Hibernate 中就存在属性的延迟加载和关联表的延时加载。</li>
+<li>问题定义明确了软件的定位以及范围等，说明是一种什么性质的系统；</li>
+<li>可行性研究包括技术可行性，经济可行性，操作可行性、社会可行性等；</li>
+<li>需求分析的任务是确定软件的功能需求，性能需求，和运行环境的约束，写出软件的需求规格说明书，软件系统测试大纲，用户手册概要</li>
 </ul>
+<p>软件开发阶段的工作内容是软件的设计与实现，可分成概要设计、详细设计、编码、测试等。</p>
+<ul>
+<li>概要设计是在软件需求规格说明的基础上，建立系统的总体结构和模块之间的关系，定义功能模块及各功能模块之间的关系；</li>
+<li>详细设计是对概要设计产生的功能模块细化，把模块内部细节转化为可编程的程序过程性描述。详细设计包括算法、数据结构、数据分布、数据组织、模块间接口信息和用户界面等的设计。</li>
+<li>编码的任务是把详细设计转化为程序。</li>
+<li>测试可以分为单元测试、集成测试、确认测试、和系统测试等。</li>
+</ul>
+<h2 id="软件过程模型"><a href="#软件过程模型" class="headerlink" title="软件过程模型"></a>软件过程模型</h2><p>软件过程模型是软件开发实际过程的抽象与概括。它为软件工程管理提供里程碑和进度表，为软件开发过程提供原则和方法。以下是主要的软件开发模型的介绍：</p>
+<p><strong>瀑布模型</strong></p>
+<p>瀑布模型描述了软件生命周期的基本过程活动，这些活动从一个阶段到另一个阶段逐次下降，它的工作流程形式上很像瀑布。</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754118313210-aac8b20e-19dc-45cb-990e-5e616b0b6611.png" alt=""></p>
+<p>瀑布模型的优点是因果关系紧密联系，前一个阶段的工作结果是后一个阶段工作的输入。利于人员的组织和开发成本的控制。缺点是软件需求分析的准确性很难确定，因为用户具有软件开发的专业知识，无法对目标系统给出明确定义，对系统将来的改变范围难以确定。并且用户和软件的负责人要很长时间才能完成需求分析和设计，这时如果改变需求将会带来巨大损失。</p>
+<p><strong>原型模型</strong></p>
+<p>原型模型又称为快速模型，其有两个阶段——原型开发阶段、目标软件开发阶段。原型开发阶段是软件开发人员根据用户提出的软件定义快速的开发出一个原型。该原型应该包含目标系统的关键问题，能够反映目标系统大致面貌。目标软件开发阶段是在原型的基础上和用户确认原型的需求后对原型进行修改完善和进一步开发。</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/ruanjian1.png" alt=""><br>对大型软件来说，原型可能非常复杂难以快速成型，应避免使用原型模型进行开发。</p>
+<p><strong>螺旋模型</strong></p>
+<p>螺旋模型是在快速模型的的基础上扩展而成，这种模型把整个软件开发流程分为多个阶段，每个阶段都由四部分组成。它们是：</p>
+<ul>
+<li>目标设定，为目标需求分析，定义和确定 当前阶段的目标内容；</li>
+<li>风险分析，对可选方案进行风险识别和详细分析，制定对应解决策略；</li>
+<li>开发和有效性验证，开发软件产品，实现需求目标；</li>
+<li>评审，对项目进行评审，以确定是否需要进入螺旋线的下一次回路，对下一个螺旋周期制定计划。</li>
+</ul>
+<p>螺旋模型是一个螺旋上升的过程，该模型支持大型软件的开发，适用于面向规格说明，面向过程和面向对象的软件开发方法。</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754126977043-ae31c1cc-9647-48e9-887d-ab72be8a6fbb.png" alt=""></p>
+<p><strong>基于可重用构件的模型</strong></p>
+<p>在许多软件都存在一些重用软件，开发人员可以把这些软件抽象出来成为一个个构件，人门可以把软件工程项目中所创造的构件不断积累存储在一个构件库中。当我们需要开发一个新的软件系统时，只需检索构件库，对最终的软件系统进行组装式的开发。对于不存在构件库中的组件，则开发新的构件入库。</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754127957129-e1b3271a-aea0-4d52-bbd9-97f51e6b6a5e.png" alt=""></p>
+<h2 id="需求管理"><a href="#需求管理" class="headerlink" title="需求管理"></a>需求管理</h2><p>需求管理是对系统需求变更，了解和控制的过程。需求管理主要活动如图：</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754129075306-4884193f-660b-4754-8a70-7400fd8d8009.png" alt=""></p>
+<p>需求管理强调：</p>
+<ul>
+<li>控制对需求基线的变动</li>
+<li>保持项目计划与需求一致</li>
+<li>控制需求版本</li>
+<li>管理需求依赖关系，跟踪需求对应的上下游需求</li>
+<li>跟踪基线需求中的需求状态</li>
+</ul>
+<p>为避免测试人员使用过时的软件需求说明，必须统一确定需求文档的每一个版本。迟到的需求变更会对已进行的工作产生很大的影响，如果不控制范围的扩张，会导致我们不断采纳新功能，推翻原有功能逻辑。需要不断调整资源、进度、或者质量标准，是极为有害的。</p>
+<p>软件需求文档应该精确描述软件产品是基本原则，为了能够严格控制软件项目，应该仔细评估需求变更，及时通知对应人员变更内容，制定标准的需求变更评审流程。一旦确定需求基线，应该使所有的新的需求变更都遵循变更控制过程，变更控制过程如图：</p>
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/22548376/1754129949869-6ae3d1bb-191d-4d23-a18c-7550a175244d.png" alt=""></p>
+<h2 id="开发管理"><a href="#开发管理" class="headerlink" title="开发管理"></a>开发管理</h2><p>软件开发管理的内容包括，软件项目的范围、时间、成本、配置管理、文档管理、开发风险与质量管理。</p>
+<p>在项目规划中，知道了更多的项目信息，项目范围应该被更详细地进行描述。应检查假设和约束的完整性，并根据需要增加必要的补充说明，和约束条件。</p>
+<p>项目时间管理中的过程包括：活动定义、活动排序、活动的资源估算、活动历时估算、进度计划、进度控制。为了使项目目标得以实现并且制定出比较完善的项目进度计划，要再对项目进行分解的基础上还必须对分解出的具体的目标进行与排期。</p>
+<p>todo</p>
 
       
 
@@ -246,7 +281,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">中间件</a>
         		</li>
       		
 		</ul>
@@ -302,7 +337,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2020/02/02/design-10/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://muggle0.github.io/2026/12/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E9%80%9A%E7%94%A8%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -316,18 +351,9 @@
   
 <nav id="article-nav">
   
-    <a href="/muggle0.github.io/2020/02/02/design-11/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          设计模式-策略模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/muggle0.github.io/2020/02/02/design-9/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式-组合模式（Composite）</div>
+    <a href="/muggle0.github.io/2026/01/18/spring%20stateMachine/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring 状态机</div>
       <i class="icon-circle-right"></i>
     </a>
   
