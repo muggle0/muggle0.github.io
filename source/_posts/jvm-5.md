@@ -7,7 +7,7 @@ tags: jvm
 muggle
 ### 1.类的生命周期
 &emsp; &emsp;类从被加载到虚拟机内存中内存中开始，到卸载出内存为止，它的整个生命周期包括：加载（loading）、验证（verification）、准备（preparation）、解析（resolution）、初始化（initialization）、使用（using）卸载（unloading）七个阶段。其中验证、准备、解析三个阶段统称为连接（linking）。
-
+<!-- more -->
 
 ### 2.加载
 &emsp; &emsp;加载是类加载机制的第一个阶段，在这个阶段，虚拟机做了三件事情：

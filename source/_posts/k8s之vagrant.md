@@ -16,7 +16,7 @@ virtualbox 下载地址：https://www.virtualbox.org/wiki/Downloads
 
 下载安装完成后，我们还需要下载vagrant镜像
 镜像下载地址：https://app.vagrantup.com/boxes/search
-
+<!-- more -->
 打开cmd 窗口，添加本地镜像：
 ```
 vagrant box add --name 镜像名称 E:data/centos7.box

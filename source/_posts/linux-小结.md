@@ -16,7 +16,7 @@ tags:
 - cp -r 递归 复制 cp -r a/ b/
 - mv 移动（重命名）
 - ls （ll=ls -l）
-
+<!-- more -->
 2. 压缩
 
 - gzip a.txt a.txt.gz

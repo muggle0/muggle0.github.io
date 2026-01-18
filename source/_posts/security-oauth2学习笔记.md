@@ -8,7 +8,7 @@ tags: security
 ## oauth2 相关概念
 
 文章参考[理解OAuth 2.0](http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html)
-
+<!-- more -->
 ### oauth2 角色关系
 
 在oauth2中分为以下几个角色：Resource server、Authorization server、Resource Owner、application。

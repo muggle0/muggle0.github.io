@@ -212,6 +212,9 @@ ntpdate time.windows.com
 根据日志访问网页：
 ![image.png](/images/kube-9.png)
 ![image.png](/images/kubes-1.png)
+
+<!-- more -->
+
 ## kubekey 指令
 
 - 添加节点

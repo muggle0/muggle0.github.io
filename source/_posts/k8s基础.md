@@ -16,7 +16,7 @@ tags:
 - Service : 一个service定义了访问pod的方式，比如固定的IP地址和与其相对应的DNS名之间的关系。
 - Volume: 目录或者文件夹
 - Namespace : 命名空间，起到资源分组he隔离的作用
-
+<!-- more -->
 kubernetes集群由master、node构成。其中master包含组件：
 
 - API Server：暴露k8s api 的服务

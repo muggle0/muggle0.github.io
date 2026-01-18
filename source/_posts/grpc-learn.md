@@ -11,3 +11,5 @@ tags: developing
 # 正文
 
 弄了一天，得到一个结论，gradle+grpc+git subtree 不是目前的我能驾驭的，弃文；等对gradle足够熟练再回来弄。
+
+<!-- more -->

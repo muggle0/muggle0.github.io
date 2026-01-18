@@ -21,6 +21,8 @@ tags:
 - sonarlint: sonar 插件
 - translation: 翻译插件
 
+<!-- more -->
+
 ## idea 代码提示
 
 1. 配置模板注释示例(settings 搜 template 找到 file and code templates )：

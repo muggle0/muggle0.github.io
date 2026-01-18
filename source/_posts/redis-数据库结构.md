@@ -8,6 +8,7 @@ tags: redis
 
 在redis源码中数据库的结构由server.h/redisDb表示，
 redisDb结构的dict字典保存了数据库中的所有键值对，我们将这个字典称为键空间（key space），redisDb源码：
+<!-- more -->
 ```
 typedef struct redisDb {
     dict *dict;                 /* The keyspace for this DB */

@@ -10,7 +10,7 @@ sentinel 是阿里开源的流量控制，熔断降级，系统负载保护的�
 Sentinel 分为两个部分:
 核心库（Java 客户端）不依赖任何框架/库，能够运行于所有 Java 运行时环境，同时对 Dubbo / Spring Cloud 等框架也有较好的支持。
 控制台（Dashboard）基于 Spring Boot 开发，打包后可以直接运行，不需要额外的 Tomcat 等应用容器。
-
+<!-- more -->
 [sentinel 官方文档点击这里](https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D)
 
 ## 快速开始

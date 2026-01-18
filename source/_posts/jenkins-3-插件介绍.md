@@ -7,6 +7,8 @@ tags:
 ## 什么是Ansible
 ansible是一个基于python的自动化运维工具，实现了批量系统配置、批量程序部署、批量运行命令等功能。ansible包括部署和使用简单、默认使用ssh协议、轻量级等特点。
 
+<!-- more -->
+
 ansible 架构：
 
 ![](/images/2022-04-17-20-11-11.png)

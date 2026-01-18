@@ -9,7 +9,7 @@ tags: cloud
 
 # nacos简介
 
-​	在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，[nacos官方文档](https://nacos.io/zh-cn/index.html)
+	在nacos-0.3的时候我就开始关注，期间还写过一篇作为springcloud配置中心的使用记录的博客。在前不久，nacos终于出了正式版，赶个时髦出篇博客吹一波，[nacos官方文档](https://nacos.io/zh-cn/index.html)
 
 <!--more-->
 

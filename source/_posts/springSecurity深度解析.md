@@ -8,7 +8,7 @@ tags: security
 #### 从一个基础的springsecurity开始，进行代码跟踪分析其原理
 
 springsecurity是一个典型的责任链模式；我们先新建一个springboot项目，进行最基本的springsecurity配置，然后debug;我这里使用的开发工具是idea.建议大家也使用idea来进行日常开发。好了话不多说，开始：
-
+<!-- more -->
 第一步
 
 新建springboot项目 maven依赖：

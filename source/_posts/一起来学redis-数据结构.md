@@ -6,7 +6,7 @@ tags: redis
 ## SDS
 
 redis中没有直接使用C语言的字符串，而是自定义了一种名为简单动态字符串的抽象类型——SDS。我们下载redis源码，可以在src目录下找到一个`sds.h`的文件，打开这个文件查看它的部分代码：
-
+<!-- more -->
 ```
 
 typedef char *sds;

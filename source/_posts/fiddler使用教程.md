@@ -10,11 +10,14 @@ tags: tool
 
 fiddler 是一款专门用于抓取http请求的抓包工具，当启动该工具时，pc端的请求会先被代理到该工具再转发到服务器，因此我们就可以在请求转发前对请求的协议，请求头，路径，请求内容等信息进行修改。而且通过该工具你还能记录某个请求的数据并进行回放或打断点，相比较代理插件，不仅适用范围更广，调试bug也更方便。
 
+<!-- more -->
+
+
 ## 使用指南
 
 官方下载地址：https://www.telerik.com/download/fiddler/fiddler4，安装完成后我们进行一些配置:
 点击 winConfig,勾选要代理的应用
-![test](/images/2022-02-03-20-57-34.png)
+![test](/images/test1.jpg)
 
 点击 rules:
 

@@ -12,6 +12,7 @@ tags:
 ![](/images/2022-04-18-21-53-16.png)
 配置内容包括邮箱服务器（参考 spring 发送邮件功能），邮箱后缀等，jenkins 旁边的问号图标都有相关配置项说明，需要注意的是jenkins 内置了一些变量，可查看 `Content Token Reference` 项。完成基本的邮件配置完成后，还需要再流水线中配置发送邮件相关信息
 
+<!-- more -->
 
 pipeline post
 

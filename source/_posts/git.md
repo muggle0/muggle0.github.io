@@ -27,6 +27,8 @@ git push -u origin master
 
 ```
 
+<!-- more -->
+
 ### 查看
 
 ```

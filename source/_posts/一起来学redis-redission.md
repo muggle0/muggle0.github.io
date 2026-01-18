@@ -6,7 +6,7 @@ tags: redis
 
 redis 的客户端有jedis、lettuce、redission；我个人比较推荐的是redission，因为它的分布式锁和缓存实在是太优秀了。 Redisson采用了基于NIO的Netty框架，封装了大家常用的集合类以及原子类、锁等工具。
 本章节主要介绍redission 中重要的两个点：数据结构和锁
-
+<!-- more -->
 本章节主要介绍redission 中重要的两个点：数据结构和锁
 
 ## map

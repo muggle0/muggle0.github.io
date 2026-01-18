@@ -13,6 +13,9 @@ Jenkins 1.x只能通过界面手动配置来配置描述过程，想要配置一
 
 pipeline的功能由pipeline插件提供，我们可以创建一个jenkinsfile来申明一个任务。接下来我们创建一个最简单的pipeline。登录jenkins,点击创建item:
 
+<!-- more -->
+
+
 ![](/images/2022-03-06-16-44-41.png)
 在流水线中选择hello world 生成代码：
 ![](/images/2022-03-06-16-53-20.png)

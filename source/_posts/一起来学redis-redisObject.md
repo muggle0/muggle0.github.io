@@ -17,7 +17,7 @@ typedef struct redisObject {
 } robj;
 ```
 下面我们来了解`redisObject`相关机制
-
+<!-- more -->
 ## TYPE与命令多态
 
 我们知道redis的键和值都是以redisObject的形式保存的，而键总是一个字符串对象，而值则可以是字符串对象、列表对象、哈希对象、集合对象或者有序集合对象的其中一种。我们执行`TYPE`指令可以查看键对应的值的属性：

@@ -39,6 +39,7 @@ JVM提供了大量命令行参数，打印信息，供调试使用。主要有�
 -XX:+PrintGCApplicationStoppedTime：打印垃圾回收期间程序暂停的时间。可与上面混合使用
 
 -XX:PrintHeapAtGC:打印GC前后的详细堆栈信息
+<!-- more -->
 
 # 2 调优工具
 
