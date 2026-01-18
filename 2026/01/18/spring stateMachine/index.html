@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://muggle0.github.io">
   <title>spring 状态机 | muggle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="状态机介绍我们在web 项目中讨论的状态机通常是指状态机这种设计模式。该设计模式属于行为型设计模式， 它允许对象在内部状态改变时改变其行为，看起来好像修改了自身的类。这种模式通过将状态相关的行为封装到不同的状态对象中，解决了复杂条件判断（如大量if-else或switch-case）导致的代码臃肿问题。 状态机设计模式的核心是将对象的状态封装为独立的状态类，每个状态类负责定义该状态下对象的行为，以">
+  <meta name="description" content="状态机介绍我们在web 项目中讨论的状态机通常是指状态机这种设计模式。该设计模式属于行为型设计模式， 它允许对象在内部状态改变时改变其行为，看起来好像修改了自身的类。这种模式通过将状态相关的行为封装到不同的状态对象中，解决了复杂条件判断（如大量if-else或switch-case）导致的代码臃肿问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring 状态机">
 <meta property="og:url" content="http://muggle0.github.io/2026/01/18/spring%20stateMachine/index.html">
 <meta property="og:site_name" content="muggle">
-<meta property="og:description" content="状态机介绍我们在web 项目中讨论的状态机通常是指状态机这种设计模式。该设计模式属于行为型设计模式， 它允许对象在内部状态改变时改变其行为，看起来好像修改了自身的类。这种模式通过将状态相关的行为封装到不同的状态对象中，解决了复杂条件判断（如大量if-else或switch-case）导致的代码臃肿问题。 状态机设计模式的核心是将对象的状态封装为独立的状态类，每个状态类负责定义该状态下对象的行为，以">
+<meta property="og:description" content="状态机介绍我们在web 项目中讨论的状态机通常是指状态机这种设计模式。该设计模式属于行为型设计模式， 它允许对象在内部状态改变时改变其行为，看起来好像修改了自身的类。这种模式通过将状态相关的行为封装到不同的状态对象中，解决了复杂条件判断（如大量if-else或switch-case）导致的代码臃肿问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://muggle0.github.io/images/state.png">
 <meta property="article:published_time" content="2026-01-18T09:35:19.000Z">
-<meta property="article:modified_time" content="2026-01-18T09:40:30.532Z">
+<meta property="article:modified_time" content="2026-01-18T09:47:26.266Z">
 <meta property="article:author" content="muggle">
-<meta property="article:tag" content="java,spring,springboot,netty,springcloud,中间件,redis">
+<meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://muggle0.github.io/images/state.png">
   
@@ -179,6 +179,7 @@
       
         <h2 id="状态机介绍"><a href="#状态机介绍" class="headerlink" title="状态机介绍"></a>状态机介绍</h2><p>我们在web 项目中讨论的状态机通常是指状态机这种设计模式。该设计模式属于行为型设计模式，</p>
 <p>它允许对象在内部状态改变时改变其行为，看起来好像修改了自身的类。这种模式通过将状态相关的行为封装到不同的状态对象中，解决了复杂条件判断（如大量if-else或switch-case）导致的代码臃肿问题。</p>
+<span id="more"></span>
 <p>状态机设计模式的核心是将对象的状态封装为独立的状态类，每个状态类负责定义该状态下对象的行为，以及状态之间的转换逻辑。当对象的状态发生变化时，它会切换到对应的状态类，从而表现出不同的行为。</p>
 <p>状态机的构成：</p>
 <ul>
@@ -263,6 +264,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -476,11 +488,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">javaee</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,6 +553,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">理论</a>
               </li>
             
             <div class="clearfix"></div>
